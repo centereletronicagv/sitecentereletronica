@@ -32,14 +32,14 @@ export default function ProductCard({ product }: ProductCardProps) {
 
   return (
     <div 
-      className={`group relative flex flex-col bg-white rounded-xl border border-gray-100 overflow-hidden transition-all duration-300 ${
+      className={`group relative flex flex-col bg-white dark:bg-card rounded-xl border border-gray-100 dark:border-gray-800 overflow-hidden transition-all duration-300 ${
         isHovered ? 'shadow-md translate-y-[-8px]' : 'shadow-sm hover:shadow-md'
       }`}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
-      <div className="relative pt-4 px-4 flex items-center justify-center h-48 bg-center-lightGray/30">
-        <div className={`absolute inset-0 bg-gray-200 ${isImageLoaded ? 'opacity-0' : 'opacity-100 animate-pulse'} transition-opacity`}></div>
+      <div className="relative pt-4 px-4 flex items-center justify-center h-48 bg-center-lightGray/30 dark:bg-gray-800/30">
+        <div className={`absolute inset-0 bg-gray-200 dark:bg-gray-700 ${isImageLoaded ? 'opacity-0' : 'opacity-100 animate-pulse'} transition-opacity`}></div>
         <img
           src={product.image} 
           alt={product.name}
@@ -55,14 +55,14 @@ export default function ProductCard({ product }: ProductCardProps) {
             Cód: {product.code}
           </span>
         </div>
-        <h3 className="font-medium text-center-darkGray group-hover:text-center-orange transition-colors mb-2">
+        <h3 className="font-medium text-center-darkGray dark:text-gray-200 group-hover:text-center-orange transition-colors mb-2">
           {product.name}
         </h3>
         <div className="mt-auto">
           <div className="flex justify-between items-center">
             <span className="text-lg font-semibold text-center-orange">
               {formatPrice(product.price)}
-              {product.name.toLowerCase().includes('/m') && <span className="text-xs font-normal text-center-gray">/m</span>}
+              {product.name.toLowerCase().includes('/m') && <span className="text-xs font-normal text-center-gray dark:text-gray-400">/m</span>}
             </span>
             <a 
               href={`https://wa.me/5499270560?text=Olá, tenho interesse no produto: ${product.name} (Cód: ${product.code})`} 

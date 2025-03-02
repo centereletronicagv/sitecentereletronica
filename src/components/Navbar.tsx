@@ -2,6 +2,7 @@
 import { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Menu, X, ShoppingCart, Phone } from 'lucide-react';
+import { ThemeToggle } from './ThemeToggle';
 
 interface NavLink {
   name: string;
@@ -45,7 +46,7 @@ export default function Navbar() {
     <header 
       className={`fixed w-full top-0 z-50 transition-all duration-300 ${
         scrolled 
-          ? 'bg-white/90 backdrop-blur-md shadow-sm border-b border-gray-100' 
+          ? 'bg-white/90 dark:bg-card/90 backdrop-blur-md shadow-sm border-b border-gray-100 dark:border-gray-800' 
           : 'bg-transparent'
       }`}
     >
@@ -73,23 +74,27 @@ export default function Navbar() {
                 className={`px-3 py-2 text-sm font-medium rounded-md transition-colors ${
                   location.pathname === link.href
                     ? 'text-center-orange'
-                    : 'text-center-darkGray hover:text-center-orange hover:bg-center-orange/5'
+                    : 'text-center-darkGray dark:text-gray-300 hover:text-center-orange hover:bg-center-orange/5 dark:hover:bg-center-orange/10'
                 }`}
               >
                 {link.name}
               </Link>
             ))}
-            <a 
-              href="tel:5499270560" 
-              className="ml-2 flex items-center gap-1.5 px-3 py-2 text-sm font-medium text-white bg-center-orange rounded-md transition-all hover:bg-center-orangeLight"
-            >
-              <Phone size={16} />
-              <span>54 9927-0560</span>
-            </a>
+            <div className="ml-2 flex items-center gap-2">
+              <ThemeToggle />
+              <a 
+                href="tel:5499270560" 
+                className="flex items-center gap-1.5 px-3 py-2 text-sm font-medium text-white bg-center-orange rounded-md transition-all hover:bg-center-orangeLight"
+              >
+                <Phone size={16} />
+                <span>54 9927-0560</span>
+              </a>
+            </div>
           </nav>
 
           {/* Mobile Navigation Trigger */}
-          <div className="flex items-center gap-4 md:hidden">
+          <div className="flex items-center gap-3 md:hidden">
+            <ThemeToggle />
             <a 
               href="tel:5499270560" 
               className="flex items-center justify-center w-9 h-9 text-center-orange bg-center-orange/10 rounded-full"
@@ -98,7 +103,7 @@ export default function Navbar() {
             </a>
             <button
               onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className="flex items-center justify-center w-9 h-9 text-center-darkGray rounded-md transition-colors hover:bg-gray-100"
+              className="flex items-center justify-center w-9 h-9 text-center-darkGray dark:text-gray-300 rounded-md transition-colors hover:bg-gray-100 dark:hover:bg-gray-800"
             >
               {isMenuOpen ? <X size={20} /> : <Menu size={20} />}
             </button>
@@ -108,7 +113,7 @@ export default function Navbar() {
 
       {/* Mobile Menu */}
       <div 
-        className={`fixed inset-0 z-40 bg-white transform transition-transform duration-300 ease-in-out ${
+        className={`fixed inset-0 z-40 bg-white dark:bg-card transform transition-transform duration-300 ease-in-out ${
           isMenuOpen ? 'translate-x-0' : 'translate-x-full'
         }`}
       >
@@ -124,7 +129,7 @@ export default function Navbar() {
             </Link>
             <button
               onClick={() => setIsMenuOpen(false)}
-              className="p-2 text-center-darkGray rounded-md hover:bg-gray-100"
+              className="p-2 text-center-darkGray dark:text-gray-300 rounded-md hover:bg-gray-100 dark:hover:bg-gray-800"
             >
               <X size={20} />
             </button>
@@ -138,7 +143,7 @@ export default function Navbar() {
                 className={`px-4 py-3 text-base font-medium rounded-md transition-colors ${
                   location.pathname === link.href
                     ? 'bg-center-orange/10 text-center-orange'
-                    : 'text-center-darkGray hover:bg-gray-50'
+                    : 'text-center-darkGray dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800'
                 }`}
               >
                 {link.name}
