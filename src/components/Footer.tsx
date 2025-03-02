@@ -55,7 +55,7 @@ export default function Footer() {
               </a>
               <div className="flex items-start gap-2 text-center-darkGray">
                 <MapPin size={18} className="min-w-[18px] mt-1" />
-                <span>R. Jacob Gremmelmaier, 409 - Centro, Passo Fundo - RS</span>
+                <span>Rua Jacob Gremmelmaier, 409 - Centro, Getúlio Vargas - RS, 99900-000</span>
               </div>
             </div>
           </div>

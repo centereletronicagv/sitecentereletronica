@@ -63,8 +63,8 @@ export default function ContactSection() {
                 <h3 className="text-lg font-medium text-center-darkGray">Endereço</h3>
                 <p className="text-center-gray mt-1">Visite nossa loja física.</p>
                 <address className="mt-2 not-italic text-center-darkGray">
-                  R. Jacob Gremmelmaier, 409 - Centro<br />
-                  Passo Fundo - RS, 99010-170
+                  Rua Jacob Gremmelmaier, 409 - Centro<br />
+                  Getúlio Vargas - RS, 99900-000
                 </address>
               </div>
             </div>
