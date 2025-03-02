@@ -57,9 +57,11 @@ export default function Navbar() {
             to="/" 
             className="relative z-10 flex items-center transition-transform duration-300 hover:-translate-y-0.5"
           >
-            <div className="w-10 h-10 overflow-hidden">
-              <div className="w-0 h-0 border-l-[20px] border-l-transparent border-b-[40px] border-b-center-orange border-r-[20px] border-r-transparent"></div>
-            </div>
+            <img 
+              src="/public/lovable-uploads/971e4194-c7ba-483d-972e-e397dcb9519d.png" 
+              alt="Center Eletrônica Logo" 
+              className="h-10 w-auto" 
+            />
             <span className="ml-2 text-xl font-display font-semibold tracking-tight">
               Center <span className="text-center-orange">Eletrônica</span>
             </span>
@@ -120,9 +122,11 @@ export default function Navbar() {
         <div className="container-custom py-4">
           <div className="flex justify-between items-center mb-8 pt-2">
             <Link to="/" className="flex items-center">
-              <div className="w-8 h-8 overflow-hidden">
-                <div className="w-0 h-0 border-l-[16px] border-l-transparent border-b-[32px] border-b-center-orange border-r-[16px] border-r-transparent"></div>
-              </div>
+              <img 
+                src="/public/lovable-uploads/971e4194-c7ba-483d-972e-e397dcb9519d.png" 
+                alt="Center Eletrônica Logo" 
+                className="h-8 w-auto" 
+              />
               <span className="ml-2 text-lg font-display font-semibold tracking-tight">
                 Center <span className="text-center-orange">Eletrônica</span>
               </span>

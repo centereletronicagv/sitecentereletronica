@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 
 export default function Hero() {
   return (
-    <section className="relative pt-24 pb-20 overflow-hidden bg-gradient-to-b from-white to-center-lightGray hero-triangle">
+    <section className="relative pt-24 pb-20 overflow-hidden bg-gradient-to-b from-white to-center-lightGray dark:from-card dark:to-background hero-triangle">
       <div className="container-custom relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
           <div className="space-y-6 reveal-slide-up">
@@ -16,7 +16,7 @@ export default function Hero() {
               Artigos para <span className="text-center-orange">Ar Condicionado</span>
             </h1>
             
-            <p className="text-lg md:text-xl text-center-gray max-w-lg">
+            <p className="text-lg md:text-xl text-center-gray dark:text-gray-400 max-w-lg">
               Tudo o que você precisa para instalação e manutenção de sistemas de ar condicionado,
               com qualidade e preços competitivos.
             </p>
@@ -32,7 +32,7 @@ export default function Hero() {
                 href="https://wa.me/5499270560" 
                 target="_blank" 
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-1.5 text-center-darkGray font-medium hover:text-center-orange transition-colors"
+                className="inline-flex items-center gap-1.5 text-center-darkGray dark:text-gray-300 font-medium hover:text-center-orange transition-colors"
               >
                 Faça seu pedido
                 <ArrowRight size={16} className="transition-transform group-hover:translate-x-1" />
@@ -45,7 +45,7 @@ export default function Hero() {
                   <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m7 11 2-2-2-2"></path><path d="M11 13h4"></path><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect></svg>
                 </div>
                 <div>
-                  <p className="font-medium text-center-darkGray">Suportes</p>
+                  <p className="font-medium text-center-darkGray dark:text-gray-300">Suportes</p>
                 </div>
               </div>
               
@@ -54,7 +54,7 @@ export default function Hero() {
                   <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 6H3"></path><path d="M10 12H3"></path><path d="M10 18H3"></path><circle cx="17" cy="12" r="3"></circle><path d="M14 19a3 3 0 1 0 6 0v-7a3 3 0 1 0-6 0v7z"></path></svg>
                 </div>
                 <div>
-                  <p className="font-medium text-center-darkGray">Tubulação</p>
+                  <p className="font-medium text-center-darkGray dark:text-gray-300">Tubulação</p>
                 </div>
               </div>
               
@@ -63,7 +63,7 @@ export default function Hero() {
                   <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"></circle><path d="M12 2a4.2 4.2 0 0 0 4 4 4.2 4.2 0 0 1 3 2 4.2 4.2 0 0 1 0 4 4.2 4.2 0 0 1-3 2 4.2 4.2 0 0 0-4 4 4.2 4.2 0 0 1-2 3 4.2 4.2 0 0 1-4 0 4.2 4.2 0 0 1-2-3 4.2 4.2 0 0 0-4-4 4.2 4.2 0 0 1-3-2 4.2 4.2 0 0 1 0-4 4.2 4.2 0 0 1 3-2 4.2 4.2 0 0 0 4-4 4.2 4.2 0 0 1 2-3 4.2 4.2 0 0 1 4 0 4.2 4.2 0 0 1 2 3z"></path></svg>
                 </div>
                 <div>
-                  <p className="font-medium text-center-darkGray">Fluidos</p>
+                  <p className="font-medium text-center-darkGray dark:text-gray-300">Fluidos</p>
                 </div>
               </div>
             </div>
@@ -84,7 +84,7 @@ export default function Hero() {
           </div>
         </div>
         
-        <div className="mt-16 py-8 px-6 sm:px-10 rounded-xl bg-white shadow-sm border border-gray-100">
+        <div className="mt-16 py-8 px-6 sm:px-10 rounded-xl bg-white dark:bg-card shadow-sm border border-gray-100 dark:border-gray-800">
           <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-9 gap-6">
             {['Suportes', 'Tubulação', 'Dreno', 'Fluidos', 'Conexões', 'Cabeamento', 'Fixação', 'Capacitores', 'Mais'].map((category, index) => (
               <Link 
@@ -92,17 +92,17 @@ export default function Hero() {
                 to={`/categoria/${category.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "")}`}
                 className="flex flex-col items-center gap-2 group"
               >
-                <div className="w-12 h-12 rounded-lg bg-center-lightGray group-hover:bg-center-orange/10 flex items-center justify-center text-center-gray group-hover:text-center-orange transition-colors">
+                <div className="w-12 h-12 rounded-lg bg-center-lightGray dark:bg-gray-800 group-hover:bg-center-orange/10 flex items-center justify-center text-center-gray group-hover:text-center-orange transition-colors">
                   <CategoryIcon index={index} />
                 </div>
-                <span className="text-sm font-medium text-center text-center-darkGray">{category}</span>
+                <span className="text-sm font-medium text-center text-center-darkGray dark:text-gray-300">{category}</span>
               </Link>
             ))}
           </div>
         </div>
       </div>
       
-      <div className="absolute top-0 right-0 w-1/2 h-full bg-center-orange/5 z-0"></div>
+      <div className="absolute top-0 right-0 w-1/2 h-full bg-center-orange/5 dark:bg-center-orange/2 z-0"></div>
       <div className="absolute top-24 left-6 w-20 h-20 rounded-full bg-center-orange/10 z-0"></div>
       <div className="absolute bottom-32 right-12 w-16 h-16 rounded-full bg-center-orange/20 z-0"></div>
     </section>
