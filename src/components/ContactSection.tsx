@@ -90,7 +90,7 @@ export default function ContactSection() {
 
           <div className="rounded-xl overflow-hidden shadow-md h-[400px] md:h-full">
             <iframe 
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3575.9701067861644!2d-52.409487!3d-28.262581!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x94e2bf0b9af7de49%3A0x1c2fb7cf5b9ffa1!2sR.%20Jacob%20Gremmelmaier%2C%20409%20-%20Centro%2C%20Passo%20Fundo%20-%20RS%2C%2099010-170!5e0!3m2!1spt-BR!2sbr!4v1720627230252!5m2!1spt-BR!2sbr" 
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3502.1962748164547!2d-52.22661292347696!3d-27.885811294873484!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x94e4a1e15a58af59%3A0x8ac0d84b5b11eb09!2sR.%20Jacob%20Gremmelmaier%2C%20409%20-%20Centro%2C%20Get%C3%BAlio%20Vargas%20-%20RS%2C%2099900-000!5e0!3m2!1spt-BR!2sbr!4v1720736462743!5m2!1spt-BR!2sbr" 
               width="100%" 
               height="100%" 
               style={{ border: 0 }} 
