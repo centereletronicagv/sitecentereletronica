@@ -33,9 +33,9 @@ export default {
 					orange: '#FF7A00',
 					orangeLight: '#FF9533',
 					orangeDark: '#E06500',
-					gray: '#686B72',
-					lightGray: '#F5F5F7',
-					darkGray: '#333333',
+					gray: '#A1A3A9',
+					lightGray: '#222222',
+					darkGray: '#FFFFFF',
 				},
 				primary: {
 					DEFAULT: 'hsl(var(--primary))',

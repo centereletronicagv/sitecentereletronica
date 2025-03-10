@@ -7,65 +7,35 @@
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 220 5% 20%;
+    --background: 240 10% 4%;
+    --foreground: 0 0% 100%;
 
-    --card: 0 0% 100%;
-    --card-foreground: 220 5% 20%;
+    --card: 240 10% 6%;
+    --card-foreground: 0 0% 100%;
 
-    --popover: 0 0% 100%;
-    --popover-foreground: 220 5% 20%;
+    --popover: 240 10% 4%;
+    --popover-foreground: 0 0% 100%;
 
     --primary: 24 100% 50%;
-    --primary-foreground: 0 0% 100%;
+    --primary-foreground: 240 10% 4%;
 
-    --secondary: 240 5% 96%;
-    --secondary-foreground: 220 5% 20%;
+    --secondary: 240 10% 10%;
+    --secondary-foreground: 0 0% 100%;
 
-    --muted: 240 5% 96%;
-    --muted-foreground: 240 4% 46%;
+    --muted: 240 10% 10%;
+    --muted-foreground: 240 10% 70%;
 
-    --accent: 220 5% 96%;
-    --accent-foreground: 220 5% 20%;
+    --accent: 240 10% 10%;
+    --accent-foreground: 0 0% 100%;
 
     --destructive: 0 84% 60%;
     --destructive-foreground: 0 0% 98%;
 
-    --border: 240 6% 90%;
-    --input: 240 6% 90%;
+    --border: 240 10% 14%;
+    --input: 240 10% 14%;
     --ring: 24 100% 50%;
 
     --radius: 0.5rem;
-  }
-
-  .dark {
-    --background: 220 10% 10%;
-    --foreground: 0 0% 95%;
-
-    --card: 220 10% 12%;
-    --card-foreground: 0 0% 95%;
-
-    --popover: 220 10% 8%;
-    --popover-foreground: 0 0% 95%;
-
-    --primary: 24 100% 50%;
-    --primary-foreground: 220 10% 10%;
-
-    --secondary: 220 10% 18%;
-    --secondary-foreground: 0 0% 95%;
-
-    --muted: 220 10% 16%;
-    --muted-foreground: 220 10% 65%;
-
-    --accent: 220 10% 16%;
-    --accent-foreground: 0 0% 95%;
-
-    --destructive: 0 63% 31%;
-    --destructive-foreground: 0 0% 95%;
-
-    --border: 220 10% 20%;
-    --input: 220 10% 20%;
-    --ring: 24 100% 50%;
   }
 }
 
@@ -75,11 +45,11 @@
   }
 
   body {
-    @apply bg-background text-foreground font-sans transition-colors duration-300;
+    @apply bg-[#151515] text-white font-sans transition-colors duration-300;
   }
 
   h1, h2, h3, h4, h5, h6 {
-    @apply font-display;
+    @apply font-display text-white;
   }
   
   /* Custom scrollbar styling */
@@ -108,7 +78,7 @@
   
   .image-loading::after {
     content: "";
-    @apply absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent dark:via-white/10;
+    @apply absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent;
     transform: translateX(-100%);
     animation: shimmer 1.5s infinite;
   }
@@ -133,12 +103,11 @@
   }
   
   .glass-card {
-    @apply bg-white/80 backdrop-blur-md border border-white/20 shadow-sm
-           dark:bg-black/40 dark:border-white/10;
+    @apply bg-[#222222]/80 backdrop-blur-md border border-white/10 shadow-sm;
   }
   
   .section-title {
-    @apply text-3xl md:text-4xl font-display font-semibold tracking-tight;
+    @apply text-3xl md:text-4xl font-display font-semibold tracking-tight text-white;
   }
   
   .section-subtitle {
@@ -171,6 +140,7 @@
 
 .hero-triangle {
   clip-path: polygon(0 0, 100% 0, 100% 85%, 0 100%);
+  background: #151515;
 }
 
 .text-balance {
