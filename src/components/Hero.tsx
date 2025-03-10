@@ -1,4 +1,3 @@
-
 import { ArrowRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
@@ -71,12 +70,10 @@ export default function Hero() {
           
           <div className="relative reveal-slide-up">
             <div className="relative z-10 overflow-hidden rounded-2xl shadow-xl">
-              <img 
-                src="public/lovable-uploads/0a217023-653b-422c-806e-ea826fee50b0.png" 
-                alt="Artigos para Ar Condicionado" 
-                className="w-full h-auto object-cover image-loading"
-                loading="lazy"
-              />
+              {/* Removed the image that was here */}
+              <div className="w-full h-64 md:h-96 bg-center-lightGray flex items-center justify-center">
+                <span className="text-center-gray">Center Eletrônica</span>
+              </div>
             </div>
             
             <div className="absolute -top-6 -right-6 w-24 h-24 bg-center-orange rounded-full opacity-30 blur-3xl"></div>
