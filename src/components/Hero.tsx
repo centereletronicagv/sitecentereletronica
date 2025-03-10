@@ -70,10 +70,11 @@ export default function Hero() {
           
           <div className="relative reveal-slide-up">
             <div className="relative z-10 overflow-hidden rounded-2xl shadow-xl">
-              {/* Removed the image that was here */}
-              <div className="w-full h-64 md:h-96 bg-center-lightGray flex items-center justify-center">
-                <span className="text-center-gray">Center Eletrônica</span>
-              </div>
+              <img 
+                src="/lovable-uploads/d4b35ea4-3198-4c10-b669-1f4f4afd3055.png" 
+                alt="Fachada da Center Eletrônica" 
+                className="w-full h-auto object-cover"
+              />
             </div>
             
             <div className="absolute -top-6 -right-6 w-24 h-24 bg-center-orange rounded-full opacity-30 blur-3xl"></div>
