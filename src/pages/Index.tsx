@@ -1,214 +1,9 @@
+
 import { useEffect } from 'react';
 import Navbar from '../components/Navbar';
 import Hero from '../components/Hero';
-import CategorySection from '../components/CategorySection';
 import ContactSection from '../components/ContactSection';
 import Footer from '../components/Footer';
-
-// Product data from the catalog
-const supportesProducts = [
-  {
-    id: '1',
-    name: 'SUPORTE 400MM',
-    code: 'Y5180',
-    price: 43.00,
-    image: 'public/lovable-uploads/edd0d643-9bf8-4686-9008-3bae055f26b2.png',
-    category: 'suportes'
-  },
-  {
-    id: '2',
-    name: 'SUPORTE 450MM',
-    code: 'Y5182',
-    price: 49.00,
-    image: 'public/lovable-uploads/edd0d643-9bf8-4686-9008-3bae055f26b2.png',
-    category: 'suportes'
-  },
-  {
-    id: '3',
-    name: 'SUPORTE 500MM',
-    code: '7304',
-    price: 75.00,
-    image: 'public/lovable-uploads/edd0d643-9bf8-4686-9008-3bae055f26b2.png',
-    category: 'suportes'
-  },
-  {
-    id: '4',
-    name: 'MANGUEIRA CRISTAL P/ DRENO',
-    code: 'Y5193',
-    price: 5.50,
-    image: 'public/lovable-uploads/edd0d643-9bf8-4686-9008-3bae055f26b2.png',
-    category: 'dreno'
-  },
-  {
-    id: '5',
-    name: 'MANGUEIRA P/ DRENO',
-    code: 'Y5407',
-    price: 5.80,
-    image: 'public/lovable-uploads/edd0d643-9bf8-4686-9008-3bae055f26b2.png',
-    category: 'dreno'
-  },
-  {
-    id: '6',
-    name: 'FITA ALUMINIZADA 48MM X 45M',
-    code: '7195',
-    price: 9.00,
-    image: 'public/lovable-uploads/edd0d643-9bf8-4686-9008-3bae055f26b2.png',
-    category: 'suportes'
-  },
-];
-
-const tubulacaoProducts = [
-  {
-    id: '7',
-    name: 'FITA PVC 10M',
-    code: '7292',
-    price: 13.00,
-    image: 'public/lovable-uploads/ec9a4d91-02b3-45d4-acc7-4bcd3aee248d.png',
-    category: 'tubulacao'
-  },
-  {
-    id: '8',
-    name: 'TUBULAÇÃO DE COBRE 1/4',
-    code: '12710',
-    price: 13.00,
-    image: 'public/lovable-uploads/ec9a4d91-02b3-45d4-acc7-4bcd3aee248d.png',
-    category: 'tubulacao'
-  },
-  {
-    id: '9',
-    name: 'TUBULAÇÃO DE COBRE 3/8',
-    code: '12711',
-    price: 23.00,
-    image: 'public/lovable-uploads/ec9a4d91-02b3-45d4-acc7-4bcd3aee248d.png',
-    category: 'tubulacao'
-  },
-  {
-    id: '10',
-    name: 'TUBULAÇÃO DE COBRE 1/2',
-    code: '12709',
-    price: 37.00,
-    image: 'public/lovable-uploads/ec9a4d91-02b3-45d4-acc7-4bcd3aee248d.png',
-    category: 'tubulacao'
-  },
-  {
-    id: '11',
-    name: 'TUBULAÇÃO DE COBRE 5/8',
-    code: '12712',
-    price: 49.00,
-    image: 'public/lovable-uploads/ec9a4d91-02b3-45d4-acc7-4bcd3aee248d.png',
-    category: 'tubulacao'
-  },
-  {
-    id: '12',
-    name: 'TUBULAÇÃO DE COBRE 3/4',
-    code: '12713',
-    price: 59.00,
-    image: 'public/lovable-uploads/ec9a4d91-02b3-45d4-acc7-4bcd3aee248d.png',
-    category: 'tubulacao'
-  },
-];
-
-const fluidosProducts = [
-  {
-    id: '13',
-    name: 'FLUÍDO R410A 750g',
-    code: '789973380527',
-    price: 129.00,
-    image: 'public/lovable-uploads/357d0184-2f60-47eb-9bd7-1c749908460c.png',
-    category: 'fluidos'
-  },
-  {
-    id: '14',
-    name: 'FLUÍDO R22 900g',
-    code: '789973380180',
-    price: 132.00,
-    image: 'public/lovable-uploads/357d0184-2f60-47eb-9bd7-1c749908460c.png',
-    category: 'fluidos'
-  },
-  {
-    id: '15',
-    name: 'FLUÍDO R32 3kg',
-    code: '789973818095',
-    price: 290.00,
-    image: 'public/lovable-uploads/357d0184-2f60-47eb-9bd7-1c749908460c.png',
-    category: 'fluidos'
-  },
-  {
-    id: '16',
-    name: 'GÁS MAPP 400g',
-    code: '789973380684',
-    price: 38.00,
-    image: 'public/lovable-uploads/357d0184-2f60-47eb-9bd7-1c749908460c.png',
-    category: 'fluidos'
-  },
-  {
-    id: '17',
-    name: 'CABO PP 4X1,5MM',
-    code: '9947',
-    price: 9.50,
-    image: 'public/lovable-uploads/357d0184-2f60-47eb-9bd7-1c749908460c.png',
-    category: 'cabeamento'
-  },
-  {
-    id: '18',
-    name: 'CABO PP 5X1,5MM',
-    code: '9492',
-    price: 10.20,
-    image: 'public/lovable-uploads/357d0184-2f60-47eb-9bd7-1c749908460c.png',
-    category: 'cabeamento'
-  },
-];
-
-const capacitoresProducts = [
-  {
-    id: '19',
-    name: 'CAPACITOR 20UF 380VAC',
-    code: '11997',
-    price: 35.00,
-    image: 'public/lovable-uploads/96037f4f-0b81-4d7d-ae70-14ce81fef601.png',
-    category: 'capacitores'
-  },
-  {
-    id: '20',
-    name: 'CAPACITOR 25UF 380VAC',
-    code: '11327',
-    price: 43.00,
-    image: 'public/lovable-uploads/96037f4f-0b81-4d7d-ae70-14ce81fef601.png',
-    category: 'capacitores'
-  },
-  {
-    id: '21',
-    name: 'CAPACITOR 25UF 440VAC',
-    code: '11325',
-    price: 48.00,
-    image: 'public/lovable-uploads/96037f4f-0b81-4d7d-ae70-14ce81fef601.png',
-    category: 'capacitores'
-  },
-  {
-    id: '22',
-    name: 'CAPACITOR 30UF 380VAC',
-    code: '11311',
-    price: 48.00,
-    image: 'public/lovable-uploads/96037f4f-0b81-4d7d-ae70-14ce81fef601.png',
-    category: 'capacitores'
-  },
-  {
-    id: '23',
-    name: 'CAPACITOR 30UF 440VAC',
-    code: '11326',
-    price: 53.00,
-    image: 'public/lovable-uploads/96037f4f-0b81-4d7d-ae70-14ce81fef601.png',
-    category: 'capacitores'
-  },
-  {
-    id: '24',
-    name: 'CAPACITOR 35UF 450/3E',
-    code: '11312',
-    price: 35.00,
-    image: 'public/lovable-uploads/96037f4f-0b81-4d7d-ae70-14ce81fef601.png',
-    category: 'capacitores'
-  },
-];
 
 const Index = () => {
   useEffect(() => {
@@ -223,13 +18,6 @@ const Index = () => {
         <Hero />
         
         <div className="bg-white">
-          <CategorySection 
-            title="Suportes, Dreno e Fitas" 
-            subtitle="Suportes resistentes, sistemas de dreno eficientes e fitas especializadas para instalações."
-            slug="suportes" 
-            products={supportesProducts} 
-          />
-
           <div className="py-12 bg-center-lightGray">
             <div className="container-custom">
               <div className="relative rounded-2xl overflow-hidden">
@@ -264,20 +52,6 @@ const Index = () => {
               </div>
             </div>
           </div>
-
-          <CategorySection 
-            title="Tubulação e Tubex" 
-            subtitle="Tubulações de cobre e acessórios essenciais para sistemas de ar condicionado."
-            slug="tubulacao" 
-            products={tubulacaoProducts} 
-          />
-
-          <CategorySection 
-            title="Fluidos e Cabeamento" 
-            subtitle="Fluidos refrigerantes e cabos elétricos para sistemas de ar condicionado."
-            slug="fluidos" 
-            products={fluidosProducts} 
-          />
 
           <div className="py-16 bg-center-lightGray">
             <div className="container-custom">
@@ -341,13 +115,6 @@ const Index = () => {
               </div>
             </div>
           </div>
-
-          <CategorySection 
-            title="Capacitores" 
-            subtitle="Variedade completa de capacitores para sistemas de ar condicionado."
-            slug="capacitores" 
-            products={capacitoresProducts} 
-          />
         </div>
 
         <ContactSection />

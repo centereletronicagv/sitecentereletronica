@@ -59,6 +59,10 @@ export default function CategorySection({ title, subtitle, slug, products }: Cat
     }
   };
 
+  if (products.length === 0) {
+    return null;
+  }
+
   return (
     <section className="py-16 relative">
       <div className="container-custom">
