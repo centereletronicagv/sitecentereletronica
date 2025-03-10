@@ -1,3 +1,4 @@
+
 import { ArrowRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
@@ -8,7 +9,7 @@ export default function Hero() {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
           <div className="space-y-6 reveal-slide-up">
             <div className="inline-flex items-center rounded-full px-3 py-1 text-sm font-medium bg-center-orange/10 text-center-orange">
-              <span className="animate-pulse mr-1.5">●</span> Catálogo Digital
+              Catálogo Digital
             </div>
             
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-display font-bold tracking-tight text-balance">
