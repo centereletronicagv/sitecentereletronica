@@ -1,3 +1,4 @@
+
 import { ArrowRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
@@ -77,32 +78,80 @@ export default function Hero() {
               />
             </div>
             
-            <div className="absolute -top-6 -right-6 w-24 h-24 bg-center-orange rounded-full opacity-30 blur-3xl"></div>
             <div className="absolute -bottom-8 -left-8 w-32 h-32 bg-center-orange rounded-full opacity-20 blur-3xl"></div>
           </div>
         </div>
         
-        <div className="mt-16 py-8 px-6 sm:px-10 rounded-xl bg-white dark:bg-card shadow-sm border border-gray-100 dark:border-gray-800">
-          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-9 gap-6">
-            
-            <Link 
-              to="/categoria/suportes"
-              className="flex flex-col items-center gap-2 group"
+        <div className="mt-16 py-8 px-6 grid grid-cols-1 md:grid-cols-3 gap-6">
+          {/* Card 1 - Loja Física */}
+          <div className="bg-white dark:bg-background rounded-xl p-6 shadow-sm border border-gray-100 dark:border-gray-800 flex flex-col items-center text-center">
+            <div className="w-16 h-16 flex items-center justify-center bg-center-orange/10 rounded-full mb-4">
+              <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#FF7A00" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"></path>
+                <circle cx="12" cy="10" r="3"></circle>
+              </svg>
+            </div>
+            <h3 className="text-xl font-medium mb-2 text-center-darkGray dark:text-white">Loja Física</h3>
+            <p className="text-center-gray dark:text-gray-400 mb-4">
+              Visite nossa loja física e conheça todos os nossos produtos.
+            </p>
+            <address className="text-center-darkGray dark:text-gray-300 not-italic mt-auto">
+              Rua Jacob Gremmelmaier, 409<br />
+              Centro, Getúlio Vargas - RS, 99900-000
+            </address>
+          </div>
+
+          {/* Card 2 - Atendimento */}
+          <div className="bg-white dark:bg-background rounded-xl p-6 shadow-sm border border-gray-100 dark:border-gray-800 flex flex-col items-center text-center">
+            <div className="w-16 h-16 flex items-center justify-center bg-center-orange/10 rounded-full mb-4">
+              <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#FF7A00" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+              </svg>
+            </div>
+            <h3 className="text-xl font-medium mb-2 text-center-darkGray dark:text-white">Atendimento</h3>
+            <p className="text-center-gray dark:text-gray-400 mb-4">
+              Entre em contato por telefone ou WhatsApp para mais informações.
+            </p>
+            <div className="space-y-2 mt-auto">
+              <a 
+                href="tel:5499270560" 
+                className="block text-center-orange font-medium hover:underline"
+              >
+                (54) 9927-0560
+              </a>
+              <a 
+                href="tel:5499986916" 
+                className="block text-center-orange font-medium hover:underline"
+              >
+                (54) 9998-6916
+              </a>
+            </div>
+          </div>
+
+          {/* Card 3 - Orçamentos */}
+          <div className="bg-white dark:bg-background rounded-xl p-6 shadow-sm border border-gray-100 dark:border-gray-800 flex flex-col items-center text-center">
+            <div className="w-16 h-16 flex items-center justify-center bg-center-orange/10 rounded-full mb-4">
+              <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#FF7A00" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <rect x="2" y="6" width="20" height="12" rx="2"></rect>
+                <path d="M22 8.5h-4l-3-3h-6l-3 3H2"></path>
+                <path d="M2 11.5h20"></path>
+                <path d="M4 11.5v4"></path>
+                <path d="M20 11.5v4"></path>
+              </svg>
+            </div>
+            <h3 className="text-xl font-medium mb-2 text-center-darkGray dark:text-white">Orçamentos</h3>
+            <p className="text-center-gray dark:text-gray-400 mb-4">
+              Solicite um orçamento personalizado para suas necessidades.
+            </p>
+            <a 
+              href="https://wa.me/5499270560" 
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-1.5 mt-auto bg-center-orange hover:bg-center-orangeLight px-4 py-2 rounded-md font-medium text-white transition-colors"
             >
-              <div className="w-12 h-12 rounded-lg bg-center-lightGray dark:bg-gray-800 group-hover:bg-center-orange/10 flex items-center justify-center text-center-gray group-hover:text-center-orange transition-colors">
-                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="6" width="20" height="12" rx="2"></rect><line x1="6" x2="6" y1="18" y2="22"></line><line x1="18" x2="18" y1="18" y2="22"></line></svg>
-              </div>
-              <span className="text-sm font-medium text-center text-center-darkGray dark:text-gray-300">Capacitores</span>
-            </Link>
-            
-            {[1, 2, 3, 4, 5, 6, 7, 8].map((_, index) => (
-              <div key={index} className="flex flex-col items-center gap-2">
-                <div className="w-12 h-12 rounded-lg bg-gray-700/30 dark:bg-gray-800/40 flex items-center justify-center">
-                  
-                </div>
-                <span className="text-sm font-medium text-center text-gray-500 dark:text-gray-500">Em breve</span>
-              </div>
-            ))}
+              Solicitar agora
+              <ArrowRight size={16} />
+            </a>
           </div>
         </div>
       </div>
