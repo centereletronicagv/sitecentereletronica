@@ -1,4 +1,3 @@
-
 import { ArrowRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
@@ -85,17 +84,24 @@ export default function Hero() {
         
         <div className="mt-16 py-8 px-6 sm:px-10 rounded-xl bg-white dark:bg-card shadow-sm border border-gray-100 dark:border-gray-800">
           <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-9 gap-6">
-            {['Suportes', 'Tubulação', 'Dreno', 'Fluidos', 'Conexões', 'Cabeamento', 'Fixação', 'Capacitores', 'Mais'].map((category, index) => (
-              <Link 
-                key={category}
-                to={`/categoria/${category.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "")}`}
-                className="flex flex-col items-center gap-2 group"
-              >
-                <div className="w-12 h-12 rounded-lg bg-center-lightGray dark:bg-gray-800 group-hover:bg-center-orange/10 flex items-center justify-center text-center-gray group-hover:text-center-orange transition-colors">
-                  <CategoryIcon index={index} />
+            
+            <Link 
+              to="/categoria/suportes"
+              className="flex flex-col items-center gap-2 group"
+            >
+              <div className="w-12 h-12 rounded-lg bg-center-lightGray dark:bg-gray-800 group-hover:bg-center-orange/10 flex items-center justify-center text-center-gray group-hover:text-center-orange transition-colors">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="6" width="20" height="12" rx="2"></rect><line x1="6" x2="6" y1="18" y2="22"></line><line x1="18" x2="18" y1="18" y2="22"></line></svg>
+              </div>
+              <span className="text-sm font-medium text-center text-center-darkGray dark:text-gray-300">Capacitores</span>
+            </Link>
+            
+            {[1, 2, 3, 4, 5, 6, 7, 8].map((_, index) => (
+              <div key={index} className="flex flex-col items-center gap-2">
+                <div className="w-12 h-12 rounded-lg bg-gray-700/30 dark:bg-gray-800/40 flex items-center justify-center">
+                  
                 </div>
-                <span className="text-sm font-medium text-center text-center-darkGray dark:text-gray-300">{category}</span>
-              </Link>
+                <span className="text-sm font-medium text-center text-gray-500 dark:text-gray-500">Em breve</span>
+              </div>
             ))}
           </div>
         </div>
@@ -106,29 +112,4 @@ export default function Hero() {
       <div className="absolute bottom-32 right-12 w-16 h-16 rounded-full bg-center-orange/20 z-0"></div>
     </section>
   );
-}
-
-function CategoryIcon({ index }: { index: number }) {
-  const icons = [
-    // Suportes
-    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M22 8.35V20a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V8.35A2 2 0 0 1 3.26 6.5l8-3.2a2 2 0 0 1 1.48 0l8 3.2A2 2 0 0 1 22 8.35Z"></path><path d="M6 18h12"></path><path d="M6 14h12"></path><rect x="6" y="10" width="12" height="12"></rect></svg>,
-    // Tubulação
-    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M6 16v4"></path><path d="M10 16v4"></path><rect x="8" y="9" width="12" height="7" rx="2"></rect><path d="M5 13a2 2 0 0 1-2-2V9a2 2 0 0 1 2-2h2.5"></path><path d="M19 5a2 2 0 0 1 2 2v2a2 2 0 0 1-2 2"></path><path d="M18 9a2 2 0 0 1-2 2h-4a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2z"></path></svg>,
-    // Dreno
-    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M8 2h8"></path><path d="M9 2v2.789a4 4 0 0 1-.672 2.219l-.656.984A4 4 0 0 0 7 10.212V20a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2v-9.789a4 4 0 0 0-.672-2.219l-.656-.984A4 4 0 0 1 15 4.788V2"></path><path d="M7 15h10"></path></svg>,
-    // Fluidos
-    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M6 14h8"></path><path d="M6 18h8"></path><path d="M9 22h2"></path><path d="M4 9V5a1 1 0 0 1 1-1h4"></path><path d="M20 9V5a1 1 0 0 0-1-1h-4"></path><rect x="3" y="9" width="18" height="5" rx="2"></rect></svg>,
-    // Conexões
-    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>,
-    // Cabeamento
-    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M5 8.2s1.3-1.2 3.3-1.2c3 0 5.7 3 8.2 3 1.7 0 2.8-.8 3.5-1.2"></path><path d="M5 15.8s1.3 1.2 3.3 1.2c3 0 5.7-3 8.2-3 1.7 0 2.8.8 3.5 1.2"></path><path d="M19 4v16"></path><path d="M5 4v16"></path></svg>,
-    // Fixação
-    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 22v-6"></path><path d="M12 8V2"></path><path d="M4 12H2"></path><path d="M10 12H8"></path><path d="M16 12h-2"></path><path d="M22 12h-2"></path><path d="m15 19-3 3-3-3"></path><path d="m15 5-3-3-3 3"></path><path d="m19 15 3 3-3 3"></path><path d="m19 9 3-3-3-3"></path><path d="m5 15-3 3 3 3"></path><path d="m5 9-3-3 3-3"></path></svg>,
-    // Capacitores
-    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="6" width="20" height="12" rx="2"></rect><line x1="6" x2="6" y1="18" y2="22"></line><line x1="18" x2="18" y1="18" y2="22"></line></svg>,
-    // Mais
-    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 6v12"></path><path d="M6 12h12"></path></svg>,
-  ];
-
-  return icons[index] || icons[8];
 }
