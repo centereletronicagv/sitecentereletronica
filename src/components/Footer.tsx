@@ -1,3 +1,4 @@
+
 import { Link } from 'react-router-dom';
 import { Phone, Mail, MapPin, Clock, Instagram, Facebook, ArrowRight } from 'lucide-react';
 
@@ -46,11 +47,11 @@ export default function Footer() {
                 <span>(54) 9998-6916</span>
               </a>
               <a 
-                href="mailto:contato@centereletronica.com.br" 
+                href="mailto:center@centereletronica.com.br" 
                 className="flex items-center gap-2 text-center-darkGray hover:text-center-orange transition-colors"
               >
                 <Mail size={18} />
-                <span>contato@centereletronica.com.br</span>
+                <span>center@centereletronica.com.br</span>
               </a>
               <div className="flex items-start gap-2 text-center-darkGray">
                 <MapPin size={18} className="min-w-[18px] mt-1" />
@@ -103,7 +104,7 @@ export default function Footer() {
             <h3 className="text-lg font-medium mt-6 mb-3">Redes Sociais</h3>
             <div className="flex gap-2">
               <a 
-                href="https://instagram.com" 
+                href="https://www.instagram.com/centereletronicagv/" 
                 target="_blank" 
                 rel="noopener noreferrer"
                 className="p-2 bg-white rounded-full text-center-orange border border-center-orange/20 hover:bg-center-orange hover:text-white transition-colors"
@@ -112,7 +113,7 @@ export default function Footer() {
                 <Instagram size={18} />
               </a>
               <a 
-                href="https://facebook.com" 
+                href="https://www.facebook.com/centereletronicagv" 
                 target="_blank" 
                 rel="noopener noreferrer"
                 className="p-2 bg-white rounded-full text-center-orange border border-center-orange/20 hover:bg-center-orange hover:text-white transition-colors"

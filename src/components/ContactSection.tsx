@@ -47,10 +47,10 @@ export default function ContactSection() {
                 <h3 className="text-lg font-medium text-center-darkGray">E-mail</h3>
                 <p className="text-center-gray mt-1">Envie-nos uma mensagem por e-mail.</p>
                 <a 
-                  href="mailto:contato@centereletronica.com.br" 
+                  href="mailto:center@centereletronica.com.br" 
                   className="block mt-2 text-center-orange font-medium hover:underline"
                 >
-                  contato@centereletronica.com.br
+                  center@centereletronica.com.br
                 </a>
               </div>
             </div>
