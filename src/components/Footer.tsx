@@ -1,4 +1,3 @@
-
 import { Link } from 'react-router-dom';
 import { Phone, Mail, MapPin, Clock, Instagram, Facebook, ArrowRight } from 'lucide-react';
 
@@ -30,7 +29,7 @@ export default function Footer() {
               </span>
             </div>
             <p className="text-center-gray mb-6">
-              Especialista em artigos para instalação e manutenção de sistemas de ar condicionado.
+              Loja de produtos Elétricos, Eletrônicos, Automação, Informática e mais.
             </p>
             <div className="space-y-3">
               <a 

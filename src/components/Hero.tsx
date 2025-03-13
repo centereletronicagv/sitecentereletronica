@@ -13,11 +13,11 @@ export default function Hero() {
             </div>
             
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-display font-bold tracking-tight text-balance">
-              Artigos para <span className="text-center-orange">Ar Condicionado</span>
+              Produtos <span className="text-center-orange">Eletrônicos</span>
             </h1>
             
             <p className="text-lg md:text-xl text-center-gray dark:text-gray-400 max-w-lg">
-              Tudo o que você precisa para instalação e manutenção de sistemas de ar condicionado,
+              Loja de produtos Elétricos, Eletrônicos, Automação, Informática e mais,
               com qualidade e preços competitivos.
             </p>
             
