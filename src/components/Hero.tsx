@@ -82,9 +82,9 @@ export default function Hero() {
           </div>
         </div>
         
-        <div className="mt-16 py-8 px-6 grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div className="mt-16 pt-8 pb-12 px-6 grid grid-cols-1 md:grid-cols-3 gap-6">
           {/* Card 1 - Loja Física */}
-          <div className="bg-white dark:bg-background rounded-xl p-6 shadow-sm border border-gray-100 dark:border-gray-800 flex flex-col items-center text-center">
+          <div className="bg-white dark:bg-background rounded-xl p-6 shadow-sm border border-gray-100 dark:border-gray-800 flex flex-col items-center text-center h-full">
             <div className="w-16 h-16 flex items-center justify-center bg-center-orange/10 rounded-full mb-4">
               <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#FF7A00" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                 <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"></path>
@@ -102,7 +102,7 @@ export default function Hero() {
           </div>
 
           {/* Card 2 - Atendimento */}
-          <div className="bg-white dark:bg-background rounded-xl p-6 shadow-sm border border-gray-100 dark:border-gray-800 flex flex-col items-center text-center">
+          <div className="bg-white dark:bg-background rounded-xl p-6 shadow-sm border border-gray-100 dark:border-gray-800 flex flex-col items-center text-center h-full">
             <div className="w-16 h-16 flex items-center justify-center bg-center-orange/10 rounded-full mb-4">
               <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#FF7A00" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                 <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
@@ -129,7 +129,7 @@ export default function Hero() {
           </div>
 
           {/* Card 3 - Orçamentos */}
-          <div className="bg-white dark:bg-background rounded-xl p-6 shadow-sm border border-gray-100 dark:border-gray-800 flex flex-col items-center text-center">
+          <div className="bg-white dark:bg-background rounded-xl p-6 shadow-sm border border-gray-100 dark:border-gray-800 flex flex-col items-center text-center h-full">
             <div className="w-16 h-16 flex items-center justify-center bg-center-orange/10 rounded-full mb-4">
               <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#FF7A00" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                 <rect x="2" y="6" width="20" height="12" rx="2"></rect>
@@ -143,15 +143,17 @@ export default function Hero() {
             <p className="text-center-gray dark:text-gray-400 mb-4">
               Solicite um orçamento personalizado para suas necessidades.
             </p>
-            <a 
-              href="https://wa.me/5499270560" 
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-1.5 mt-auto bg-center-orange hover:bg-center-orangeLight px-4 py-2 rounded-md font-medium text-white transition-colors"
-            >
-              Solicitar agora
-              <ArrowRight size={16} />
-            </a>
+            <div className="mt-auto w-full">
+              <a 
+                href="https://wa.me/5499270560" 
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center justify-center w-full gap-1.5 bg-center-orange hover:bg-center-orangeLight px-4 py-2 rounded-md font-medium text-white transition-colors"
+              >
+                Solicitar agora
+                <ArrowRight size={16} />
+              </a>
+            </div>
           </div>
         </div>
       </div>
