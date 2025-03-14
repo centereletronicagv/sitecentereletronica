@@ -1,11 +1,9 @@
+import { createContext, useContext, useEffect } from "react";
 
-import { createContext, useContext, useEffect, useState } from "react";
-
-type Theme = "dark" | "light";
+type Theme = "dark";
 
 type ThemeProviderProps = {
   children: React.ReactNode;
-  defaultTheme?: Theme;
 };
 
 type ThemeContextType = {
@@ -17,22 +15,22 @@ const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 
 export function ThemeProvider({
   children,
-  defaultTheme = "dark",
 }: ThemeProviderProps) {
-  const [theme, setTheme] = useState<Theme>(
-    () => (localStorage.getItem("theme") as Theme) || defaultTheme
-  );
+  // Always set to dark mode
+  const theme: Theme = "dark";
 
   useEffect(() => {
     const root = window.document.documentElement;
-    root.classList.remove("light", "dark");
-    root.classList.add(theme);
-    localStorage.setItem("theme", theme);
-  }, [theme]);
+    root.classList.remove("light");
+    root.classList.add("dark");
+    localStorage.setItem("theme", "dark");
+  }, []);
 
   const value = {
     theme,
-    setTheme: (theme: Theme) => setTheme(theme),
+    // This setTheme function doesn't actually change the theme,
+    // but we keep it to maintain the API contract
+    setTheme: () => {},
   };
 
   return (
