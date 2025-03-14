@@ -7,10 +7,6 @@ export default function Hero() {
       <div className="container-custom relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
           <div className="space-y-6 reveal-slide-up">
-            <div className="inline-flex items-center rounded-full px-3 py-1 text-sm font-medium bg-center-orange/10 text-center-orange">
-              Catálogo Digital
-            </div>
-            
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-display font-bold tracking-tight text-balance">
               Produtos <span className="text-center-orange">Eletrônicos</span>
             </h1>
@@ -82,7 +78,6 @@ export default function Hero() {
         </div>
         
         <div className="mt-16 pt-8 pb-12 px-6 grid grid-cols-1 md:grid-cols-3 gap-6">
-          {/* Card 1 - Loja Física */}
           <div className="bg-background rounded-xl p-6 shadow-sm border border-gray-800 flex flex-col items-center text-center h-full">
             <div className="w-16 h-16 flex items-center justify-center bg-center-orange/10 rounded-full mb-4">
               <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#FF7A00" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -100,7 +95,6 @@ export default function Hero() {
             </address>
           </div>
 
-          {/* Card 2 - Atendimento */}
           <div className="bg-background rounded-xl p-6 shadow-sm border border-gray-800 flex flex-col items-center text-center h-full">
             <div className="w-16 h-16 flex items-center justify-center bg-center-orange/10 rounded-full mb-4">
               <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#FF7A00" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -127,7 +121,6 @@ export default function Hero() {
             </div>
           </div>
 
-          {/* Card 3 - Orçamentos */}
           <div className="bg-background rounded-xl p-6 shadow-sm border border-gray-800 flex flex-col items-center text-center h-full">
             <div className="w-16 h-16 flex items-center justify-center bg-center-orange/10 rounded-full mb-4">
               <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#FF7A00" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
