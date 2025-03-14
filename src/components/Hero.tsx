@@ -1,3 +1,4 @@
+
 import { ArrowRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
@@ -72,8 +73,6 @@ export default function Hero() {
                 className="w-full h-auto object-cover"
               />
             </div>
-            
-            <div className="absolute -bottom-8 -left-8 w-32 h-32 bg-center-orange rounded-full opacity-20 blur-3xl"></div>
           </div>
         </div>
         
@@ -152,7 +151,6 @@ export default function Hero() {
       
       <div className="absolute top-0 right-0 w-1/2 h-full bg-center-orange/5 dark:bg-center-orange/2 z-0"></div>
       <div className="absolute top-24 left-6 w-20 h-20 rounded-full bg-center-orange/10 z-0"></div>
-      <div className="absolute bottom-32 right-12 w-16 h-16 rounded-full bg-center-orange/20 z-0"></div>
     </section>
   );
 }
