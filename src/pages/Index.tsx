@@ -18,19 +18,18 @@ const Index = () => {
       <main className="flex-grow">
         <Hero />
         
-        <div className="py-12 bg-center-lightGray">
+        <div className="py-12 bg-[#222222]">
           <div className="container-custom">
-            <div className="relative rounded-2xl overflow-hidden">
-              <div className="absolute inset-0 bg-gradient-to-r from-center-darkGray/80 to-transparent z-10"></div>
-              <div className="relative z-20 p-8 md:p-12 flex flex-col max-w-xl text-white">
-                <span className="text-sm font-medium px-3 py-1 bg-white/20 backdrop-blur-sm rounded-full inline-flex items-center self-start mb-4">
+            <div className="relative rounded-2xl overflow-hidden bg-[#2A2A2A] border border-[#333333] shadow-lg">
+              <div className="p-8 md:p-12">
+                <span className="text-sm font-medium px-3 py-1 bg-center-orange/10 backdrop-blur-sm rounded-full inline-flex items-center self-start mb-4">
                   <span className="w-2 h-2 bg-center-orange rounded-full mr-2"></span>
                   Qualidade garantida
                 </span>
-                <h2 className="text-3xl md:text-4xl font-display font-bold mb-4">
+                <h2 className="text-3xl md:text-4xl font-display font-bold mb-4 text-white">
                   Produtos de alta qualidade para sistemas de ar condicionado
                 </h2>
-                <p className="text-white/80 mb-6">
+                <p className="text-[#C8C8C9] mb-6 max-w-xl">
                   Trabalhamos apenas com fornecedores confiáveis para garantir 
                   a durabilidade e eficiência dos produtos.
                 </p>
@@ -38,17 +37,12 @@ const Index = () => {
                   href="https://wa.me/5499270560" 
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-1.5 self-start bg-center-orange hover:bg-center-orangeLight px-4 py-2 rounded-md font-medium transition-colors"
+                  className="inline-flex items-center gap-1.5 bg-center-orange hover:bg-center-orangeLight px-4 py-2 rounded-md font-medium transition-colors text-white"
                 >
                   Solicitar orçamento
                   <ArrowRight size={16} />
                 </a>
               </div>
-              <img 
-                src="/lovable-uploads/f1ae756c-7ca2-45df-b7a5-17eb78492bfd.png" 
-                alt="Produtos de alta qualidade" 
-                className="w-full h-64 md:h-80 object-cover"
-              />
             </div>
           </div>
         </div>
