@@ -69,7 +69,7 @@ export default function Navbar() {
             <img 
               src="/public/lovable-uploads/9b2aa237-3c25-41e5-89fc-4a1be00b9aec.png" 
               alt="Center Eletrônica Logo" 
-              className="h-30 w-auto" 
+              className="h-10 w-auto" 
             />
             <span className="ml-2 text-xl font-display font-semibold tracking-tight">
               Center <span className="text-center-orange">Eletrônica</span>
@@ -157,7 +157,7 @@ export default function Navbar() {
               <img 
                 src="/public/lovable-uploads/9b2aa237-3c25-41e5-89fc-4a1be00b9aec.png" 
                 alt="Center Eletrônica Logo" 
-                className="h-24 w-auto" 
+                className="h-8 w-auto" 
               />
               <span className="ml-2 text-lg font-display font-semibold tracking-tight">
                 Center <span className="text-center-orange">Eletrônica</span>
