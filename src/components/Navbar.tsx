@@ -67,7 +67,7 @@ export default function Navbar() {
             className="relative z-10 flex items-center transition-transform duration-300 hover:-translate-y-0.5"
           >
             <img 
-              src="/public/lovable-uploads/971e4194-c7ba-483d-972e-e397dcb9519d.png" 
+              src="/public/lovable-uploads/9b2aa237-3c25-41e5-89fc-4a1be00b9aec.png" 
               alt="Center Eletrônica Logo" 
               className="h-10 w-auto" 
             />
@@ -155,7 +155,7 @@ export default function Navbar() {
           <div className="flex justify-between items-center mb-8 pt-2">
             <Link to="/" className="flex items-center">
               <img 
-                src="/public/lovable-uploads/971e4194-c7ba-483d-972e-e397dcb9519d.png" 
+                src="/public/lovable-uploads/9b2aa237-3c25-41e5-89fc-4a1be00b9aec.png" 
                 alt="Center Eletrônica Logo" 
                 className="h-8 w-auto" 
               />
