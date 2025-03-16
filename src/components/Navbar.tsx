@@ -1,8 +1,9 @@
 
 import { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Menu, X, ShoppingCart, Phone } from 'lucide-react';
+import { Menu, X, ShoppingCart, Phone, Search } from 'lucide-react';
 import { ThemeToggle } from './ThemeToggle';
+import { Input } from './ui/input';
 
 interface NavLink {
   name: string;
@@ -22,6 +23,7 @@ const navLinks: NavLink[] = [
 export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [searchQuery, setSearchQuery] = useState('');
   const location = useLocation();
 
   useEffect(() => {
@@ -41,6 +43,13 @@ export default function Navbar() {
   useEffect(() => {
     setIsMenuOpen(false);
   }, [location.pathname]);
+
+  const handleSearch = (e: React.FormEvent) => {
+    e.preventDefault();
+    console.log('Searching for:', searchQuery);
+    // Here you would implement the actual search functionality
+    // Such as redirecting to a search results page with the query
+  };
 
   return (
     <header 
@@ -66,6 +75,20 @@ export default function Navbar() {
               Center <span className="text-center-orange">Eletrônica</span>
             </span>
           </Link>
+
+          {/* Search Bar - visible on all screens */}
+          <div className="flex-1 max-w-md mx-4 hidden sm:block">
+            <form onSubmit={handleSearch} className="relative">
+              <Input
+                type="search"
+                placeholder="Buscar produtos..."
+                className="pl-10 pr-4 py-2 w-full bg-gray-100 dark:bg-gray-800 border-0 focus-visible:ring-center-orange"
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+              />
+              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-center-gray dark:text-gray-400" />
+            </form>
+          </div>
 
           {/* Desktop Navigation */}
           <nav className="hidden md:flex items-center gap-1 lg:gap-2">
@@ -96,6 +119,15 @@ export default function Navbar() {
 
           {/* Mobile Navigation Trigger */}
           <div className="flex items-center gap-3 md:hidden">
+            <button 
+              className="p-2 text-center-darkGray dark:text-gray-300 bg-gray-100 dark:bg-gray-800 rounded-full"
+              onClick={() => {
+                // Open search in mobile view
+                console.log('Open mobile search');
+              }}
+            >
+              <Search size={18} />
+            </button>
             <ThemeToggle />
             <a 
               href="tel:5499270560" 
@@ -137,6 +169,20 @@ export default function Navbar() {
             >
               <X size={20} />
             </button>
+          </div>
+
+          {/* Mobile Search */}
+          <div className="mb-6">
+            <form onSubmit={handleSearch} className="relative">
+              <Input
+                type="search"
+                placeholder="Buscar produtos..."
+                className="pl-10 pr-4 py-2 w-full bg-gray-100 dark:bg-gray-800 border-0"
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+              />
+              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-center-gray dark:text-gray-400" />
+            </form>
           </div>
 
           <nav className="flex flex-col gap-2">
