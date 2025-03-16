@@ -1,15 +1,11 @@
-
 import { Link } from 'react-router-dom';
-import { Phone, Mail, MapPin, Clock, Instagram, Facebook, ArrowRight, Wind, Plug, Terminal, Square, Signal, ToggleLeft, Router } from 'lucide-react';
+import { Phone, Mail, MapPin, Clock, Instagram, Facebook, ArrowRight, Wind, Plug, Terminal, Router } from 'lucide-react';
 
 const categories = [
   { name: 'Ar Condicionado', href: '/categoria/ar-condicionado', icon: <Wind size={14} /> },
   { name: 'Instalações Elétricas', href: '/categoria/instalacoes-eletricas', icon: <Plug size={14} /> },
   { name: 'Terminais', href: '/categoria/terminais', icon: <Terminal size={14} /> },
-  { name: 'Botoeiras', href: '/categoria/botoeiras', icon: <Square size={14} /> },
-  { name: 'Sinalizadores', href: '/categoria/sinalizadores', icon: <Signal size={14} /> },
-  { name: 'Contatores', href: '/categoria/contatores', icon: <ToggleLeft size={14} /> },
-  { name: 'Relés', href: '/categoria/reles', icon: <Router size={14} /> },
+  { name: 'Automação', href: '/categoria/automacao', icon: <Router size={14} /> },
 ];
 
 export default function Footer() {

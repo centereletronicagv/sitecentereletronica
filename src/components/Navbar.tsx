@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Menu, X, ShoppingCart, Phone, Search, Wind, Plug, Terminal, Square, Signal, ToggleLeft, Router } from 'lucide-react';
+import { Menu, X, ShoppingCart, Phone, Search, Wind, Plug, Terminal, Router } from 'lucide-react';
 import { ThemeToggle } from './ThemeToggle';
 import { Input } from './ui/input';
 
@@ -14,10 +14,7 @@ const navLinks: NavLink[] = [
   { name: 'Ar Condicionado', href: '/categoria/ar-condicionado' },
   { name: 'Instalações Elétricas', href: '/categoria/instalacoes-eletricas' },
   { name: 'Terminais', href: '/categoria/terminais' },
-  { name: 'Botoeiras', href: '/categoria/botoeiras' },
-  { name: 'Sinalizadores', href: '/categoria/sinalizadores' },
-  { name: 'Contatores', href: '/categoria/contatores' },
-  { name: 'Relés', href: '/categoria/reles' },
+  { name: 'Automação', href: '/categoria/automacao' },
   { name: 'Contato', href: '/contato' },
 ];
 
