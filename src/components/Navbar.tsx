@@ -1,7 +1,6 @@
-
 import { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Menu, X, ShoppingCart, Phone, Search } from 'lucide-react';
+import { Menu, X, ShoppingCart, Phone, Search, Wind, Plug, Terminal, Square, Signal, ToggleLeft, Router } from 'lucide-react';
 import { ThemeToggle } from './ThemeToggle';
 import { Input } from './ui/input';
 
@@ -12,11 +11,13 @@ interface NavLink {
 
 const navLinks: NavLink[] = [
   { name: 'Início', href: '/' },
-  { name: 'Suportes', href: '/categoria/suportes' },
-  { name: 'Tubulação', href: '/categoria/tubulacao' },
-  { name: 'Fluidos', href: '/categoria/fluidos' },
-  { name: 'Conexões', href: '/categoria/conexoes' },
-  { name: 'Capacitores', href: '/categoria/capacitores' },
+  { name: 'Ar Condicionado', href: '/categoria/ar-condicionado' },
+  { name: 'Instalações Elétricas', href: '/categoria/instalacoes-eletricas' },
+  { name: 'Terminais', href: '/categoria/terminais' },
+  { name: 'Botoeiras', href: '/categoria/botoeiras' },
+  { name: 'Sinalizadores', href: '/categoria/sinalizadores' },
+  { name: 'Contatores', href: '/categoria/contatores' },
+  { name: 'Relés', href: '/categoria/reles' },
   { name: 'Contato', href: '/contato' },
 ];
 
@@ -39,7 +40,6 @@ export default function Navbar() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // Close mobile menu when changing routes
   useEffect(() => {
     setIsMenuOpen(false);
   }, [location.pathname]);
@@ -47,8 +47,6 @@ export default function Navbar() {
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
     console.log('Searching for:', searchQuery);
-    // Here you would implement the actual search functionality
-    // Such as redirecting to a search results page with the query
   };
 
   return (
@@ -61,7 +59,6 @@ export default function Navbar() {
     >
       <div className="container-custom py-3">
         <div className="flex items-center justify-between">
-          {/* Logo */}
           <Link 
             to="/" 
             className="relative z-10 flex items-center transition-transform duration-300 hover:-translate-y-0.5"
@@ -76,7 +73,6 @@ export default function Navbar() {
             </span>
           </Link>
 
-          {/* Search Bar - visible on all screens */}
           <div className="flex-1 max-w-md mx-4 hidden sm:block">
             <form onSubmit={handleSearch} className="relative">
               <Input
@@ -90,7 +86,6 @@ export default function Navbar() {
             </form>
           </div>
 
-          {/* Desktop Navigation */}
           <nav className="hidden md:flex items-center gap-1 lg:gap-2">
             {navLinks.map((link) => (
               <Link
@@ -117,12 +112,10 @@ export default function Navbar() {
             </div>
           </nav>
 
-          {/* Mobile Navigation Trigger */}
           <div className="flex items-center gap-3 md:hidden">
             <button 
               className="p-2 text-center-darkGray dark:text-gray-300 bg-gray-100 dark:bg-gray-800 rounded-full"
               onClick={() => {
-                // Open search in mobile view
                 console.log('Open mobile search');
               }}
             >
@@ -145,7 +138,6 @@ export default function Navbar() {
         </div>
       </div>
 
-      {/* Mobile Menu */}
       <div 
         className={`fixed inset-0 z-40 bg-white dark:bg-card transform transition-transform duration-300 ease-in-out ${
           isMenuOpen ? 'translate-x-0' : 'translate-x-full'
@@ -171,7 +163,6 @@ export default function Navbar() {
             </button>
           </div>
 
-          {/* Mobile Search */}
           <div className="mb-6">
             <form onSubmit={handleSearch} className="relative">
               <Input

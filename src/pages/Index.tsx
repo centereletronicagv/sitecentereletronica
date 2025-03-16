@@ -9,7 +9,7 @@ import { ArrowRight } from 'lucide-react';
 const Index = () => {
   useEffect(() => {
     window.scrollTo(0, 0);
-    document.title = "Center Eletrônica - Artigos para Ar Condicionado";
+    document.title = "Center Eletrônica - Materiais Elétricos e Eletrônicos";
   }, []);
 
   return (
@@ -27,7 +27,7 @@ const Index = () => {
                   Qualidade garantida
                 </span>
                 <h2 className="text-3xl md:text-4xl font-display font-bold mb-4 text-white">
-                  Produtos de alta qualidade para sistemas de ar condicionado
+                  Produtos de alta qualidade para instalações elétricas e automação
                 </h2>
                 <p className="text-[#C8C8C9] mb-6 max-w-xl">
                   Trabalhamos apenas com fornecedores confiáveis para garantir 

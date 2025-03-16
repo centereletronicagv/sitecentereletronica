@@ -1,15 +1,15 @@
+
 import { Link } from 'react-router-dom';
-import { Phone, Mail, MapPin, Clock, Instagram, Facebook, ArrowRight } from 'lucide-react';
+import { Phone, Mail, MapPin, Clock, Instagram, Facebook, ArrowRight, Wind, Plug, Terminal, Square, Signal, ToggleLeft, Router } from 'lucide-react';
 
 const categories = [
-  { name: 'Suportes', href: '/categoria/suportes' },
-  { name: 'Tubulação', href: '/categoria/tubulacao' },
-  { name: 'Dreno', href: '/categoria/dreno' },
-  { name: 'Fluidos', href: '/categoria/fluidos' },
-  { name: 'Conexões', href: '/categoria/conexoes' },
-  { name: 'Cabeamento', href: '/categoria/cabeamento' },
-  { name: 'Fixação', href: '/categoria/fixacao' },
-  { name: 'Capacitores', href: '/categoria/capacitores' },
+  { name: 'Ar Condicionado', href: '/categoria/ar-condicionado', icon: <Wind size={14} /> },
+  { name: 'Instalações Elétricas', href: '/categoria/instalacoes-eletricas', icon: <Plug size={14} /> },
+  { name: 'Terminais', href: '/categoria/terminais', icon: <Terminal size={14} /> },
+  { name: 'Botoeiras', href: '/categoria/botoeiras', icon: <Square size={14} /> },
+  { name: 'Sinalizadores', href: '/categoria/sinalizadores', icon: <Signal size={14} /> },
+  { name: 'Contatores', href: '/categoria/contatores', icon: <ToggleLeft size={14} /> },
+  { name: 'Relés', href: '/categoria/reles', icon: <Router size={14} /> },
 ];
 
 export default function Footer() {
@@ -70,7 +70,7 @@ export default function Footer() {
                     to={category.href}
                     className="flex items-center gap-1 text-center-gray hover:text-center-orange transition-colors"
                   >
-                    <ArrowRight size={14} />
+                    {category.icon}
                     <span>{category.name}</span>
                   </Link>
                 </li>
