@@ -2,6 +2,7 @@
 import { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Menu, X, ShoppingCart, Phone, Search, Wind, Plug, Terminal, Router } from 'lucide-react';
+import { ThemeToggle } from './ThemeToggle';
 import { Input } from './ui/input';
 
 interface NavLink {
@@ -63,7 +64,7 @@ export default function Navbar() {
             <img 
               src="/public/lovable-uploads/9b2aa237-3c25-41e5-89fc-4a1be00b9aec.png" 
               alt="Center Eletrônica Logo" 
-              className="h-32 w-auto" 
+              className="h-28 w-auto" 
             />
             <span className="ml-2 text-xl font-display font-semibold tracking-tight">
               Center <span className="text-center-orange">Eletrônica</span>
@@ -98,6 +99,7 @@ export default function Navbar() {
               </Link>
             ))}
             <div className="ml-2 flex items-center gap-2">
+              <ThemeToggle />
               <a 
                 href="tel:5499270560" 
                 className="flex items-center gap-1.5 px-3 py-2 text-sm font-medium text-white bg-center-orange rounded-md transition-all hover:bg-center-orangeLight"
@@ -117,6 +119,7 @@ export default function Navbar() {
             >
               <Search size={18} />
             </button>
+            <ThemeToggle />
             <a 
               href="tel:5499270560" 
               className="flex items-center justify-center w-9 h-9 text-center-orange bg-center-orange/10 rounded-full"
@@ -144,7 +147,7 @@ export default function Navbar() {
               <img 
                 src="/public/lovable-uploads/9b2aa237-3c25-41e5-89fc-4a1be00b9aec.png" 
                 alt="Center Eletrônica Logo" 
-                className="h-12 w-auto" 
+                className="h-8 w-auto" 
               />
               <span className="ml-2 text-lg font-display font-semibold tracking-tight">
                 Center <span className="text-center-orange">Eletrônica</span>
