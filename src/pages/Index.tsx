@@ -4,6 +4,7 @@ import Navbar from '../components/Navbar';
 import Hero from '../components/Hero';
 import ContactSection from '../components/ContactSection';
 import Footer from '../components/Footer';
+import ProductsSection from '../components/ProductsSection';
 
 const Index = () => {
   useEffect(() => {
@@ -16,6 +17,8 @@ const Index = () => {
       <Navbar />
       <main className="flex-grow">
         <Hero />
+        
+        <ProductsSection />
         
         <ContactSection />
       </main>
