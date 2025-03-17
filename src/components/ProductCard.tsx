@@ -30,40 +30,48 @@ export default function ProductCard({ product }: ProductCardProps) {
     setIsImageLoaded(true);
   };
 
+  // Check if the product is sold by meter
+  const isSoldByMeter = 
+    product.name.toLowerCase().includes('/m') || 
+    product.name.toLowerCase().includes('por metro');
+
+  // Clean up the product name to remove the "/m" or "Por Metro" text
+  const displayName = product.name;
+
   return (
     <div 
-      className={`group relative flex flex-col bg-white dark:bg-card rounded-xl border border-gray-100 dark:border-gray-800 overflow-hidden transition-all duration-300 ${
-        isHovered ? 'shadow-md translate-y-[-8px]' : 'shadow-sm hover:shadow-md'
+      className={`group relative flex flex-col bg-[#1E1E1E] rounded-xl border border-[#333333] overflow-hidden transition-all duration-300 ${
+        isHovered ? 'shadow-lg translate-y-[-8px] border-center-orange/40' : 'shadow-md hover:shadow-lg'
       }`}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
-      <div className="relative pt-4 px-4 flex items-center justify-center h-48 bg-center-lightGray/30 dark:bg-gray-800/30">
-        <div className={`absolute inset-0 bg-gray-200 dark:bg-gray-700 ${isImageLoaded ? 'opacity-0' : 'opacity-100 animate-pulse'} transition-opacity`}></div>
+      <div className="relative pt-4 px-4 flex items-center justify-center h-48 bg-gradient-to-br from-[#252525] to-[#202020]">
+        <div className={`absolute inset-0 bg-[#252525] ${isImageLoaded ? 'opacity-0' : 'opacity-100 animate-pulse'} transition-opacity`}></div>
         <img
           src={product.image} 
-          alt={product.name}
+          alt={displayName}
           className={`max-h-full max-w-full object-contain transition-opacity duration-300 ${isImageLoaded ? 'opacity-100' : 'opacity-0'}`}
           onLoad={handleImageLoad}
           loading="lazy"
         />
-      </div>
-
-      <div className="p-4 flex flex-col flex-grow">
-        <div className="mb-2">
-          <span className="inline-block px-2 py-1 text-xs font-medium bg-center-orange/10 text-center-orange rounded-md">
+        <div className="absolute top-3 left-3">
+          <span className="bg-center-orange text-white text-xs px-2.5 py-1 rounded-full font-medium">
             Cód: {product.code}
           </span>
         </div>
-        <h3 className="font-medium text-center-darkGray dark:text-gray-200 group-hover:text-center-orange transition-colors mb-2">
-          {product.name}
+      </div>
+
+      <div className="p-5 flex flex-col flex-grow">
+        <h3 className="font-medium text-white group-hover:text-center-orange transition-colors mb-4 line-clamp-2 h-12">
+          {displayName}
         </h3>
         <div className="mt-auto">
           <div className="flex justify-between items-center">
-            <span className="text-lg font-semibold text-center-orange">
+            <div className="text-lg font-semibold text-center-orange">
               {formatPrice(product.price)}
-              {product.name.toLowerCase().includes('/m') && <span className="text-xs font-normal text-center-gray dark:text-gray-400">/m</span>}
-            </span>
+              {isSoldByMeter && <span className="text-xs font-normal text-gray-400 ml-1">/m</span>}
+            </div>
             <a 
               href={`https://wa.me/5499270560?text=Olá, tenho interesse no produto: ${product.name} (Cód: ${product.code})`} 
               target="_blank" 
