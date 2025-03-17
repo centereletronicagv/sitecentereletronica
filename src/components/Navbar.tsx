@@ -57,7 +57,7 @@ export default function Navbar() {
             : 'bg-[#181818]'
         }`}
       >
-        <div className="container-custom py-4">
+        <div className="container-custom py-5">
           {/* Top bar with logo, search and actions */}
           <div className="flex items-center justify-between gap-4">
             <Link 
@@ -135,13 +135,13 @@ export default function Navbar() {
           </div>
 
           {/* Bottom navbar with categories - Desktop */}
-          <nav className="hidden md:block mt-2 border-t border-[#333333] pt-2">
-            <ul className="flex items-center gap-8">
+          <nav className="hidden md:block mt-4 border-t border-[#333333] pt-4">
+            <ul className="flex items-center gap-12">
               {navLinks.map((link) => (
                 <li key={link.name}>
                   <Link
                     to={link.href}
-                    className={`flex items-center gap-1.5 py-2 text-sm font-medium transition-colors ${
+                    className={`flex items-center gap-2 py-2 text-sm font-medium transition-colors ${
                       location.pathname === link.href
                         ? 'text-center-orange'
                         : 'text-gray-300 hover:text-center-orange'
@@ -197,7 +197,7 @@ export default function Navbar() {
             </form>
           </div>
 
-          <nav className="flex flex-col gap-2">
+          <nav className="flex flex-col gap-4">
             {navLinks.map((link) => (
               <Link
                 key={link.name}
@@ -213,7 +213,7 @@ export default function Navbar() {
               </Link>
             ))}
             
-            <div className="mt-4 pt-4 border-t border-[#333333]">
+            <div className="mt-6 pt-4 border-t border-[#333333]">
               <Link
                 to="/favoritos"
                 className="flex items-center gap-2 px-4 py-3 text-base font-medium text-gray-300 hover:bg-[#333333] rounded-md"
