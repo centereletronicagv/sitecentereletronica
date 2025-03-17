@@ -2,7 +2,7 @@
 import { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Star } from 'lucide-react';
-import ProductGrid from './ProductGrid';
+import { Link } from 'react-router-dom';
 
 // Sample product data
 interface Product {
@@ -142,12 +142,14 @@ export default function ProductsSection() {
             <Star className="w-6 h-6 text-center-orange" />
           </h2>
           
-          <Button 
-            variant="outline" 
-            className="border-center-orange text-center-orange hover:bg-center-orange hover:text-white"
-          >
-            Ver todos
-          </Button>
+          <Link to="/categoria/instalacoes-eletricas">
+            <Button 
+              variant="outline" 
+              className="border-center-orange text-center-orange hover:bg-center-orange hover:text-white"
+            >
+              Ver todos
+            </Button>
+          </Link>
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
