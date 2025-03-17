@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Menu, X, ShoppingCart, Phone, Search, Wind, Plug, Terminal, Router } from 'lucide-react';
@@ -63,7 +64,7 @@ export default function Navbar() {
             <img 
               src="/public/lovable-uploads/9b2aa237-3c25-41e5-89fc-4a1be00b9aec.png" 
               alt="Center Eletrônica Logo" 
-              className="h-10 w-auto" 
+              className="h-16 w-auto" 
             />
             <span className="ml-2 text-xl font-display font-semibold tracking-tight">
               Center <span className="text-center-orange">Eletrônica</span>
