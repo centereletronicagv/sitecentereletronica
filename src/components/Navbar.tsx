@@ -53,8 +53,8 @@ export default function Navbar() {
       <div 
         className={`w-full transition-all duration-300 ${
           scrolled 
-            ? 'bg-[#222222] shadow-md border-b border-[#333333]' 
-            : 'bg-[#222222]'
+            ? 'bg-[#181818] shadow-md border-b border-[#333333]' 
+            : 'bg-[#181818]'
         }`}
       >
         <div className="container-custom py-4">
@@ -64,14 +64,18 @@ export default function Navbar() {
               to="/" 
               className="flex items-center transition-transform duration-300 hover:-translate-y-0.5"
             >
-              <img 
-                src="/public/lovable-uploads/9b2aa237-3c25-41e5-89fc-4a1be00b9aec.png" 
-                alt="Center Eletrônica Logo" 
-                className="h-28 w-auto" 
-              />
-              <span className="ml-2 text-xl font-display font-semibold tracking-tight text-white">
-                Center <span className="text-center-orange">Eletrônica</span>
-              </span>
+              <div className="flex items-center">
+                <svg 
+                  className="h-8 w-8 text-center-orange" 
+                  viewBox="0 0 24 24" 
+                  fill="currentColor"
+                >
+                  <path d="M12 2L2 12h3v8h14v-8h3L12 2z" />
+                </svg>
+                <span className="ml-2 text-xl font-display font-semibold tracking-tight text-white">
+                  Center <span className="text-center-orange">Eletrônica</span>
+                </span>
+              </div>
             </Link>
 
             <div className="flex-1 max-w-xl hidden sm:block">
@@ -79,7 +83,7 @@ export default function Navbar() {
                 <Input
                   type="search"
                   placeholder="Olá, o que você procura hoje?"
-                  className="pl-4 pr-12 py-2.5 w-full bg-[#333333] border-0 rounded-md text-white focus-visible:ring-center-orange placeholder:text-gray-400"
+                  className="pl-4 pr-12 py-2.5 w-full bg-[#252525] border-[#3a3a3a] border-[1px] rounded-full text-white focus-visible:ring-center-orange placeholder:text-gray-400"
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
                 />
@@ -97,7 +101,7 @@ export default function Navbar() {
                 href="tel:5499270560" 
                 className="flex items-center gap-1.5 text-gray-300 hover:text-center-orange transition-colors"
               >
-                <span className="text-sm">54 9927-0560</span>
+                <span className="text-sm font-medium">54 9927-0560</span>
               </a>
               
               <div className="flex items-center gap-5">
@@ -106,7 +110,7 @@ export default function Navbar() {
                   className="flex items-center gap-1.5 text-gray-300 hover:text-center-orange transition-colors"
                 >
                   <Heart size={20} />
-                  <span className="text-sm">Favoritos</span>
+                  <span className="text-sm font-medium">Favoritos</span>
                 </Link>
               </div>
             </div>
@@ -231,4 +235,3 @@ export default function Navbar() {
     </header>
   );
 }
-

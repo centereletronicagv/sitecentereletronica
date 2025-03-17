@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import Navbar from '../components/Navbar';
@@ -6,9 +5,9 @@ import Footer from '../components/Footer';
 import ProductGrid from '../components/ProductGrid';
 import { Slider } from "@/components/ui/slider";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { ArrowDownNarrowWide, ArrowUpNarrowWide, Flame } from "lucide-react";
+import { ArrowDownNarrowWide, ArrowUpNarrowWide, Flame, Filter, Tag } from "lucide-react";
+import { motion } from "framer-motion";
 
-// Sample product data - in a real app, this would come from an API
 interface Product {
   id: string;
   name: string;
@@ -19,7 +18,6 @@ interface Product {
   popularity: number;
 }
 
-// Sample products for demonstration
 const sampleProducts: Product[] = [
   {
     id: '1',
@@ -104,7 +102,6 @@ const sampleProducts: Product[] = [
   },
 ];
 
-// Category mapping
 const categoryLabels: Record<string, string> = {
   'instalacoes-eletricas': 'Instalações Elétricas',
   'ar-condicionado': 'Ar Condicionado',
@@ -112,7 +109,6 @@ const categoryLabels: Record<string, string> = {
   'automacao': 'Automação',
 };
 
-// Sort options
 type SortOption = 'popularity' | 'price-low' | 'price-high';
 
 export default function CategoryPage() {
@@ -121,23 +117,20 @@ export default function CategoryPage() {
   const [priceRange, setPriceRange] = useState<[number, number]>([0, 200]);
   const [sortBy, setSortBy] = useState<SortOption>('popularity');
   const [allCategories, setAllCategories] = useState<string[]>([]);
+  const [showFilters, setShowFilters] = useState(false);
 
   useEffect(() => {
-    // Get all unique categories
     const categories = Array.from(new Set(sampleProducts.map(product => product.category)));
     setAllCategories(categories);
     
-    // Filter products by category if slug is provided
     let filteredProducts = slug 
       ? sampleProducts.filter(product => product.category === slug)
       : sampleProducts;
     
-    // Apply price filter
     filteredProducts = filteredProducts.filter(
       product => product.price >= priceRange[0] && product.price <= priceRange[1]
     );
     
-    // Apply sorting
     switch(sortBy) {
       case 'popularity':
         filteredProducts.sort((a, b) => b.popularity - a.popularity);
@@ -152,7 +145,6 @@ export default function CategoryPage() {
     
     setProducts(filteredProducts);
     
-    // Set page title
     if (slug && slug in categoryLabels) {
       document.title = `${categoryLabels[slug]} | Center Eletrônica`;
     } else {
@@ -162,7 +154,6 @@ export default function CategoryPage() {
     window.scrollTo(0, 0);
   }, [slug, priceRange, sortBy]);
 
-  // Get max price from all products
   const maxPrice = Math.max(...sampleProducts.map(product => product.price));
   
   const formatCurrency = (value: number) => {
@@ -174,23 +165,47 @@ export default function CategoryPage() {
       <Navbar />
       <main className="flex-grow">
         <div className="container-custom py-12">
-          <h1 className="text-3xl font-bold text-white mb-8">
-            {slug && slug in categoryLabels ? categoryLabels[slug] : 'Todos os Produtos'}
-          </h1>
+          <motion.div 
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="flex flex-col gap-2 mb-8"
+          >
+            <h1 className="text-3xl md:text-4xl font-bold text-white tracking-tight">
+              {slug && slug in categoryLabels ? categoryLabels[slug] : 'Todos os Produtos'}
+            </h1>
+            <p className="text-gray-400">Encontre os melhores produtos para seu projeto</p>
+          </motion.div>
+          
+          <div className="lg:hidden flex justify-between items-center mb-6">
+            <p className="text-gray-400">Mostrando {products.length} produto(s)</p>
+            <button 
+              onClick={() => setShowFilters(!showFilters)}
+              className="flex items-center gap-2 bg-[#252525] border border-[#333] px-3 py-2 rounded-lg text-gray-300"
+            >
+              <Filter size={16} />
+              <span>Filtros</span>
+            </button>
+          </div>
           
           <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
-            {/* Sidebar with filters */}
-            <div className="lg:col-span-1 space-y-8">
-              <div className="bg-[#1E1E1E] p-6 rounded-xl border border-[#333333]">
-                <h2 className="text-white font-semibold text-xl mb-4">Categorias</h2>
+            <motion.div 
+              initial={{ opacity: 0, x: -20 }}
+              animate={{ opacity: 1, x: 0 }}
+              className={`lg:col-span-1 space-y-8 ${showFilters ? 'block' : 'hidden lg:block'}`}
+            >
+              <div className="bg-gradient-to-b from-[#1E1E1E] to-[#232323] p-6 rounded-xl border border-[#333333] shadow-lg">
+                <div className="flex items-center gap-2 mb-4">
+                  <Tag size={18} className="text-center-orange" />
+                  <h2 className="text-white font-semibold text-xl">Categorias</h2>
+                </div>
                 <nav className="space-y-2">
                   {allCategories.map(cat => (
                     <a 
                       key={cat}
                       href={`/categoria/${cat}`}
-                      className={`block py-2 px-3 rounded-md text-sm transition-colors ${
+                      className={`block py-2.5 px-4 rounded-md text-sm transition-all duration-200 ${
                         slug === cat 
-                          ? 'bg-center-orange text-white' 
+                          ? 'bg-center-orange text-white font-medium shadow-md shadow-center-orange/20' 
                           : 'text-gray-300 hover:bg-[#333333] hover:text-white'
                       }`}
                     >
@@ -200,28 +215,34 @@ export default function CategoryPage() {
                 </nav>
               </div>
               
-              <div className="bg-[#1E1E1E] p-6 rounded-xl border border-[#333333]">
-                <h2 className="text-white font-semibold text-xl mb-4">Filtrar por Preço</h2>
+              <div className="bg-gradient-to-b from-[#1E1E1E] to-[#232323] p-6 rounded-xl border border-[#333333] shadow-lg">
+                <div className="flex items-center gap-2 mb-6">
+                  <ArrowUpNarrowWide size={18} className="text-center-orange" />
+                  <h2 className="text-white font-semibold text-xl">Filtrar por Preço</h2>
+                </div>
                 <div className="px-2">
                   <Slider 
                     defaultValue={priceRange} 
                     max={maxPrice} 
                     step={1}
                     onValueChange={(value) => setPriceRange(value as [number, number])}
-                    className="mb-4"
+                    className="mb-6"
                   />
-                  <div className="flex justify-between text-white text-sm">
+                  <div className="flex justify-between text-white text-sm bg-[#252525] p-3 rounded-lg">
                     <span>{formatCurrency(priceRange[0])}</span>
                     <span>{formatCurrency(priceRange[1])}</span>
                   </div>
                 </div>
               </div>
-            </div>
+            </motion.div>
             
-            {/* Products area */}
-            <div className="lg:col-span-3">
-              <div className="flex items-center justify-between mb-6">
-                <p className="text-gray-400">Mostrando {products.length} produto(s)</p>
+            <motion.div 
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              className="lg:col-span-3"
+            >
+              <div className="flex items-center justify-between mb-6 bg-[#1E1E1E] p-4 rounded-xl border border-[#333333]">
+                <p className="text-gray-400 font-medium">Mostrando {products.length} produto(s)</p>
                 
                 <div className="flex items-center gap-2">
                   <span className="text-gray-400 mr-2 text-sm">Ordenar por:</span>
@@ -229,7 +250,7 @@ export default function CategoryPage() {
                     value={sortBy}
                     onValueChange={(value) => setSortBy(value as SortOption)}
                   >
-                    <SelectTrigger className="w-[180px] bg-[#1E1E1E] border-[#333333] text-white">
+                    <SelectTrigger className="w-[180px] bg-[#252525] border-[#333333] text-white">
                       <SelectValue placeholder="Mais populares" />
                     </SelectTrigger>
                     <SelectContent className="bg-[#1E1E1E] border-[#333333] text-white">
@@ -248,7 +269,7 @@ export default function CategoryPage() {
               </div>
               
               <ProductGrid products={products} />
-            </div>
+            </motion.div>
           </div>
         </div>
       </main>

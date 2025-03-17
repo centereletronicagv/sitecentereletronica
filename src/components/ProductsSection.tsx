@@ -1,8 +1,9 @@
 
 import { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
-import { Star } from 'lucide-react';
+import { Star, ShoppingCart } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import { motion } from 'framer-motion';
 
 // Sample product data
 interface Product {
@@ -23,7 +24,7 @@ const sampleProducts: Product[] = [
     name: 'Abraçadeira 3/4" Tramontina Cinza',
     code: 'ABR-001',
     price: 3.70,
-    image: '/public/lovable-uploads/fe15bc67-99a8-48bb-9477-8a5f5d5f928d.png',
+    image: '/lovable-uploads/fe15bc67-99a8-48bb-9477-8a5f5d5f928d.png',
     category: 'instalacoes-eletricas',
     popularity: 10,
     featured: true
@@ -33,7 +34,7 @@ const sampleProducts: Product[] = [
     name: 'Luva para Eletroduto 3/4" Tramontina Cinza',
     code: 'LUV-001',
     price: 2.75,
-    image: '/public/lovable-uploads/fe15bc67-99a8-48bb-9477-8a5f5d5f928d.png',
+    image: '/lovable-uploads/fe15bc67-99a8-48bb-9477-8a5f5d5f928d.png',
     category: 'instalacoes-eletricas',
     popularity: 8,
     featured: true
@@ -134,18 +135,21 @@ export default function ProductsSection() {
   };
 
   return (
-    <section className="py-16 bg-[#151515] border-y border-[#222222]">
+    <section className="py-16 bg-gradient-to-b from-[#151515] to-[#1a1a1a]">
       <div className="container-custom">
-        <div className="flex items-center justify-between mb-8">
-          <h2 className="section-title flex items-center gap-2">
-            Produtos em Destaque
-            <Star className="w-6 h-6 text-center-orange" />
-          </h2>
+        <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-12">
+          <div className="flex items-center">
+            <div className="w-1.5 h-12 bg-center-orange rounded-full mr-4"></div>
+            <h2 className="section-title flex items-center gap-3 text-balance">
+              Produtos em Destaque
+              <Star className="w-6 h-6 text-center-orange" fill="currentColor" />
+            </h2>
+          </div>
           
           <Link to="/categoria/instalacoes-eletricas">
             <Button 
               variant="outline" 
-              className="border-center-orange text-center-orange hover:bg-center-orange hover:text-white"
+              className="border-center-orange text-center-orange hover:bg-center-orange hover:text-white transition-all duration-300"
             >
               Ver todos
             </Button>
@@ -153,41 +157,43 @@ export default function ProductsSection() {
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          {featuredProducts.map((product) => (
-            <div 
-              key={product.id} 
-              className="bg-[#1E1E1E] rounded-xl border border-[#333333] overflow-hidden shadow-lg group transition-all duration-300 hover:translate-y-[-8px]"
+          {featuredProducts.map((product, index) => (
+            <motion.div 
+              key={product.id}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: index * 0.1 }}
+              className="bg-[#1E1E1E] rounded-xl border border-[#333333] overflow-hidden shadow-lg group hover:shadow-xl transition-all duration-300 hover:border-center-orange/40"
+              whileHover={{ y: -8 }}
             >
-              <div className="h-48 bg-[#222222] flex items-center justify-center p-4 relative">
+              <div className="h-48 bg-gradient-to-br from-[#252525] to-[#202020] flex items-center justify-center p-4 relative">
                 <img 
-                  src={product.image.replace('/public', '')} 
+                  src={product.image} 
                   alt={product.name} 
-                  className="max-h-full max-w-full object-contain"
+                  className="max-h-full max-w-full object-contain transition-transform duration-300 group-hover:scale-105"
                 />
                 <div className="absolute top-3 left-3">
-                  <span className="bg-center-orange text-white text-xs px-2 py-1 rounded">
+                  <span className="bg-center-orange text-white text-xs px-2.5 py-1 rounded-full font-medium">
                     Cód: {product.code}
                   </span>
                 </div>
               </div>
-              <div className="p-4">
-                <h3 className="text-white font-medium text-base line-clamp-2 mb-2">{product.name}</h3>
+              <div className="p-5">
+                <h3 className="text-white font-medium text-base line-clamp-2 mb-2 h-12">{product.name}</h3>
                 <div className="flex items-center justify-between mt-4">
                   <div className="text-center-orange font-bold text-lg">
                     {formatCurrency(product.price)}
                   </div>
                   <Button 
                     size="icon" 
-                    className="bg-center-orange hover:bg-center-orangeLight text-white rounded-full"
+                    className="bg-center-orange hover:bg-center-orangeLight text-white rounded-full w-10 h-10 transition-all duration-300 hover:scale-105"
                   >
                     <span className="sr-only">Adicionar ao carrinho</span>
-                    <svg width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <path d="M7.5 4v7M4 7.5h7" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"></path>
-                    </svg>
+                    <ShoppingCart size={18} />
                   </Button>
                 </div>
               </div>
-            </div>
+            </motion.div>
           ))}
         </div>
       </div>

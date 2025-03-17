@@ -38,6 +38,9 @@
 .card {
   padding: 2em;
   background-color: #222222;
+  border-radius: 8px;
+  border: 1px solid #333333;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
   color: white;
 }
 
