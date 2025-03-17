@@ -1,7 +1,7 @@
 
 import { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Menu, X, ShoppingCart, Phone, Search, Wind, Plug, Terminal, Router, ChevronDown, Heart, Package } from 'lucide-react';
+import { Menu, X, Search, Wind, Plug, Terminal, Router, ChevronDown, Heart } from 'lucide-react';
 import { Input } from './ui/input';
 
 interface NavLink {
@@ -19,14 +19,11 @@ const navLinks: NavLink[] = [
   { name: 'Contato', href: '/contato' },
 ];
 
-const promotionalMessage = "Frete grátis para todo o Brasil nas compras acima de R$ 599";
-
 export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
   const location = useLocation();
-  const [showPromo, setShowPromo] = useState(true);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -52,20 +49,6 @@ export default function Navbar() {
 
   return (
     <header className="w-full">
-      {/* Promotional Banner */}
-      {showPromo && (
-        <div className="bg-center-orange text-white text-center py-2 relative">
-          <p className="text-sm font-medium">{promotionalMessage}</p>
-          <button 
-            className="absolute right-4 top-1/2 transform -translate-y-1/2 text-white/80 hover:text-white"
-            onClick={() => setShowPromo(false)}
-            aria-label="Close promotional banner"
-          >
-            <X size={16} />
-          </button>
-        </div>
-      )}
-
       {/* Main Navbar */}
       <div 
         className={`w-full transition-all duration-300 ${
@@ -114,7 +97,6 @@ export default function Navbar() {
                 href="tel:5499270560" 
                 className="flex items-center gap-1.5 text-gray-300 hover:text-center-orange transition-colors"
               >
-                <Phone size={18} />
                 <span className="text-sm">54 9927-0560</span>
               </a>
               
@@ -125,23 +107,6 @@ export default function Navbar() {
                 >
                   <Heart size={20} />
                   <span className="text-sm">Favoritos</span>
-                </Link>
-                
-                <Link
-                  to="/pedidos"
-                  className="flex items-center gap-1.5 text-gray-300 hover:text-center-orange transition-colors"
-                >
-                  <Package size={20} />
-                  <span className="text-sm">Meus pedidos</span>
-                </Link>
-                
-                <Link
-                  to="/carrinho"
-                  className="flex items-center gap-1.5 text-center-orange transition-colors"
-                >
-                  <ShoppingCart size={20} />
-                  <span className="text-sm font-medium">Meu carrinho</span>
-                  <span className="bg-center-orange text-white text-xs w-5 h-5 flex items-center justify-center rounded-full">0</span>
                 </Link>
               </div>
             </div>
@@ -155,14 +120,6 @@ export default function Navbar() {
               >
                 <Search size={18} />
               </button>
-              
-              <Link 
-                to="/carrinho"
-                className="relative p-2 text-center-orange bg-center-orange/10 rounded-full"
-              >
-                <ShoppingCart size={18} />
-                <span className="absolute -top-1 -right-1 bg-center-orange text-white text-xs w-4 h-4 flex items-center justify-center rounded-full">0</span>
-              </Link>
               
               <button
                 onClick={() => setIsMenuOpen(!isMenuOpen)}
@@ -260,21 +217,12 @@ export default function Navbar() {
                 <Heart size={18} />
                 <span>Favoritos</span>
               </Link>
-              
-              <Link
-                to="/pedidos"
-                className="flex items-center gap-2 px-4 py-3 text-base font-medium text-gray-300 hover:bg-[#333333] rounded-md"
-              >
-                <Package size={18} />
-                <span>Meus pedidos</span>
-              </Link>
             </div>
             
             <a 
               href="tel:5499270560" 
               className="mt-2 flex items-center gap-2 px-4 py-3 text-base font-medium text-white bg-center-orange rounded-md"
             >
-              <Phone size={18} />
               <span>Ligar: 54 9927-0560</span>
             </a>
           </nav>
@@ -283,3 +231,4 @@ export default function Navbar() {
     </header>
   );
 }
+
