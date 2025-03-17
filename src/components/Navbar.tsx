@@ -70,8 +70,8 @@ export default function Navbar() {
       <div 
         className={`w-full transition-all duration-300 ${
           scrolled 
-            ? 'bg-white shadow-sm border-b border-gray-100' 
-            : 'bg-white'
+            ? 'bg-[#222222] shadow-md border-b border-[#333333]' 
+            : 'bg-[#222222]'
         }`}
       >
         <div className="container-custom py-4">
@@ -86,7 +86,7 @@ export default function Navbar() {
                 alt="Center Eletrônica Logo" 
                 className="h-28 w-auto" 
               />
-              <span className="ml-2 text-xl font-display font-semibold tracking-tight">
+              <span className="ml-2 text-xl font-display font-semibold tracking-tight text-white">
                 Center <span className="text-center-orange">Eletrônica</span>
               </span>
             </Link>
@@ -96,13 +96,13 @@ export default function Navbar() {
                 <Input
                   type="search"
                   placeholder="Olá, o que você procura hoje?"
-                  className="pl-4 pr-12 py-2.5 w-full bg-gray-100 border-0 rounded-md focus-visible:ring-center-orange"
+                  className="pl-4 pr-12 py-2.5 w-full bg-[#333333] border-0 rounded-md text-white focus-visible:ring-center-orange placeholder:text-gray-400"
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
                 />
                 <button 
                   type="submit"
-                  className="absolute right-0 top-0 h-full px-3 flex items-center justify-center text-center-gray hover:text-center-orange"
+                  className="absolute right-0 top-0 h-full px-3 flex items-center justify-center text-gray-400 hover:text-center-orange"
                 >
                   <Search size={20} />
                 </button>
@@ -112,7 +112,7 @@ export default function Navbar() {
             <div className="hidden md:flex items-center gap-6">
               <a 
                 href="tel:5499270560" 
-                className="flex items-center gap-1.5 text-center-darkGray hover:text-center-orange transition-colors"
+                className="flex items-center gap-1.5 text-gray-300 hover:text-center-orange transition-colors"
               >
                 <Phone size={18} />
                 <span className="text-sm">54 9927-0560</span>
@@ -121,7 +121,7 @@ export default function Navbar() {
               <div className="flex items-center gap-5">
                 <Link
                   to="/favoritos"
-                  className="flex items-center gap-1.5 text-center-darkGray hover:text-center-orange transition-colors"
+                  className="flex items-center gap-1.5 text-gray-300 hover:text-center-orange transition-colors"
                 >
                   <Heart size={20} />
                   <span className="text-sm">Favoritos</span>
@@ -129,7 +129,7 @@ export default function Navbar() {
                 
                 <Link
                   to="/pedidos"
-                  className="flex items-center gap-1.5 text-center-darkGray hover:text-center-orange transition-colors"
+                  className="flex items-center gap-1.5 text-gray-300 hover:text-center-orange transition-colors"
                 >
                   <Package size={20} />
                   <span className="text-sm">Meus pedidos</span>
@@ -148,7 +148,7 @@ export default function Navbar() {
 
             <div className="flex items-center gap-3 md:hidden">
               <button 
-                className="p-2 text-center-darkGray bg-gray-100 rounded-full"
+                className="p-2 text-gray-300 bg-[#333333] rounded-full"
                 onClick={() => {
                   console.log('Open mobile search');
                 }}
@@ -166,7 +166,7 @@ export default function Navbar() {
               
               <button
                 onClick={() => setIsMenuOpen(!isMenuOpen)}
-                className="p-2 text-center-darkGray rounded-md transition-colors hover:bg-gray-100"
+                className="p-2 text-gray-300 rounded-md transition-colors hover:bg-[#333333]"
               >
                 {isMenuOpen ? <X size={20} /> : <Menu size={20} />}
               </button>
@@ -174,7 +174,7 @@ export default function Navbar() {
           </div>
 
           {/* Bottom navbar with categories - Desktop */}
-          <nav className="hidden md:block mt-2 border-t border-gray-100 pt-2">
+          <nav className="hidden md:block mt-2 border-t border-[#333333] pt-2">
             <ul className="flex items-center gap-8">
               {navLinks.map((link) => (
                 <li key={link.name}>
@@ -183,7 +183,7 @@ export default function Navbar() {
                     className={`flex items-center gap-1.5 py-2 text-sm font-medium transition-colors ${
                       location.pathname === link.href
                         ? 'text-center-orange'
-                        : 'text-center-darkGray hover:text-center-orange'
+                        : 'text-gray-300 hover:text-center-orange'
                     }`}
                   >
                     {link.icon && link.icon}
@@ -199,7 +199,7 @@ export default function Navbar() {
 
       {/* Mobile menu */}
       <div 
-        className={`fixed inset-0 z-40 bg-white transform transition-transform duration-300 ease-in-out ${
+        className={`fixed inset-0 z-40 bg-[#222222] transform transition-transform duration-300 ease-in-out ${
           isMenuOpen ? 'translate-x-0' : 'translate-x-full'
         }`}
       >
@@ -211,13 +211,13 @@ export default function Navbar() {
                 alt="Center Eletrônica Logo" 
                 className="h-8 w-auto" 
               />
-              <span className="ml-2 text-lg font-display font-semibold tracking-tight">
+              <span className="ml-2 text-lg font-display font-semibold tracking-tight text-white">
                 Center <span className="text-center-orange">Eletrônica</span>
               </span>
             </Link>
             <button
               onClick={() => setIsMenuOpen(false)}
-              className="p-2 text-center-darkGray rounded-md hover:bg-gray-100"
+              className="p-2 text-gray-300 rounded-md hover:bg-[#333333]"
             >
               <X size={20} />
             </button>
@@ -228,11 +228,11 @@ export default function Navbar() {
               <Input
                 type="search"
                 placeholder="Buscar produtos..."
-                className="pl-10 pr-4 py-2 w-full bg-gray-100 border-0"
+                className="pl-10 pr-4 py-2 w-full bg-[#333333] border-0 text-white"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
               />
-              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-center-gray" />
+              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
             </form>
           </div>
 
@@ -244,7 +244,7 @@ export default function Navbar() {
                 className={`flex items-center gap-2 px-4 py-3 text-base font-medium rounded-md transition-colors ${
                   location.pathname === link.href
                     ? 'bg-center-orange/10 text-center-orange'
-                    : 'text-center-darkGray hover:bg-gray-50'
+                    : 'text-gray-300 hover:bg-[#333333]'
                 }`}
               >
                 {link.icon && link.icon}
@@ -252,10 +252,10 @@ export default function Navbar() {
               </Link>
             ))}
             
-            <div className="mt-4 pt-4 border-t border-gray-100">
+            <div className="mt-4 pt-4 border-t border-[#333333]">
               <Link
                 to="/favoritos"
-                className="flex items-center gap-2 px-4 py-3 text-base font-medium text-center-darkGray hover:bg-gray-50 rounded-md"
+                className="flex items-center gap-2 px-4 py-3 text-base font-medium text-gray-300 hover:bg-[#333333] rounded-md"
               >
                 <Heart size={18} />
                 <span>Favoritos</span>
@@ -263,7 +263,7 @@ export default function Navbar() {
               
               <Link
                 to="/pedidos"
-                className="flex items-center gap-2 px-4 py-3 text-base font-medium text-center-darkGray hover:bg-gray-50 rounded-md"
+                className="flex items-center gap-2 px-4 py-3 text-base font-medium text-gray-300 hover:bg-[#333333] rounded-md"
               >
                 <Package size={18} />
                 <span>Meus pedidos</span>
