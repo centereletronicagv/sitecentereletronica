@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 
 export default function Hero() {
   return (
-    <section className="relative pt-24 pb-20 overflow-hidden bg-background">
+    <section className="relative pt-24 pb-20 overflow-hidden bg-[#252a33]"> {/* Changed background color */}
       <div className="container-custom relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
           <div className="space-y-6 reveal-slide-up">

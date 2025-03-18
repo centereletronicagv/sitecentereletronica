@@ -1,11 +1,9 @@
-
 import { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Star, ShoppingCart } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 
-// Sample product data
 interface Product {
   id: string;
   name: string;
@@ -17,7 +15,6 @@ interface Product {
   featured?: boolean;
 }
 
-// Sample products for demonstration
 const sampleProducts: Product[] = [
   {
     id: '1',
@@ -109,21 +106,16 @@ const sampleProducts: Product[] = [
 export default function ProductsSection() {
   const [featuredProducts, setFeaturedProducts] = useState<Product[]>([]);
 
-  // Get 4 featured products
   useEffect(() => {
-    // First try to get products marked as featured
     let featured = sampleProducts.filter(product => product.featured);
     
-    // If we don't have enough featured products, add the most popular ones
     if (featured.length < 4) {
       const nonFeatured = sampleProducts
         .filter(product => !product.featured)
         .sort((a, b) => b.popularity - a.popularity);
       
-      // Add as many as needed to reach 4 total
       featured = [...featured, ...nonFeatured.slice(0, 4 - featured.length)];
     } else if (featured.length > 4) {
-      // If we have too many, take only the first 4
       featured = featured.slice(0, 4);
     }
 
@@ -135,7 +127,7 @@ export default function ProductsSection() {
   };
 
   return (
-    <section className="py-16 bg-gradient-to-b from-[#151515] to-[#1a1a1a]">
+    <section className="py-16 bg-gradient-to-b from-[#252a33] to-[#303642]">
       <div className="container-custom">
         <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-12">
           <div className="flex items-center">
@@ -163,10 +155,10 @@ export default function ProductsSection() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
-              className="bg-[#1E1E1E] rounded-xl border border-[#333333] overflow-hidden shadow-lg group hover:shadow-xl transition-all duration-300 hover:border-center-orange/40"
+              className="bg-[#303642] rounded-xl border border-[#414857] overflow-hidden shadow-lg group hover:shadow-xl transition-all duration-300 hover:border-center-orange/40"
               whileHover={{ y: -8 }}
             >
-              <div className="h-48 bg-gradient-to-br from-[#252525] to-[#202020] flex items-center justify-center p-4 relative">
+              <div className="h-48 bg-gradient-to-br from-[#353a47] to-[#303642] flex items-center justify-center p-4 relative">
                 <img 
                   src={product.image} 
                   alt={product.name} 
