@@ -145,10 +145,7 @@
   }
 }
 
-.hero-triangle {
-  clip-path: polygon(0 0, 100% 0, 100% 85%, 0 100%);
-  background: linear-gradient(to bottom, #151515, #1a1a1a);
-}
+/* Removed the hero-triangle class that was creating the black overlay triangle */
 
 .text-balance {
   text-wrap: balance;
