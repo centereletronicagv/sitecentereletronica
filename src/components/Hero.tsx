@@ -148,9 +148,6 @@ export default function Hero() {
           </div>
         </div>
       </div>
-      
-      <div className="absolute top-0 right-0 w-1/2 h-full bg-center-orange/5 dark:bg-center-orange/2 z-0"></div>
-      <div className="absolute top-24 left-6 w-20 h-20 rounded-full bg-center-orange/10 z-0"></div>
     </section>
   );
 }
