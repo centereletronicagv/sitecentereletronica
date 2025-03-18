@@ -127,7 +127,7 @@ export default function ProductsSection() {
   };
 
   return (
-    <section className="py-16 bg-gradient-to-b from-[#252a33] to-[#303642]">
+    <section className="py-16 bg-[#181818]">
       <div className="container-custom">
         <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-12">
           <div className="flex items-center">
@@ -155,10 +155,10 @@ export default function ProductsSection() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
-              className="bg-[#303642] rounded-xl border border-[#414857] overflow-hidden shadow-lg group hover:shadow-xl transition-all duration-300 hover:border-center-orange/40"
+              className="bg-[#222222] rounded-xl border border-[#333333] overflow-hidden shadow-lg group hover:shadow-xl transition-all duration-300 hover:border-center-orange/40"
               whileHover={{ y: -8 }}
             >
-              <div className="h-48 bg-gradient-to-br from-[#353a47] to-[#303642] flex items-center justify-center p-4 relative">
+              <div className="h-48 bg-gradient-to-br from-[#2a2a2a] to-[#222222] flex items-center justify-center p-4 relative">
                 <img 
                   src={product.image} 
                   alt={product.name} 
