@@ -1,3 +1,4 @@
+
 import { Link } from 'react-router-dom';
 import { Phone, Mail, MapPin, Clock, Instagram, Facebook, ArrowRight, Wind, Plug, Terminal, Router } from 'lucide-react';
 
@@ -14,18 +15,8 @@ export default function Footer() {
   return (
     <footer className="bg-center-lightGray border-t border-gray-200">
       <div className="container-custom pt-16 pb-8">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
           <div>
-            <div className="flex items-center mb-4">
-              <img 
-                src="/public/lovable-uploads/9b2aa237-3c25-41e5-89fc-4a1be00b9aec.png" 
-                alt="Center Eletrônica Logo" 
-                className="h-8 w-auto" 
-              />
-              <span className="ml-2 text-xl font-display font-semibold tracking-tight">
-                Center <span className="text-center-orange">Eletrônica</span>
-              </span>
-            </div>
             <p className="text-center-gray mb-6">
               Loja de produtos Elétricos, Eletrônicos, Automação, Informática e mais.
             </p>
@@ -118,22 +109,6 @@ export default function Footer() {
               >
                 <Facebook size={18} />
               </a>
-            </div>
-          </div>
-
-          <div>
-            <h3 className="text-lg font-medium mb-4">Localização</h3>
-            <div className="rounded-lg overflow-hidden border border-gray-200 shadow-sm bg-white h-[200px]">
-              <iframe 
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3502.1962748164547!2d-52.22661292347696!3d-27.885811294873484!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x94e4a1e15a58af59%3A0x8ac0d84b5b11eb09!2sR.%20Jacob%20Gremmelmaier%2C%20409%20-%20Centro%2C%20Get%C3%BAlio%20Vargas%20-%20RS%2C%2099900-000!5e0!3m2!1spt-BR!2sbr!4v1720736462743!5m2!1spt-BR!2sbr" 
-                width="100%" 
-                height="100%" 
-                style={{ border: 0 }} 
-                allowFullScreen 
-                loading="lazy" 
-                referrerPolicy="no-referrer-when-downgrade"
-                title="Localização da Center Eletrônica"
-              ></iframe>
             </div>
           </div>
         </div>
