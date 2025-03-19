@@ -1,7 +1,7 @@
 
 import { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Menu, X, Search, Wind, Plug, Terminal, Router, ChevronDown, Heart } from 'lucide-react';
+import { Menu, X, Search, Wind, Plug, Terminal, Router, ChevronDown, Heart, ShoppingCart } from 'lucide-react';
 import { Input } from './ui/input';
 
 interface NavLink {
@@ -105,6 +105,14 @@ export default function Navbar() {
               </a>
               
               <div className="flex items-center gap-5">
+                <Link
+                  to="/carrinho"
+                  className="flex items-center gap-1.5 text-gray-300 hover:text-center-orange transition-colors"
+                >
+                  <ShoppingCart size={20} />
+                  <span className="text-sm font-medium">Carrinho</span>
+                </Link>
+                
                 <Link
                   to="/favoritos"
                   className="flex items-center gap-1.5 text-gray-300 hover:text-center-orange transition-colors"
@@ -214,6 +222,14 @@ export default function Navbar() {
             ))}
             
             <div className="mt-6 pt-4 border-t border-[#333333]">
+              <Link
+                to="/carrinho"
+                className="flex items-center gap-2 px-4 py-3 text-base font-medium text-gray-300 hover:bg-[#333333] rounded-md"
+              >
+                <ShoppingCart size={18} />
+                <span>Carrinho</span>
+              </Link>
+              
               <Link
                 to="/favoritos"
                 className="flex items-center gap-2 px-4 py-3 text-base font-medium text-gray-300 hover:bg-[#333333] rounded-md"
