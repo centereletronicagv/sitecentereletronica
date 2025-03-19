@@ -68,10 +68,10 @@ export default function Hero() {
             </div>
           </div>
           
-          <div className="md:w-1/3 rounded-lg overflow-hidden shadow-2xl">
+          <div className="md:w-2/5 rounded-lg overflow-hidden shadow-2xl">
             <img 
-              src="https://images.unsplash.com/photo-1487958449943-2429e8be8625?auto=format&fit=crop&w=600" 
-              alt="Building" 
+              src="/lovable-uploads/00b83df6-8857-4892-a9a5-37085b5cf813.png" 
+              alt="Loja Center Eletrônica" 
               className="w-full h-auto object-cover rounded-lg"
             />
           </div>
