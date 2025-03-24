@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Star, ShoppingCart } from 'lucide-react';
@@ -91,6 +92,47 @@ const sampleProducts: Product[] = [
     image: '/public/lovable-uploads/fe15bc67-99a8-48bb-9477-8a5f5d5f928d.png',
     category: 'automacao',
     popularity: 7
+  },
+  // Destacados dos novos produtos
+  {
+    id: '30',
+    name: 'FLUÍDO R32 650g',
+    code: '7899733823641',
+    price: 130.00,
+    image: '/lovable-uploads/r32650g.png',
+    category: 'fluidos',
+    popularity: 9,
+    featured: true
+  },
+  {
+    id: '20',
+    name: 'TUBEX 1/4 2m',
+    code: '7199',
+    price: 6.50,
+    image: '/lovable-uploads/tubex.png',
+    category: 'tubex',
+    popularity: 7,
+    featured: true
+  },
+  {
+    id: '37',
+    name: 'DISJUTNOR 10A C WEG',
+    code: '7909522567677',
+    price: 14.00,
+    image: '/lovable-uploads/weg.png',
+    category: 'disjuntores',
+    popularity: 9,
+    featured: true
+  },
+  {
+    id: '53',
+    name: 'CAPACITOR 0,9UF 400VAC',
+    code: '11305',
+    price: 20.00,
+    image: '/lovable-uploads/capacitorpreto.png',
+    category: 'capacitor',
+    popularity: 8,
+    featured: true
   },
 ];
 
