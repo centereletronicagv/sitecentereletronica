@@ -75,15 +75,6 @@ const sampleProducts: Product[] = [
     featured: true
   },
   {
-    id: '7',
-    name: 'Controlador de Temperatura Digital',
-    code: 'CTR-001',
-    price: 189.90,
-    image: '/public/lovable-uploads/fe15bc67-99a8-48bb-9477-8a5f5d5f928d.png',
-    category: 'ar-condicionado',
-    popularity: 9
-  },
-  {
     id: '8',
     name: 'Terminal de Compressão 50mm',
     code: 'TRM-001',
