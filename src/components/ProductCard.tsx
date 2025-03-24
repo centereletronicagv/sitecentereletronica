@@ -1,6 +1,7 @@
 
 import { useState } from 'react';
-import { ShoppingCart } from 'lucide-react';
+import { ShoppingCart, Plus } from 'lucide-react';
+import { toast } from "@/hooks/use-toast";
 
 interface Product {
   id: string;
@@ -28,6 +29,13 @@ export default function ProductCard({ product }: ProductCardProps) {
 
   const handleImageLoad = () => {
     setIsImageLoaded(true);
+  };
+
+  const handleAddToCart = () => {
+    toast({
+      title: "Produto adicionado!",
+      description: `${product.name} foi adicionado ao carrinho.`,
+    });
   };
 
   // Check if the product is sold by meter
@@ -72,14 +80,13 @@ export default function ProductCard({ product }: ProductCardProps) {
               {formatPrice(product.price)}
               {isSoldByMeter && <span className="text-xs font-normal text-gray-400 ml-1">/m</span>}
             </div>
-            <a 
-              href={`https://wa.me/5499270560?text=Olá, tenho interesse no produto: ${product.name} (Cód: ${product.code})`} 
-              target="_blank" 
-              rel="noopener noreferrer"
-              className="p-2 rounded-full text-center-orange bg-center-orange/10 hover:bg-center-orange hover:text-white transition-colors"
+            <button 
+              onClick={handleAddToCart}
+              className="p-2 rounded-full text-center-orange bg-center-orange/10 hover:bg-center-orange hover:text-white transition-colors flex items-center justify-center"
+              aria-label="Adicionar ao carrinho"
             >
               <ShoppingCart size={18} />
-            </a>
+            </button>
           </div>
         </div>
       </div>
