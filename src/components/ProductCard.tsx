@@ -1,7 +1,7 @@
 
 import { useState } from 'react';
 import { ShoppingCart, Plus } from 'lucide-react';
-import { toast } from "@/hooks/use-toast";
+import { useCart } from '@/context/CartContext';
 
 interface Product {
   id: string;
@@ -19,6 +19,7 @@ interface ProductCardProps {
 export default function ProductCard({ product }: ProductCardProps) {
   const [isImageLoaded, setIsImageLoaded] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
+  const { addToCart } = useCart();
 
   const formatPrice = (price: number) => {
     return new Intl.NumberFormat('pt-BR', {
@@ -32,10 +33,7 @@ export default function ProductCard({ product }: ProductCardProps) {
   };
 
   const handleAddToCart = () => {
-    toast({
-      title: "Produto adicionado!",
-      description: `${product.name} foi adicionado ao carrinho.`,
-    });
+    addToCart(product);
   };
 
   // Check if the product is sold by meter

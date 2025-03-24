@@ -3,6 +3,8 @@ import { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Menu, X, Search, Wind, Plug, Terminal, Router, ChevronDown, Heart, ShoppingCart } from 'lucide-react';
 import { Input } from './ui/input';
+import { useCart } from '@/context/CartContext';
+import CartModal from './CartModal';
 
 interface NavLink {
   name: string;
@@ -23,7 +25,9 @@ export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
+  const [isCartOpen, setIsCartOpen] = useState(false);
   const location = useLocation();
+  const { getTotalItems } = useCart();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -105,13 +109,18 @@ export default function Navbar() {
               </a>
               
               <div className="flex items-center gap-5">
-                <Link
-                  to="/carrinho"
-                  className="flex items-center gap-1.5 text-gray-300 hover:text-center-orange transition-colors"
+                <button
+                  onClick={() => setIsCartOpen(true)}
+                  className="flex items-center gap-1.5 text-gray-300 hover:text-center-orange transition-colors relative"
                 >
                   <ShoppingCart size={20} />
                   <span className="text-sm font-medium">Carrinho</span>
-                </Link>
+                  {getTotalItems() > 0 && (
+                    <span className="absolute -top-2 -right-2 bg-center-orange text-white text-xs w-5 h-5 flex items-center justify-center rounded-full">
+                      {getTotalItems()}
+                    </span>
+                  )}
+                </button>
                 
                 <Link
                   to="/favoritos"
@@ -222,13 +231,21 @@ export default function Navbar() {
             ))}
             
             <div className="mt-6 pt-4 border-t border-[#333333]">
-              <Link
-                to="/carrinho"
-                className="flex items-center gap-2 px-4 py-3 text-base font-medium text-gray-300 hover:bg-[#333333] rounded-md"
+              <button
+                onClick={() => {
+                  setIsCartOpen(true);
+                  setIsMenuOpen(false);
+                }}
+                className="flex items-center gap-2 px-4 py-3 text-base font-medium text-gray-300 hover:bg-[#333333] rounded-md w-full text-left"
               >
                 <ShoppingCart size={18} />
                 <span>Carrinho</span>
-              </Link>
+                {getTotalItems() > 0 && (
+                  <span className="ml-auto bg-center-orange text-white text-xs w-5 h-5 flex items-center justify-center rounded-full">
+                    {getTotalItems()}
+                  </span>
+                )}
+              </button>
               
               <Link
                 to="/favoritos"
@@ -248,6 +265,9 @@ export default function Navbar() {
           </nav>
         </div>
       </div>
+
+      {/* Cart Modal */}
+      <CartModal open={isCartOpen} onOpenChange={setIsCartOpen} />
     </header>
   );
 }
