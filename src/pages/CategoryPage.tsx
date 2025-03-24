@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import Navbar from '../components/Navbar';
@@ -101,7 +100,6 @@ const sampleProducts: Product[] = [
     category: 'automacao',
     popularity: 7,
   },
-  // Novos produtos de Ar-Condicionado
   {
     id: '10',
     name: 'SUPORTE 400MM',
@@ -215,7 +213,7 @@ const sampleProducts: Product[] = [
     name: 'TUBEX 1/4 2M',
     code: '7199',
     price: 6.50,
-    image: '/lovable-uploads/12d44120-0f3c-48fb-8b7e-2db5de3a70ca.png',
+    image: '/lovable-uploads/tubex.png',
     category: 'ar-condicionado',
     popularity: 7,
   },
@@ -224,7 +222,7 @@ const sampleProducts: Product[] = [
     name: 'TUBEX 3/8 2M',
     code: '7200',
     price: 6.50,
-    image: '/lovable-uploads/3d46ede6-5ce1-4427-bb72-bf93e085f616.png',
+    image: '/lovable-uploads/tubex.png',
     category: 'ar-condicionado',
     popularity: 7,
   },
@@ -233,7 +231,7 @@ const sampleProducts: Product[] = [
     name: 'TUBEX 1/2 2M',
     code: '7201',
     price: 6.50,
-    image: '/lovable-uploads/056e88a9-ff61-4a79-a26e-358a1efb3eb2.png',
+    image: '/lovable-uploads/tubex.png',
     category: 'ar-condicionado',
     popularity: 7,
   },
@@ -242,7 +240,7 @@ const sampleProducts: Product[] = [
     name: 'TUBEX 5/8 2M',
     code: '10504',
     price: 8.00,
-    image: '/lovable-uploads/7eee96b5-1f18-41ab-bde8-edaefb2ccabe.png',
+    image: '/lovable-uploads/tubex.png',
     category: 'ar-condicionado',
     popularity: 7,
   },
@@ -251,7 +249,7 @@ const sampleProducts: Product[] = [
     name: 'TUBEX 3/4 2M',
     code: '100232514',
     price: 10.00,
-    image: '/lovable-uploads/3a82e606-a7dc-4979-964d-db77fa5b7bf4.png',
+    image: '/lovable-uploads/tubex.png',
     category: 'ar-condicionado',
     popularity: 7,
   },
