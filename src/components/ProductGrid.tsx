@@ -13,9 +13,10 @@ interface Product {
 interface ProductGridProps {
   products: Product[];
   isLoading?: boolean;
+  customOrder?: boolean;
 }
 
-export default function ProductGrid({ products, isLoading = false }: ProductGridProps) {
+export default function ProductGrid({ products, isLoading = false, customOrder = false }: ProductGridProps) {
   if (isLoading) {
     return <ProductGridSkeleton />;
   }
