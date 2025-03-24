@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Star, ShoppingCart } from 'lucide-react';
@@ -16,7 +17,124 @@ interface Product {
 }
 
 const sampleProducts: Product[] = [
-  // SUPORTES
+  {
+    id: '1',
+    name: 'Abraçadeira 3/4" Tramontina Cinza',
+    code: 'ABR-001',
+    price: 3.70,
+    image: '/lovable-uploads/fe15bc67-99a8-48bb-9477-8a5f5d5f928d.png',
+    category: 'ar-condicionado',
+    popularity: 10,
+    featured: true
+  },
+  {
+    id: '2',
+    name: 'Luva para Eletroduto 3/4" Tramontina Cinza',
+    code: 'LUV-001',
+    price: 2.75,
+    image: '/lovable-uploads/fe15bc67-99a8-48bb-9477-8a5f5d5f928d.png',
+    category: 'ar-condicionado',
+    popularity: 8,
+    featured: true
+  },
+  {
+    id: '3',
+    name: 'Curva Longa 90° 1/2" com Bolsa Tramontina Cinza',
+    code: 'CRV-001',
+    price: 17.00,
+    image: '/public/lovable-uploads/fe15bc67-99a8-48bb-9477-8a5f5d5f928d.png',
+    category: 'ar-condicionado',
+    popularity: 5
+  },
+  {
+    id: '4',
+    name: 'Curva Longa 90° 3/4" com Bolsa Tramontina Cinza',
+    code: 'CRV-002',
+    price: 19.50,
+    image: '/public/lovable-uploads/fe15bc67-99a8-48bb-9477-8a5f5d5f928d.png',
+    category: 'ar-condicionado',
+    popularity: 6,
+    featured: true
+  },
+  {
+    id: '5',
+    name: 'Adaptador para Condulete Múltiplo 1.1/2" para 1.1/4" Tramontina',
+    code: 'ADP-001',
+    price: 25.30,
+    image: '/public/lovable-uploads/fe15bc67-99a8-48bb-9477-8a5f5d5f928d.png',
+    category: 'ar-condicionado',
+    popularity: 4
+  },
+  {
+    id: '6',
+    name: 'Adaptador para Condulete Múltiplo 1" Tramontina',
+    code: 'ADP-002',
+    price: 22.80,
+    image: '/public/lovable-uploads/fe15bc67-99a8-48bb-9477-8a5f5d5f928d.png',
+    category: 'ar-condicionado',
+    popularity: 7,
+    featured: true
+  },
+  {
+    id: '8',
+    name: 'Terminal de Compressão 50mm',
+    code: 'TRM-001',
+    price: 12.50,
+    image: '/public/lovable-uploads/fe15bc67-99a8-48bb-9477-8a5f5d5f928d.png',
+    category: 'ar-condicionado',
+    popularity: 8
+  },
+  {
+    id: '9',
+    name: 'Sensor de Temperatura PTC',
+    code: 'SNS-001',
+    price: 45.90,
+    image: '/public/lovable-uploads/fe15bc67-99a8-48bb-9477-8a5f5d5f928d.png',
+    category: 'ar-condicionado',
+    popularity: 7
+  },
+  // Produtos adicionados
+  {
+    id: '30',
+    name: 'FLUÍDO R32 650g',
+    code: '7899733823641',
+    price: 130.00,
+    image: '/lovable-uploads/r32650g.png',
+    category: 'ar-condicionado',
+    popularity: 9,
+    featured: true
+  },
+  {
+    id: '20',
+    name: 'TUBEX 1/4 2m',
+    code: '7199',
+    price: 6.50,
+    image: '/lovable-uploads/tubex.png',
+    category: 'ar-condicionado',
+    popularity: 7,
+    featured: true
+  },
+  {
+    id: '37',
+    name: 'DISJUTNOR 10A C WEG',
+    code: '7909522567677',
+    price: 14.00,
+    image: '/lovable-uploads/weg.png',
+    category: 'ar-condicionado',
+    popularity: 9,
+    featured: true
+  },
+  {
+    id: '53',
+    name: 'CAPACITOR 0,9UF 400VAC',
+    code: '11305',
+    price: 20.00,
+    image: '/lovable-uploads/capacitorpreto.png',
+    category: 'ar-condicionado',
+    popularity: 8,
+    featured: true
+  },
+  // Novos produtos
   {
     id: '101',
     name: 'SUPORTE 400MM',
@@ -62,7 +180,6 @@ const sampleProducts: Product[] = [
     category: 'ar-condicionado',
     popularity: 7
   },
-  // TUBULAÇÃO
   {
     id: '106',
     name: 'TUBULAÇÃO 1/4 Por Metro',
@@ -108,7 +225,6 @@ const sampleProducts: Product[] = [
     category: 'ar-condicionado',
     popularity: 7
   },
-  // TUBEX
   {
     id: '111',
     name: 'TUBEX 1/4 2m',
@@ -116,8 +232,7 @@ const sampleProducts: Product[] = [
     price: 6.50,
     image: '/lovable-uploads/tubex.png',
     category: 'ar-condicionado',
-    popularity: 7,
-    featured: true
+    popularity: 7
   },
   {
     id: '112',
@@ -155,7 +270,6 @@ const sampleProducts: Product[] = [
     category: 'ar-condicionado',
     popularity: 7
   },
-  // FITAS
   {
     id: '116',
     name: 'FITA PVC 10M',
@@ -174,7 +288,6 @@ const sampleProducts: Product[] = [
     category: 'ar-condicionado',
     popularity: 7
   },
-  // DRENO
   {
     id: '118',
     name: 'MANGUEIRA P/ DRENO Por Metro',
@@ -202,7 +315,6 @@ const sampleProducts: Product[] = [
     category: 'ar-condicionado',
     popularity: 7
   },
-  // FLUÍDOS
   {
     id: '121',
     name: 'FLUÍDO R32 650g',
@@ -210,8 +322,7 @@ const sampleProducts: Product[] = [
     price: 130.00,
     image: '/lovable-uploads/r32650g.png',
     category: 'ar-condicionado',
-    popularity: 7,
-    featured: true
+    popularity: 7
   },
   {
     id: '122',
@@ -240,7 +351,6 @@ const sampleProducts: Product[] = [
     category: 'ar-condicionado',
     popularity: 7
   },
-  // CABOS
   {
     id: '125',
     name: 'CABO PP 4 X 1,5mm Por Metro',
@@ -259,7 +369,6 @@ const sampleProducts: Product[] = [
     category: 'ar-condicionado',
     popularity: 7
   },
-  // DISJUNTORES
   {
     id: '127',
     name: 'DISJUTNOR 10A C WEG',
@@ -267,8 +376,7 @@ const sampleProducts: Product[] = [
     price: 14.00,
     image: '/lovable-uploads/weg.png',
     category: 'ar-condicionado',
-    popularity: 9,
-    featured: true
+    popularity: 7
   },
   {
     id: '128',
@@ -277,7 +385,7 @@ const sampleProducts: Product[] = [
     price: 24.00,
     image: '/lovable-uploads/schneider.png',
     category: 'ar-condicionado',
-    popularity: 8
+    popularity: 7
   },
   {
     id: '129',
@@ -288,7 +396,6 @@ const sampleProducts: Product[] = [
     category: 'ar-condicionado',
     popularity: 7
   },
-  // VÁLVULA
   {
     id: '130',
     name: 'VÁLVULA P/ GÁS 1/2',
@@ -298,7 +405,6 @@ const sampleProducts: Product[] = [
     category: 'ar-condicionado',
     popularity: 7
   },
-  // UNIÃO
   {
     id: '131',
     name: 'UNIÃO REGULAR 1/4',
@@ -344,7 +450,6 @@ const sampleProducts: Product[] = [
     category: 'ar-condicionado',
     popularity: 7
   },
-  // REDUTOR
   {
     id: '136',
     name: 'REDUTOR 3/8 P/ 1/4',
@@ -372,7 +477,6 @@ const sampleProducts: Product[] = [
     category: 'ar-condicionado',
     popularity: 7
   },
-  // PORCA
   {
     id: '139',
     name: 'PORCA 1/4',
@@ -418,7 +522,6 @@ const sampleProducts: Product[] = [
     category: 'ar-condicionado',
     popularity: 7
   },
-  // CAPACITOR
   {
     id: '144',
     name: 'CAPACITOR 0,9UF 400VAC',
@@ -426,8 +529,7 @@ const sampleProducts: Product[] = [
     price: 20.00,
     image: '/lovable-uploads/capacitorpreto.png',
     category: 'ar-condicionado',
-    popularity: 8,
-    featured: true
+    popularity: 7
   },
   {
     id: '145',
@@ -681,83 +783,6 @@ const sampleProducts: Product[] = [
     category: 'ar-condicionado',
     popularity: 7
   },
-  // Produtos originais
-  {
-    id: '1',
-    name: 'Abraçadeira 3/4" Tramontina Cinza',
-    code: 'ABR-001',
-    price: 3.70,
-    image: '/lovable-uploads/fe15bc67-99a8-48bb-9477-8a5f5d5f928d.png',
-    category: 'instalacoes-eletricas',
-    popularity: 10,
-    featured: true
-  },
-  {
-    id: '2',
-    name: 'Luva para Eletroduto 3/4" Tramontina Cinza',
-    code: 'LUV-001',
-    price: 2.75,
-    image: '/lovable-uploads/fe15bc67-99a8-48bb-9477-8a5f5d5f928d.png',
-    category: 'instalacoes-eletricas',
-    popularity: 8,
-    featured: true
-  },
-  {
-    id: '3',
-    name: 'Curva Longa 90° 1/2" com Bolsa Tramontina Cinza',
-    code: 'CRV-001',
-    price: 17.00,
-    image: '/public/lovable-uploads/fe15bc67-99a8-48bb-9477-8a5f5d5f928d.png',
-    category: 'instalacoes-eletricas',
-    popularity: 5
-  },
-  {
-    id: '4',
-    name: 'Curva Longa 90° 3/4" com Bolsa Tramontina Cinza',
-    code: 'CRV-002',
-    price: 19.50,
-    image: '/public/lovable-uploads/fe15bc67-99a8-48bb-9477-8a5f5d5f928d.png',
-    category: 'instalacoes-eletricas',
-    popularity: 6,
-    featured: true
-  },
-  {
-    id: '5',
-    name: 'Adaptador para Condulete Múltiplo 1.1/2" para 1.1/4" Tramontina',
-    code: 'ADP-001',
-    price: 25.30,
-    image: '/public/lovable-uploads/fe15bc67-99a8-48bb-9477-8a5f5d5f928d.png',
-    category: 'instalacoes-eletricas',
-    popularity: 4
-  },
-  {
-    id: '6',
-    name: 'Adaptador para Condulete Múltiplo 1" Tramontina',
-    code: 'ADP-002',
-    price: 22.80,
-    image: '/public/lovable-uploads/fe15bc67-99a8-48bb-9477-8a5f5d5f928d.png',
-    category: 'instalacoes-eletricas',
-    popularity: 7,
-    featured: true
-  },
-  {
-    id: '8',
-    name: 'Terminal de Compressão 50mm',
-    code: 'TRM-001',
-    price: 12.50,
-    image: '/public/lovable-uploads/fe15bc67-99a8-48bb-9477-8a5f5d5f928d.png',
-    category: 'terminais',
-    popularity: 8
-  },
-  {
-    id: '9',
-    name: 'Sensor de Temperatura PTC',
-    code: 'SNS-001',
-    price: 45.90,
-    image: '/public/lovable-uploads/fe15bc67-99a8-48bb-9477-8a5f5d5f928d.png',
-    category: 'automacao',
-    popularity: 7
-  },
 ];
 
 export default function ProductsSection() {
@@ -849,4 +874,3 @@ export default function ProductsSection() {
     </section>
   );
 }
-
