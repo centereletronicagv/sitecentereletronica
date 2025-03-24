@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import Navbar from '../components/Navbar';
@@ -92,14 +91,13 @@ const sampleProducts: Product[] = [
     category: 'automacao',
     popularity: 7,
   },
-  // Suportes
   {
     id: '10',
     name: 'SUPORTE 400MM',
     code: '13160',
     price: 43.00,
     image: '/lovable-uploads/suporte.png',
-    category: 'suportes',
+    category: 'ar-condicionado',
     popularity: 8,
   },
   {
@@ -108,7 +106,7 @@ const sampleProducts: Product[] = [
     code: '12602',
     price: 48.00,
     image: '/lovable-uploads/suporte.png',
-    category: 'suportes',
+    category: 'ar-condicionado',
     popularity: 7,
   },
   {
@@ -117,7 +115,7 @@ const sampleProducts: Product[] = [
     code: '7204',
     price: 75.00,
     image: '/lovable-uploads/suporte.png',
-    category: 'suportes',
+    category: 'ar-condicionado',
     popularity: 9,
   },
   {
@@ -126,7 +124,7 @@ const sampleProducts: Product[] = [
     code: '13309',
     price: 156.00,
     image: '/lovable-uploads/suporte.png',
-    category: 'suportes',
+    category: 'ar-condicionado',
     popularity: 8,
   },
   {
@@ -135,17 +133,16 @@ const sampleProducts: Product[] = [
     code: '13310',
     price: 255.00,
     image: '/lovable-uploads/suporte.png',
-    category: 'suportes',
+    category: 'ar-condicionado',
     popularity: 7,
   },
-  // Tubulação
   {
     id: '15',
     name: 'TUBULAÇÃO 1/4 Por Metro',
     code: '12710',
     price: 19.00,
     image: '/lovable-uploads/tubulacao.png',
-    category: 'tubulacao',
+    category: 'ar-condicionado',
     popularity: 9,
   },
   {
@@ -154,7 +151,7 @@ const sampleProducts: Product[] = [
     code: '12711',
     price: 28.00,
     image: '/lovable-uploads/tubulacao.png',
-    category: 'tubulacao',
+    category: 'ar-condicionado',
     popularity: 9,
   },
   {
@@ -163,7 +160,7 @@ const sampleProducts: Product[] = [
     code: '12709',
     price: 37.00,
     image: '/lovable-uploads/tubulacao.png',
-    category: 'tubulacao',
+    category: 'ar-condicionado',
     popularity: 8,
   },
   {
@@ -172,7 +169,7 @@ const sampleProducts: Product[] = [
     code: '12712',
     price: 49.00,
     image: '/lovable-uploads/tubulacao.png',
-    category: 'tubulacao',
+    category: 'ar-condicionado',
     popularity: 8,
   },
   {
@@ -181,17 +178,16 @@ const sampleProducts: Product[] = [
     code: '12713',
     price: 59.00,
     image: '/lovable-uploads/tubulacao.png',
-    category: 'tubulacao',
+    category: 'ar-condicionado',
     popularity: 7,
   },
-  // Tubex
   {
     id: '20',
     name: 'TUBEX 1/4 2m',
     code: '7199',
     price: 6.50,
     image: '/lovable-uploads/tubex.png',
-    category: 'tubex',
+    category: 'ar-condicionado',
     popularity: 7,
   },
   {
@@ -200,7 +196,7 @@ const sampleProducts: Product[] = [
     code: '7200',
     price: 6.50,
     image: '/lovable-uploads/tubex.png',
-    category: 'tubex',
+    category: 'ar-condicionado',
     popularity: 7,
   },
   {
@@ -209,7 +205,7 @@ const sampleProducts: Product[] = [
     code: '7201',
     price: 6.50,
     image: '/lovable-uploads/tubex.png',
-    category: 'tubex',
+    category: 'ar-condicionado',
     popularity: 7,
   },
   {
@@ -218,7 +214,7 @@ const sampleProducts: Product[] = [
     code: '10504',
     price: 8.00,
     image: '/lovable-uploads/tubex.png',
-    category: 'tubex',
+    category: 'ar-condicionado',
     popularity: 7,
   },
   {
@@ -227,17 +223,16 @@ const sampleProducts: Product[] = [
     code: '100232514',
     price: 10.00,
     image: '/lovable-uploads/tubex.png',
-    category: 'tubex',
+    category: 'ar-condicionado',
     popularity: 7,
   },
-  // Fitas
   {
     id: '25',
     name: 'FITA PVC 10M',
     code: '7202',
     price: 8.00,
     image: '/lovable-uploads/fitapvc.png',
-    category: 'fitas',
+    category: 'ar-condicionado',
     popularity: 8,
   },
   {
@@ -246,17 +241,16 @@ const sampleProducts: Product[] = [
     code: '7195',
     price: 9.00,
     image: '/lovable-uploads/fitaalum.png',
-    category: 'fitas',
+    category: 'ar-condicionado',
     popularity: 9,
   },
-  // Dreno
   {
     id: '27',
     name: 'MANGUEIRA P/ DRENO Por Metro',
     code: '11407',
     price: 5.80,
     image: '/lovable-uploads/dreno.png',
-    category: 'dreno',
+    category: 'ar-condicionado',
     popularity: 8,
   },
   {
@@ -265,7 +259,7 @@ const sampleProducts: Product[] = [
     code: '11993',
     price: 6.50,
     image: '/lovable-uploads/drenocristal.png',
-    category: 'dreno',
+    category: 'ar-condicionado',
     popularity: 8,
   },
   {
@@ -274,17 +268,16 @@ const sampleProducts: Product[] = [
     code: '12644',
     price: 15.00,
     image: '/lovable-uploads/bicodreno.png',
-    category: 'dreno',
+    category: 'ar-condicionado',
     popularity: 7,
   },
-  // Fluídos
   {
     id: '30',
     name: 'FLUÍDO R32 650g',
     code: '7899733823641',
     price: 130.00,
     image: '/lovable-uploads/r32650g.png',
-    category: 'fluidos',
+    category: 'ar-condicionado',
     popularity: 9,
   },
   {
@@ -293,7 +286,7 @@ const sampleProducts: Product[] = [
     code: '7899733819095',
     price: 290.00,
     image: '/lovable-uploads/r323kg.png',
-    category: 'fluidos',
+    category: 'ar-condicionado',
     popularity: 8,
   },
   {
@@ -302,7 +295,7 @@ const sampleProducts: Product[] = [
     code: '7899733805227',
     price: 129.00,
     image: '/lovable-uploads/r410a750g.png',
-    category: 'fluidos',
+    category: 'ar-condicionado',
     popularity: 7,
   },
   {
@@ -311,7 +304,7 @@ const sampleProducts: Product[] = [
     code: '7899733805180',
     price: 132.00,
     image: '/lovable-uploads/r22.png',
-    category: 'fluidos',
+    category: 'ar-condicionado',
     popularity: 8,
   },
   {
@@ -320,17 +313,16 @@ const sampleProducts: Product[] = [
     code: '13255',
     price: 42.00,
     image: '/lovable-uploads/valve.png',
-    category: 'fluidos',
+    category: 'ar-condicionado',
     popularity: 7,
   },
-  // Cabos
   {
     id: '35',
     name: 'CABO PP 4 X 1,5mm Por Metro',
     code: '9947',
     price: 9.50,
     image: '/lovable-uploads/pp4.png',
-    category: 'cabos',
+    category: 'ar-condicionado',
     popularity: 8,
   },
   {
@@ -339,17 +331,16 @@ const sampleProducts: Product[] = [
     code: '8492',
     price: 10.20,
     image: '/lovable-uploads/pp5.png',
-    category: 'cabos',
+    category: 'ar-condicionado',
     popularity: 8,
   },
-  // Disjuntores
   {
     id: '37',
     name: 'DISJUTNOR 10A C WEG',
     code: '7909522567677',
     price: 14.00,
     image: '/lovable-uploads/weg.png',
-    category: 'disjuntores',
+    category: 'ar-condicionado',
     popularity: 9,
   },
   {
@@ -358,7 +349,7 @@ const sampleProducts: Product[] = [
     code: '7891341466906',
     price: 24.00,
     image: '/lovable-uploads/schneider.png',
-    category: 'disjuntores',
+    category: 'ar-condicionado',
     popularity: 8,
   },
   {
@@ -367,17 +358,16 @@ const sampleProducts: Product[] = [
     code: '5418',
     price: 24.00,
     image: '/lovable-uploads/lukma.png',
-    category: 'disjuntores',
+    category: 'ar-condicionado',
     popularity: 7,
   },
-  // União
   {
     id: '40',
     name: 'UNIÃO REGULAR 1/4',
     code: '10062',
     price: 9.80,
     image: '/lovable-uploads/uniao.png',
-    category: 'uniao',
+    category: 'ar-condicionado',
     popularity: 8,
   },
   {
@@ -386,7 +376,7 @@ const sampleProducts: Product[] = [
     code: '10059',
     price: 20.00,
     image: '/lovable-uploads/uniao.png',
-    category: 'uniao',
+    category: 'ar-condicionado',
     popularity: 8,
   },
   {
@@ -395,7 +385,7 @@ const sampleProducts: Product[] = [
     code: '10061',
     price: 27.00,
     image: '/lovable-uploads/uniao.png',
-    category: 'uniao',
+    category: 'ar-condicionado',
     popularity: 7,
   },
   {
@@ -404,7 +394,7 @@ const sampleProducts: Product[] = [
     code: '10060',
     price: 38.00,
     image: '/lovable-uploads/uniao.png',
-    category: 'uniao',
+    category: 'ar-condicionado',
     popularity: 7,
   },
   {
@@ -413,17 +403,16 @@ const sampleProducts: Product[] = [
     code: '10058',
     price: 55.00,
     image: '/lovable-uploads/uniao.png',
-    category: 'uniao',
+    category: 'ar-condicionado',
     popularity: 6,
   },
-  // Redutor
   {
     id: '45',
     name: 'REDUTOR 3/8 P/ 1/4',
     code: '12717',
     price: 20.00,
     image: '/lovable-uploads/redutor.png',
-    category: 'redutor',
+    category: 'ar-condicionado',
     popularity: 7,
   },
   {
@@ -432,7 +421,7 @@ const sampleProducts: Product[] = [
     code: '12716',
     price: 25.00,
     image: '/lovable-uploads/redutor.png',
-    category: 'redutor',
+    category: 'ar-condicionado',
     popularity: 7,
   },
   {
@@ -441,17 +430,16 @@ const sampleProducts: Product[] = [
     code: '12715',
     price: 28.00,
     image: '/lovable-uploads/redutor.png',
-    category: 'redutor',
+    category: 'ar-condicionado',
     popularity: 6,
   },
-  // Porca
   {
     id: '48',
     name: 'PORCA 1/4',
     code: '10054',
     price: 9.50,
     image: '/lovable-uploads/porca.png',
-    category: 'porca',
+    category: 'ar-condicionado',
     popularity: 8,
   },
   {
@@ -460,7 +448,7 @@ const sampleProducts: Product[] = [
     code: '10055',
     price: 9.80,
     image: '/lovable-uploads/porca.png',
-    category: 'porca',
+    category: 'ar-condicionado',
     popularity: 8,
   },
   {
@@ -469,7 +457,7 @@ const sampleProducts: Product[] = [
     code: '10051',
     price: 12.00,
     image: '/lovable-uploads/porca.png',
-    category: 'porca',
+    category: 'ar-condicionado',
     popularity: 7,
   },
   {
@@ -478,7 +466,7 @@ const sampleProducts: Product[] = [
     code: '10053',
     price: 29.00,
     image: '/lovable-uploads/porca.png',
-    category: 'porca',
+    category: 'ar-condicionado',
     popularity: 7,
   },
   {
@@ -487,17 +475,16 @@ const sampleProducts: Product[] = [
     code: '10052',
     price: 32.00,
     image: '/lovable-uploads/porca.png',
-    category: 'porca',
+    category: 'ar-condicionado',
     popularity: 6,
   },
-  // Capacitor
   {
     id: '53',
     name: 'CAPACITOR 0,9UF 400VAC',
     code: '11305',
     price: 20.00,
     image: '/lovable-uploads/capacitorpreto.png',
-    category: 'capacitor',
+    category: 'ar-condicionado',
     popularity: 8,
   },
   {
@@ -506,7 +493,7 @@ const sampleProducts: Product[] = [
     code: '11306',
     price: 20.00,
     image: '/lovable-uploads/capacitorpreto.png',
-    category: 'capacitor',
+    category: 'ar-condicionado',
     popularity: 8,
   },
   {
@@ -515,7 +502,7 @@ const sampleProducts: Product[] = [
     code: '11307',
     price: 20.00,
     image: '/lovable-uploads/capacitorpreto.png',
-    category: 'capacitor',
+    category: 'ar-condicionado',
     popularity: 8,
   },
   {
@@ -524,7 +511,7 @@ const sampleProducts: Product[] = [
     code: '11308',
     price: 20.00,
     image: '/lovable-uploads/capacitorpreto.png',
-    category: 'capacitor',
+    category: 'ar-condicionado',
     popularity: 7,
   },
   {
@@ -533,7 +520,7 @@ const sampleProducts: Product[] = [
     code: '11309',
     price: 20.00,
     image: '/lovable-uploads/capacitorpreto.png',
-    category: 'capacitor',
+    category: 'ar-condicionado',
     popularity: 7,
   },
   {
@@ -542,7 +529,7 @@ const sampleProducts: Product[] = [
     code: '12642',
     price: 30.00,
     image: '/lovable-uploads/capacitor.png',
-    category: 'capacitor',
+    category: 'ar-condicionado',
     popularity: 7,
   },
   {
@@ -551,7 +538,7 @@ const sampleProducts: Product[] = [
     code: '7899733814250',
     price: 25.00,
     image: '/lovable-uploads/capacitor.png',
-    category: 'capacitor',
+    category: 'ar-condicionado',
     popularity: 8,
   },
   {
@@ -560,7 +547,7 @@ const sampleProducts: Product[] = [
     code: '11997',
     price: 35.00,
     image: '/lovable-uploads/capacitor.png',
-    category: 'capacitor',
+    category: 'ar-condicionado',
     popularity: 7,
   },
   {
@@ -569,7 +556,7 @@ const sampleProducts: Product[] = [
     code: '11327',
     price: 43.00,
     image: '/lovable-uploads/capacitor.png',
-    category: 'capacitor',
+    category: 'ar-condicionado',
     popularity: 7,
   },
   {
@@ -578,7 +565,7 @@ const sampleProducts: Product[] = [
     code: '11325',
     price: 48.00,
     image: '/lovable-uploads/capacitor.png',
-    category: 'capacitor',
+    category: 'ar-condicionado',
     popularity: 6,
   },
   {
@@ -587,7 +574,7 @@ const sampleProducts: Product[] = [
     code: '11311',
     price: 48.00,
     image: '/lovable-uploads/capacitor.png',
-    category: 'capacitor',
+    category: 'ar-condicionado',
     popularity: 6,
   },
   {
@@ -596,7 +583,7 @@ const sampleProducts: Product[] = [
     code: '11326',
     price: 53.00,
     image: '/lovable-uploads/capacitor.png',
-    category: 'capacitor',
+    category: 'ar-condicionado',
     popularity: 6,
   },
   {
@@ -605,7 +592,7 @@ const sampleProducts: Product[] = [
     code: '11312',
     price: 35.00,
     image: '/lovable-uploads/capacitor.png',
-    category: 'capacitor',
+    category: 'ar-condicionado',
     popularity: 7,
   },
   {
@@ -614,7 +601,7 @@ const sampleProducts: Product[] = [
     code: '12643',
     price: 52.00,
     image: '/lovable-uploads/capacitor.png',
-    category: 'capacitor',
+    category: 'ar-condicionado',
     popularity: 6,
   },
   {
@@ -623,7 +610,7 @@ const sampleProducts: Product[] = [
     code: '11998',
     price: 65.00,
     image: '/lovable-uploads/capacitor.png',
-    category: 'capacitor',
+    category: 'ar-condicionado',
     popularity: 5,
   },
   {
@@ -632,7 +619,7 @@ const sampleProducts: Product[] = [
     code: '11999',
     price: 45.00,
     image: '/lovable-uploads/capacitor.png',
-    category: 'capacitor',
+    category: 'ar-condicionado',
     popularity: 6,
   },
   {
@@ -641,7 +628,7 @@ const sampleProducts: Product[] = [
     code: '12000',
     price: 27.00,
     image: '/lovable-uploads/capacitor.png',
-    category: 'capacitor',
+    category: 'ar-condicionado',
     popularity: 8,
   },
   {
@@ -650,7 +637,7 @@ const sampleProducts: Product[] = [
     code: '12799',
     price: 39.00,
     image: '/lovable-uploads/duplo.png',
-    category: 'capacitor',
+    category: 'ar-condicionado',
     popularity: 7,
   },
   {
@@ -659,7 +646,7 @@ const sampleProducts: Product[] = [
     code: '12485',
     price: 45.00,
     image: '/lovable-uploads/duplo.png',
-    category: 'capacitor',
+    category: 'ar-condicionado',
     popularity: 7,
   },
   {
@@ -668,17 +655,16 @@ const sampleProducts: Product[] = [
     code: '13163',
     price: 45.00,
     image: '/lovable-uploads/duplo.png',
-    category: 'capacitor',
+    category: 'ar-condicionado',
     popularity: 7,
   },
-  // Acabamento
   {
     id: '73',
     name: 'CANALETA CB30 2M',
     code: '12651',
     price: 25.00,
     image: '/lovable-uploads/canaleta.png',
-    category: 'acabamento',
+    category: 'ar-condicionado',
     popularity: 8,
   },
   {
@@ -687,7 +673,7 @@ const sampleProducts: Product[] = [
     code: '12652',
     price: 35.00,
     image: '/lovable-uploads/canaleta.png',
-    category: 'acabamento',
+    category: 'ar-condicionado',
     popularity: 8,
   },
   {
@@ -696,7 +682,7 @@ const sampleProducts: Product[] = [
     code: '12645',
     price: 38.00,
     image: '/lovable-uploads/terminalacabamento.png',
-    category: 'acabamento',
+    category: 'ar-condicionado',
     popularity: 7,
   },
   {
@@ -705,7 +691,7 @@ const sampleProducts: Product[] = [
     code: '12649',
     price: 55.00,
     image: '/lovable-uploads/terminalacabamento.png',
-    category: 'acabamento',
+    category: 'ar-condicionado',
     popularity: 7,
   },
   {
@@ -714,7 +700,7 @@ const sampleProducts: Product[] = [
     code: '12647',
     price: 13.00,
     image: '/lovable-uploads/curvainterna.png',
-    category: 'acabamento',
+    category: 'ar-condicionado',
     popularity: 8,
   },
   {
@@ -723,7 +709,7 @@ const sampleProducts: Product[] = [
     code: '12649',
     price: 15.00,
     image: '/lovable-uploads/passagemparede.png',
-    category: 'acabamento',
+    category: 'ar-condicionado',
     popularity: 8,
   },
   {
@@ -732,7 +718,7 @@ const sampleProducts: Product[] = [
     code: '12646',
     price: 21.00,
     image: '/lovable-uploads/curvaregulavel.png',
-    category: 'acabamento',
+    category: 'ar-condicionado',
     popularity: 7,
   },
   {
@@ -741,7 +727,7 @@ const sampleProducts: Product[] = [
     code: '7899611800016',
     price: 23.00,
     image: '/lovable-uploads/passagemdreno.png',
-    category: 'acabamento',
+    category: 'ar-condicionado',
     popularity: 7,
   },
   {
@@ -750,7 +736,7 @@ const sampleProducts: Product[] = [
     code: '789961180047',
     price: 25.00,
     image: '/lovable-uploads/passagemdreno.png',
-    category: 'acabamento',
+    category: 'ar-condicionado',
     popularity: 7,
   },
 ];
@@ -772,6 +758,7 @@ const categoryLabels: Record<string, string> = {
   'porca': 'Porca',
   'capacitor': 'Capacitor',
   'acabamento': 'Acabamento',
+  'ar-condicionado': 'Ar Condicionado',
 };
 
 type SortOption = 'popularity' | 'price-low' | 'price-high';
@@ -942,3 +929,4 @@ export default function CategoryPage() {
     </div>
   );
 }
+
