@@ -13,49 +13,49 @@ export default function Footer() {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="bg-center-lightGray border-t border-gray-200">
-      <div className="container-custom pt-16 pb-8">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
-          <div>
-            <p className="text-center-gray mb-6">
+    <footer className="bg-[#222222] text-white border-t border-gray-800">
+      <div className="container-custom py-8">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div className="space-y-3">
+            <p className="text-gray-300 text-sm mb-3">
               Loja de produtos Elétricos, Eletrônicos, Automação, Informática e mais.
             </p>
-            <div className="space-y-3">
+            <div className="space-y-1.5">
               <a 
                 href="tel:5499270560" 
-                className="flex items-center gap-2 text-center-darkGray hover:text-center-orange transition-colors"
+                className="flex items-center gap-2 text-gray-300 hover:text-center-orange transition-colors text-sm"
               >
-                <Phone size={18} />
+                <Phone size={16} />
                 <span>(54) 9927-0560</span>
               </a>
               <a 
                 href="tel:5499986916" 
-                className="flex items-center gap-2 text-center-darkGray hover:text-center-orange transition-colors ml-6"
+                className="flex items-center gap-2 text-gray-300 hover:text-center-orange transition-colors text-sm ml-6"
               >
                 <span>(54) 9998-6916</span>
               </a>
               <a 
                 href="mailto:center@centereletronica.com.br" 
-                className="flex items-center gap-2 text-center-darkGray hover:text-center-orange transition-colors"
+                className="flex items-center gap-2 text-gray-300 hover:text-center-orange transition-colors text-sm"
               >
-                <Mail size={18} />
+                <Mail size={16} />
                 <span>center@centereletronica.com.br</span>
               </a>
-              <div className="flex items-start gap-2 text-center-darkGray">
-                <MapPin size={18} className="min-w-[18px] mt-1" />
+              <div className="flex items-start gap-2 text-gray-300 text-sm">
+                <MapPin size={16} className="min-w-[16px] mt-1" />
                 <span>Rua Jacob Gremmelmaier, 409 - Centro, Getúlio Vargas - RS, 99900-000</span>
               </div>
             </div>
           </div>
 
           <div>
-            <h3 className="text-lg font-medium mb-4">Categorias</h3>
-            <ul className="space-y-2">
+            <h3 className="text-base font-medium mb-3">Categorias</h3>
+            <ul className="space-y-1.5">
               {categories.map((category) => (
                 <li key={category.name}>
                   <Link 
                     to={category.href}
-                    className="flex items-center gap-1 text-center-gray hover:text-center-orange transition-colors"
+                    className="flex items-center gap-1 text-gray-300 hover:text-center-orange transition-colors text-sm"
                   >
                     {category.icon}
                     <span>{category.name}</span>
@@ -66,59 +66,59 @@ export default function Footer() {
           </div>
 
           <div>
-            <h3 className="text-lg font-medium mb-4">Horário de Funcionamento</h3>
-            <div className="space-y-3">
-              <div className="flex items-start gap-2 text-center-darkGray">
-                <Clock size={18} className="min-w-[18px] mt-1" />
+            <h3 className="text-base font-medium mb-3">Horário de Funcionamento</h3>
+            <div className="space-y-1.5 text-sm">
+              <div className="flex items-start gap-2 text-gray-300">
+                <Clock size={16} className="min-w-[16px] mt-0.5" />
                 <div>
                   <p className="font-medium">Segunda a Sexta</p>
-                  <p className="text-center-gray">08:00 - 18:00</p>
+                  <p className="text-gray-400">08:00 - 18:00</p>
                 </div>
               </div>
-              <div className="flex items-start gap-2 text-center-darkGray ml-6">
+              <div className="flex items-start gap-2 text-gray-300 ml-6">
                 <div>
                   <p className="font-medium">Sábado</p>
-                  <p className="text-center-gray">08:00 - 12:00</p>
+                  <p className="text-gray-400">08:00 - 12:00</p>
                 </div>
               </div>
-              <div className="flex items-start gap-2 text-center-darkGray ml-6">
+              <div className="flex items-start gap-2 text-gray-300 ml-6">
                 <div>
                   <p className="font-medium">Domingo</p>
-                  <p className="text-center-gray">Fechado</p>
+                  <p className="text-gray-400">Fechado</p>
                 </div>
               </div>
             </div>
 
-            <h3 className="text-lg font-medium mt-6 mb-3">Redes Sociais</h3>
+            <h3 className="text-base font-medium mt-4 mb-2">Redes Sociais</h3>
             <div className="flex gap-2">
               <a 
                 href="https://www.instagram.com/centereletronicagv/" 
                 target="_blank" 
                 rel="noopener noreferrer"
-                className="p-2 bg-white rounded-full text-center-orange border border-center-orange/20 hover:bg-center-orange hover:text-white transition-colors"
+                className="p-1.5 bg-white/10 rounded-full text-white hover:bg-center-orange hover:text-white transition-colors"
                 aria-label="Instagram"
               >
-                <Instagram size={18} />
+                <Instagram size={16} />
               </a>
               <a 
                 href="https://www.facebook.com/centereletronicagv" 
                 target="_blank" 
                 rel="noopener noreferrer"
-                className="p-2 bg-white rounded-full text-center-orange border border-center-orange/20 hover:bg-center-orange hover:text-white transition-colors"
+                className="p-1.5 bg-white/10 rounded-full text-white hover:bg-center-orange hover:text-white transition-colors"
                 aria-label="Facebook"
               >
-                <Facebook size={18} />
+                <Facebook size={16} />
               </a>
             </div>
           </div>
         </div>
 
-        <div className="mt-12 pt-6 border-t border-gray-200">
+        <div className="mt-6 pt-4 border-t border-gray-800">
           <div className="flex flex-col sm:flex-row justify-between items-center">
-            <p className="text-center-gray text-sm mb-4 sm:mb-0">
+            <p className="text-gray-400 text-xs mb-2 sm:mb-0">
               &copy; {currentYear} Center Eletrônica. Todos os direitos reservados.
             </p>
-            <p className="text-center-gray text-sm">
+            <p className="text-gray-400 text-xs">
               Preços sujeitos a alteração sem aviso prévio.
             </p>
           </div>
