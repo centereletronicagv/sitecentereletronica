@@ -21,18 +21,104 @@ const mockProducts: Product[] = [
     price: 3.70,
     image: '/lovable-uploads/fe15bc67-99a8-48bb-9477-8a5f5d5f928d.png',
     category: 'ar-condicionado',
-    popularity: 10,
-    featured: true
+    recommendedOrder: 10
   },
   {
-    id: '2',
-    name: 'Luva para Eletroduto 3/4" Tramontina Cinza',
-    code: 'LUV-001',
-    price: 2.75,
-    image: '/lovable-uploads/fe15bc67-99a8-48bb-9477-8a5f5d5f928d.png',
+    id: '101',
+    name: 'SUPORTE 400MM',
+    code: '13160',
+    price: 43.00,
+    image: '/lovable-uploads/suporte.png',
     category: 'ar-condicionado',
-    popularity: 8,
-    featured: true
+    recommendedOrder: 1
+  },
+  {
+    id: '102',
+    name: 'SUPORTE 450MM',
+    code: '12602',
+    price: 48.00,
+    image: '/lovable-uploads/suporte.png',
+    category: 'ar-condicionado',
+    recommendedOrder: 2
+  },
+  {
+    id: '103',
+    name: 'SUPORTE 500MM',
+    code: '7204',
+    price: 75.00,
+    image: '/lovable-uploads/suporte.png',
+    category: 'ar-condicionado',
+    recommendedOrder: 3
+  },
+  {
+    id: '104',
+    name: 'SUPORTE 550MM',
+    code: '13309',
+    price: 156.00,
+    image: '/lovable-uploads/suporte.png',
+    category: 'ar-condicionado',
+    recommendedOrder: 4
+  },
+  {
+    id: '105',
+    name: 'SUPORTE 900MM',
+    code: '13310',
+    price: 255.00,
+    image: '/lovable-uploads/suporte.png',
+    category: 'ar-condicionado',
+    recommendedOrder: 5
+  },
+  {
+    id: '106',
+    name: 'TUBULAÇÃO 1/4 Por Metro',
+    code: '12710',
+    price: 19.00,
+    image: '/lovable-uploads/tubulacao.png',
+    category: 'ar-condicionado',
+    recommendedOrder: 6
+  },
+  {
+    id: '107',
+    name: 'TUBULAÇÃO 3/8 Por Metro',
+    code: '12711',
+    price: 28.00,
+    image: '/lovable-uploads/tubulacao.png',
+    category: 'ar-condicionado',
+    recommendedOrder: 7
+  },
+  {
+    id: '108',
+    name: 'TUBULAÇÃO 1/2 Por Metro',
+    code: '12709',
+    price: 37.00,
+    image: '/lovable-uploads/tubulacao.png',
+    category: 'ar-condicionado',
+    recommendedOrder: 8
+  },
+  {
+    id: '109',
+    name: 'TUBULAÇÃO 5/8 Por Metro',
+    code: '12712',
+    price: 49.00,
+    image: '/lovable-uploads/tubulacao.png',
+    category: 'ar-condicionado',
+    recommendedOrder: 9
+  },
+  {
+    id: '110',
+    name: 'TUBULAÇÃO 3/4 Por Metro',
+    code: '12713',
+    price: 59.00,
+    image: '/lovable-uploads/tubulacao.png',
+    category: 'ar-condicionado'
+  },
+  {
+    id: '111',
+    name: 'TUBEX 1/4 2m',
+    code: '7199',
+    price: 6.50,
+    image: '/lovable-uploads/tubex.png',
+    category: 'ar-condicionado'
   },
   {
     id: '3',
@@ -129,15 +215,6 @@ const mockProducts: Product[] = [
     category: 'ar-condicionado',
     popularity: 8,
     featured: true
-  },
-  {
-    id: '101',
-    name: 'SUPORTE 400MM',
-    code: '13160',
-    price: 43.00,
-    image: '/lovable-uploads/suporte.png',
-    category: 'ar-condicionado',
-    popularity: 7
   },
   {
     id: '102',
@@ -763,79 +840,3 @@ const mockProducts: Product[] = [
   {
     id: '171',
     name: 'CAIXA DE PASSAGEM PARA DRENO',
-    code: '7899611800016',
-    price: 23.00,
-    image: '/lovable-uploads/passagemdreno.png',
-    category: 'ar-condicionado',
-    popularity: 7
-  },
-  {
-    id: '172',
-    name: 'CAIXA DE PASSAGEM PARA DRENO',
-    code: '789961180047',
-    price: 25.00,
-    image: '/lovable-uploads/passagemdreno.png',
-    category: 'ar-condicionado',
-    popularity: 7
-  },
-];
-
-interface ProductsSectionProps {
-  searchQuery?: string;
-}
-
-export default function ProductsSection({ searchQuery = '' }: ProductsSectionProps) {
-  const [isLoading, setIsLoading] = useState(true);
-  const [products, setProducts] = useState<Product[]>([]);
-
-  useEffect(() => {
-    const loadData = async () => {
-      setIsLoading(true);
-      await new Promise(resolve => setTimeout(resolve, 500));
-      setProducts(mockProducts);
-      setIsLoading(false);
-    };
-
-    loadData();
-  }, []);
-
-  return (
-    <section className="py-16 bg-[#121212]">
-      <div className="container-custom">
-        {searchQuery ? (
-          <>
-            <div className="mb-10">
-              <h2 className="text-2xl font-semibold text-white mb-2">
-                Resultados para: <span className="text-center-orange">"{searchQuery}"</span>
-              </h2>
-              <p className="text-gray-400">
-                Encontramos os seguintes produtos relacionados à sua busca
-              </p>
-            </div>
-            <ProductGrid 
-              products={products} 
-              isLoading={isLoading} 
-              searchQuery={searchQuery} 
-            />
-          </>
-        ) : (
-          <>
-            <div className="flex justify-between items-center mb-10">
-              <h2 className="text-2xl font-semibold text-white">
-                Nossos <span className="text-center-orange">Produtos</span>
-              </h2>
-              <Link
-                to="/categoria/ar-condicionado"
-                className="text-center-orange hover:text-orange-400 flex items-center gap-2 text-sm font-medium"
-              >
-                Ver todos
-                <ArrowRight size={14} />
-              </Link>
-            </div>
-            <ProductGrid products={products} isLoading={isLoading} />
-          </>
-        )}
-      </div>
-    </section>
-  );
-}
