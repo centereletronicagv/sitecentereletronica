@@ -5,7 +5,7 @@ import Footer from '../components/Footer';
 import ProductGrid from '../components/ProductGrid';
 import { Slider } from "@/components/ui/slider";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { ArrowDownNarrowWide, ArrowUpNarrowWide, Flame, Filter, Tag } from "lucide-react";
+import { ArrowDownNarrowWide, ArrowUpNarrowWide, ThumbsUp, Filter, Tag } from "lucide-react";
 import { motion } from "framer-motion";
 
 interface Product {
@@ -15,82 +15,10 @@ interface Product {
   price: number;
   image: string;
   category: string;
-  popularity: number;
+  recommendedOrder?: number;
 }
 
 const sampleProducts: Product[] = [
-  {
-    id: '1',
-    name: 'Abraçadeira 3/4" Tramontina Cinza',
-    code: 'ABR-001',
-    price: 3.70,
-    image: '/lovable-uploads/fe15bc67-99a8-48bb-9477-8a5f5d5f928d.png',
-    category: 'instalacoes-eletricas',
-    popularity: 10,
-  },
-  {
-    id: '2',
-    name: 'Luva para Eletroduto 3/4" Tramontina Cinza',
-    code: 'LUV-001',
-    price: 2.75,
-    image: '/lovable-uploads/fe15bc67-99a8-48bb-9477-8a5f5d5f928d.png',
-    category: 'instalacoes-eletricas',
-    popularity: 8,
-  },
-  {
-    id: '3',
-    name: 'Curva Longa 90° 1/2" com Bolsa Tramontina Cinza',
-    code: 'CRV-001',
-    price: 17.00,
-    image: '/lovable-uploads/fe15bc67-99a8-48bb-9477-8a5f5d5f928d.png',
-    category: 'instalacoes-eletricas',
-    popularity: 5,
-  },
-  {
-    id: '4',
-    name: 'Curva Longa 90° 3/4" com Bolsa Tramontina Cinza',
-    code: 'CRV-002',
-    price: 19.50,
-    image: '/lovable-uploads/fe15bc67-99a8-48bb-9477-8a5f5d5f928d.png',
-    category: 'instalacoes-eletricas',
-    popularity: 6,
-  },
-  {
-    id: '5',
-    name: 'Adaptador para Condulete Múltiplo 1.1/2" para 1.1/4" Tramontina',
-    code: 'ADP-001',
-    price: 25.30,
-    image: '/lovable-uploads/fe15bc67-99a8-48bb-9477-8a5f5d5f928d.png',
-    category: 'instalacoes-eletricas',
-    popularity: 4,
-  },
-  {
-    id: '6',
-    name: 'Adaptador para Condulete Múltiplo 1" Tramontina',
-    code: 'ADP-002',
-    price: 22.80,
-    image: '/lovable-uploads/fe15bc67-99a8-48bb-9477-8a5f5d5f928d.png',
-    category: 'instalacoes-eletricas',
-    popularity: 6,
-  },
-  {
-    id: '8',
-    name: 'Terminal de Compressão 50mm',
-    code: 'TRM-001',
-    price: 12.50,
-    image: '/lovable-uploads/fe15bc67-99a8-48bb-9477-8a5f5d5f928d.png',
-    category: 'terminais',
-    popularity: 8,
-  },
-  {
-    id: '9',
-    name: 'Sensor de Temperatura PTC',
-    code: 'SNS-001',
-    price: 45.90,
-    image: '/lovable-uploads/fe15bc67-99a8-48bb-9477-8a5f5d5f928d.png',
-    category: 'automacao',
-    popularity: 7,
-  },
   {
     id: '10',
     name: 'SUPORTE 400MM',
@@ -98,7 +26,7 @@ const sampleProducts: Product[] = [
     price: 43.00,
     image: '/lovable-uploads/suporte.png',
     category: 'ar-condicionado',
-    popularity: 8,
+    recommendedOrder: 1
   },
   {
     id: '11',
@@ -107,7 +35,7 @@ const sampleProducts: Product[] = [
     price: 48.00,
     image: '/lovable-uploads/suporte.png',
     category: 'ar-condicionado',
-    popularity: 7,
+    recommendedOrder: 2
   },
   {
     id: '12',
@@ -116,7 +44,7 @@ const sampleProducts: Product[] = [
     price: 75.00,
     image: '/lovable-uploads/suporte.png',
     category: 'ar-condicionado',
-    popularity: 9,
+    recommendedOrder: 3
   },
   {
     id: '13',
@@ -125,7 +53,7 @@ const sampleProducts: Product[] = [
     price: 156.00,
     image: '/lovable-uploads/suporte.png',
     category: 'ar-condicionado',
-    popularity: 8,
+    recommendedOrder: 4
   },
   {
     id: '14',
@@ -134,7 +62,7 @@ const sampleProducts: Product[] = [
     price: 255.00,
     image: '/lovable-uploads/suporte.png',
     category: 'ar-condicionado',
-    popularity: 7,
+    recommendedOrder: 5
   },
   {
     id: '15',
@@ -143,7 +71,7 @@ const sampleProducts: Product[] = [
     price: 19.00,
     image: '/lovable-uploads/tubulacao.png',
     category: 'ar-condicionado',
-    popularity: 9,
+    recommendedOrder: 6
   },
   {
     id: '16',
@@ -152,7 +80,7 @@ const sampleProducts: Product[] = [
     price: 28.00,
     image: '/lovable-uploads/tubulacao.png',
     category: 'ar-condicionado',
-    popularity: 9,
+    recommendedOrder: 7
   },
   {
     id: '17',
@@ -161,7 +89,7 @@ const sampleProducts: Product[] = [
     price: 37.00,
     image: '/lovable-uploads/tubulacao.png',
     category: 'ar-condicionado',
-    popularity: 8,
+    recommendedOrder: 8
   },
   {
     id: '18',
@@ -170,7 +98,7 @@ const sampleProducts: Product[] = [
     price: 49.00,
     image: '/lovable-uploads/tubulacao.png',
     category: 'ar-condicionado',
-    popularity: 8,
+    recommendedOrder: 9
   },
   {
     id: '19',
@@ -179,7 +107,7 @@ const sampleProducts: Product[] = [
     price: 59.00,
     image: '/lovable-uploads/tubulacao.png',
     category: 'ar-condicionado',
-    popularity: 7,
+    recommendedOrder: 10
   },
   {
     id: '20',
@@ -188,7 +116,7 @@ const sampleProducts: Product[] = [
     price: 6.50,
     image: '/lovable-uploads/tubex.png',
     category: 'ar-condicionado',
-    popularity: 7,
+    recommendedOrder: 11
   },
   {
     id: '21',
@@ -197,7 +125,7 @@ const sampleProducts: Product[] = [
     price: 6.50,
     image: '/lovable-uploads/tubex.png',
     category: 'ar-condicionado',
-    popularity: 7,
+    recommendedOrder: 12
   },
   {
     id: '22',
@@ -206,7 +134,7 @@ const sampleProducts: Product[] = [
     price: 6.50,
     image: '/lovable-uploads/tubex.png',
     category: 'ar-condicionado',
-    popularity: 7,
+    recommendedOrder: 13
   },
   {
     id: '23',
@@ -215,7 +143,7 @@ const sampleProducts: Product[] = [
     price: 8.00,
     image: '/lovable-uploads/tubex.png',
     category: 'ar-condicionado',
-    popularity: 7,
+    recommendedOrder: 14
   },
   {
     id: '24',
@@ -224,7 +152,7 @@ const sampleProducts: Product[] = [
     price: 10.00,
     image: '/lovable-uploads/tubex.png',
     category: 'ar-condicionado',
-    popularity: 7,
+    recommendedOrder: 15
   },
   {
     id: '25',
@@ -233,7 +161,7 @@ const sampleProducts: Product[] = [
     price: 8.00,
     image: '/lovable-uploads/fitapvc.png',
     category: 'ar-condicionado',
-    popularity: 8,
+    recommendedOrder: 16
   },
   {
     id: '26',
@@ -242,7 +170,7 @@ const sampleProducts: Product[] = [
     price: 9.00,
     image: '/lovable-uploads/fitaalum.png',
     category: 'ar-condicionado',
-    popularity: 9,
+    recommendedOrder: 17
   },
   {
     id: '27',
@@ -251,7 +179,7 @@ const sampleProducts: Product[] = [
     price: 5.80,
     image: '/lovable-uploads/dreno.png',
     category: 'ar-condicionado',
-    popularity: 8,
+    recommendedOrder: 18
   },
   {
     id: '28',
@@ -260,7 +188,7 @@ const sampleProducts: Product[] = [
     price: 6.50,
     image: '/lovable-uploads/drenocristal.png',
     category: 'ar-condicionado',
-    popularity: 8,
+    recommendedOrder: 19
   },
   {
     id: '29',
@@ -269,7 +197,7 @@ const sampleProducts: Product[] = [
     price: 15.00,
     image: '/lovable-uploads/bicodreno.png',
     category: 'ar-condicionado',
-    popularity: 7,
+    recommendedOrder: 20
   },
   {
     id: '30',
@@ -278,7 +206,7 @@ const sampleProducts: Product[] = [
     price: 130.00,
     image: '/lovable-uploads/r32650g.png',
     category: 'ar-condicionado',
-    popularity: 9,
+    recommendedOrder: 21
   },
   {
     id: '31',
@@ -287,7 +215,7 @@ const sampleProducts: Product[] = [
     price: 290.00,
     image: '/lovable-uploads/r323kg.png',
     category: 'ar-condicionado',
-    popularity: 8,
+    recommendedOrder: 22
   },
   {
     id: '32',
@@ -296,7 +224,7 @@ const sampleProducts: Product[] = [
     price: 129.00,
     image: '/lovable-uploads/r410a750g.png',
     category: 'ar-condicionado',
-    popularity: 7,
+    recommendedOrder: 23
   },
   {
     id: '33',
@@ -305,16 +233,7 @@ const sampleProducts: Product[] = [
     price: 132.00,
     image: '/lovable-uploads/r22.png',
     category: 'ar-condicionado',
-    popularity: 8,
-  },
-  {
-    id: '34',
-    name: 'VÁLVULA P/ GÁS 1/2',
-    code: '13255',
-    price: 42.00,
-    image: '/lovable-uploads/valve.png',
-    category: 'ar-condicionado',
-    popularity: 7,
+    recommendedOrder: 24
   },
   {
     id: '35',
@@ -323,7 +242,7 @@ const sampleProducts: Product[] = [
     price: 9.50,
     image: '/lovable-uploads/pp4.png',
     category: 'ar-condicionado',
-    popularity: 8,
+    recommendedOrder: 25
   },
   {
     id: '36',
@@ -332,7 +251,7 @@ const sampleProducts: Product[] = [
     price: 10.20,
     image: '/lovable-uploads/pp5.png',
     category: 'ar-condicionado',
-    popularity: 8,
+    recommendedOrder: 26
   },
   {
     id: '37',
@@ -341,7 +260,7 @@ const sampleProducts: Product[] = [
     price: 14.00,
     image: '/lovable-uploads/weg.png',
     category: 'ar-condicionado',
-    popularity: 9,
+    recommendedOrder: 27
   },
   {
     id: '38',
@@ -350,7 +269,7 @@ const sampleProducts: Product[] = [
     price: 24.00,
     image: '/lovable-uploads/schneider.png',
     category: 'ar-condicionado',
-    popularity: 8,
+    recommendedOrder: 28
   },
   {
     id: '39',
@@ -359,7 +278,16 @@ const sampleProducts: Product[] = [
     price: 24.00,
     image: '/lovable-uploads/lukma.png',
     category: 'ar-condicionado',
-    popularity: 7,
+    recommendedOrder: 29
+  },
+  {
+    id: '34',
+    name: 'VÁLVULA P/ GÁS 1/2',
+    code: '13255',
+    price: 42.00,
+    image: '/lovable-uploads/valve.png',
+    category: 'ar-condicionado',
+    recommendedOrder: 30
   },
   {
     id: '40',
@@ -368,7 +296,7 @@ const sampleProducts: Product[] = [
     price: 9.80,
     image: '/lovable-uploads/uniao.png',
     category: 'ar-condicionado',
-    popularity: 8,
+    recommendedOrder: 31
   },
   {
     id: '41',
@@ -377,7 +305,7 @@ const sampleProducts: Product[] = [
     price: 20.00,
     image: '/lovable-uploads/uniao.png',
     category: 'ar-condicionado',
-    popularity: 8,
+    recommendedOrder: 32
   },
   {
     id: '42',
@@ -386,7 +314,7 @@ const sampleProducts: Product[] = [
     price: 27.00,
     image: '/lovable-uploads/uniao.png',
     category: 'ar-condicionado',
-    popularity: 7,
+    recommendedOrder: 33
   },
   {
     id: '43',
@@ -395,7 +323,7 @@ const sampleProducts: Product[] = [
     price: 38.00,
     image: '/lovable-uploads/uniao.png',
     category: 'ar-condicionado',
-    popularity: 7,
+    recommendedOrder: 34
   },
   {
     id: '44',
@@ -404,7 +332,7 @@ const sampleProducts: Product[] = [
     price: 55.00,
     image: '/lovable-uploads/uniao.png',
     category: 'ar-condicionado',
-    popularity: 6,
+    recommendedOrder: 35
   },
   {
     id: '45',
@@ -413,7 +341,7 @@ const sampleProducts: Product[] = [
     price: 20.00,
     image: '/lovable-uploads/redutor.png',
     category: 'ar-condicionado',
-    popularity: 7,
+    recommendedOrder: 36
   },
   {
     id: '46',
@@ -422,7 +350,7 @@ const sampleProducts: Product[] = [
     price: 25.00,
     image: '/lovable-uploads/redutor.png',
     category: 'ar-condicionado',
-    popularity: 7,
+    recommendedOrder: 37
   },
   {
     id: '47',
@@ -431,7 +359,7 @@ const sampleProducts: Product[] = [
     price: 28.00,
     image: '/lovable-uploads/redutor.png',
     category: 'ar-condicionado',
-    popularity: 6,
+    recommendedOrder: 38
   },
   {
     id: '48',
@@ -440,7 +368,7 @@ const sampleProducts: Product[] = [
     price: 9.50,
     image: '/lovable-uploads/porca.png',
     category: 'ar-condicionado',
-    popularity: 8,
+    recommendedOrder: 39
   },
   {
     id: '49',
@@ -449,7 +377,7 @@ const sampleProducts: Product[] = [
     price: 9.80,
     image: '/lovable-uploads/porca.png',
     category: 'ar-condicionado',
-    popularity: 8,
+    recommendedOrder: 40
   },
   {
     id: '50',
@@ -458,7 +386,7 @@ const sampleProducts: Product[] = [
     price: 12.00,
     image: '/lovable-uploads/porca.png',
     category: 'ar-condicionado',
-    popularity: 7,
+    recommendedOrder: 41
   },
   {
     id: '51',
@@ -467,7 +395,7 @@ const sampleProducts: Product[] = [
     price: 29.00,
     image: '/lovable-uploads/porca.png',
     category: 'ar-condicionado',
-    popularity: 7,
+    recommendedOrder: 42
   },
   {
     id: '52',
@@ -476,7 +404,7 @@ const sampleProducts: Product[] = [
     price: 32.00,
     image: '/lovable-uploads/porca.png',
     category: 'ar-condicionado',
-    popularity: 6,
+    recommendedOrder: 43
   },
   {
     id: '53',
@@ -485,7 +413,7 @@ const sampleProducts: Product[] = [
     price: 20.00,
     image: '/lovable-uploads/capacitorpreto.png',
     category: 'ar-condicionado',
-    popularity: 8,
+    recommendedOrder: 44
   },
   {
     id: '54',
@@ -494,7 +422,7 @@ const sampleProducts: Product[] = [
     price: 20.00,
     image: '/lovable-uploads/capacitorpreto.png',
     category: 'ar-condicionado',
-    popularity: 8,
+    recommendedOrder: 45
   },
   {
     id: '55',
@@ -503,7 +431,7 @@ const sampleProducts: Product[] = [
     price: 20.00,
     image: '/lovable-uploads/capacitorpreto.png',
     category: 'ar-condicionado',
-    popularity: 8,
+    recommendedOrder: 46
   },
   {
     id: '56',
@@ -512,7 +440,7 @@ const sampleProducts: Product[] = [
     price: 20.00,
     image: '/lovable-uploads/capacitorpreto.png',
     category: 'ar-condicionado',
-    popularity: 7,
+    recommendedOrder: 47
   },
   {
     id: '57',
@@ -521,7 +449,7 @@ const sampleProducts: Product[] = [
     price: 20.00,
     image: '/lovable-uploads/capacitorpreto.png',
     category: 'ar-condicionado',
-    popularity: 7,
+    recommendedOrder: 48
   },
   {
     id: '58',
@@ -530,7 +458,7 @@ const sampleProducts: Product[] = [
     price: 30.00,
     image: '/lovable-uploads/capacitor.png',
     category: 'ar-condicionado',
-    popularity: 7,
+    recommendedOrder: 49
   },
   {
     id: '59',
@@ -539,7 +467,7 @@ const sampleProducts: Product[] = [
     price: 25.00,
     image: '/lovable-uploads/capacitor.png',
     category: 'ar-condicionado',
-    popularity: 8,
+    recommendedOrder: 50
   },
   {
     id: '60',
@@ -548,7 +476,7 @@ const sampleProducts: Product[] = [
     price: 35.00,
     image: '/lovable-uploads/capacitor.png',
     category: 'ar-condicionado',
-    popularity: 7,
+    recommendedOrder: 51
   },
   {
     id: '61',
@@ -557,7 +485,7 @@ const sampleProducts: Product[] = [
     price: 43.00,
     image: '/lovable-uploads/capacitor.png',
     category: 'ar-condicionado',
-    popularity: 7,
+    recommendedOrder: 52
   },
   {
     id: '62',
@@ -566,7 +494,7 @@ const sampleProducts: Product[] = [
     price: 48.00,
     image: '/lovable-uploads/capacitor.png',
     category: 'ar-condicionado',
-    popularity: 6,
+    recommendedOrder: 53
   },
   {
     id: '63',
@@ -575,7 +503,7 @@ const sampleProducts: Product[] = [
     price: 48.00,
     image: '/lovable-uploads/capacitor.png',
     category: 'ar-condicionado',
-    popularity: 6,
+    recommendedOrder: 54
   },
   {
     id: '64',
@@ -584,7 +512,7 @@ const sampleProducts: Product[] = [
     price: 53.00,
     image: '/lovable-uploads/capacitor.png',
     category: 'ar-condicionado',
-    popularity: 6,
+    recommendedOrder: 55
   },
   {
     id: '65',
@@ -593,7 +521,7 @@ const sampleProducts: Product[] = [
     price: 35.00,
     image: '/lovable-uploads/capacitor.png',
     category: 'ar-condicionado',
-    popularity: 7,
+    recommendedOrder: 56
   },
   {
     id: '66',
@@ -602,7 +530,7 @@ const sampleProducts: Product[] = [
     price: 52.00,
     image: '/lovable-uploads/capacitor.png',
     category: 'ar-condicionado',
-    popularity: 6,
+    recommendedOrder: 57
   },
   {
     id: '67',
@@ -611,7 +539,7 @@ const sampleProducts: Product[] = [
     price: 65.00,
     image: '/lovable-uploads/capacitor.png',
     category: 'ar-condicionado',
-    popularity: 5,
+    recommendedOrder: 58
   },
   {
     id: '68',
@@ -620,7 +548,7 @@ const sampleProducts: Product[] = [
     price: 45.00,
     image: '/lovable-uploads/capacitor.png',
     category: 'ar-condicionado',
-    popularity: 6,
+    recommendedOrder: 59
   },
   {
     id: '69',
@@ -629,7 +557,7 @@ const sampleProducts: Product[] = [
     price: 27.00,
     image: '/lovable-uploads/capacitor.png',
     category: 'ar-condicionado',
-    popularity: 8,
+    recommendedOrder: 60
   },
   {
     id: '70',
@@ -638,7 +566,7 @@ const sampleProducts: Product[] = [
     price: 39.00,
     image: '/lovable-uploads/duplo.png',
     category: 'ar-condicionado',
-    popularity: 7,
+    recommendedOrder: 61
   },
   {
     id: '71',
@@ -647,7 +575,7 @@ const sampleProducts: Product[] = [
     price: 45.00,
     image: '/lovable-uploads/duplo.png',
     category: 'ar-condicionado',
-    popularity: 7,
+    recommendedOrder: 62
   },
   {
     id: '72',
@@ -656,7 +584,7 @@ const sampleProducts: Product[] = [
     price: 45.00,
     image: '/lovable-uploads/duplo.png',
     category: 'ar-condicionado',
-    popularity: 7,
+    recommendedOrder: 63
   },
   {
     id: '73',
@@ -665,7 +593,7 @@ const sampleProducts: Product[] = [
     price: 25.00,
     image: '/lovable-uploads/canaleta.png',
     category: 'ar-condicionado',
-    popularity: 8,
+    recommendedOrder: 64
   },
   {
     id: '74',
@@ -674,7 +602,7 @@ const sampleProducts: Product[] = [
     price: 35.00,
     image: '/lovable-uploads/canaleta.png',
     category: 'ar-condicionado',
-    popularity: 8,
+    recommendedOrder: 65
   },
   {
     id: '75',
@@ -683,7 +611,7 @@ const sampleProducts: Product[] = [
     price: 38.00,
     image: '/lovable-uploads/terminalacabamento.png',
     category: 'ar-condicionado',
-    popularity: 7,
+    recommendedOrder: 66
   },
   {
     id: '76',
@@ -692,7 +620,7 @@ const sampleProducts: Product[] = [
     price: 55.00,
     image: '/lovable-uploads/terminalacabamento.png',
     category: 'ar-condicionado',
-    popularity: 7,
+    recommendedOrder: 67
   },
   {
     id: '77',
@@ -701,7 +629,7 @@ const sampleProducts: Product[] = [
     price: 13.00,
     image: '/lovable-uploads/curvainterna.png',
     category: 'ar-condicionado',
-    popularity: 8,
+    recommendedOrder: 68
   },
   {
     id: '78',
@@ -710,7 +638,7 @@ const sampleProducts: Product[] = [
     price: 15.00,
     image: '/lovable-uploads/passagemparede.png',
     category: 'ar-condicionado',
-    popularity: 8,
+    recommendedOrder: 69
   },
   {
     id: '79',
@@ -719,7 +647,7 @@ const sampleProducts: Product[] = [
     price: 21.00,
     image: '/lovable-uploads/curvaregulavel.png',
     category: 'ar-condicionado',
-    popularity: 7,
+    recommendedOrder: 70
   },
   {
     id: '80',
@@ -728,7 +656,7 @@ const sampleProducts: Product[] = [
     price: 23.00,
     image: '/lovable-uploads/passagemdreno.png',
     category: 'ar-condicionado',
-    popularity: 7,
+    recommendedOrder: 71
   },
   {
     id: '81',
@@ -737,7 +665,71 @@ const sampleProducts: Product[] = [
     price: 25.00,
     image: '/lovable-uploads/passagemdreno.png',
     category: 'ar-condicionado',
-    popularity: 7,
+    recommendedOrder: 72
+  },
+  {
+    id: '1',
+    name: 'Abraçadeira 3/4" Tramontina Cinza',
+    code: 'ABR-001',
+    price: 3.70,
+    image: '/lovable-uploads/fe15bc67-99a8-48bb-9477-8a5f5d5f928d.png',
+    category: 'instalacoes-eletricas',
+  },
+  {
+    id: '2',
+    name: 'Luva para Eletroduto 3/4" Tramontina Cinza',
+    code: 'LUV-001',
+    price: 2.75,
+    image: '/lovable-uploads/fe15bc67-99a8-48bb-9477-8a5f5d5f928d.png',
+    category: 'instalacoes-eletricas',
+  },
+  {
+    id: '3',
+    name: 'Curva Longa 90° 1/2" com Bolsa Tramontina Cinza',
+    code: 'CRV-001',
+    price: 17.00,
+    image: '/lovable-uploads/fe15bc67-99a8-48bb-9477-8a5f5d5f928d.png',
+    category: 'instalacoes-eletricas',
+  },
+  {
+    id: '4',
+    name: 'Curva Longa 90° 3/4" com Bolsa Tramontina Cinza',
+    code: 'CRV-002',
+    price: 19.50,
+    image: '/lovable-uploads/fe15bc67-99a8-48bb-9477-8a5f5d5f928d.png',
+    category: 'instalacoes-eletricas',
+  },
+  {
+    id: '5',
+    name: 'Adaptador para Condulete Múltiplo 1.1/2" para 1.1/4" Tramontina',
+    code: 'ADP-001',
+    price: 25.30,
+    image: '/lovable-uploads/fe15bc67-99a8-48bb-9477-8a5f5d5f928d.png',
+    category: 'instalacoes-eletricas',
+  },
+  {
+    id: '6',
+    name: 'Adaptador para Condulete Múltiplo 1" Tramontina',
+    code: 'ADP-002',
+    price: 22.80,
+    image: '/lovable-uploads/fe15bc67-99a8-48bb-9477-8a5f5d5f928d.png',
+    category: 'instalacoes-eletricas',
+  },
+  {
+    id: '8',
+    name: 'Terminal de Compressão 50mm',
+    code: 'TRM-001',
+    price: 12.50,
+    image: '/lovable-uploads/fe15bc67-99a8-48bb-9477-8a5f5d5f928d.png',
+    category: 'terminais',
+  },
+  {
+    id: '9',
+    name: 'Sensor de Temperatura PTC',
+    code: 'SNS-001',
+    price: 45.90,
+    image: '/lovable-uploads/fe15bc67-99a8-48bb-9477-8a5f5d5f928d.png',
+    category: 'automacao',
   },
 ];
 
@@ -761,13 +753,13 @@ const categoryLabels: Record<string, string> = {
   'ar-condicionado': 'Ar Condicionado',
 };
 
-type SortOption = 'popularity' | 'price-low' | 'price-high';
+type SortOption = 'recommended' | 'price-low' | 'price-high';
 
 export default function CategoryPage() {
   const { slug } = useParams<{ slug: string }>();
   const [products, setProducts] = useState<Product[]>([]);
-  const [priceRange, setPriceRange] = useState<[number, number]>([0, 200]);
-  const [sortBy, setSortBy] = useState<SortOption>('popularity');
+  const [priceRange, setPriceRange] = useState<[number, number]>([0, 300]);
+  const [sortBy, setSortBy] = useState<SortOption>('recommended');
   const [allCategories, setAllCategories] = useState<string[]>([]);
   const [showFilters, setShowFilters] = useState(false);
 
@@ -784,8 +776,19 @@ export default function CategoryPage() {
     );
     
     switch(sortBy) {
-      case 'popularity':
-        filteredProducts.sort((a, b) => b.popularity - a.popularity);
+      case 'recommended':
+        filteredProducts.sort((a, b) => {
+          if (a.recommendedOrder !== undefined && b.recommendedOrder !== undefined) {
+            return a.recommendedOrder - b.recommendedOrder;
+          }
+          if (a.recommendedOrder !== undefined) {
+            return -1;
+          }
+          if (b.recommendedOrder !== undefined) {
+            return 1;
+          }
+          return 0;
+        });
         break;
       case 'price-low':
         filteredProducts.sort((a, b) => a.price - b.price);
@@ -903,11 +906,11 @@ export default function CategoryPage() {
                     onValueChange={(value) => setSortBy(value as SortOption)}
                   >
                     <SelectTrigger className="w-[180px] bg-[#252525] border-[#333333] text-white">
-                      <SelectValue placeholder="Mais populares" />
+                      <SelectValue placeholder="Recomendado" />
                     </SelectTrigger>
                     <SelectContent className="bg-[#1E1E1E] border-[#333333] text-white">
-                      <SelectItem value="popularity" className="flex items-center gap-2">
-                        <Flame className="w-4 h-4 text-center-orange" /> Mais populares
+                      <SelectItem value="recommended" className="flex items-center gap-2">
+                        <ThumbsUp className="w-4 h-4 text-center-orange" /> Recomendado
                       </SelectItem>
                       <SelectItem value="price-low" className="flex items-center gap-2">
                         <ArrowUpNarrowWide className="w-4 h-4" /> Menor preço

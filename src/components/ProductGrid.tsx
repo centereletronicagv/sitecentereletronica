@@ -8,6 +8,7 @@ interface Product {
   price: number;
   image: string;
   category: string;
+  recommendedOrder?: number;
 }
 
 interface ProductGridProps {
