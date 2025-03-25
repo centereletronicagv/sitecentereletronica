@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import Navbar from '../components/Navbar';
@@ -7,6 +8,7 @@ import { Slider } from "@/components/ui/slider";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { ArrowDownNarrowWide, ArrowUpNarrowWide, ThumbsUp, Filter, Tag } from "lucide-react";
 import { motion } from "framer-motion";
+import { useIsMobile } from '@/hooks/use-mobile';
 
 interface Product {
   id: string;
@@ -762,6 +764,7 @@ export default function CategoryPage() {
   const [sortBy, setSortBy] = useState<SortOption>('recommended');
   const [allCategories, setAllCategories] = useState<string[]>([]);
   const [showFilters, setShowFilters] = useState(false);
+  const isMobile = useIsMobile();
 
   useEffect(() => {
     const categories = Array.from(new Set(sampleProducts.map(product => product.category)));
@@ -832,12 +835,17 @@ export default function CategoryPage() {
           </motion.div>
           
           <div className="lg:hidden flex justify-between items-center mb-6">
-            <p className="text-gray-400">Mostrando {products.length} produto(s)</p>
+            <div className="text-gray-400 text-sm flex items-center">
+              <span>Mostrando</span>
+              <span className="font-semibold text-white mx-1">{products.length}</span>
+              <span>produto(s)</span>
+            </div>
+            
             <button 
               onClick={() => setShowFilters(!showFilters)}
-              className="flex items-center gap-2 bg-[#252525] border border-[#333] px-3 py-2 rounded-lg text-gray-300"
+              className="flex items-center gap-1.5 bg-[#252525] border border-[#333] px-2.5 py-1.5 rounded-lg text-gray-300 text-sm"
             >
-              <Filter size={16} />
+              <Filter size={14} />
               <span>Filtros</span>
             </button>
           </div>
@@ -897,15 +905,17 @@ export default function CategoryPage() {
               className="lg:col-span-3"
             >
               <div className="flex items-center justify-between mb-6 bg-[#1E1E1E] p-4 rounded-xl border border-[#333333]">
-                <p className="text-gray-400 font-medium">Mostrando {products.length} produto(s)</p>
+                <p className="text-gray-400 text-sm hidden md:block">
+                  Mostrando <span className="font-medium text-white">{products.length}</span> produto(s)
+                </p>
                 
-                <div className="flex items-center gap-2">
-                  <span className="text-gray-400 mr-2 text-sm">Ordenar por:</span>
+                <div className={`flex items-center gap-2 ${isMobile ? 'w-full' : ''}`}>
+                  <span className="text-gray-400 text-xs md:text-sm whitespace-nowrap">Ordenar por:</span>
                   <Select
                     value={sortBy}
                     onValueChange={(value) => setSortBy(value as SortOption)}
                   >
-                    <SelectTrigger className="w-[180px] bg-[#252525] border-[#333333] text-white">
+                    <SelectTrigger className={`bg-[#252525] border-[#333333] text-white ${isMobile ? 'text-xs h-8 flex-1' : 'w-[180px]'}`}>
                       <SelectValue placeholder="Recomendado" />
                     </SelectTrigger>
                     <SelectContent className="bg-[#1E1E1E] border-[#333333] text-white">
@@ -932,4 +942,3 @@ export default function CategoryPage() {
     </div>
   );
 }
-

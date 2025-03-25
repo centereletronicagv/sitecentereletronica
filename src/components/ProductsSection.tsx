@@ -12,6 +12,8 @@ interface Product {
   image: string;
   category: string;
   recommendedOrder?: number;
+  popularity?: number;
+  featured?: boolean;
 }
 
 const mockProducts: Product[] = [
