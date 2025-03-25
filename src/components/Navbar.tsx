@@ -1,9 +1,12 @@
+
 import { useState, useEffect, FormEvent } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { Menu, X, Search, Wind, Plug, Terminal, Router, ChevronDown, Heart, ShoppingCart } from 'lucide-react';
 import { Input } from './ui/input';
 import { useCart } from '@/context/CartContext';
 import CartModal from './CartModal';
+import { Dialog, DialogContent } from '@/components/ui/dialog';
+import { useIsMobile } from '@/hooks/use-mobile';
 
 interface NavLink {
   name: string;
@@ -25,9 +28,11 @@ export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
   const [isCartOpen, setIsCartOpen] = useState(false);
+  const [isMobileSearchOpen, setIsMobileSearchOpen] = useState(false);
   const location = useLocation();
   const navigate = useNavigate();
   const { getTotalItems } = useCart();
+  const isMobile = useIsMobile();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -44,11 +49,14 @@ export default function Navbar() {
 
   useEffect(() => {
     setIsMenuOpen(false);
+    setIsMobileSearchOpen(false);
   }, [location.pathname]);
 
   const handleSearch = (e: FormEvent) => {
     e.preventDefault();
     
+    if (searchQuery.trim() === '') return;
+
     if (location.pathname !== '/') {
       navigate(`/?search=${encodeURIComponent(searchQuery)}`);
     }
@@ -58,6 +66,12 @@ export default function Navbar() {
     }));
     
     console.log('Searching for:', searchQuery);
+    setIsMobileSearchOpen(false);
+  };
+
+  const handleMobileSearchOpen = () => {
+    console.log('Open mobile search');
+    setIsMobileSearchOpen(true);
   };
 
   return (
@@ -144,9 +158,7 @@ export default function Navbar() {
             <div className="flex items-center gap-3 md:hidden">
               <button 
                 className="p-2 text-gray-300 bg-[#333333] rounded-full"
-                onClick={() => {
-                  console.log('Open mobile search');
-                }}
+                onClick={handleMobileSearchOpen}
               >
                 <Search size={18} />
               </button>
@@ -277,6 +289,48 @@ export default function Navbar() {
 
       {/* Cart Modal */}
       <CartModal open={isCartOpen} onOpenChange={setIsCartOpen} />
+
+      {/* Mobile Search Dialog */}
+      <Dialog open={isMobileSearchOpen} onOpenChange={setIsMobileSearchOpen}>
+        <DialogContent className="sm:max-w-md border-[#333333] bg-[#1E1E1E] p-0 overflow-hidden">
+          <div className="p-4">
+            <form onSubmit={handleSearch} className="relative">
+              <Input
+                type="search"
+                placeholder="O que você procura hoje?"
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                className="pr-12 w-full bg-[#252525] border-[#3a3a3a] text-white focus-visible:ring-center-orange placeholder:text-gray-400"
+                autoFocus
+              />
+              <button 
+                type="submit"
+                className="absolute right-0 top-0 h-full px-3 flex items-center justify-center text-gray-400 hover:text-center-orange"
+              >
+                <Search size={20} />
+              </button>
+            </form>
+
+            <div className="mt-6">
+              <h4 className="text-sm font-medium text-gray-300 mb-2">Pesquisas populares:</h4>
+              <div className="flex flex-wrap gap-2">
+                {['Capacitor', 'Tubulação', 'Disjuntor', 'Suporte', 'Fita'].map((term) => (
+                  <button
+                    key={term}
+                    onClick={() => {
+                      setSearchQuery(term);
+                      handleSearch(new Event('submit') as unknown as FormEvent);
+                    }}
+                    className="px-3 py-1 bg-[#252525] hover:bg-[#333333] text-gray-300 text-xs rounded-full transition-colors"
+                  >
+                    {term}
+                  </button>
+                ))}
+              </div>
+            </div>
+          </div>
+        </DialogContent>
+      </Dialog>
     </header>
   );
 }
