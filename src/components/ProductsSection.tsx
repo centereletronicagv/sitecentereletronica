@@ -1,3 +1,4 @@
+
 import { useEffect, useState } from 'react';
 import { ArrowRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
@@ -840,3 +841,79 @@ const mockProducts: Product[] = [
   {
     id: '171',
     name: 'CAIXA DE PASSAGEM PARA DRENO',
+    code: '7899611800016',
+    price: 23.00,
+    image: '/lovable-uploads/passagemdreno.png',
+    category: 'ar-condicionado',
+    popularity: 7
+  },
+  {
+    id: '172',
+    name: 'CAIXA DE PASSAGEM PARA DRENO',
+    code: '789961180047',
+    price: 25.00,
+    image: '/lovable-uploads/passagemdreno.png',
+    category: 'ar-condicionado',
+    popularity: 7
+  }
+];
+
+interface ProductsSectionProps {
+  searchQuery?: string;
+}
+
+const ProductsSection = ({ searchQuery = '' }: ProductsSectionProps) => {
+  const [isLoading, setIsLoading] = useState(true);
+  const [products, setProducts] = useState<Product[]>([]);
+
+  useEffect(() => {
+    // Simulate loading
+    setIsLoading(true);
+    
+    // In a real app, this would be a fetch request to an API
+    setTimeout(() => {
+      let filteredProducts = [...mockProducts];
+      
+      // If we're on the homepage and there's no search query, only show first 8 recommended products
+      if (!searchQuery) {
+        // Sort by recommendedOrder if available, otherwise use the order in the array
+        filteredProducts = filteredProducts
+          .filter(product => product.recommendedOrder !== undefined)
+          .sort((a, b) => {
+            const orderA = a.recommendedOrder || 999;
+            const orderB = b.recommendedOrder || 999;
+            return orderA - orderB;
+          })
+          .slice(0, 8);
+      }
+      
+      setProducts(filteredProducts);
+      setIsLoading(false);
+    }, 500);
+  }, [searchQuery]);
+
+  return (
+    <section id="products" className="py-16 px-4 bg-[#121212]">
+      <div className="container mx-auto">
+        {!searchQuery ? (
+          <div className="flex justify-between items-center mb-8">
+            <h2 className="text-2xl md:text-3xl font-bold text-white">Produtos Recomendados</h2>
+            <Link to="/categoria/ar-condicionado" className="flex items-center gap-2 text-center-orange hover:text-center-orange/80 transition-colors duration-300">
+              <span>Ver todos</span>
+              <ArrowRight size={16} />
+            </Link>
+          </div>
+        ) : (
+          <div className="mb-8">
+            <h2 className="text-2xl md:text-3xl font-bold text-white">Resultados da Pesquisa</h2>
+            <p className="text-gray-400 mt-2">Mostrando resultados para: <span className="text-center-orange">"{searchQuery}"</span></p>
+          </div>
+        )}
+        
+        <ProductGrid products={products} isLoading={isLoading} searchQuery={searchQuery} />
+      </div>
+    </section>
+  );
+};
+
+export default ProductsSection;
