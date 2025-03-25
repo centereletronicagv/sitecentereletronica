@@ -14,14 +14,24 @@ interface Product {
 interface ProductGridProps {
   products: Product[];
   isLoading?: boolean;
+  searchQuery?: string;
 }
 
-export default function ProductGrid({ products, isLoading = false }: ProductGridProps) {
+export default function ProductGrid({ products, isLoading = false, searchQuery = '' }: ProductGridProps) {
   if (isLoading) {
     return <ProductGridSkeleton />;
   }
 
-  if (products.length === 0) {
+  // Filter products based on search query if provided
+  const filteredProducts = searchQuery
+    ? products.filter(product => 
+        product.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        product.code.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        product.category.toLowerCase().includes(searchQuery.toLowerCase())
+      )
+    : products;
+
+  if (filteredProducts.length === 0) {
     return (
       <div className="py-20 text-center">
         <h3 className="text-xl font-medium text-white">Nenhum produto encontrado</h3>
@@ -32,7 +42,7 @@ export default function ProductGrid({ products, isLoading = false }: ProductGrid
 
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-      {products.map((product) => (
+      {filteredProducts.map((product) => (
         <ProductCard key={product.id} product={product} />
       ))}
     </div>

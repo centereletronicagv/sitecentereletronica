@@ -1,6 +1,5 @@
-
-import { useState, useEffect } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { useState, useEffect, FormEvent } from 'react';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { Menu, X, Search, Wind, Plug, Terminal, Router, ChevronDown, Heart, ShoppingCart } from 'lucide-react';
 import { Input } from './ui/input';
 import { useCart } from '@/context/CartContext';
@@ -27,6 +26,7 @@ export default function Navbar() {
   const [searchQuery, setSearchQuery] = useState('');
   const [isCartOpen, setIsCartOpen] = useState(false);
   const location = useLocation();
+  const navigate = useNavigate();
   const { getTotalItems } = useCart();
 
   useEffect(() => {
@@ -46,8 +46,17 @@ export default function Navbar() {
     setIsMenuOpen(false);
   }, [location.pathname]);
 
-  const handleSearch = (e: React.FormEvent) => {
+  const handleSearch = (e: FormEvent) => {
     e.preventDefault();
+    
+    if (location.pathname !== '/') {
+      navigate(`/?search=${encodeURIComponent(searchQuery)}`);
+    }
+    
+    window.dispatchEvent(new CustomEvent('product-search', { 
+      detail: { query: searchQuery } 
+    }));
+    
     console.log('Searching for:', searchQuery);
   };
 

@@ -1,9 +1,7 @@
-
-import { useState, useEffect } from 'react';
-import { Button } from '@/components/ui/button';
-import { Star, ShoppingCart } from 'lucide-react';
+import { useEffect, useState } from 'react';
+import { ArrowRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import { motion } from 'framer-motion';
+import ProductGrid from './ProductGrid';
 
 interface Product {
   id: string;
@@ -12,11 +10,10 @@ interface Product {
   price: number;
   image: string;
   category: string;
-  popularity: number;
-  featured?: boolean;
+  recommendedOrder?: number;
 }
 
-const sampleProducts: Product[] = [
+const mockProducts: Product[] = [
   {
     id: '1',
     name: 'Abraçadeira 3/4" Tramontina Cinza',
@@ -93,7 +90,6 @@ const sampleProducts: Product[] = [
     category: 'ar-condicionado',
     popularity: 7
   },
-  // Produtos adicionados
   {
     id: '30',
     name: 'FLUÍDO R32 650g',
@@ -134,7 +130,6 @@ const sampleProducts: Product[] = [
     popularity: 8,
     featured: true
   },
-  // Novos produtos
   {
     id: '101',
     name: 'SUPORTE 400MM',
@@ -722,7 +717,7 @@ const sampleProducts: Product[] = [
   },
   {
     id: '166',
-    name: 'TERMINAL ACABAMENT0 CB30',
+    name: 'TERMINAL ACABAMENTO CB30',
     code: '12645',
     price: 38.00,
     image: '/lovable-uploads/terminalacabamento.png',
@@ -785,91 +780,61 @@ const sampleProducts: Product[] = [
   },
 ];
 
-export default function ProductsSection() {
-  const [featuredProducts, setFeaturedProducts] = useState<Product[]>([]);
+interface ProductsSectionProps {
+  searchQuery?: string;
+}
+
+export default function ProductsSection({ searchQuery = '' }: ProductsSectionProps) {
+  const [isLoading, setIsLoading] = useState(true);
+  const [products, setProducts] = useState<Product[]>([]);
 
   useEffect(() => {
-    let featured = sampleProducts.filter(product => product.featured);
-    
-    if (featured.length < 4) {
-      const nonFeatured = sampleProducts
-        .filter(product => !product.featured)
-        .sort((a, b) => b.popularity - a.popularity);
-      
-      featured = [...featured, ...nonFeatured.slice(0, 4 - featured.length)];
-    } else if (featured.length > 4) {
-      featured = featured.slice(0, 4);
-    }
+    const loadData = async () => {
+      setIsLoading(true);
+      await new Promise(resolve => setTimeout(resolve, 500));
+      setProducts(mockProducts);
+      setIsLoading(false);
+    };
 
-    setFeaturedProducts(featured);
+    loadData();
   }, []);
 
-  const formatCurrency = (value: number) => {
-    return new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(value);
-  };
-
   return (
-    <section className="py-16 bg-[#181818]">
+    <section className="py-16 bg-[#121212]">
       <div className="container-custom">
-        <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-12">
-          <div className="flex items-center">
-            <div className="w-1.5 h-12 bg-center-orange rounded-full mr-4"></div>
-            <h2 className="section-title flex items-center gap-3 text-balance">
-              Produtos em Destaque
-              <Star className="w-6 h-6 text-center-orange" fill="currentColor" />
-            </h2>
-          </div>
-          
-          <Link to="/categoria/ar-condicionado">
-            <Button 
-              variant="outline" 
-              className="border-center-orange text-center-orange hover:bg-center-orange hover:text-white transition-all duration-300"
-            >
-              Ver todos
-            </Button>
-          </Link>
-        </div>
-
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          {featuredProducts.map((product, index) => (
-            <motion.div 
-              key={product.id}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
-              className="bg-[#222222] rounded-xl border border-[#333333] overflow-hidden shadow-lg group hover:shadow-xl transition-all duration-300 hover:border-center-orange/40"
-              whileHover={{ y: -8 }}
-            >
-              <div className="h-48 bg-gradient-to-br from-[#2a2a2a] to-[#222222] flex items-center justify-center p-4 relative">
-                <img 
-                  src={product.image} 
-                  alt={product.name} 
-                  className="max-h-full max-w-full object-contain transition-transform duration-300 group-hover:scale-105"
-                />
-                <div className="absolute top-3 left-3">
-                  <span className="bg-center-orange text-white text-xs px-2.5 py-1 rounded-full font-medium">
-                    Cód: {product.code}
-                  </span>
-                </div>
-              </div>
-              <div className="p-5">
-                <h3 className="text-white font-medium text-base line-clamp-2 mb-2 h-12">{product.name}</h3>
-                <div className="flex items-center justify-between mt-4">
-                  <div className="text-center-orange font-bold text-lg">
-                    {formatCurrency(product.price)}
-                  </div>
-                  <Button 
-                    size="icon" 
-                    className="bg-center-orange hover:bg-center-orangeLight text-white rounded-full w-10 h-10 transition-all duration-300 hover:scale-105"
-                  >
-                    <span className="sr-only">Adicionar ao carrinho</span>
-                    <ShoppingCart size={18} />
-                  </Button>
-                </div>
-              </div>
-            </motion.div>
-          ))}
-        </div>
+        {searchQuery ? (
+          <>
+            <div className="mb-10">
+              <h2 className="text-2xl font-semibold text-white mb-2">
+                Resultados para: <span className="text-center-orange">"{searchQuery}"</span>
+              </h2>
+              <p className="text-gray-400">
+                Encontramos os seguintes produtos relacionados à sua busca
+              </p>
+            </div>
+            <ProductGrid 
+              products={products} 
+              isLoading={isLoading} 
+              searchQuery={searchQuery} 
+            />
+          </>
+        ) : (
+          <>
+            <div className="flex justify-between items-center mb-10">
+              <h2 className="text-2xl font-semibold text-white">
+                Nossos <span className="text-center-orange">Produtos</span>
+              </h2>
+              <Link
+                to="/categoria/ar-condicionado"
+                className="text-center-orange hover:text-orange-400 flex items-center gap-2 text-sm font-medium"
+              >
+                Ver todos
+                <ArrowRight size={14} />
+              </Link>
+            </div>
+            <ProductGrid products={products} isLoading={isLoading} />
+          </>
+        )}
       </div>
     </section>
   );
