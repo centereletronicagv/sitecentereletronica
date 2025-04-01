@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import Navbar from '../components/Navbar';
@@ -684,6 +685,13 @@ const sampleProducts: Product[] = [
     image: '/lovable-uploads/fe15bc67-99a8-48bb-9477-8a5f5d5f928d.png',
     category: 'automacao',
   },
+  // Removed products based on user's request:
+  // - Abraçadeira 3/4" Tramontina Cinza (id: '1')
+  // - Luva para Eletroduto 3/4" Tramontina Cinza (id: '2')
+  // - Curva Longa 90° 1/2" com Bolsa Tramontina Cinza (id: '3')
+  // - Curva Longa 90° 3/4" com Bolsa Tramontina Cinza (id: '4')
+  // - Adaptador para Condulete Múltiplo 1.1/2" para 1.1/4" Tramontina (id: '5')
+  // - Adaptador para Condulete Múltiplo 1" Tramontina (id: '6')
   {
     id: 'e1',
     name: 'DISJUNTOR MONO 6A C WEG',
@@ -972,78 +980,6 @@ const sampleProducts: Product[] = [
     image: '/lovable-uploads/caixamoldada.png',
     category: 'instalacoes-eletricas',
   },
-  {
-    id: 'd1',
-    name: 'DPS CLAMPER 275VAC 20Ka',
-    code: '7897348049548',
-    price: 52.00,
-    image: '/lovable-uploads/dps.png',
-    category: 'dps',
-  },
-  {
-    id: 'd2',
-    name: 'DPS CLAMPER 275VAC 20Ka',
-    code: '7899495242964',
-    price: 60.00,
-    image: '/lovable-uploads/dps.png',
-    category: 'dps',
-  },
-  {
-    id: 'i1',
-    name: 'IDR 2P 25A 30Ma SOPRANO',
-    code: '7892327542454',
-    price: 105.00,
-    image: '/lovable-uploads/drmono.png',
-    category: 'idr',
-  },
-  {
-    id: 'i2',
-    name: 'IDR 2P 40A 30Ma SOPRANO',
-    code: '7892327542478',
-    price: 105.00,
-    image: '/lovable-uploads/drmono.png',
-    category: 'idr',
-  },
-  {
-    id: 'i3',
-    name: 'IDR 2P 63A 30Ma SOPRANO',
-    code: '7892327542492',
-    price: 125.00,
-    image: '/lovable-uploads/drmono.png',
-    category: 'idr',
-  },
-  {
-    id: 'i4',
-    name: 'IDR 4P 25A 30Ma SOPRANO',
-    code: '12715',
-    price: 159.00,
-    image: '/lovable-uploads/drtetra.png',
-    category: 'idr',
-  },
-  {
-    id: 'i5',
-    name: 'IDR 4P 25A 30Ma TRAMONTINA',
-    code: '7891435960952',
-    price: 175.00,
-    image: '/lovable-uploads/drtramontina.png',
-    category: 'idr',
-  },
-  {
-    id: 'i6',
-    name: 'IDR 4P 40A 30Ma SOPRANO',
-    code: '7892327542485',
-    price: 159.00,
-    image: '/lovable-uploads/drtetra.png',
-    category: 'idr',
-  },
-  {
-    id: 'i7',
-    name: 'IDR SOPRANO 63A 30Ma SOPRANO',
-    code: '7892327542508',
-    price: 175.00,
-    image: '/lovable-uploads/drtetra.png',
-    category: 'idr',
-  },
 ];
 
 const categoryLabels: Record<string, string> = {
@@ -1064,8 +1000,6 @@ const categoryLabels: Record<string, string> = {
   'capacitor': 'Capacitor',
   'acabamento': 'Acabamento',
   'ar-condicionado': 'Ar Condicionado',
-  'dps': 'Dispositivos de Proteção contra Surtos',
-  'idr': 'Interruptores Diferenciais Residuais',
 };
 
 type SortOption = 'recommended' | 'price-low' | 'price-high';
@@ -1135,20 +1069,20 @@ export default function CategoryPage() {
     <div className="flex flex-col min-h-screen bg-[#151515]">
       <Navbar />
       <main className="flex-grow">
-        <div className="container-custom py-8 sm:py-12">
+        <div className="container-custom py-12">
           <motion.div 
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
-            className="flex flex-col gap-2 mb-6 sm:mb-8"
+            className="flex flex-col gap-2 mb-8"
           >
-            <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white tracking-tight">
+            <h1 className="text-3xl md:text-4xl font-bold text-white tracking-tight">
               {slug && slug in categoryLabels ? categoryLabels[slug] : 'Todos os Produtos'}
             </h1>
-            <p className="text-gray-400 text-sm sm:text-base">Encontre os melhores produtos para seu projeto</p>
+            <p className="text-gray-400">Encontre os melhores produtos para seu projeto</p>
           </motion.div>
           
           <div className="lg:hidden flex justify-between items-center mb-6">
-            <div className="text-gray-400 text-xs sm:text-sm flex items-center">
+            <div className="text-gray-400 text-sm flex items-center">
               <span>Mostrando</span>
               <span className="font-semibold text-white mx-1">{products.length}</span>
               <span>produto(s)</span>
@@ -1156,30 +1090,30 @@ export default function CategoryPage() {
             
             <button 
               onClick={() => setShowFilters(!showFilters)}
-              className="flex items-center gap-1.5 bg-[#252525] border border-[#333] px-2 py-1.5 sm:px-2.5 sm:py-1.5 rounded-lg text-gray-300 text-xs sm:text-sm"
+              className="flex items-center gap-1.5 bg-[#252525] border border-[#333] px-2.5 py-1.5 rounded-lg text-gray-300 text-sm"
             >
               <Filter size={14} />
               <span>Filtros</span>
             </button>
           </div>
           
-          <div className="grid grid-cols-1 lg:grid-cols-4 gap-6 sm:gap-8">
+          <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
             <motion.div 
               initial={{ opacity: 0, x: -20 }}
               animate={{ opacity: 1, x: 0 }}
-              className={`lg:col-span-1 space-y-6 sm:space-y-8 ${showFilters ? 'block' : 'hidden lg:block'}`}
+              className={`lg:col-span-1 space-y-8 ${showFilters ? 'block' : 'hidden lg:block'}`}
             >
-              <div className="bg-gradient-to-b from-[#1E1E1E] to-[#232323] p-4 sm:p-6 rounded-xl border border-[#333333] shadow-lg">
+              <div className="bg-gradient-to-b from-[#1E1E1E] to-[#232323] p-6 rounded-xl border border-[#333333] shadow-lg">
                 <div className="flex items-center gap-2 mb-4">
                   <Tag size={18} className="text-center-orange" />
-                  <h2 className="text-white font-semibold text-lg sm:text-xl">Categorias</h2>
+                  <h2 className="text-white font-semibold text-xl">Categorias</h2>
                 </div>
-                <nav className="space-y-1 sm:space-y-2 max-h-[400px] overflow-y-auto pr-2 scrollbar-none">
+                <nav className="space-y-2">
                   {allCategories.map(cat => (
                     <a 
                       key={cat}
                       href={`/categoria/${cat}`}
-                      className={`block py-2 sm:py-2.5 px-3 sm:px-4 rounded-md text-xs sm:text-sm transition-all duration-200 ${
+                      className={`block py-2.5 px-4 rounded-md text-sm transition-all duration-200 ${
                         slug === cat 
                           ? 'bg-center-orange text-white font-medium shadow-md shadow-center-orange/20' 
                           : 'text-gray-300 hover:bg-[#333333] hover:text-white'
@@ -1191,10 +1125,10 @@ export default function CategoryPage() {
                 </nav>
               </div>
               
-              <div className="bg-gradient-to-b from-[#1E1E1E] to-[#232323] p-4 sm:p-6 rounded-xl border border-[#333333] shadow-lg">
-                <div className="flex items-center gap-2 mb-4 sm:mb-6">
+              <div className="bg-gradient-to-b from-[#1E1E1E] to-[#232323] p-6 rounded-xl border border-[#333333] shadow-lg">
+                <div className="flex items-center gap-2 mb-6">
                   <ArrowUpNarrowWide size={18} className="text-center-orange" />
-                  <h2 className="text-white font-semibold text-lg sm:text-xl">Filtrar por Preço</h2>
+                  <h2 className="text-white font-semibold text-xl">Filtrar por Preço</h2>
                 </div>
                 <div className="px-2">
                   <Slider 
@@ -1202,9 +1136,9 @@ export default function CategoryPage() {
                     max={maxPrice} 
                     step={1}
                     onValueChange={(value) => setPriceRange(value as [number, number])}
-                    className="mb-4 sm:mb-6"
+                    className="mb-6"
                   />
-                  <div className="flex justify-between text-white text-xs sm:text-sm bg-[#252525] p-2 sm:p-3 rounded-lg">
+                  <div className="flex justify-between text-white text-sm bg-[#252525] p-3 rounded-lg">
                     <span>{formatCurrency(priceRange[0])}</span>
                     <span>{formatCurrency(priceRange[1])}</span>
                   </div>
@@ -1217,13 +1151,13 @@ export default function CategoryPage() {
               animate={{ opacity: 1, y: 0 }}
               className="lg:col-span-3"
             >
-              <div className="flex items-center justify-between mb-4 sm:mb-6 bg-[#1E1E1E] p-3 sm:p-4 rounded-xl border border-[#333333]">
-                <p className="text-gray-400 text-xs sm:text-sm hidden md:block">
+              <div className="flex items-center justify-between mb-6 bg-[#1E1E1E] p-4 rounded-xl border border-[#333333]">
+                <p className="text-gray-400 text-sm hidden md:block">
                   Mostrando <span className="font-medium text-white">{products.length}</span> produto(s)
                 </p>
                 
                 <div className={`flex items-center gap-2 ${isMobile ? 'w-full' : ''}`}>
-                  <span className="text-gray-400 text-xs sm:text-sm whitespace-nowrap">Ordenar por:</span>
+                  <span className="text-gray-400 text-xs md:text-sm whitespace-nowrap">Ordenar por:</span>
                   <Select
                     value={sortBy}
                     onValueChange={(value) => setSortBy(value as SortOption)}
@@ -1233,13 +1167,13 @@ export default function CategoryPage() {
                     </SelectTrigger>
                     <SelectContent className="bg-[#1E1E1E] border-[#333333] text-white">
                       <SelectItem value="recommended" className="flex items-center gap-2">
-                        <ThumbsUp className="w-3 h-3 sm:w-4 sm:h-4 text-center-orange" /> Recomendado
+                        <ThumbsUp className="w-4 h-4 text-center-orange" /> Recomendado
                       </SelectItem>
                       <SelectItem value="price-low" className="flex items-center gap-2">
-                        <ArrowUpNarrowWide className="w-3 h-3 sm:w-4 sm:h-4" /> Menor preço
+                        <ArrowUpNarrowWide className="w-4 h-4" /> Menor preço
                       </SelectItem>
                       <SelectItem value="price-high" className="flex items-center gap-2">
-                        <ArrowDownNarrowWide className="w-3 h-3 sm:w-4 sm:h-4" /> Maior preço
+                        <ArrowDownNarrowWide className="w-4 h-4" /> Maior preço
                       </SelectItem>
                     </SelectContent>
                   </Select>
