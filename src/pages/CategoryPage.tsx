@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import Navbar from '../components/Navbar';
@@ -669,54 +670,6 @@ const sampleProducts: Product[] = [
     recommendedOrder: 72
   },
   {
-    id: '1',
-    name: 'Abraçadeira 3/4" Tramontina Cinza',
-    code: 'ABR-001',
-    price: 3.70,
-    image: '/lovable-uploads/fe15bc67-99a8-48bb-9477-8a5f5d5f928d.png',
-    category: 'instalacoes-eletricas',
-  },
-  {
-    id: '2',
-    name: 'Luva para Eletroduto 3/4" Tramontina Cinza',
-    code: 'LUV-001',
-    price: 2.75,
-    image: '/lovable-uploads/fe15bc67-99a8-48bb-9477-8a5f5d5f928d.png',
-    category: 'instalacoes-eletricas',
-  },
-  {
-    id: '3',
-    name: 'Curva Longa 90° 1/2" com Bolsa Tramontina Cinza',
-    code: 'CRV-001',
-    price: 17.00,
-    image: '/lovable-uploads/fe15bc67-99a8-48bb-9477-8a5f5d5f928d.png',
-    category: 'instalacoes-eletricas',
-  },
-  {
-    id: '4',
-    name: 'Curva Longa 90° 3/4" com Bolsa Tramontina Cinza',
-    code: 'CRV-002',
-    price: 19.50,
-    image: '/lovable-uploads/fe15bc67-99a8-48bb-9477-8a5f5d5f928d.png',
-    category: 'instalacoes-eletricas',
-  },
-  {
-    id: '5',
-    name: 'Adaptador para Condulete Múltiplo 1.1/2" para 1.1/4" Tramontina',
-    code: 'ADP-001',
-    price: 25.30,
-    image: '/lovable-uploads/fe15bc67-99a8-48bb-9477-8a5f5d5f928d.png',
-    category: 'instalacoes-eletricas',
-  },
-  {
-    id: '6',
-    name: 'Adaptador para Condulete Múltiplo 1" Tramontina',
-    code: 'ADP-002',
-    price: 22.80,
-    image: '/lovable-uploads/fe15bc67-99a8-48bb-9477-8a5f5d5f928d.png',
-    category: 'instalacoes-eletricas',
-  },
-  {
     id: '8',
     name: 'Terminal de Compressão 50mm',
     code: 'TRM-001',
@@ -732,6 +685,13 @@ const sampleProducts: Product[] = [
     image: '/lovable-uploads/fe15bc67-99a8-48bb-9477-8a5f5d5f928d.png',
     category: 'automacao',
   },
+  // Removed products based on user's request:
+  // - Abraçadeira 3/4" Tramontina Cinza (id: '1')
+  // - Luva para Eletroduto 3/4" Tramontina Cinza (id: '2')
+  // - Curva Longa 90° 1/2" com Bolsa Tramontina Cinza (id: '3')
+  // - Curva Longa 90° 3/4" com Bolsa Tramontina Cinza (id: '4')
+  // - Adaptador para Condulete Múltiplo 1.1/2" para 1.1/4" Tramontina (id: '5')
+  // - Adaptador para Condulete Múltiplo 1" Tramontina (id: '6')
   {
     id: 'e1',
     name: 'DISJUNTOR MONO 6A C WEG',
@@ -1040,7 +1000,6 @@ const categoryLabels: Record<string, string> = {
   'capacitor': 'Capacitor',
   'acabamento': 'Acabamento',
   'ar-condicionado': 'Ar Condicionado',
-  'disjuntores': 'Disjuntores',
 };
 
 type SortOption = 'recommended' | 'price-low' | 'price-high';
