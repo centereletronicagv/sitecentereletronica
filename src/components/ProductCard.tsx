@@ -36,7 +36,14 @@ export default function ProductCard({ product }: ProductCardProps) {
   };
 
   const handleAddToCart = () => {
-    addToCart(product);
+    // Pass only the properties expected by CartContext
+    addToCart({
+      id: product.id,
+      name: product.name,
+      code: product.code,
+      price: product.price,
+      image: product.image
+    });
   };
 
   // Check if the product is sold by meter

@@ -677,14 +677,6 @@ const sampleProducts: Product[] = [
     category: 'terminais',
   },
   {
-    id: '9',
-    name: 'Sensor de Temperatura PTC',
-    code: 'SNS-001',
-    price: 45.90,
-    image: '/lovable-uploads/fe15bc67-99a8-48bb-9477-8a5f5d5f928d.png',
-    category: 'automacao',
-  },
-  {
     id: 'e1',
     name: 'DISJUNTOR MONO 6A C WEG',
     code: '7909522567707',
