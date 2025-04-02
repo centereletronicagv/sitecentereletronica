@@ -7,7 +7,7 @@ interface Product {
   id: string;
   name: string;
   code: string;
-  price: number | string;
+  price: number;
   image: string;
   category: string;
 }
@@ -21,10 +21,7 @@ export default function ProductCard({ product }: ProductCardProps) {
   const [isHovered, setIsHovered] = useState(false);
   const { addToCart } = useCart();
 
-  const formatPrice = (price: number | string) => {
-    if (typeof price === 'string') {
-      return price; // Return the string as is (for "Sob Consulta")
-    }
+  const formatPrice = (price: number) => {
     return new Intl.NumberFormat('pt-BR', {
       style: 'currency',
       currency: 'BRL',
@@ -79,15 +76,14 @@ export default function ProductCard({ product }: ProductCardProps) {
         </h3>
         <div className="mt-auto">
           <div className="flex justify-between items-center">
-            <div className={`text-base sm:text-lg font-semibold ${typeof product.price === 'string' ? 'text-yellow-500' : 'text-center-orange'}`}>
+            <div className="text-base sm:text-lg font-semibold text-center-orange">
               {formatPrice(product.price)}
-              {isSoldByMeter && typeof product.price === 'number' && <span className="text-xs font-normal text-gray-400 ml-1">/m</span>}
+              {isSoldByMeter && <span className="text-xs font-normal text-gray-400 ml-1">/m</span>}
             </div>
             <button 
               onClick={handleAddToCart}
-              className={`p-1.5 sm:p-2 rounded-full text-center-orange bg-center-orange/10 hover:bg-center-orange hover:text-white transition-colors flex items-center justify-center ${typeof product.price === 'string' ? 'opacity-60 cursor-not-allowed' : ''}`}
+              className="p-1.5 sm:p-2 rounded-full text-center-orange bg-center-orange/10 hover:bg-center-orange hover:text-white transition-colors flex items-center justify-center"
               aria-label="Adicionar ao carrinho"
-              disabled={typeof product.price === 'string'}
             >
               <ShoppingCart size={16} />
             </button>

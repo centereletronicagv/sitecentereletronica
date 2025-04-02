@@ -5,7 +5,7 @@ interface Product {
   id: string;
   name: string;
   code: string;
-  price: number | string;
+  price: number;
   image: string;
   category: string;
   recommendedOrder?: number;
