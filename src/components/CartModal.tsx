@@ -15,7 +15,10 @@ interface CartModalProps {
 export default function CartModal({ open, onOpenChange }: CartModalProps) {
   const { cartItems, removeFromCart, updateQuantity, clearCart, getTotalPrice } = useCart();
 
-  const formatPrice = (price: number) => {
+  const formatPrice = (price: number | string) => {
+    if (typeof price === 'string') {
+      return price; // Return the string as is (for "Sob Consulta")
+    }
     return new Intl.NumberFormat('pt-BR', {
       style: 'currency',
       currency: 'BRL',
@@ -25,11 +28,24 @@ export default function CartModal({ open, onOpenChange }: CartModalProps) {
   const handleCheckout = () => {
     // Generate WhatsApp message with all cart items
     const items = cartItems.map(
-      item => `${item.quantity}x ${item.name} (${formatPrice(item.price * item.quantity)})`
+      item => {
+        const priceDisplay = typeof item.price === 'string' ? item.price : formatPrice(item.price * item.quantity);
+        return `${item.quantity}x ${item.name} (${priceDisplay})`;
+      }
     ).join('\n');
     
     const total = formatPrice(getTotalPrice());
-    const message = `Olá, gostaria de fazer o seguinte pedido:\n\n${items}\n\nTotal: ${total}`;
+    let message = `Olá, gostaria de fazer o seguinte pedido:\n\n${items}\n\n`;
+    
+    // Only include total if there are items with numeric prices
+    if (cartItems.some(item => typeof item.price === 'number')) {
+      message += `Total dos itens com preço definido: ${total}\n`;
+    }
+    
+    // Add a note for "Sob Consulta" items
+    if (cartItems.some(item => typeof item.price === 'string')) {
+      message += "Aguardo retorno sobre os valores dos produtos listados como 'Sob Consulta'.";
+    }
     
     // Open WhatsApp with the message
     window.open(`https://wa.me/5499270560?text=${encodeURIComponent(message)}`, '_blank');
@@ -120,7 +136,9 @@ export default function CartModal({ open, onOpenChange }: CartModalProps) {
                         </div>
                       </TableCell>
                       <TableCell className="text-right font-medium text-center-orange">
-                        {formatPrice(item.price * item.quantity)}
+                        {typeof item.price === 'string' 
+                          ? item.price 
+                          : formatPrice(item.price * item.quantity)}
                       </TableCell>
                       <TableCell>
                         <button 
@@ -137,10 +155,20 @@ export default function CartModal({ open, onOpenChange }: CartModalProps) {
             </div>
             
             <div className="flex flex-col gap-4 mt-4">
-              <div className="flex justify-between items-center py-2 border-t border-[#333333]">
-                <span className="font-medium text-lg">Total:</span>
-                <span className="font-bold text-xl text-center-orange">{formatPrice(getTotalPrice())}</span>
-              </div>
+              {cartItems.some(item => typeof item.price === 'number') && (
+                <div className="flex justify-between items-center py-2 border-t border-[#333333]">
+                  <span className="font-medium text-lg">Total (itens com preço):</span>
+                  <span className="font-bold text-xl text-center-orange">{formatPrice(getTotalPrice())}</span>
+                </div>
+              )}
+              
+              {cartItems.some(item => typeof item.price === 'string') && (
+                <div className="flex items-center py-2 border-t border-[#333333] text-yellow-500">
+                  <span className="font-medium">
+                    Esse pedido contém produtos com preço sob consulta
+                  </span>
+                </div>
+              )}
               
               <DialogFooter className="flex flex-col sm:flex-row gap-2">
                 <Button 

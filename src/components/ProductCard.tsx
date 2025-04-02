@@ -36,10 +36,6 @@ export default function ProductCard({ product }: ProductCardProps) {
   };
 
   const handleAddToCart = () => {
-    if (typeof product.price === 'string') {
-      return; // Don't add to cart if price is "Sob Consulta"
-    }
-    
     // Pass only the properties expected by CartContext
     addToCart({
       id: product.id,
@@ -96,9 +92,8 @@ export default function ProductCard({ product }: ProductCardProps) {
             </div>
             <button 
               onClick={handleAddToCart}
-              className={`p-1.5 sm:p-2 rounded-full text-center-orange bg-center-orange/10 hover:bg-center-orange hover:text-white transition-colors flex items-center justify-center ${typeof product.price === 'string' ? 'opacity-60 cursor-not-allowed' : ''}`}
+              className="p-1.5 sm:p-2 rounded-full text-center-orange bg-center-orange/10 hover:bg-center-orange hover:text-white transition-colors flex items-center justify-center"
               aria-label="Adicionar ao carrinho"
-              disabled={typeof product.price === 'string'}
             >
               <ShoppingCart size={16} />
             </button>
