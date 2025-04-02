@@ -1,4 +1,3 @@
-
 import { useEffect, useState } from 'react';
 import { ArrowRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
@@ -8,7 +7,7 @@ interface Product {
   id: string;
   name: string;
   code: string;
-  price: number;
+  price: number | string;
   image: string;
   category: string;
   recommendedOrder?: number;
@@ -169,15 +168,6 @@ const mockProducts: Product[] = [
     image: '/public/lovable-uploads/fe15bc67-99a8-48bb-9477-8a5f5d5f928d.png',
     category: 'ar-condicionado',
     popularity: 8
-  },
-  {
-    id: '9',
-    name: 'Sensor de Temperatura PTC',
-    code: 'SNS-001',
-    price: 45.90,
-    image: '/public/lovable-uploads/fe15bc67-99a8-48bb-9477-8a5f5d5f928d.png',
-    category: 'ar-condicionado',
-    popularity: 7
   },
   {
     id: '30',

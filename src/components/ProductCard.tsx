@@ -7,7 +7,7 @@ interface Product {
   id: string;
   name: string;
   code: string;
-  price: number;
+  price: number | string;
   image: string;
   category: string;
 }
@@ -21,7 +21,10 @@ export default function ProductCard({ product }: ProductCardProps) {
   const [isHovered, setIsHovered] = useState(false);
   const { addToCart } = useCart();
 
-  const formatPrice = (price: number) => {
+  const formatPrice = (price: number | string) => {
+    if (typeof price === 'string') {
+      return price;
+    }
     return new Intl.NumberFormat('pt-BR', {
       style: 'currency',
       currency: 'BRL',
@@ -33,13 +36,26 @@ export default function ProductCard({ product }: ProductCardProps) {
   };
 
   const handleAddToCart = () => {
-    addToCart(product);
+    // Only add to cart if the price is a number
+    if (typeof product.price === 'number') {
+      addToCart({
+        id: product.id,
+        name: product.name,
+        code: product.code,
+        price: product.price,
+        image: product.image,
+        category: product.category
+      });
+    }
   };
 
   // Check if the product is sold by meter
   const isSoldByMeter = 
     product.name.toLowerCase().includes('/m') || 
     product.name.toLowerCase().includes('por metro');
+
+  // Check if price is "Sob Consulta"
+  const isSobConsulta = product.price === "Sob Consulta";
 
   // Clean up the product name to remove the "/m" or "Por Metro" text
   const displayName = product.name;
@@ -76,14 +92,18 @@ export default function ProductCard({ product }: ProductCardProps) {
         </h3>
         <div className="mt-auto">
           <div className="flex justify-between items-center">
-            <div className="text-base sm:text-lg font-semibold text-center-orange">
+            <div className={`text-base sm:text-lg font-semibold ${isSobConsulta ? 'text-yellow-400' : 'text-center-orange'}`}>
               {formatPrice(product.price)}
-              {isSoldByMeter && <span className="text-xs font-normal text-gray-400 ml-1">/m</span>}
+              {isSoldByMeter && !isSobConsulta && <span className="text-xs font-normal text-gray-400 ml-1">/m</span>}
             </div>
             <button 
               onClick={handleAddToCart}
-              className="p-1.5 sm:p-2 rounded-full text-center-orange bg-center-orange/10 hover:bg-center-orange hover:text-white transition-colors flex items-center justify-center"
+              className={`p-1.5 sm:p-2 rounded-full ${isSobConsulta 
+                ? 'bg-gray-700/50 text-gray-400 cursor-not-allowed' 
+                : 'text-center-orange bg-center-orange/10 hover:bg-center-orange hover:text-white transition-colors cursor-pointer'} 
+                flex items-center justify-center`}
               aria-label="Adicionar ao carrinho"
+              disabled={isSobConsulta}
             >
               <ShoppingCart size={16} />
             </button>

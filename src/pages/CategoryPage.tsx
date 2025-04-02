@@ -13,7 +13,7 @@ interface Product {
   id: string;
   name: string;
   code: string;
-  price: number;
+  price: number | string;
   image: string;
   category: string;
   recommendedOrder?: number;
@@ -677,14 +677,6 @@ const sampleProducts: Product[] = [
     category: 'terminais',
   },
   {
-    id: '9',
-    name: 'Sensor de Temperatura PTC',
-    code: 'SNS-001',
-    price: 45.90,
-    image: '/lovable-uploads/fe15bc67-99a8-48bb-9477-8a5f5d5f928d.png',
-    category: 'automacao',
-  },
-  {
     id: 'e1',
     name: 'DISJUNTOR MONO 6A C WEG',
     code: '7909522567707',
@@ -1172,6 +1164,214 @@ const sampleProducts: Product[] = [
     image: '/lovable-uploads/termicotramontina.png',
     category: 'automacao',
   },
+  {
+    id: 'c1',
+    name: 'MINI CONTATOR 7A 220V 1NA WEG',
+    code: '7909158141210',
+    price: "Sob Consulta",
+    image: '/lovable-uploads/miniweg220.png',
+    category: 'automacao',
+  },
+  {
+    id: 'c2',
+    name: 'MINI CONTATOR 9A 220V 1NA TRAMONTINA',
+    code: '7891435934670',
+    price: "Sob Consulta",
+    image: '/lovable-uploads/minitramontina220.png',
+    category: 'automacao',
+  },
+  {
+    id: 'c3',
+    name: 'MINI CONTATOR 9A 220V 1NA SOPRANO',
+    code: '7487',
+    price: "Sob Consulta",
+    image: '/lovable-uploads/minisoprano220.png',
+    category: 'automacao',
+  },
+  {
+    id: 'c4',
+    name: 'CONTATOR 9A 220V 1NA CWL',
+    code: '7909323350638',
+    price: "Sob Consulta",
+    image: '/lovable-uploads/cwl.png',
+    category: 'automacao',
+  },
+  {
+    id: 'c5',
+    name: 'CONTATOR 12A 220V 1NA+1NF CWB',
+    code: '7909018771342',
+    price: "Sob Consulta",
+    image: '/lovable-uploads/cwb.png',
+    category: 'automacao',
+  },
+  {
+    id: 'c6',
+    name: 'CONTATOR 18A 220V 1NA+1NF CWB',
+    code: '7909018772202',
+    price: "Sob Consulta",
+    image: '/lovable-uploads/cwb.png',
+    category: 'automacao',
+  },
+  {
+    id: 'c7',
+    name: 'CONTATOR 25A 220V 1NA CWL',
+    code: '7909323346211',
+    price: "Sob Consulta",
+    image: '/lovable-uploads/cwl.png',
+    category: 'automacao',
+  },
+  {
+    id: 'c8',
+    name: 'CONTATOR 32A 220V S/ AUX. CWL',
+    code: '7909323854457',
+    price: "Sob Consulta",
+    image: '/lovable-uploads/cwl.png',
+    category: 'automacao',
+  },
+  {
+    id: 'c9',
+    name: 'CONTATOR 40A 220V S/ AUX. CWL',
+    code: '7909323854471',
+    price: "Sob Consulta",
+    image: '/lovable-uploads/cwl.png',
+    category: 'automacao',
+  },
+  {
+    id: 'c10',
+    name: 'CONTATOR 45A 220V S/ AUX. CWL',
+    code: '7909323854655',
+    price: "Sob Consulta",
+    image: '/lovable-uploads/cwl.png',
+    category: 'automacao',
+  },
+  {
+    id: 'c11',
+    name: 'CONTATOR 50A 220V S/ AUX. CWL',
+    code: '7909522389347',
+    price: "Sob Consulta",
+    image: '/lovable-uploads/cwl.png',
+    category: 'automacao',
+  },
+  {
+    id: 'c12',
+    name: 'CONTATOR 65A 220V S/ AUX. CWL',
+    code: '7909522389354',
+    price: "Sob Consulta",
+    image: '/lovable-uploads/cwl.png',
+    category: 'automacao',
+  },
+  {
+    id: 'c13',
+    name: 'MINI CONTATOR 9A 24VAC 1NA CWC',
+    code: '7909158138159',
+    price: "Sob Consulta",
+    image: '/lovable-uploads/miniweg220.png',
+    category: 'automacao',
+  },
+  {
+    id: 'c14',
+    name: 'CONTATOR 9A 24VAC 1NA+1NF CWB',
+    code: '7909158498963',
+    price: "Sob Consulta",
+    image: '/lovable-uploads/cwb.png',
+    category: 'automacao',
+  },
+  {
+    id: 'c15',
+    name: 'CONTATOR 12A 24VAC 1NA+1NF CWB',
+    code: '7909158498369',
+    price: "Sob Consulta",
+    image: '/lovable-uploads/cwb.png',
+    category: 'automacao',
+  },
+  {
+    id: 'c16',
+    name: 'CONTATOR 12A 24VAC 1NF TRAMONTINA',
+    code: '7891435938852',
+    price: "Sob Consulta",
+    image: '/lovable-uploads/tramontina24vac.png',
+    category: 'automacao',
+  },
+  {
+    id: 'c17',
+    name: 'CONTATOR 18A 24VAC 1NA+1NF CWB',
+    code: '7909158499076',
+    price: "Sob Consulta",
+    image: '/lovable-uploads/cwb.png',
+    category: 'automacao',
+  },
+  {
+    id: 'c18',
+    name: 'CONTATOR 25A 24VAC 1NA+1NF CWB',
+    code: '7909018798578',
+    price: "Sob Consulta",
+    image: '/lovable-uploads/cwb.png',
+    category: 'automacao',
+  },
+  {
+    id: 'c19',
+    name: 'CONTATOR 32A 24VAC 1NA+1NF CWB',
+    code: '7909018812922',
+    price: "Sob Consulta",
+    image: '/lovable-uploads/cwb.png',
+    category: 'automacao',
+  },
+  {
+    id: 'c20',
+    name: 'CONTATOR 40A 12VAC 1NA IC4011',
+    code: '13092',
+    price: "Sob Consulta",
+    image: '/lovable-uploads/sibratec.png',
+    category: 'automacao',
+  },
+  {
+    id: 'c21',
+    name: 'MINI CONTATOR AUX. 10A 24VDC 2NA CWC',
+    code: '7909158138593',
+    price: "Sob Consulta",
+    image: '/lovable-uploads/miniweg220.png',
+    category: 'automacao',
+  },
+  {
+    id: 'c22',
+    name: 'CONTATOR 9A 24VDC 1NA+1NF CWB',
+    code: '7909158247493',
+    price: "Sob Consulta",
+    image: '/lovable-uploads/cwb.png',
+    category: 'automacao',
+  },
+  {
+    id: 'c23',
+    name: 'CONTATOR 12A 24VDC 1NA+1NF CWB',
+    code: '7909158247561',
+    price: "Sob Consulta",
+    image: '/lovable-uploads/cwb.png',
+    category: 'automacao',
+  },
+  {
+    id: 'c24',
+    name: 'CONTATOR 18A 24VDC 1NA+1NF CWB',
+    code: '7909158247974',
+    price: "Sob Consulta",
+    image: '/lovable-uploads/cwb.png',
+    category: 'automacao',
+  },
+  {
+    id: 'c25',
+    name: 'CONTATOR 25A 24VDC 1NA+1NF CWB',
+    code: '7909018817117',
+    price: "Sob Consulta",
+    image: '/lovable-uploads/cwb.png',
+    category: 'automacao',
+  },
+  {
+    id: 'c26',
+    name: 'CONTATOR 32A 24VDC 1NF',
+    code: '7891435938913',
+    price: "Sob Consulta",
+    image: '/lovable-uploads/tramontina24vac.png',
+    category: 'automacao',
+  },
 ];
 
 const categoryLabels: Record<string, string> = {
@@ -1213,8 +1413,10 @@ export default function CategoryPage() {
       ? sampleProducts.filter(product => product.category === slug)
       : sampleProducts;
     
+    // Filter by price range only for products with numeric prices
     filteredProducts = filteredProducts.filter(
-      product => product.price >= priceRange[0] && product.price <= priceRange[1]
+      product => typeof product.price === 'string' || 
+                (product.price >= priceRange[0] && product.price <= priceRange[1])
     );
     
     switch(sortBy) {
@@ -1233,10 +1435,22 @@ export default function CategoryPage() {
         });
         break;
       case 'price-low':
-        filteredProducts.sort((a, b) => a.price - b.price);
+        filteredProducts.sort((a, b) => {
+          // Handle string prices (place "Sob Consulta" at the end)
+          if (typeof a.price === 'string' && typeof b.price === 'string') return 0;
+          if (typeof a.price === 'string') return 1;
+          if (typeof b.price === 'string') return -1;
+          return a.price - b.price;
+        });
         break;
       case 'price-high':
-        filteredProducts.sort((a, b) => b.price - a.price);
+        filteredProducts.sort((a, b) => {
+          // Handle string prices (place "Sob Consulta" at the end)
+          if (typeof a.price === 'string' && typeof b.price === 'string') return 0;
+          if (typeof a.price === 'string') return 1;
+          if (typeof b.price === 'string') return -1;
+          return b.price - a.price;
+        });
         break;
     }
     
@@ -1251,7 +1465,9 @@ export default function CategoryPage() {
     window.scrollTo(0, 0);
   }, [slug, priceRange, sortBy]);
 
-  const maxPrice = Math.max(...sampleProducts.map(product => product.price));
+  const maxPrice = Math.max(...sampleProducts
+    .filter(product => typeof product.price === 'number')
+    .map(product => product.price as number));
   
   const formatCurrency = (value: number) => {
     return new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(value);
