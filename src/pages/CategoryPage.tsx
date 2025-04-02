@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import Navbar from '../components/Navbar';
@@ -1414,8 +1415,10 @@ export default function CategoryPage() {
       ? sampleProducts.filter(product => product.category === slug)
       : sampleProducts;
     
+    // Filter by price range only for numeric prices
     filteredProducts = filteredProducts.filter(
-      product => product.price >= priceRange[0] && product.price <= priceRange[1]
+      product => typeof product.price === 'string' || 
+                (product.price >= priceRange[0] && product.price <= priceRange[1])
     );
     
     switch(sortBy) {
@@ -1434,10 +1437,20 @@ export default function CategoryPage() {
         });
         break;
       case 'price-low':
-        filteredProducts.sort((a, b) => a.price - b.price);
+        filteredProducts.sort((a, b) => {
+          // Handle string prices (like "Sob Consulta")
+          if (typeof a.price === 'string') return 1; // Put string prices at the end
+          if (typeof b.price === 'string') return -1; // Put string prices at the end
+          return a.price - b.price;
+        });
         break;
       case 'price-high':
-        filteredProducts.sort((a, b) => b.price - a.price);
+        filteredProducts.sort((a, b) => {
+          // Handle string prices (like "Sob Consulta")
+          if (typeof a.price === 'string') return 1; // Put string prices at the end
+          if (typeof b.price === 'string') return -1; // Put string prices at the end
+          return b.price - a.price;
+        });
         break;
     }
     
@@ -1452,7 +1465,12 @@ export default function CategoryPage() {
     window.scrollTo(0, 0);
   }, [slug, priceRange, sortBy]);
 
-  const maxPrice = Math.max(...sampleProducts.map(product => product.price));
+  // Calculate max price considering only numeric prices
+  const maxPrice = Math.max(
+    ...sampleProducts
+      .filter(product => typeof product.price === 'number')
+      .map(product => product.price as number)
+  );
   
   const formatCurrency = (value: number) => {
     return new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(value);

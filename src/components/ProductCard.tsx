@@ -36,6 +36,10 @@ export default function ProductCard({ product }: ProductCardProps) {
   };
 
   const handleAddToCart = () => {
+    if (typeof product.price === 'string') {
+      return; // Don't add to cart if price is "Sob Consulta"
+    }
+    
     // Pass only the properties expected by CartContext
     addToCart({
       id: product.id,
