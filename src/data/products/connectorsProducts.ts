@@ -105,5 +105,5 @@ export const connectorsProducts: Product[] = [
     price: 14.00,
     image: '/lovable-uploads/splitbolt.png',
     category: 'conectores',
-  }
+  },
 ];
