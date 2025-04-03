@@ -1,15 +1,7 @@
 
+import { memo } from 'react';
 import ProductCard from './ProductCard';
-
-interface Product {
-  id: string;
-  name: string;
-  code: string;
-  price: number | string;
-  image: string;
-  category: string;
-  recommendedOrder?: number;
-}
+import { Product } from '@/types/product';
 
 interface ProductGridProps {
   products: Product[];
@@ -17,21 +9,12 @@ interface ProductGridProps {
   searchQuery?: string;
 }
 
-export default function ProductGrid({ products, isLoading = false, searchQuery = '' }: ProductGridProps) {
+function ProductGrid({ products, isLoading = false, searchQuery = '' }: ProductGridProps) {
   if (isLoading) {
     return <ProductGridSkeleton />;
   }
 
-  // Filter products based on search query if provided
-  const filteredProducts = searchQuery
-    ? products.filter(product => 
-        product.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        product.code.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        product.category.toLowerCase().includes(searchQuery.toLowerCase())
-      )
-    : products;
-
-  if (filteredProducts.length === 0) {
+  if (products.length === 0) {
     return (
       <div className="py-20 text-center">
         <h3 className="text-xl font-medium text-white">Nenhum produto encontrado</h3>
@@ -42,14 +25,14 @@ export default function ProductGrid({ products, isLoading = false, searchQuery =
 
   return (
     <div className="grid grid-cols-1 xs:grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-4 md:gap-6">
-      {filteredProducts.map((product) => (
+      {products.map((product) => (
         <ProductCard key={product.id} product={product} />
       ))}
     </div>
   );
 }
 
-function ProductGridSkeleton() {
+const ProductGridSkeleton = memo(() => {
   return (
     <div className="grid grid-cols-1 xs:grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-4 md:gap-6">
       {Array.from({ length: 10 }).map((_, index) => (
@@ -68,4 +51,8 @@ function ProductGridSkeleton() {
       ))}
     </div>
   );
-}
+});
+
+ProductGridSkeleton.displayName = 'ProductGridSkeleton';
+
+export default memo(ProductGrid);
