@@ -86,7 +86,7 @@ export default function ProductCard({ product }: ProductCardProps) {
         </h3>
         <div className="mt-auto">
           <div className="flex justify-between items-center">
-            <div className={`text-base sm:text-lg font-semibold ${typeof product.price === 'string' ? 'text-yellow-500' : 'text-center-orange'}`}>
+            <div className="text-base sm:text-lg font-semibold text-center-orange">
               {formatPrice(product.price)}
               {isSoldByMeter && typeof product.price === 'number' && <span className="text-xs font-normal text-gray-400 ml-1">/m</span>}
             </div>
