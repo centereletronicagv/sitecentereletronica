@@ -1,3 +1,4 @@
+
 import { useEffect, useState } from 'react';
 import { ArrowRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
@@ -752,4 +753,117 @@ const mockProducts: Product[] = [
   },
   {
     id: 'term30',
-    name
+    name: 'TERMINAL GARFO 1,5MM PRÉ ISOLADO 100 UN.',
+    code: '7899287703062',
+    price: 32.00,
+    image: '/lovable-uploads/garfo15.png',
+    category: 'terminais',
+  },
+  {
+    id: 'term31',
+    name: 'TERMINAL GARFO 2,5MM PRÉ ISOLADO 100 UN.',
+    code: '7899287703123',
+    price: 32.00,
+    image: '/lovable-uploads/garfo25.png',
+    category: 'terminais',
+  },
+  {
+    id: 'term32',
+    name: 'TERMINAL GARFO 6MM PRÉ ISOLADO 100 UN.',
+    code: '7898640441290',
+    price: 85.00,
+    image: '/lovable-uploads/garfo60.png',
+    category: 'terminais',
+  },
+  {
+    id: 'term33',
+    name: 'TERMINAL LUVA FÊMEA 2,5MM ISOLADO 100 UN.',
+    code: '7898639681635',
+    price: 53.00,
+    image: '/lovable-uploads/isolado.png',
+    category: 'terminais',
+  },
+  {
+    id: 'term34',
+    name: 'TERMINAL LUVA FÊMEA 2,5MM ISOLADO',
+    code: '7899287706209',
+    price: 2.00,
+    image: '/lovable-uploads/isolado.png',
+    category: 'terminais',
+  },
+];
+
+export default function ProductsSection({ searchQuery = '' }: { searchQuery?: string }) {
+  const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
+  const [isLoading, setIsLoading] = useState(false);
+
+  // Filter products based on the selected category
+  const filteredProducts = selectedCategory
+    ? mockProducts.filter(product => product.category === selectedCategory)
+    : searchQuery
+    ? mockProducts // If there's a search query, we'll let ProductGrid handle the filtering
+    : mockProducts.filter(product => product.featured); // Show featured products by default
+
+  const categories = [
+    { id: 'ar-condicionado', label: 'Ar Condicionado' },
+    { id: 'automacao', label: 'Automação' },
+    { id: 'conectores', label: 'Conectores' },
+    { id: 'terminais', label: 'Terminais' },
+  ];
+
+  // Reset category selection when search query changes
+  useEffect(() => {
+    if (searchQuery) {
+      setSelectedCategory(null);
+    }
+  }, [searchQuery]);
+
+  return (
+    <section id="products" className="py-16 bg-[#121212]">
+      <div className="container mx-auto px-4">
+        <div className="flex justify-between items-center mb-8">
+          <h2 className="text-2xl md:text-3xl font-bold text-white">
+            {searchQuery 
+              ? `Resultados para: ${searchQuery}` 
+              : selectedCategory 
+                ? `Categoria: ${categories.find(cat => cat.id === selectedCategory)?.label || selectedCategory}` 
+                : 'Produtos em Destaque'}
+          </h2>
+        </div>
+
+        {!searchQuery && (
+          <div className="mb-8 flex flex-wrap gap-3">
+            {categories.map((category) => (
+              <button
+                key={category.id}
+                onClick={() => setSelectedCategory(category.id === selectedCategory ? null : category.id)}
+                className={`px-4 py-2 rounded-full text-sm transition-colors ${
+                  category.id === selectedCategory 
+                    ? 'bg-center-orange text-white' 
+                    : 'bg-[#202020] text-gray-300 hover:bg-[#2a2a2a]'
+                }`}
+              >
+                {category.label}
+              </button>
+            ))}
+          </div>
+        )}
+
+        <ProductGrid 
+          products={filteredProducts} 
+          isLoading={isLoading}
+          searchQuery={searchQuery}
+        />
+
+        {!searchQuery && !selectedCategory && (
+          <div className="mt-10 text-center">
+            <Link to="/produtos" className="inline-flex items-center text-center-orange hover:text-center-orange/80 transition-colors">
+              <span className="mr-2">Ver todos os produtos</span>
+              <ArrowRight size={18} />
+            </Link>
+          </div>
+        )}
+      </div>
+    </section>
+  );
+}
