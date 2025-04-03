@@ -846,4 +846,10 @@ const sampleProducts: Product[] = [
   },
   {
     id: 'e22',
-    name: 'DISJUNTOR BIF. 40A
+    name: 'DISJUNTOR BIF. 40A C WEG',
+    code: '7909522567868',
+    price: 45.00,
+    image: '/lovable-uploads/wegbif.png',
+    category: 'instalacoes-eletricas',
+  }
+];
