@@ -1,4 +1,3 @@
-
 import { useEffect, useState } from 'react';
 import { ArrowRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
@@ -160,6 +159,14 @@ const mockProducts: Product[] = [
     category: 'ar-condicionado',
     popularity: 7,
     featured: true
+  },
+  {
+    id: '8',
+    name: 'Terminal de Compressão 50mm',
+    code: 'TRM-001',
+    price: 12.50,
+    image: '/public/lovable-uploads/fe15bc67-99a8-48bb-9477-8a5f5d5f928d.png',
+    category: 'terminais',
   },
   {
     id: '30',
@@ -413,457 +420,64 @@ const mockProducts: Product[] = [
     image: '/lovable-uploads/tramontina24vac.png',
     category: 'automacao',
   },
-  // New connector products
-  {
-    id: 'con1',
-    name: 'CONECTOR WAGO 221 4MM 32A 2P',
-    code: '10154',
-    price: 2.65,
-    image: '/lovable-uploads/wagoemenda.png',
-    category: 'conectores',
-  },
-  {
-    id: 'con2',
-    name: 'CONECTOR WAGO 221 4MM 32A 2P',
-    code: '11868',
-    price: 3.25,
-    image: '/lovable-uploads/emendainline.png',
-    category: 'conectores',
-  },
-  {
-    id: 'con3',
-    name: 'CONECTOR WAGO 221 4MM 32A 3P',
-    code: '10396',
-    price: 3.46,
-    image: '/lovable-uploads/wagoderivacao.png',
-    category: 'conectores',
-  },
-  {
-    id: 'con4',
-    name: 'CONECTOR DE TORÇÃO 1MM 100 UN.',
-    code: '7899287703017',
-    price: 20.00,
-    image: '/lovable-uploads/torcaocinza.png',
-    category: 'conectores',
-  },
-  {
-    id: 'con5',
-    name: 'CONECTOR DE TORÇÃO 2,5MM 100 UN.',
-    code: '7899287703024',
-    price: 27.00,
-    image: '/lovable-uploads/torcaoazul.png',
-    category: 'conectores',
-  },
-  {
-    id: 'con6',
-    name: 'CONECTOR DE TORÇÃO 10MM',
-    code: '',
-    price: 1.00,
-    image: '/lovable-uploads/torcaoamarelo.png',
-    category: 'conectores',
-  },
-  {
-    id: 'con7',
-    name: 'CONECTOR DE TORÇÃO 16MM',
-    code: '',
-    price: 1.50,
-    image: '/lovable-uploads/torcaovermelho.png',
-    category: 'conectores',
-  },
-  {
-    id: 'con8',
-    name: 'CONECTOR GENERICO 25MM SAIDA FRONTAL',
-    code: '7908060401771',
-    price: 8.00,
-    image: '/lovable-uploads/generico.png',
-    category: 'conectores',
-  },
-  {
-    id: 'con9',
-    name: 'CONECTOR GENÉRICO 25MM SAIDA LATERAL',
-    code: '7908060405625',
-    price: 14.00,
-    image: '/lovable-uploads/generico.png',
-    category: 'conectores',
-  },
-  {
-    id: 'con10',
-    name: 'CONECTOR PERFURANTE 0,5-1,5MM',
-    code: '7891435960952',
-    price: 0.60,
-    image: '/lovable-uploads/perfurantevermelho.png',
-    category: 'conectores',
-  },
-  {
-    id: 'con11',
-    name: 'CONECTOR PERFURANTE 1,5-2,5MM',
-    code: '7898009454350',
-    price: 0.60,
-    image: '/lovable-uploads/perfuranteazul.png',
-    category: 'conectores',
-  },
-  {
-    id: 'con12',
-    name: 'CONECTOR PERFURANTE 4-6MM',
-    code: '7898009454367',
-    price: 0.80,
-    image: '/lovable-uploads/perfuranteamarelo.png',
-    category: 'conectores',
-  },
-  {
-    id: 'con13',
-    name: 'CONECTOR SPLITBOLT 22MM',
-    code: '12528',
-    price: 14.00,
-    image: '/lovable-uploads/splitbolt.png',
-    category: 'conectores',
-  },
-  // New terminal products
-  {
-    id: 'term1',
-    name: 'TERMINAL TUBULAR PRÉ ISOLADO 1MM 50 UN.',
-    code: '7899287708807',
-    price: 7.00,
-    image: '/lovable-uploads/tubularvermelho.png',
-    category: 'terminais',
-  },
-  {
-    id: 'term2',
-    name: 'TERMINAL TUBULAR PRÉ ISOLADO 1MM DUPLO 50 UN.',
-    code: '7899287709071',
-    price: 9.00,
-    image: '/lovable-uploads/duplovermelho.png',
-    category: 'terminais',
-  },
-  {
-    id: 'term3',
-    name: 'TERMINAL TUBULAR PRÉ ISOLADO 1,5MM 50 UN.',
-    code: '7899287708814',
-    price: 6.00,
-    image: '/lovable-uploads/tubularpreto.png',
-    category: 'terminais',
-  },
-  {
-    id: 'term4',
-    name: 'TERMINAL TUBULAR PRÉ ISOLADO 1,5MM DUPLO 50 UN.',
-    code: '7899287709088',
-    price: 10.00,
-    image: '/lovable-uploads/duplopreto.png',
-    category: 'terminais',
-  },
-  {
-    id: 'term5',
-    name: 'TERMINAL TUBULAR PRÉ ISOLADO 2,5MM 50 UN.',
-    code: '7899287708845',
-    price: 12.00,
-    image: '/lovable-uploads/tubularazul.png',
-    category: 'terminais',
-  },
-  {
-    id: 'term6',
-    name: 'TERMINAL TUBULAR PRÉ ISOLADO 2,5MM DUPLO 50 UN.',
-    code: '7899287709095',
-    price: 14.70,
-    image: '/lovable-uploads/duploazul.png',
-    category: 'terminais',
-  },
-  {
-    id: 'term7',
-    name: 'TERMINAL TUBULAR PRÉ ISOLADO 4MM 50 UN.',
-    code: '7899287708876',
-    price: 13.00,
-    image: '/lovable-uploads/tubularcinza.png',
-    category: 'terminais',
-  },
-  {
-    id: 'term8',
-    name: 'TERMINAL TUBULAR PRÉ ISOLADO 6MM 50 UN.',
-    code: '7899287708906',
-    price: 13.00,
-    image: '/lovable-uploads/tubularamarelo.png',
-    category: 'terminais',
-  },
-  {
-    id: 'term9',
-    name: 'TERMINAL TUBULAR PRÉ ISOLADO 6MM DUPLO 50 UN.',
-    code: '7899287709118',
-    price: 28.00,
-    image: '/lovable-uploads/duploamarelo.png',
-    category: 'terminais',
-  },
-  {
-    id: 'term10',
-    name: 'TERMINAL TUBULAR PRÉ ISOLADO 10MM 50 UN.',
-    code: '7899287708920',
-    price: 24.00,
-    image: '/lovable-uploads/tubular10.png',
-    category: 'terminais',
-  },
-  {
-    id: 'term11',
-    name: 'TERMINAL TUBULAR PRÉ ISOLADO 16MM 50 UN.',
-    code: '7899287708951',
-    price: 28.50,
-    image: '/lovable-uploads/tubular16.png', // Fixed the comma in the image path
-    category: 'terminais',
-  },
-  {
-    id: 'term12',
-    name: 'TERMINAL PINO PRÉ ISOLADO 1,5MM 50 UN.',
-    code: '7899287703307',
-    price: 33.00,
-    image: '/lovable-uploads/pinovermelho.png',
-    category: 'terminais',
-  },
-  {
-    id: 'term13',
-    name: 'TERMINAL PINO PRÉ ISOLADO 2,5MM 50 UN.',
-    code: '7899287703321',
-    price: 36.00,
-    image: '/lovable-uploads/pinoazul.png',
-    category: 'terminais',
-  },
-  {
-    id: 'term14',
-    name: 'TERMINAL PINO PRÉ ISOLADO 6MM 50 UN.',
-    code: '7899287703338',
-    price: 97.00,
-    image: '/lovable-uploads/pinoamarelo.png',
-    category: 'terminais',
-  },
-  {
-    id: 'term15',
-    name: 'TERMINAL OLHAL PRÉ ISOLADO 1,5MM 100 UN.',
-    code: '7899287703130',
-    price: 29.00,
-    image: '/lovable-uploads/olhalvermelho.png',
-    category: 'terminais',
-  },
-  {
-    id: 'term16',
-    name: 'TERMINAL OLHAL PRÉ ISOLADO 2,5MM 100 UN.',
-    code: '7899287703185',
-    price: 48.00,
-    image: '/lovable-uploads/olhalazul.png',
-    category: 'terminais',
-  },
-  {
-    id: 'term17',
-    name: 'TERMINAL OLHAL PRÉ ISOLADO 6MM 100 UN.',
-    code: '7899287703260',
-    price: 84.00,
-    image: '/lovable-uploads/olhalamarelo.png',
-    category: 'terminais',
-  },
-  {
-    id: 'term18',
-    name: 'TERMINAL OLHAL PRÉ ISOLADO 10MM',
-    code: '7898640441320',
-    price: 2.70,
-    image: '/lovable-uploads/olhal10.png',
-    category: 'terminais',
-  },
-  {
-    id: 'term19',
-    name: 'TERMINAL OLHAL PRÉ ISOLADO 16MM',
-    code: '7898640441337',
-    price: 4.90,
-    image: '/lovable-uploads/olhal16.png',
-    category: 'terminais',
-  },
-  {
-    id: 'term20',
-    name: 'TERMINAL DE COMPRESSÃO 6MM 100 UN.',
-    code: '7899287703512',
-    price: 110.00,
-    image: '/lovable-uploads/compressao6.png',
-    category: 'terminais',
-  },
-  {
-    id: 'term21',
-    name: 'TERMINAL DE COMPRESSÃO 10MM 100 UN.',
-    code: '7899287703529',
-    price: 138.00,
-    image: '/lovable-uploads/compressao10.png',
-    category: 'terminais',
-  },
-  {
-    id: 'term22',
-    name: 'TERMINAL DE COMPRESSÃO 16MM 50 UN.',
-    code: '7899287703536',
-    price: 92.00,
-    image: '/lovable-uploads/compressao10.png',
-    category: 'terminais',
-  },
-  {
-    id: 'term23',
-    name: 'TERMINAL DE CPMPRESSÃO 25MM',
-    code: '12616',
-    price: 6.00,
-    image: '/lovable-uploads/compressao10.png',
-    category: 'terminais',
-  },
-  {
-    id: 'term24',
-    name: 'TERMINAL LUVA MACHO 1,5MM PRÉ ISOLADO 100 UN.',
-    code: '7898639681598',
-    price: 30.00,
-    image: '/lovable-uploads/luvamacho15.png',
-    category: 'terminais',
-  },
-  {
-    id: 'term25',
-    name: 'TERMINAL LUVA MACHO 2,5MM PRÉ ISOLADO 100 UN.',
-    code: '7899287703468',
-    price: 38.00,
-    image: '/lovable-uploads/luvamacho25.png',
-    category: 'terminais',
-  },
-  {
-    id: 'term26',
-    name: 'TERMINAL LUVA MACHO 6MM PRÉ ISOLADO 100 UN.',
-    code: '7899287703475',
-    price: 55.00,
-    image: '/lovable-uploads/luvamacho60.png',
-    category: 'terminais',
-  },
-  {
-    id: 'term27',
-    name: 'TERMINAL LUVA FÊMEA 1,5MM PRÉ ISOLADO 100 UN.',
-    code: '17898639681567',
-    price: 32.00,
-    image: '/lovable-uploads/femea15.png',
-    category: 'terminais',
-  },
-  {
-    id: 'term28',
-    name: 'TERMINAL LUVA FÊMEA 2,5MM PRÉ ISOLADO 100 UN.',
-    code: '7899287703437',
-    price: 38.00,
-    image: '/lovable-uploads/femea25.png',
-    category: 'terminais',
-  },
-  {
-    id: 'term29',
-    name: 'TERMINAL LUVA FÊMEA 6MM PRÉ ISOLADO 100 UN.',
-    code: '7899287703444',
-    price: 40.00,
-    image: '/lovable-uploads/femea60.png',
-    category: 'terminais',
-  },
-  {
-    id: 'term30',
-    name: 'TERMINAL GARFO 1,5MM PRÉ ISOLADO 100 UN.',
-    code: '7899287703062',
-    price: 32.00,
-    image: '/lovable-uploads/garfo15.png',
-    category: 'terminais',
-  },
-  {
-    id: 'term31',
-    name: 'TERMINAL GARFO 2,5MM PRÉ ISOLADO 100 UN.',
-    code: '7899287703123',
-    price: 32.00,
-    image: '/lovable-uploads/garfo25.png',
-    category: 'terminais',
-  },
-  {
-    id: 'term32',
-    name: 'TERMINAL GARFO 6MM PRÉ ISOLADO 100 UN.',
-    code: '7898640441290',
-    price: 85.00,
-    image: '/lovable-uploads/garfo60.png',
-    category: 'terminais',
-  },
-  {
-    id: 'term33',
-    name: 'TERMINAL LUVA FÊMEA 2,5MM ISOLADO 100 UN.',
-    code: '7898639681635',
-    price: 53.00,
-    image: '/lovable-uploads/isolado.png',
-    category: 'terminais',
-  },
-  {
-    id: 'term34',
-    name: 'TERMINAL LUVA FÊMEA 2,5MM ISOLADO',
-    code: '7899287706209',
-    price: 2.00,
-    image: '/lovable-uploads/isolado.png',
-    category: 'terminais',
-  },
 ];
 
-export default function ProductsSection({ searchQuery = '' }: { searchQuery?: string }) {
-  const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
-  const [isLoading, setIsLoading] = useState(false);
+interface ProductsSectionProps {
+  searchQuery?: string;
+}
 
-  // Filter products based on the selected category
-  const filteredProducts = selectedCategory
-    ? mockProducts.filter(product => product.category === selectedCategory)
-    : searchQuery
-    ? mockProducts // If there's a search query, we'll let ProductGrid handle the filtering
-    : mockProducts.filter(product => product.featured); // Show featured products by default
+const ProductsSection = ({ searchQuery = '' }: ProductsSectionProps) => {
+  const [isLoading, setIsLoading] = useState(true);
+  const [products, setProducts] = useState<Product[]>([]);
 
-  const categories = [
-    { id: 'ar-condicionado', label: 'Ar Condicionado' },
-    { id: 'automacao', label: 'Automação' },
-    { id: 'conectores', label: 'Conectores' },
-    { id: 'terminais', label: 'Terminais' },
-  ];
-
-  // Reset category selection when search query changes
   useEffect(() => {
-    if (searchQuery) {
-      setSelectedCategory(null);
-    }
+    // Simulate loading
+    setIsLoading(true);
+    
+    // In a real app, this would be a fetch request to an API
+    setTimeout(() => {
+      let filteredProducts = [...mockProducts];
+      
+      // If we're on the homepage and there's no search query, only show first 8 recommended products
+      if (!searchQuery) {
+        // Sort by recommendedOrder if available, otherwise use the order in the array
+        filteredProducts = filteredProducts
+          .filter(product => product.recommendedOrder !== undefined)
+          .sort((a, b) => {
+            const orderA = a.recommendedOrder || 999;
+            const orderB = b.recommendedOrder || 999;
+            return orderA - orderB;
+          })
+          .slice(0, 8);
+      }
+      
+      setProducts(filteredProducts);
+      setIsLoading(false);
+    }, 500);
   }, [searchQuery]);
 
   return (
-    <section id="products" className="py-16 bg-[#121212]">
-      <div className="container mx-auto px-4">
-        <div className="flex justify-between items-center mb-8">
-          <h2 className="text-2xl md:text-3xl font-bold text-white">
-            {searchQuery 
-              ? `Resultados para: ${searchQuery}` 
-              : selectedCategory 
-                ? `Categoria: ${categories.find(cat => cat.id === selectedCategory)?.label || selectedCategory}` 
-                : 'Produtos em Destaque'}
-          </h2>
-        </div>
-
-        {!searchQuery && (
-          <div className="mb-8 flex flex-wrap gap-3">
-            {categories.map((category) => (
-              <button
-                key={category.id}
-                onClick={() => setSelectedCategory(category.id === selectedCategory ? null : category.id)}
-                className={`px-4 py-2 rounded-full text-sm transition-colors ${
-                  category.id === selectedCategory 
-                    ? 'bg-center-orange text-white' 
-                    : 'bg-[#202020] text-gray-300 hover:bg-[#2a2a2a]'
-                }`}
-              >
-                {category.label}
-              </button>
-            ))}
-          </div>
-        )}
-
-        <ProductGrid 
-          products={filteredProducts} 
-          isLoading={isLoading}
-          searchQuery={searchQuery}
-        />
-
-        {!searchQuery && !selectedCategory && (
-          <div className="mt-10 text-center">
-            <Link to="/produtos" className="inline-flex items-center text-center-orange hover:text-center-orange/80 transition-colors">
-              <span className="mr-2">Ver todos os produtos</span>
-              <ArrowRight size={18} />
+    <section id="products" className="py-16 px-4 bg-[#121212]">
+      <div className="container mx-auto">
+        {!searchQuery ? (
+          <div className="flex justify-between items-center mb-8">
+            <h2 className="text-2xl md:text-3xl font-bold text-white">Produtos Recomendados</h2>
+            <Link to="/categoria/ar-condicionado" className="flex items-center gap-2 text-center-orange hover:text-center-orange/80 transition-colors duration-300">
+              <span>Ver todos</span>
+              <ArrowRight size={16} />
             </Link>
           </div>
+        ) : (
+          <div className="mb-8">
+            <h2 className="text-2xl md:text-3xl font-bold text-white">Resultados da Pesquisa</h2>
+            <p className="text-gray-400 mt-2">Mostrando resultados para: <span className="text-center-orange">"{searchQuery}"</span></p>
+          </div>
         )}
+        
+        <ProductGrid products={products} isLoading={isLoading} searchQuery={searchQuery} />
       </div>
     </section>
   );
-}
+};
+
+export default ProductsSection;
