@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import Navbar from '../components/Navbar';
@@ -14,7 +13,7 @@ interface Product {
   id: string;
   name: string;
   code: string;
-  price: number | string;
+  price: number;
   image: string;
   category: string;
   recommendedOrder?: number;
@@ -608,7 +607,7 @@ const sampleProducts: Product[] = [
   },
   {
     id: '75',
-    name: 'TERMINAL ACABAMENTO CB30',
+    name: 'TERMINAL ACABAMENT0 CB30',
     code: '12645',
     price: 38.00,
     image: '/lovable-uploads/terminalacabamento.png',
@@ -670,12 +669,68 @@ const sampleProducts: Product[] = [
     recommendedOrder: 72
   },
   {
+    id: '1',
+    name: 'Abraçadeira 3/4" Tramontina Cinza',
+    code: 'ABR-001',
+    price: 3.70,
+    image: '/lovable-uploads/fe15bc67-99a8-48bb-9477-8a5f5d5f928d.png',
+    category: 'instalacoes-eletricas',
+  },
+  {
+    id: '2',
+    name: 'Luva para Eletroduto 3/4" Tramontina Cinza',
+    code: 'LUV-001',
+    price: 2.75,
+    image: '/lovable-uploads/fe15bc67-99a8-48bb-9477-8a5f5d5f928d.png',
+    category: 'instalacoes-eletricas',
+  },
+  {
+    id: '3',
+    name: 'Curva Longa 90° 1/2" com Bolsa Tramontina Cinza',
+    code: 'CRV-001',
+    price: 17.00,
+    image: '/lovable-uploads/fe15bc67-99a8-48bb-9477-8a5f5d5f928d.png',
+    category: 'instalacoes-eletricas',
+  },
+  {
+    id: '4',
+    name: 'Curva Longa 90° 3/4" com Bolsa Tramontina Cinza',
+    code: 'CRV-002',
+    price: 19.50,
+    image: '/lovable-uploads/fe15bc67-99a8-48bb-9477-8a5f5d5f928d.png',
+    category: 'instalacoes-eletricas',
+  },
+  {
+    id: '5',
+    name: 'Adaptador para Condulete Múltiplo 1.1/2" para 1.1/4" Tramontina',
+    code: 'ADP-001',
+    price: 25.30,
+    image: '/lovable-uploads/fe15bc67-99a8-48bb-9477-8a5f5d5f928d.png',
+    category: 'instalacoes-eletricas',
+  },
+  {
+    id: '6',
+    name: 'Adaptador para Condulete Múltiplo 1" Tramontina',
+    code: 'ADP-002',
+    price: 22.80,
+    image: '/lovable-uploads/fe15bc67-99a8-48bb-9477-8a5f5d5f928d.png',
+    category: 'instalacoes-eletricas',
+  },
+  {
     id: '8',
     name: 'Terminal de Compressão 50mm',
     code: 'TRM-001',
     price: 12.50,
     image: '/lovable-uploads/fe15bc67-99a8-48bb-9477-8a5f5d5f928d.png',
     category: 'terminais',
+  },
+  {
+    id: '9',
+    name: 'Sensor de Temperatura PTC',
+    code: 'SNS-001',
+    price: 45.90,
+    image: '/lovable-uploads/fe15bc67-99a8-48bb-9477-8a5f5d5f928d.png',
+    category: 'automacao',
   },
   {
     id: 'e1',
@@ -965,414 +1020,6 @@ const sampleProducts: Product[] = [
     image: '/lovable-uploads/caixamoldada.png',
     category: 'instalacoes-eletricas',
   },
-  {
-    id: 'a1',
-    name: 'RELÉ TEMP. MULTIFUNÇÃO 24-220V 1,5s-10d',
-    code: '7891435967357',
-    price: 185.00,
-    image: '/lovable-uploads/tempmultifuncao.png',
-    category: 'automacao',
-  },
-  {
-    id: 'a2',
-    name: 'RELÉ TEMPORIZADOR ON DELAY 24-220V 0,5s-10d',
-    code: '7891435967340',
-    price: 125.00,
-    image: '/lovable-uploads/ondelay.png',
-    category: 'automacao',
-  },
-  {
-    id: 'a3',
-    name: 'RELÉ TEMPORIZADOR ON DELAY 24-220V 0,6-60S',
-    code: '7892327542713',
-    price: 135.00,
-    image: '/lovable-uploads/ondelaysoprano.png',
-    category: 'automacao',
-  },
-  {
-    id: 'a4',
-    name: 'RELÉ TEMPORIZADOR 220V 0-60s',
-    code: '7899608203714',
-    price: 98.00,
-    image: '/lovable-uploads/ondelaylukma.png',
-    category: 'automacao',
-  },
-  {
-    id: 'a5',
-    name: 'RELÉ TEMPORIZADOR 220V 2,4-60s',
-    code: '13244',
-    price: 140.00,
-    image: '/lovable-uploads/ondelaydigimec.png',
-    category: 'automacao',
-  },
-  {
-    id: 'a6',
-    name: 'RELÉ FALTA DE FASE E MONIT. 208-400VAC',
-    code: '7891435967371',
-    price: 135.00,
-    image: '/lovable-uploads/faltadefase.png',
-    category: 'automacao',
-  },
-  {
-    id: 'a7',
-    name: 'RELÉ TEMP. ESTRELA-TRIÂNGULO 24-220V',
-    code: '7891435967364',
-    price: 165.00,
-    image: '/lovable-uploads/estrelatriangulo.png',
-    category: 'automacao',
-  },
-  {
-    id: 'a8',
-    name: 'RELÉ DE NÍVEL SUPERIOR (ENCHIMENTO)',
-    code: '7898640445175',
-    price: 120.00,
-    image: '/lovable-uploads/relenivel.png',
-    category: 'automacao',
-  },
-  {
-    id: 'a9',
-    name: 'RELÉ DE NÍVEL INFERIOR (ESVAZIAMENTO)',
-    code: '789640445168',
-    price: 115.00,
-    image: '/lovable-uploads/relenivel.png',
-    category: 'automacao',
-  },
-  {
-    id: 'a10',
-    name: 'RELÉ DE ESTADO SÓLIDO 25A 3-32VAC 90-480VAC',
-    code: '7908060401047',
-    price: 119.00,
-    image: '/lovable-uploads/estadosolido.png',
-    category: 'automacao',
-  },
-  {
-    id: 'a11',
-    name: 'RELÉ DE ESTADO SÓLIDO 60A 3-32VAC 90-480VAC',
-    code: '7908060401030',
-    price: 242.00,
-    image: '/lovable-uploads/estadosolido.png',
-    category: 'automacao',
-  },
-  {
-    id: 'a12',
-    name: 'RELÉ ACOPLADOR 15A 12V',
-    code: '12094',
-    price: 52.00,
-    image: '/lovable-uploads/acoplador.png',
-    category: 'automacao',
-  },
-  {
-    id: 'a13',
-    name: 'RELÉ ACOPLADOR 15A 24V',
-    code: '12095',
-    price: 52.00,
-    image: '/lovable-uploads/acoplador.png',
-    category: 'automacao',
-  },
-  {
-    id: 'a14',
-    name: 'RELÉ TÉRMICO 1,20-1,80A WEG',
-    code: '7909323650035',
-    price: 160.00,
-    image: '/lovable-uploads/termicoweg.png',
-    category: 'automacao',
-  },
-  {
-    id: 'a15',
-    name: 'RELÉ TÉRMICO 1,6-2,5A TRAMONTINA',
-    code: '7891435935363',
-    price: 108.00,
-    image: '/lovable-uploads/termicotramontina.png',
-    category: 'automacao',
-  },
-  {
-    id: 'a16',
-    name: 'RELÉ TÉRMICO 1,6-2,5A SOPRANO',
-    code: '7892327517278',
-    price: 65.00,
-    image: '/lovable-uploads/termicosoprano.png',
-    category: 'automacao',
-  },
-  {
-    id: 'a17',
-    name: 'RELÉ TÉRMICO 1,8-2,8A WEG',
-    code: '7909323649886',
-    price: 160.00,
-    image: '/lovable-uploads/termicoweg.png',
-    category: 'automacao',
-  },
-  {
-    id: 'a18',
-    name: 'RELÉ TÉRMICO 2,8-4A WEG',
-    code: '7909018607436',
-    price: 208.00,
-    image: '/lovable-uploads/termicoweg.png',
-    category: 'automacao',
-  },
-  {
-    id: 'a19',
-    name: 'RELÉ TÉRMICO 4-6A SOPRANO',
-    code: '7892327517292',
-    price: 98.00,
-    image: '/lovable-uploads/termicosoprano.png',
-    category: 'automacao',
-  },
-  {
-    id: 'a20',
-    name: 'RELÉ TÉRMICO 7-10A TRAMONTINA',
-    code: '7891435935424',
-    price: 115.00,
-    image: '/lovable-uploads/termicotramontina.png',
-    category: 'automacao',
-  },
-  {
-    id: 'a21',
-    name: 'RELÉ TÉRMICO 9-13A TRAMONTINA',
-    code: '7891435935417',
-    price: 110.00,
-    image: '/lovable-uploads/termicotramontina.png',
-    category: 'automacao',
-  },
-  {
-    id: 'a22',
-    name: 'RELÉ TÉRMICO 12-18A SOPRANO',
-    code: '7892327517339',
-    price: 75.00,
-    image: '/lovable-uploads/termicosoprano.png',
-    category: 'automacao',
-  },
-  {
-    id: 'a23',
-    name: 'RELÉ TÉRMICO 7-25A SOPRANO',
-    code: '7892327517346',
-    price: 95.00,
-    image: '/lovable-uploads/termicosoprano.png',
-    category: 'automacao',
-  },
-  {
-    id: 'a24',
-    name: 'RELÉ TÉRMICO 30-40A TRAMONTINA',
-    code: '7891435935462',
-    price: 145.00,
-    image: '/lovable-uploads/termicotramontina.png',
-    category: 'automacao',
-  },
-  {
-    id: 'a25',
-    name: 'RELÉ TÉRMICO 48-65A TRAMONTINA',
-    code: '7891435935486',
-    price: 160.00,
-    image: '/lovable-uploads/termicotramontina.png',
-    category: 'automacao',
-  },
-  {
-    id: 'c1',
-    name: 'MINI CONTATOR 7A 220V 1NA WEG',
-    code: '7909158141210',
-    price: 'Sob Consulta',
-    image: '/lovable-uploads/miniweg220.png',
-    category: 'automacao',
-  },
-  {
-    id: 'c2',
-    name: 'MINI CONTATOR 9A 220V 1NA TRAMONTINA',
-    code: '7891435934670',
-    price: 'Sob Consulta',
-    image: '/lovable-uploads/minitramontina220.png',
-    category: 'automacao',
-  },
-  {
-    id: 'c3',
-    name: 'MINI CONTATOR 9A 220V 1NA SOPRANO',
-    code: '7487',
-    price: 'Sob Consulta',
-    image: '/lovable-uploads/minisoprano220.png',
-    category: 'automacao',
-  },
-  {
-    id: 'c4',
-    name: 'CONTATOR 9A 220V 1NA CWL',
-    code: '7909323350638',
-    price: 'Sob Consulta',
-    image: '/lovable-uploads/cwl.png',
-    category: 'automacao',
-  },
-  {
-    id: 'c5',
-    name: 'CONTATOR 12A 220V 1NA+1NF CWB',
-    code: '7909018771342',
-    price: 'Sob Consulta',
-    image: '/lovable-uploads/cwb.png',
-    category: 'automacao',
-  },
-  {
-    id: 'c6',
-    name: 'CONTATOR 18A 220V 1NA+1NF CWB',
-    code: '7909018772202',
-    price: 'Sob Consulta',
-    image: '/lovable-uploads/cwb.png',
-    category: 'automacao',
-  },
-  {
-    id: 'c7',
-    name: 'CONTATOR 25A 220V 1NA CWL',
-    code: '7909323346211',
-    price: 'Sob Consulta',
-    image: '/lovable-uploads/cwl.png',
-    category: 'automacao',
-  },
-  {
-    id: 'c8',
-    name: 'CONTATOR 32A 220V S/ AUX. CWL',
-    code: '7909323854457',
-    price: 'Sob Consulta',
-    image: '/lovable-uploads/cwl.png',
-    category: 'automacao',
-  },
-  {
-    id: 'c9',
-    name: 'CONTATOR 40A 220V S/ AUX. CWL',
-    code: '7909323854471',
-    price: 'Sob Consulta',
-    image: '/lovable-uploads/cwl.png',
-    category: 'automacao',
-  },
-  {
-    id: 'c10',
-    name: 'CONTATOR 45A 220V S/ AUX. CWL',
-    code: '7909323854655',
-    price: 'Sob Consulta',
-    image: '/lovable-uploads/cwl.png',
-    category: 'automacao',
-  },
-  {
-    id: 'c11',
-    name: 'CONTATOR 50A 220V S/ AUX. CWL',
-    code: '7909522389347',
-    price: 'Sob Consulta',
-    image: '/lovable-uploads/cwl.png',
-    category: 'automacao',
-  },
-  {
-    id: 'c12',
-    name: 'CONTATOR 65A 220V S/ AUX. CWL',
-    code: '7909522389354',
-    price: 'Sob Consulta',
-    image: '/lovable-uploads/cwl.png',
-    category: 'automacao',
-  },
-  {
-    id: 'c13',
-    name: 'MINI CONTATOR 9A 24VAC 1NA CWC',
-    code: '7909158138159',
-    price: 'Sob Consulta',
-    image: '/lovable-uploads/miniweg220.png',
-    category: 'automacao',
-  },
-  {
-    id: 'c14',
-    name: 'CONTATOR 9A 24VAC 1NA+1NF CWB',
-    code: '7909158498963',
-    price: 'Sob Consulta',
-    image: '/lovable-uploads/cwb.png',
-    category: 'automacao',
-  },
-  {
-    id: 'c15',
-    name: 'CONTATOR 12A 24VAC 1NA+1NF CWB',
-    code: '7909158498369',
-    price: 'Sob Consulta',
-    image: '/lovable-uploads/cwb.png',
-    category: 'automacao',
-  },
-  {
-    id: 'c16',
-    name: 'CONTATOR 12A 24VAC 1NF TRAMONTINA',
-    code: '7891435938852',
-    price: 'Sob Consulta',
-    image: '/lovable-uploads/tramontina24vac.png',
-    category: 'automacao',
-  },
-  {
-    id: 'c17',
-    name: 'CONTATOR 18A 24VAC 1NA+1NF CWB',
-    code: '7909158499076',
-    price: 'Sob Consulta',
-    image: '/lovable-uploads/cwb.png',
-    category: 'automacao',
-  },
-  {
-    id: 'c18',
-    name: 'CONTATOR 25A 24VAC 1NA+1NF CWB',
-    code: '7909018798578',
-    price: 'Sob Consulta',
-    image: '/lovable-uploads/cwb.png',
-    category: 'automacao',
-  },
-  {
-    id: 'c19',
-    name: 'CONTATOR 32A 24VAC 1NA+1NF CWB',
-    code: '7909018812922',
-    price: 'Sob Consulta',
-    image: '/lovable-uploads/cwb.png',
-    category: 'automacao',
-  },
-  {
-    id: 'c20',
-    name: 'CONTATOR 40A 12VAC 1NA IC4011',
-    code: '13092',
-    price: 'Sob Consulta',
-    image: '/lovable-uploads/sibratec.png',
-    category: 'automacao',
-  },
-  {
-    id: 'c21',
-    name: 'MINI CONTATOR AUX. 10A 24VDC 2NA CWC',
-    code: '7909158138593',
-    price: 'Sob Consulta',
-    image: '/lovable-uploads/miniweg220.png',
-    category: 'automacao',
-  },
-  {
-    id: 'c22',
-    name: 'CONTATOR 9A 24VDC 1NA+1NF CWB',
-    code: '7909158247493',
-    price: 'Sob Consulta',
-    image: '/lovable-uploads/cwb.png',
-    category: 'automacao',
-  },
-  {
-    id: 'c23',
-    name: 'CONTATOR 12A 24VDC 1NA+1NF CWB',
-    code: '7909158247561',
-    price: 'Sob Consulta',
-    image: '/lovable-uploads/cwb.png',
-    category: 'automacao',
-  },
-  {
-    id: 'c24',
-    name: 'CONTATOR 18A 24VDC 1NA+1NF CWB',
-    code: '7909158247974',
-    price: 'Sob Consulta',
-    image: '/lovable-uploads/cwb.png',
-    category: 'automacao',
-  },
-  {
-    id: 'c25',
-    name: 'CONTATOR 25A 24VDC 1NA+1NF CWB',
-    code: '7909018817117',
-    price: 'Sob Consulta',
-    image: '/lovable-uploads/cwb.png',
-    category: 'automacao',
-  },
-  {
-    id: 'c26',
-    name: 'CONTATOR 32A 24VDC 1NF',
-    code: '7891435938913',
-    price: 'Sob Consulta',
-    image: '/lovable-uploads/tramontina24vac.png',
-    category: 'automacao',
-  },
 ];
 
 const categoryLabels: Record<string, string> = {
@@ -1393,7 +1040,7 @@ const categoryLabels: Record<string, string> = {
   'capacitor': 'Capacitor',
   'acabamento': 'Acabamento',
   'ar-condicionado': 'Ar Condicionado',
-  'contatores': 'Contatores',
+  'disjuntores': 'Disjuntores',
 };
 
 type SortOption = 'recommended' | 'price-low' | 'price-high';
@@ -1415,10 +1062,8 @@ export default function CategoryPage() {
       ? sampleProducts.filter(product => product.category === slug)
       : sampleProducts;
     
-    // Filter by price range only for numeric prices
     filteredProducts = filteredProducts.filter(
-      product => typeof product.price === 'string' || 
-                (product.price >= priceRange[0] && product.price <= priceRange[1])
+      product => product.price >= priceRange[0] && product.price <= priceRange[1]
     );
     
     switch(sortBy) {
@@ -1437,20 +1082,10 @@ export default function CategoryPage() {
         });
         break;
       case 'price-low':
-        filteredProducts.sort((a, b) => {
-          // Handle string prices (like "Sob Consulta")
-          if (typeof a.price === 'string') return 1; // Put string prices at the end
-          if (typeof b.price === 'string') return -1; // Put string prices at the end
-          return a.price - b.price;
-        });
+        filteredProducts.sort((a, b) => a.price - b.price);
         break;
       case 'price-high':
-        filteredProducts.sort((a, b) => {
-          // Handle string prices (like "Sob Consulta")
-          if (typeof a.price === 'string') return 1; // Put string prices at the end
-          if (typeof b.price === 'string') return -1; // Put string prices at the end
-          return b.price - a.price;
-        });
+        filteredProducts.sort((a, b) => b.price - a.price);
         break;
     }
     
@@ -1465,12 +1100,7 @@ export default function CategoryPage() {
     window.scrollTo(0, 0);
   }, [slug, priceRange, sortBy]);
 
-  // Calculate max price considering only numeric prices
-  const maxPrice = Math.max(
-    ...sampleProducts
-      .filter(product => typeof product.price === 'number')
-      .map(product => product.price as number)
-  );
+  const maxPrice = Math.max(...sampleProducts.map(product => product.price));
   
   const formatCurrency = (value: number) => {
     return new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(value);

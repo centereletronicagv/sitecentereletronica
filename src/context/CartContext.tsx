@@ -6,7 +6,7 @@ export interface CartProduct {
   id: string;
   name: string;
   code: string;
-  price: number | string;
+  price: number;
   image: string;
   quantity: number;
 }
@@ -77,13 +77,7 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
   };
 
   const getTotalPrice = () => {
-    // Only sum up prices that are numbers, exclude string prices like "Sob Consulta"
-    return cartItems.reduce((total, item) => {
-      if (typeof item.price === 'number') {
-        return total + (item.price * item.quantity);
-      }
-      return total;
-    }, 0);
+    return cartItems.reduce((total, item) => total + (item.price * item.quantity), 0);
   };
 
   return (
