@@ -2,7 +2,7 @@
 import { useEffect, useState } from 'react';
 import ProductGrid from './ProductGrid';
 import ProductSectionHeader from './ProductSectionHeader';
-import { Product } from '@/data/products';
+import { Product, mockProducts } from '@/data/products';
 import { 
   getRecommendedProducts, 
   searchProducts,

@@ -22,16 +22,7 @@ export default function ProductGrid({ products, isLoading = false, searchQuery =
     return <ProductGridSkeleton />;
   }
 
-  // Filter products based on search query if provided
-  const filteredProducts = searchQuery
-    ? products.filter(product => 
-        product.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        product.code.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        product.category.toLowerCase().includes(searchQuery.toLowerCase())
-      )
-    : products;
-
-  if (filteredProducts.length === 0) {
+  if (products.length === 0) {
     return (
       <div className="py-20 text-center">
         <h3 className="text-xl font-medium text-white">Nenhum produto encontrado</h3>
@@ -42,7 +33,7 @@ export default function ProductGrid({ products, isLoading = false, searchQuery =
 
   return (
     <div className="grid grid-cols-1 xs:grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-4 md:gap-6">
-      {filteredProducts.map((product) => (
+      {products.map((product) => (
         <ProductCard key={product.id} product={product} />
       ))}
     </div>
