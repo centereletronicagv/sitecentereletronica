@@ -1,3 +1,4 @@
+
 import { useEffect, useState } from 'react';
 import { ArrowRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
@@ -784,9 +785,10 @@ const mockProducts: Product[] = [
 
 interface ProductsSectionProps {
   searchQuery?: string;
+  category?: string;
 }
 
-const ProductsSection = ({ searchQuery = '' }: ProductsSectionProps) => {
+const ProductsSection = ({ searchQuery = '', category }: ProductsSectionProps) => {
   const [isLoading, setIsLoading] = useState(true);
   const [products, setProducts] = useState<Product[]>([]);
 
@@ -796,10 +798,14 @@ const ProductsSection = ({ searchQuery = '' }: ProductsSectionProps) => {
     setTimeout(() => {
       let filteredProducts = [...mockProducts];
       
-      if (!searchQuery) {
+      if (!searchQuery && !category) {
         filteredProducts = filteredProducts
-          .filter(product => product.recommendedOrder !== undefined)
+          .filter(product => product.featured || product.recommendedOrder !== undefined)
           .sort((a, b) => {
+            // Sort by featured first, then by recommendedOrder
+            if (a.featured && !b.featured) return -1;
+            if (!a.featured && b.featured) return 1;
+            
             const orderA = a.recommendedOrder || 999;
             const orderB = b.recommendedOrder || 999;
             return orderA - orderB;
@@ -810,12 +816,12 @@ const ProductsSection = ({ searchQuery = '' }: ProductsSectionProps) => {
       setProducts(filteredProducts);
       setIsLoading(false);
     }, 500);
-  }, [searchQuery]);
+  }, [searchQuery, category]);
 
   return (
     <section id="products" className="py-16 px-4 bg-[#121212]">
       <div className="container mx-auto">
-        {!searchQuery ? (
+        {!searchQuery && !category ? (
           <div className="flex justify-between items-center mb-8">
             <h2 className="text-2xl md:text-3xl font-bold text-white">Produtos Recomendados</h2>
             <Link to="/categoria/ar-condicionado" className="flex items-center gap-2 text-center-orange hover:text-center-orange/80 transition-colors duration-300">
@@ -823,14 +829,19 @@ const ProductsSection = ({ searchQuery = '' }: ProductsSectionProps) => {
               <ArrowRight size={16} />
             </Link>
           </div>
-        ) : (
+        ) : searchQuery ? (
           <div className="mb-8">
             <h2 className="text-2xl md:text-3xl font-bold text-white">Resultados da Pesquisa</h2>
             <p className="text-gray-400 mt-2">Mostrando resultados para: <span className="text-center-orange">"{searchQuery}"</span></p>
           </div>
+        ) : (
+          <div className="mb-8">
+            <h2 className="text-2xl md:text-3xl font-bold text-white">Categoria: {category}</h2>
+            <p className="text-gray-400 mt-2">Mostrando produtos na categoria <span className="text-center-orange">{category}</span></p>
+          </div>
         )}
         
-        <ProductGrid products={products} isLoading={isLoading} searchQuery={searchQuery} />
+        <ProductGrid products={products} isLoading={isLoading} searchQuery={searchQuery} category={category} />
       </div>
     </section>
   );
