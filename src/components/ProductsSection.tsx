@@ -1,4 +1,3 @@
-
 import { useEffect, useState } from 'react';
 import { ArrowRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
@@ -421,391 +420,30 @@ const mockProducts: Product[] = [
     image: '/lovable-uploads/tramontina24vac.png',
     category: 'automacao',
   },
-  {
-    id: 'b1',
-    name: 'BOTÃO DE IMPULSO ILUM. 1NA 24V',
-    code: '7898623749054',
-    price: 36.00,
-    image: '/lovable-uploads/impulsoazul.png',
-    category: 'automacao',
-  },
-  {
-    id: 'b2',
-    name: 'BOTÃO DE IMPULSO ILUM. 1NA 24V',
-    code: '7898623748996',
-    price: 36.00,
-    image: '/lovable-uploads/impulsoverde.png',
-    category: 'automacao',
-  },
-  {
-    id: 'b3',
-    name: 'BOTÃO DE IMPULSO ILUM. 1NF 24V',
-    code: '7898623749016',
-    price: 36.00,
-    image: '/lovable-uploads/impulsovermelho.png',
-    category: 'automacao',
-  },
-  {
-    id: 'b4',
-    name: 'BOTÃO DE IMPULSO 1NA VERMELHO',
-    code: '7891435935745',
-    price: 23.00,
-    image: '/lovable-uploads/impulsovermelho1na.png',
-    category: 'automacao',
-  },
-  {
-    id: 'b5',
-    name: 'BOTÃO DE IMPULSO 1NA VERDE',
-    code: '7891435935738',
-    price: 23.00,
-    image: '/lovable-uploads/impulsoverde1na.png',
-    category: 'automacao',
-  },
-  {
-    id: 'b6',
-    name: 'BOTÃO DE IMPULSO 1 NA AZUL',
-    code: '7891435935776',
-    price: 23.00,
-    image: '/lovable-uploads/impulsoazul1na.png',
-    category: 'automacao',
-  },
-  {
-    id: 'b7',
-    name: 'BOTÃO DE IMPULSO 1 NA AMARELO',
-    code: '7891435935769',
-    price: 23.00,
-    image: '/lovable-uploads/impulsoamarelo1na.png',
-    category: 'automacao',
-  },
-  {
-    id: 'b8',
-    name: 'BOTÃO DE IMPULSO 1 NA BRANCO',
-    code: '7891435935714',
-    price: 22.00,
-    image: '/lovable-uploads/impulsobranco1na.png',
-    category: 'automacao',
-  },
-  {
-    id: 'b9',
-    name: 'BOTÃO DE IMPULSO 1 NA PRETO',
-    code: '7891435935721',
-    price: 23.00,
-    image: '/lovable-uploads/impulsopreto1na.png',
-    category: 'automacao',
-  },
-  {
-    id: 'b10',
-    name: 'BOTÃO DE IMPULSO 1 NF PRETO',
-    code: '7891435935899',
-    price: 12.00,
-    image: '/lovable-uploads/botaodeimpulsovermelho1nf.png',
-    category: 'automacao',
-  },
-  {
-    id: 'b11',
-    name: 'BOTÃO DE IMPULSO DUPLO ILU. 1NA+1NF 220V',
-    code: '7898623748026',
-    price: 49.00,
-    image: '/lovable-uploads/duploiluminadosibratec.png',
-    category: 'automacao',
-  },
-  {
-    id: 'b12',
-    name: 'BOTÃO DE IMPULSO DUPLO ILUM. 1NA+1NF 24V',
-    code: '7898623747982',
-    price: 59.50,
-    image: '/lovable-uploads/duploiluminadodeimpulso.png',
-    category: 'automacao',
-  },
-  {
-    id: 'b13',
-    name: 'BOTÃO DE IMPULSO DUPLO ILUM. 1NA+1NF 220V',
-    code: '7891435936452',
-    price: 39.50,
-    image: '/lovable-uploads/impulsoduplotramontina.png',
-    category: 'automacao',
-  },
-  {
-    id: 'b14',
-    name: 'BOTÃO DE IMPULSO DUPLO 1NA+1NF',
-    code: '7891435935806',
-    price: 35.00,
-    image: '/lovable-uploads/tramontinaduplo.png',
-    category: 'automacao',
-  },
-  {
-    id: 'b15',
-    name: 'BOTÂO TIPO COGUMELO 1NF',
-    code: '7891435935837',
-    price: 22.00,
-    image: '/lovable-uploads/cogumelo.png',
-    category: 'automacao',
-  },
-  {
-    id: 'b16',
-    name: 'BOTÃO DE EMERGÊNCIA 1NF',
-    code: '7898623748842',
-    price: 38.00,
-    image: '/lovable-uploads/emergencia.png',
-    category: 'automacao',
-  },
-  {
-    id: 'c17',
-    name: 'CHAVE SELETORA 1NA 2 POS C/ CHAVE',
-    code: '7891435936032',
-    price: 31.00,
-    image: '/lovable-uploads/chave1.png',
-    category: 'automacao',
-  },
-  {
-    id: 'c18',
-    name: 'CHAVE SELETORA 2NA 3 POS C/ CHAVE',
-    code: '7891435936049',
-    price: 35.00,
-    image: '/lovable-uploads/chave1.png',
-    category: 'automacao',
-  },
-  {
-    id: 'c19',
-    name: 'CHAVE SELETORA ILUMINADA 2NF 3 POS',
-    code: '7898623749542',
-    price: 68.00,
-    image: '/lovable-uploads/seletorailumvermelha.png',
-    category: 'automacao',
-  },
-  {
-    id: 'c20',
-    name: 'CHAVE SELETORA ILUMINADA 2NF 3 POS.',
-    code: '7898623749511',
-    price: 68.00,
-    image: '/lovable-uploads/seletorailumverde.png',
-    category: 'automacao',
-  },
-  {
-    id: 'c21',
-    name: 'CHAVE SELETORA 2NA 3 POS.',
-    code: '7892327535746',
-    price: 34.00,
-    image: '/lovable-uploads/seletora3ppreta.png',
-    category: 'automacao',
-  },
-  {
-    id: 'c22',
-    name: 'CHAVE SELETORA 2NA 3 POS.',
-    code: '7909522567752',
-    price: 19.80,
-    image: '/lovable-uploads/2natramontina.png',
-    category: 'automacao',
-  },
-  {
-    id: 'c23',
-    name: 'CHAVE SELETORA 1NA 2 POS.',
-    code: '7898623749337',
-    price: 32.00,
-    image: '/lovable-uploads/1natramontina.png',
-    category: 'automacao',
-  },
-  {
-    id: 'c24',
-    name: 'CHAVE SELETORA 2NA 3 POS. C/ RETORNO',
-    code: '7898623749405',
-    price: 45.00,
-    image: '/lovable-uploads/seletoraretorno.png',
-    category: 'automacao',
-  },
-  {
-    id: 'c25',
-    name: 'CHAVE SELETORA 1NA 2 POS. C/ RETORNO',
-    code: '7898623749399',
-    price: 45.00,
-    image: '/lovable-uploads/seletora1naretorno.png',
-    category: 'automacao',
-  },
-  {
-    id: 'l1',
-    name: 'LED 22MM 220/127v SIBRATEC',
-    code: '7898640446394',
-    price: 18.00,
-    image: '/lovable-uploads/led.png',
-    category: 'automacao',
-  },
-  {
-    id: 's1',
-    name: 'SINALIZADOR E BUFFER LUMINOSO 24V',
-    code: '7898640446578',
-    price: 39.00,
-    image: '/lovable-uploads/buzzer.png',
-    category: 'automacao',
-  },
-  {
-    id: 's2',
-    name: 'SINALIZADOR E BUFFER LUMINOSO 220v',
-    code: '7898640446561',
-    price: 43.00,
-    image: '/lovable-uploads/buzzer.png',
-    category: 'automacao',
-  },
-  {
-    id: 's3',
-    name: 'SINALIZADOR VERMELHO 24V',
-    code: '7891435936117',
-    price: 16.00,
-    image: '/lovable-uploads/vermelho.png',
-    category: 'automacao',
-  },
-  {
-    id: 's4',
-    name: 'SINALIZADOR VERMELHO 220V',
-    code: '7891435936216',
-    price: 18.00,
-    image: '/lovable-uploads/vermelho.png',
-    category: 'automacao',
-  },
-  {
-    id: 's5',
-    name: 'SINALIZADOR VERDE 24V',
-    code: '7891435936148',
-    price: 16.00,
-    image: '/lovable-uploads/verde.png',
-    category: 'automacao',
-  },
-  {
-    id: 's6',
-    name: 'SINALIZADOR VERDE 220V',
-    code: '7891435936247',
-    price: 18.00,
-    image: '/lovable-uploads/verde.png',
-    category: 'automacao',
-  },
-  {
-    id: 's7',
-    name: 'SINALIZADOR AMARELO 24V',
-    code: '7891435936124',
-    price: 16.00,
-    image: '/lovable-uploads/amarelo.png',
-    category: 'automacao',
-  },
-  {
-    id: 's8',
-    name: 'SINALIZADOR AMARELO 220V',
-    code: '7891435936223',
-    price: 18.00,
-    image: '/lovable-uploads/amarelo.png',
-    category: 'automacao',
-  },
-  {
-    id: 's9',
-    name: 'SINALIZADOR AMARELO 24V',
-    code: '7891435936131',
-    price: 15.00,
-    image: '/lovable-uploads/azul.png',
-    category: 'automacao',
-  },
-  {
-    id: 's10',
-    name: 'SINALIZADOR AMARELO 220V',
-    code: '7891435936230',
-    price: 18.00,
-    image: '/lovable-uploads/azul.png',
-    category: 'automacao',
-  },
-  {
-    id: 's11',
-    name: 'SINALIZADOR BRANCO 24V',
-    code: '7891435936100',
-    price: 19.00,
-    image: '/lovable-uploads/branco.png',
-    category: 'automacao',
-  },
-  {
-    id: 's12',
-    name: 'SINALIZADOR BRANCO 220V',
-    code: '7891435936209',
-    price: 20.00,
-    image: '/lovable-uploads/branco.png',
-    category: 'automacao',
-  },
-  {
-    id: 'm1',
-    name: 'CHAVE P/ MOTOR MONO. 30A 2CV 250V',
-    code: '7890428030573',
-    price: 65.00,
-    image: '/lovable-uploads/chavemotor.png',
-    category: 'automacao',
-  },
-  {
-    id: 'm2',
-    name: 'CHAVE P/ MOTOR TRIF. 30A 2CV 250V',
-    code: '7890428030528',
-    price: 86.00,
-    image: '/lovable-uploads/chavemotor.png',
-    category: 'automacao',
-  },
-  {
-    id: 'm3',
-    name: 'CHAVE REVERSORA P/ MOTOR 15A',
-    code: '7890428162663',
-    price: 205.00,
-    image: '/lovable-uploads/reversora.png',
-    category: 'automacao',
-  },
-  {
-    id: 'm4',
-    name: 'CHAVE REVERSORA P/ MOTOR 30A',
-    code: '7890428162687',
-    price: 226.00,
-    image: '/lovable-uploads/reversora.png',
-    category: 'automacao',
-  },
-  {
-    id: 'm5',
-    name: 'CHAVE LIGA-DESLIGA P/ MOTOR 30A',
-    code: '7890428162595',
-    price: 189.00,
-    image: '/lovable-uploads/reversora.png',
-    category: 'automacao',
-  },
-  {
-    id: 'm6',
-    name: 'CHAVE DE TRANSFERÊNCIA P/ MOTOR 40A',
-    code: '7890428162960',
-    price: 228.00,
-    image: '/lovable-uploads/reversora.png',
-    category: 'automacao',
-  },
-  {
-    id: 'm7',
-    name: 'CHAVE DE PARTIDA ESTRELA-TRIÂNGULO 30A TRIF.',
-    code: '7890428162731',
-    price: 360.00,
-    image: '/lovable-uploads/estrelatriangulo.png',
-    category: 'automacao',
-  },
 ];
 
 interface ProductsSectionProps {
   searchQuery?: string;
-  category?: string;
 }
 
-const ProductsSection = ({ searchQuery = '', category }: ProductsSectionProps) => {
+const ProductsSection = ({ searchQuery = '' }: ProductsSectionProps) => {
   const [isLoading, setIsLoading] = useState(true);
   const [products, setProducts] = useState<Product[]>([]);
 
   useEffect(() => {
+    // Simulate loading
     setIsLoading(true);
     
+    // In a real app, this would be a fetch request to an API
     setTimeout(() => {
       let filteredProducts = [...mockProducts];
       
-      if (!searchQuery && !category) {
+      // If we're on the homepage and there's no search query, only show first 8 recommended products
+      if (!searchQuery) {
+        // Sort by recommendedOrder if available, otherwise use the order in the array
         filteredProducts = filteredProducts
-          .filter(product => product.featured || product.recommendedOrder !== undefined)
+          .filter(product => product.recommendedOrder !== undefined)
           .sort((a, b) => {
-            // Sort by featured first, then by recommendedOrder
-            if (a.featured && !b.featured) return -1;
-            if (!a.featured && b.featured) return 1;
-            
             const orderA = a.recommendedOrder || 999;
             const orderB = b.recommendedOrder || 999;
             return orderA - orderB;
@@ -816,12 +454,12 @@ const ProductsSection = ({ searchQuery = '', category }: ProductsSectionProps) =
       setProducts(filteredProducts);
       setIsLoading(false);
     }, 500);
-  }, [searchQuery, category]);
+  }, [searchQuery]);
 
   return (
     <section id="products" className="py-16 px-4 bg-[#121212]">
       <div className="container mx-auto">
-        {!searchQuery && !category ? (
+        {!searchQuery ? (
           <div className="flex justify-between items-center mb-8">
             <h2 className="text-2xl md:text-3xl font-bold text-white">Produtos Recomendados</h2>
             <Link to="/categoria/ar-condicionado" className="flex items-center gap-2 text-center-orange hover:text-center-orange/80 transition-colors duration-300">
@@ -829,19 +467,14 @@ const ProductsSection = ({ searchQuery = '', category }: ProductsSectionProps) =
               <ArrowRight size={16} />
             </Link>
           </div>
-        ) : searchQuery ? (
+        ) : (
           <div className="mb-8">
             <h2 className="text-2xl md:text-3xl font-bold text-white">Resultados da Pesquisa</h2>
             <p className="text-gray-400 mt-2">Mostrando resultados para: <span className="text-center-orange">"{searchQuery}"</span></p>
           </div>
-        ) : (
-          <div className="mb-8">
-            <h2 className="text-2xl md:text-3xl font-bold text-white">Categoria: {category}</h2>
-            <p className="text-gray-400 mt-2">Mostrando produtos na categoria <span className="text-center-orange">{category}</span></p>
-          </div>
         )}
         
-        <ProductGrid products={products} isLoading={isLoading} searchQuery={searchQuery} category={category} />
+        <ProductGrid products={products} isLoading={isLoading} searchQuery={searchQuery} />
       </div>
     </section>
   );

@@ -9,7 +9,6 @@ import ProductsSection from '../components/ProductsSection';
 
 const Index = () => {
   const [searchQuery, setSearchQuery] = useState('');
-  const [category, setCategory] = useState('');
   const location = useLocation();
 
   useEffect(() => {
@@ -19,14 +18,8 @@ const Index = () => {
     // Extract search query from URL if present
     const params = new URLSearchParams(location.search);
     const searchFromUrl = params.get('search') || '';
-    const categoryFromUrl = params.get('category') || '';
-    
     if (searchFromUrl) {
       setSearchQuery(searchFromUrl);
-    }
-    
-    if (categoryFromUrl) {
-      setCategory(categoryFromUrl);
     }
   }, [location]);
 
@@ -47,9 +40,9 @@ const Index = () => {
     <div className="flex flex-col min-h-screen">
       <Navbar />
       <main className="flex-grow">
-        {!searchQuery && !category && <Hero />}
+        {!searchQuery && <Hero />}
         
-        <ProductsSection searchQuery={searchQuery} category={category} />
+        <ProductsSection searchQuery={searchQuery} />
         
         <ContactSection />
       </main>

@@ -163,7 +163,7 @@ export default function CartModal({ open, onOpenChange }: CartModalProps) {
               )}
               
               {cartItems.some(item => typeof item.price === 'string') && (
-                <div className="flex items-center py-2 border-t border-[#333333] text-center-orange">
+                <div className="flex items-center py-2 border-t border-[#333333] text-yellow-500">
                   <span className="font-medium">
                     Esse pedido contém produtos com preço sob consulta
                   </span>

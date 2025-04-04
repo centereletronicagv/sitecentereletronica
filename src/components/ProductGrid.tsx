@@ -9,37 +9,27 @@ interface Product {
   image: string;
   category: string;
   recommendedOrder?: number;
-  popularity?: number;
-  featured?: boolean;
 }
 
 interface ProductGridProps {
   products: Product[];
   isLoading?: boolean;
   searchQuery?: string;
-  category?: string;
 }
 
-export default function ProductGrid({ products, isLoading = false, searchQuery = '', category }: ProductGridProps) {
+export default function ProductGrid({ products, isLoading = false, searchQuery = '' }: ProductGridProps) {
   if (isLoading) {
     return <ProductGridSkeleton />;
   }
 
   // Filter products based on search query if provided
-  let filteredProducts = searchQuery
+  const filteredProducts = searchQuery
     ? products.filter(product => 
         product.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
         product.code.toLowerCase().includes(searchQuery.toLowerCase()) ||
         product.category.toLowerCase().includes(searchQuery.toLowerCase())
       )
     : products;
-  
-  // Filter by category if provided
-  if (category) {
-    filteredProducts = filteredProducts.filter(product => 
-      product.category.toLowerCase() === category.toLowerCase()
-    );
-  }
 
   if (filteredProducts.length === 0) {
     return (
