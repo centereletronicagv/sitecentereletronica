@@ -1,3 +1,4 @@
+
 import { useEffect, useState } from 'react';
 import { ArrowRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
@@ -856,231 +857,6 @@ const mockProducts: Product[] = [
     image: '/lovable-uploads/passagemdreno.png',
     category: 'ar-condicionado',
     popularity: 7
-  },
-  {
-    id: 'auto-001',
-    name: 'RELÉ TEMP. MULTIFUNÇÃO 24-220V 1,5s-10d',
-    code: '7891435967357',
-    price: 185.00,
-    image: '/lovable-uploads/tempmultifuncao.png',
-    category: 'automacao',
-    popularity: 8
-  },
-  {
-    id: 'auto-002',
-    name: 'RELÉ TEMPORIZADOR ON DELAY 24-220V 0,5s-10d',
-    code: '7891435967340',
-    price: 125.00,
-    image: '/lovable-uploads/ondelay.png',
-    category: 'automacao',
-    popularity: 8
-  },
-  {
-    id: 'auto-003',
-    name: 'RELÉ TEMPORIZADOR ON DELAY 24-220V 0,6-60S',
-    code: '7892327542713',
-    price: 135.00,
-    image: '/lovable-uploads/ondelaysoprano.png',
-    category: 'automacao',
-    popularity: 8
-  },
-  {
-    id: 'auto-004',
-    name: 'RELÉ TEMPORIZADOR 220V 0-60s',
-    code: '7899608203714',
-    price: 98.00,
-    image: '/lovable-uploads/ondelaylukma.png',
-    category: 'automacao',
-    popularity: 8
-  },
-  {
-    id: 'auto-005',
-    name: 'RELÉ TEMPORIZADOR 220V 2,4-60s',
-    code: '13244',
-    price: 140.00,
-    image: '/lovable-uploads/ondelaydigimec.png',
-    category: 'automacao',
-    popularity: 8
-  },
-  {
-    id: 'auto-006',
-    name: 'RELÉ FALTA DE FASE E MONIT. 208-400VAC',
-    code: '7891435967371',
-    price: 135.00,
-    image: '/lovable-uploads/faltadefase.png',
-    category: 'automacao',
-    popularity: 8
-  },
-  {
-    id: 'auto-007',
-    name: 'RELÉ TEMP. ESTRELA-TRIÂNGULO 24-220V',
-    code: '7891435967364',
-    price: 165.00,
-    image: '/lovable-uploads/estrelatriangulo.png',
-    category: 'automacao',
-    popularity: 8
-  },
-  {
-    id: 'auto-008',
-    name: 'RELÉ DE NÍVEL SUPERIOR (ENCHIMENTO)',
-    code: '7898640445175',
-    price: 120.00,
-    image: '/lovable-uploads/relenivel.png',
-    category: 'automacao',
-    popularity: 8
-  },
-  {
-    id: 'auto-009',
-    name: 'RELÉ DE NÍVEL INFERIOR (ESVAZIAMENTO)',
-    code: '789640445168',
-    price: 115.00,
-    image: '/lovable-uploads/relenivel.png',
-    category: 'automacao',
-    popularity: 8
-  },
-  {
-    id: 'auto-010',
-    name: 'RELÉ DE ESTADO SÓLIDO 25A 3-32VAC 90-480VAC',
-    code: '7908060401047',
-    price: 119.00,
-    image: '/lovable-uploads/estadosolido.png',
-    category: 'automacao',
-    popularity: 8
-  },
-  {
-    id: 'auto-011',
-    name: 'RELÉ DE ESTADO SÓLIDO 60A 3-32VAC 90-480VAC',
-    code: '7908060401030',
-    price: 242.00,
-    image: '/lovable-uploads/estadosolido.png',
-    category: 'automacao',
-    popularity: 8
-  },
-  {
-    id: 'auto-012',
-    name: 'RELÉ ACOPLADOR 15A 12V',
-    code: '12094',
-    price: 52.00,
-    image: '/lovable-uploads/acoplador.png',
-    category: 'automacao',
-    popularity: 8
-  },
-  {
-    id: 'auto-013',
-    name: 'RELÉ ACOPLADOR 15A 24V',
-    code: '12095',
-    price: 52.00,
-    image: '/lovable-uploads/acoplador.png',
-    category: 'automacao',
-    popularity: 8
-  },
-  {
-    id: 'auto-014',
-    name: 'RELÉ TÉRMICO 1,20-1,80A WEG',
-    code: '7909323650035',
-    price: 160.00,
-    image: '/lovable-uploads/termicoweg.png',
-    category: 'automacao',
-    popularity: 8
-  },
-  {
-    id: 'auto-015',
-    name: 'RELÉ TÉRMICO 1,6-2,5A TRAMONTINA',
-    code: '7891435935363',
-    price: 108.00,
-    image: '/lovable-uploads/termicotramontina.png',
-    category: 'automacao',
-    popularity: 8
-  },
-  {
-    id: 'auto-016',
-    name: 'RELÉ TÉRMICO 1,6-2,5A SOPRANO',
-    code: '7892327517278',
-    price: 65.00,
-    image: '/lovable-uploads/termicosoprano.png',
-    category: 'automacao',
-    popularity: 8
-  },
-  {
-    id: 'auto-017',
-    name: 'RELÉ TÉRMICO 1,8-2,8A WEG',
-    code: '7909323649886',
-    price: 160.00,
-    image: '/lovable-uploads/termicoweg.png',
-    category: 'automacao',
-    popularity: 8
-  },
-  {
-    id: 'auto-018',
-    name: 'RELÉ TÉRMICO 2,8-4A WEG',
-    code: '7909018607436',
-    price: 208.00,
-    image: '/lovable-uploads/termicoweg.png',
-    category: 'automacao',
-    popularity: 8
-  },
-  {
-    id: 'auto-019',
-    name: 'RELÉ TÉRMICO 4-6A SOPRANO',
-    code: '7892327517292',
-    price: 98.00,
-    image: '/lovable-uploads/termicosoprano.png',
-    category: 'automacao',
-    popularity: 8
-  },
-  {
-    id: 'auto-020',
-    name: 'RELÉ TÉRMICO 7-10A TRAMONTINA',
-    code: '7891435935424',
-    price: 115.00,
-    image: '/lovable-uploads/termicotramontina.png',
-    category: 'automacao',
-    popularity: 8
-  },
-  {
-    id: 'auto-021',
-    name: 'RELÉ TÉRMICO 9-13A TRAMONTINA',
-    code: '7891435935417',
-    price: 110.00,
-    image: '/lovable-uploads/termicotramontina.png',
-    category: 'automacao',
-    popularity: 8
-  },
-  {
-    id: 'auto-022',
-    name: 'RELÉ TÉRMICO 12-18A SOPRANO',
-    code: '7892327517339',
-    price: 75.00,
-    image: '/lovable-uploads/termicosoprano.png',
-    category: 'automacao',
-    popularity: 8
-  },
-  {
-    id: 'auto-023',
-    name: 'RELÉ TÉRMICO 7-25A SOPRANO',
-    code: '7892327517346',
-    price: 95.00,
-    image: '/lovable-uploads/termicosoprano.png',
-    category: 'automacao',
-    popularity: 8
-  },
-  {
-    id: 'auto-024',
-    name: 'RELÉ TÉRMICO 30-40A TRAMONTINA',
-    code: '7891435935462',
-    price: 145.00,
-    image: '/lovable-uploads/termicotramontina.png',
-    category: 'automacao',
-    popularity: 8
-  },
-  {
-    id: 'auto-025',
-    name: 'RELÉ TÉRMICO 48-65A TRAMONTINA',
-    code: '7891435935486',
-    price: 160.00,
-    image: '/lovable-uploads/termicotramontina.png',
-    category: 'automacao',
-    popularity: 8
   }
 ];
 
@@ -1093,12 +869,16 @@ const ProductsSection = ({ searchQuery = '' }: ProductsSectionProps) => {
   const [products, setProducts] = useState<Product[]>([]);
 
   useEffect(() => {
+    // Simulate loading
     setIsLoading(true);
     
+    // In a real app, this would be a fetch request to an API
     setTimeout(() => {
       let filteredProducts = [...mockProducts];
       
+      // If we're on the homepage and there's no search query, only show first 8 recommended products
       if (!searchQuery) {
+        // Sort by recommendedOrder if available, otherwise use the order in the array
         filteredProducts = filteredProducts
           .filter(product => product.recommendedOrder !== undefined)
           .sort((a, b) => {
