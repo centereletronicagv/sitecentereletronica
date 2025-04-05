@@ -1,4 +1,3 @@
-
 import { useState, useEffect, FormEvent } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { Menu, X, Search, Wind, Plug, Terminal, Router, ChevronDown, ChevronRight, ShoppingCart } from 'lucide-react';
@@ -121,9 +120,18 @@ export default function Navbar() {
     }));
   };
 
+  const handleCategoryClick = (link: NavLink) => {
+    if (!link.subCategories || link.name === 'Início' || link.name === 'Contato') {
+      navigate(link.href);
+      setIsMenuOpen(false);
+    }
+    else {
+      toggleCategory(link.name);
+    }
+  };
+
   return (
     <header className="w-full">
-      {/* Main Navbar */}
       <div 
         className={`w-full fixed top-0 left-0 right-0 z-30 transition-all duration-300 ${
           scrolled 
@@ -132,7 +140,6 @@ export default function Navbar() {
         }`}
       >
         <div className="container-custom py-3">
-          {/* Top bar with logo, search and actions */}
           <div className="flex items-center justify-between gap-2">
             <Link 
               to="/" 
@@ -152,7 +159,6 @@ export default function Navbar() {
               </div>
             </Link>
 
-            {/* Search on Desktop */}
             <div className="flex-1 max-w-xl hidden sm:block">
               <form onSubmit={handleSearch} className="relative">
                 <Input
@@ -171,7 +177,6 @@ export default function Navbar() {
               </form>
             </div>
 
-            {/* Desktop actions */}
             <div className="hidden md:flex items-center gap-6">
               <a 
                 href="tel:5499270560" 
@@ -196,7 +201,6 @@ export default function Navbar() {
               </div>
             </div>
 
-            {/* Mobile actions */}
             <div className="flex items-center gap-1.5 md:hidden">
               <button 
                 className="p-1.5 text-gray-300 bg-[#333333] rounded-full"
@@ -229,7 +233,6 @@ export default function Navbar() {
             </div>
           </div>
 
-          {/* Bottom navbar with categories - Desktop */}
           <nav className="hidden md:block mt-4 border-t border-[#333333] pt-4">
             <ul className="flex items-center gap-12">
               {navLinks.map((link) => (
@@ -253,7 +256,6 @@ export default function Navbar() {
         </div>
       </div>
 
-      {/* Mobile menu */}
       <div 
         className={`fixed inset-0 z-40 bg-[#222222] transform transition-transform duration-300 ease-in-out pt-16 ${
           isMenuOpen ? 'translate-x-0' : 'translate-x-full'
@@ -274,11 +276,10 @@ export default function Navbar() {
           </div>
 
           <nav className="flex flex-col gap-2">
-            {/* New mobile category navigation */}
             <div className="flex flex-col">
               {navLinks.map((link) => (
                 <div key={link.name} className="border-b border-[#333333]">
-                  {link.subCategories ? (
+                  {link.subCategories && link.name !== 'Início' && link.name !== 'Contato' ? (
                     <Collapsible
                       open={openCategories[link.name] || false}
                       onOpenChange={() => toggleCategory(link.name)}
@@ -308,6 +309,7 @@ export default function Navbar() {
                           <Link
                             to={link.href}
                             className="flex items-center gap-2 px-4 py-2 text-sm font-medium text-gray-300 hover:text-center-orange rounded-md"
+                            onClick={() => setIsMenuOpen(false)}
                           >
                             Ver todos
                           </Link>
@@ -316,6 +318,7 @@ export default function Navbar() {
                               key={subCat.name}
                               to={subCat.href}
                               className="flex items-center gap-2 px-4 py-2 text-sm font-medium text-gray-300 hover:text-center-orange rounded-md"
+                              onClick={() => setIsMenuOpen(false)}
                             >
                               <ChevronRight size={14} />
                               {subCat.name}
@@ -327,6 +330,7 @@ export default function Navbar() {
                   ) : (
                     <Link
                       to={link.href}
+                      onClick={() => setIsMenuOpen(false)}
                       className={`flex items-center gap-2 px-4 py-3 text-base font-medium rounded-md transition-colors ${
                         location.pathname === link.href
                           ? 'bg-center-orange/10 text-center-orange'
@@ -369,10 +373,8 @@ export default function Navbar() {
         </div>
       </div>
 
-      {/* Cart Modal */}
       <CartModal open={isCartOpen} onOpenChange={setIsCartOpen} />
 
-      {/* Mobile Search Dialog */}
       <Dialog open={isMobileSearchOpen} onOpenChange={setIsMobileSearchOpen}>
         <DialogContent className="sm:max-w-md border-[#333333] bg-[#1E1E1E] p-0 overflow-hidden">
           <div className="p-4">
