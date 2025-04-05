@@ -6,10 +6,12 @@ import Hero from '../components/Hero';
 import ContactSection from '../components/ContactSection';
 import Footer from '../components/Footer';
 import ProductsSection from '../components/ProductsSection';
+import { useMediaQuery } from '@/hooks/use-mobile';
 
 const Index = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const location = useLocation();
+  const { isMobile } = useMediaQuery();
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -39,7 +41,7 @@ const Index = () => {
   return (
     <div className="flex flex-col min-h-screen">
       <Navbar />
-      <main className="flex-grow pt-16 md:pt-20">
+      <main className={`flex-grow ${isMobile ? 'pt-14' : 'pt-16 md:pt-20'}`}>
         {!searchQuery && <Hero />}
         
         <ProductsSection searchQuery={searchQuery} />

@@ -1,25 +1,64 @@
 
 import { useState, useEffect, FormEvent } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { Menu, X, Search, Wind, Plug, Terminal, Router, ChevronDown, ShoppingCart } from 'lucide-react';
+import { Menu, X, Search, Wind, Plug, Terminal, Router, ChevronDown, ChevronRight, ShoppingCart } from 'lucide-react';
 import { Input } from './ui/input';
 import { useCart } from '@/context/CartContext';
 import CartModal from './CartModal';
 import { Dialog, DialogContent } from '@/components/ui/dialog';
 import { useIsMobile } from '@/hooks/use-mobile';
+import { 
+  Collapsible,
+  CollapsibleContent,
+  CollapsibleTrigger,
+} from "@/components/ui/collapsible"
 
 interface NavLink {
   name: string;
   href: string;
   icon?: JSX.Element;
+  subCategories?: { name: string; href: string }[];
 }
 
 const navLinks: NavLink[] = [
   { name: 'Início', href: '/' },
-  { name: 'Ar Condicionado', href: '/categoria/ar-condicionado', icon: <Wind size={16} /> },
-  { name: 'Instalações Elétricas', href: '/categoria/instalacoes-eletricas', icon: <Plug size={16} /> },
-  { name: 'Terminais', href: '/categoria/terminais', icon: <Terminal size={16} /> },
-  { name: 'Automação', href: '/categoria/automacao', icon: <Router size={16} /> },
+  { 
+    name: 'Ar Condicionado', 
+    href: '/categoria/ar-condicionado', 
+    icon: <Wind size={16} />,
+    subCategories: [
+      { name: 'Tubulação', href: '/categoria/ar-condicionado/tubulacao' },
+      { name: 'Suportes', href: '/categoria/ar-condicionado/suportes' },
+      { name: 'Gases', href: '/categoria/ar-condicionado/gases' },
+    ]
+  },
+  { 
+    name: 'Instalações Elétricas', 
+    href: '/categoria/instalacoes-eletricas', 
+    icon: <Plug size={16} />,
+    subCategories: [
+      { name: 'Fios e Cabos', href: '/categoria/instalacoes-eletricas/fios' },
+      { name: 'Disjuntores', href: '/categoria/instalacoes-eletricas/disjuntores' },
+    ]
+  },
+  { 
+    name: 'Terminais', 
+    href: '/categoria/terminais', 
+    icon: <Terminal size={16} />,
+    subCategories: [
+      { name: 'Conectores', href: '/categoria/terminais/conectores' },
+      { name: 'Terminais Ilhós', href: '/categoria/terminais/ilhos' },
+    ]
+  },
+  { 
+    name: 'Automação', 
+    href: '/categoria/automacao', 
+    icon: <Router size={16} />,
+    subCategories: [
+      { name: 'Relés', href: '/categoria/automacao/reles' },
+      { name: 'Controladores', href: '/categoria/automacao/controladores' },
+    ]
+  },
   { name: 'Contato', href: '/contato' },
 ];
 
@@ -29,6 +68,7 @@ export default function Navbar() {
   const [searchQuery, setSearchQuery] = useState('');
   const [isCartOpen, setIsCartOpen] = useState(false);
   const [isMobileSearchOpen, setIsMobileSearchOpen] = useState(false);
+  const [openCategories, setOpenCategories] = useState<{[key: string]: boolean}>({});
   const location = useLocation();
   const navigate = useNavigate();
   const { getTotalItems } = useCart();
@@ -74,6 +114,13 @@ export default function Navbar() {
     setIsMobileSearchOpen(true);
   };
 
+  const toggleCategory = (name: string) => {
+    setOpenCategories(prev => ({
+      ...prev,
+      [name]: !prev[name]
+    }));
+  };
+
   return (
     <header className="w-full">
       {/* Main Navbar */}
@@ -105,6 +152,7 @@ export default function Navbar() {
               </div>
             </Link>
 
+            {/* Search on Desktop */}
             <div className="flex-1 max-w-xl hidden sm:block">
               <form onSubmit={handleSearch} className="relative">
                 <Input
@@ -123,6 +171,7 @@ export default function Navbar() {
               </form>
             </div>
 
+            {/* Desktop actions */}
             <div className="hidden md:flex items-center gap-6">
               <a 
                 href="tel:5499270560" 
@@ -147,6 +196,7 @@ export default function Navbar() {
               </div>
             </div>
 
+            {/* Mobile actions */}
             <div className="flex items-center gap-1.5 md:hidden">
               <button 
                 className="p-1.5 text-gray-300 bg-[#333333] rounded-full"
@@ -224,20 +274,72 @@ export default function Navbar() {
           </div>
 
           <nav className="flex flex-col gap-2">
-            {navLinks.map((link) => (
-              <Link
-                key={link.name}
-                to={link.href}
-                className={`flex items-center gap-2 px-4 py-3 text-base font-medium rounded-md transition-colors ${
-                  location.pathname === link.href
-                    ? 'bg-center-orange/10 text-center-orange'
-                    : 'text-gray-300 hover:bg-[#333333]'
-                }`}
-              >
-                {link.icon && link.icon}
-                {link.name}
-              </Link>
-            ))}
+            {/* New mobile category navigation */}
+            <div className="flex flex-col">
+              {navLinks.map((link) => (
+                <div key={link.name} className="border-b border-[#333333]">
+                  {link.subCategories ? (
+                    <Collapsible
+                      open={openCategories[link.name] || false}
+                      onOpenChange={() => toggleCategory(link.name)}
+                    >
+                      <CollapsibleTrigger className="w-full">
+                        <div 
+                          className={`flex items-center justify-between px-4 py-3 text-base font-medium rounded-md transition-colors ${
+                            location.pathname === link.href
+                              ? 'text-center-orange'
+                              : 'text-gray-300 hover:bg-[#333333]'
+                          }`}
+                        >
+                          <div className="flex items-center gap-2">
+                            {link.icon && link.icon}
+                            {link.name}
+                          </div>
+                          <ChevronDown 
+                            size={16}
+                            className={`transition-transform duration-200 ${
+                              openCategories[link.name] ? 'rotate-180' : ''
+                            }`}
+                          />
+                        </div>
+                      </CollapsibleTrigger>
+                      <CollapsibleContent>
+                        <div className="border-l-2 border-[#333333] ml-4 pl-4 py-2 space-y-2">
+                          <Link
+                            to={link.href}
+                            className="flex items-center gap-2 px-4 py-2 text-sm font-medium text-gray-300 hover:text-center-orange rounded-md"
+                          >
+                            Ver todos
+                          </Link>
+                          {link.subCategories.map((subCat) => (
+                            <Link
+                              key={subCat.name}
+                              to={subCat.href}
+                              className="flex items-center gap-2 px-4 py-2 text-sm font-medium text-gray-300 hover:text-center-orange rounded-md"
+                            >
+                              <ChevronRight size={14} />
+                              {subCat.name}
+                            </Link>
+                          ))}
+                        </div>
+                      </CollapsibleContent>
+                    </Collapsible>
+                  ) : (
+                    <Link
+                      to={link.href}
+                      className={`flex items-center gap-2 px-4 py-3 text-base font-medium rounded-md transition-colors ${
+                        location.pathname === link.href
+                          ? 'bg-center-orange/10 text-center-orange'
+                          : 'text-gray-300 hover:bg-[#333333]'
+                      }`}
+                    >
+                      {link.icon && link.icon}
+                      {link.name}
+                    </Link>
+                  )}
+                </div>
+              ))}
+            </div>
             
             <div className="mt-4 pt-4 border-t border-[#333333]">
               <button
