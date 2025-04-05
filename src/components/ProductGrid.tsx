@@ -15,21 +15,32 @@ interface ProductGridProps {
   products: Product[];
   isLoading?: boolean;
   searchQuery?: string;
+  categoryFilter?: string;
 }
 
-export default function ProductGrid({ products, isLoading = false, searchQuery = '' }: ProductGridProps) {
+export default function ProductGrid({ products, isLoading = false, searchQuery = '', categoryFilter }: ProductGridProps) {
   if (isLoading) {
     return <ProductGridSkeleton />;
   }
 
-  // Filter products based on search query if provided
-  const filteredProducts = searchQuery
-    ? products.filter(product => 
-        product.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        product.code.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        product.category.toLowerCase().includes(searchQuery.toLowerCase())
-      )
-    : products;
+  // Filter products based on search query and category if provided
+  let filteredProducts = products;
+  
+  // Apply category filter first if provided
+  if (categoryFilter) {
+    filteredProducts = filteredProducts.filter(product => 
+      product.category.toLowerCase() === categoryFilter.toLowerCase()
+    );
+  }
+  
+  // Then apply search query filter if provided
+  if (searchQuery) {
+    filteredProducts = filteredProducts.filter(product => 
+      product.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      product.code.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      product.category.toLowerCase().includes(searchQuery.toLowerCase())
+    );
+  }
 
   if (filteredProducts.length === 0) {
     return (
