@@ -10,7 +10,23 @@ import { ThemeProvider } from "./hooks/useTheme";
 import CategoryPage from "./pages/CategoryPage";
 import { CartProvider } from "./context/CartContext";
 
-const queryClient = new QueryClient();
+// Create a custom scrollToTop function
+const scrollToTop = () => {
+  window.scrollTo({
+    top: 0,
+    behavior: 'smooth'
+  });
+};
+
+// Create QueryClient with default options
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      refetchOnWindowFocus: false,
+      staleTime: 5 * 60 * 1000, // 5 minutes
+    },
+  },
+});
 
 const App = () => (
   <QueryClientProvider client={queryClient}>

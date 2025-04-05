@@ -78,28 +78,28 @@ export default function Navbar() {
     <header className="w-full">
       {/* Main Navbar */}
       <div 
-        className={`w-full transition-all duration-300 ${
+        className={`w-full fixed top-0 left-0 right-0 z-30 transition-all duration-300 ${
           scrolled 
             ? 'bg-[#181818] shadow-md border-b border-[#333333]' 
             : 'bg-[#181818]'
         }`}
       >
-        <div className="container-custom py-3 md:py-5">
+        <div className="container-custom py-3">
           {/* Top bar with logo, search and actions */}
-          <div className="flex items-center justify-between gap-4">
+          <div className="flex items-center justify-between gap-2">
             <Link 
               to="/" 
               className="flex items-center transition-transform duration-300 hover:-translate-y-0.5"
             >
               <div className="flex items-center">
                 <svg 
-                  className="h-7 w-7 md:h-8 md:w-8 text-center-orange" 
+                  className="h-6 w-6 md:h-8 md:w-8 text-center-orange" 
                   viewBox="0 0 24 24" 
                   fill="currentColor"
                 >
                   <path d="M12 2L2 12h3v8h14v-8h3L12 2z" />
                 </svg>
-                <span className="ml-2 text-lg md:text-xl font-display font-semibold tracking-tight text-white">
+                <span className="ml-1.5 text-base md:text-xl font-display font-semibold tracking-tight text-white">
                   Center <span className="text-center-orange">Eletrônica</span>
                 </span>
               </div>
@@ -147,17 +147,19 @@ export default function Navbar() {
               </div>
             </div>
 
-            <div className="flex items-center gap-2 md:hidden">
+            <div className="flex items-center gap-1.5 md:hidden">
               <button 
-                className="p-2 text-gray-300 bg-[#333333] rounded-full"
+                className="p-1.5 text-gray-300 bg-[#333333] rounded-full"
                 onClick={handleMobileSearchOpen}
+                aria-label="Buscar"
               >
                 <Search size={16} />
               </button>
               
               <button
                 onClick={() => setIsCartOpen(true)}
-                className="p-2 text-gray-300 bg-[#333333] rounded-full relative"
+                className="p-1.5 text-gray-300 bg-[#333333] rounded-full relative"
+                aria-label="Carrinho"
               >
                 <ShoppingCart size={16} />
                 {getTotalItems() > 0 && (
@@ -169,9 +171,10 @@ export default function Navbar() {
               
               <button
                 onClick={() => setIsMenuOpen(!isMenuOpen)}
-                className="p-2 text-gray-300 rounded-md transition-colors hover:bg-[#333333]"
+                className="p-1.5 text-gray-300 bg-[#333333] rounded-full"
+                aria-label="Menu"
               >
-                {isMenuOpen ? <X size={18} /> : <Menu size={18} />}
+                {isMenuOpen ? <X size={16} /> : <Menu size={16} />}
               </button>
             </div>
           </div>
@@ -202,32 +205,11 @@ export default function Navbar() {
 
       {/* Mobile menu */}
       <div 
-        className={`fixed inset-0 z-40 bg-[#222222] transform transition-transform duration-300 ease-in-out ${
+        className={`fixed inset-0 z-40 bg-[#222222] transform transition-transform duration-300 ease-in-out pt-16 ${
           isMenuOpen ? 'translate-x-0' : 'translate-x-full'
         }`}
       >
         <div className="container-custom py-4">
-          <div className="flex justify-between items-center mb-8 pt-2">
-            <Link to="/" className="flex items-center">
-              <svg 
-                className="h-7 w-7 text-center-orange" 
-                viewBox="0 0 24 24" 
-                fill="currentColor"
-              >
-                <path d="M12 2L2 12h3v8h14v-8h3L12 2z" />
-              </svg>
-              <span className="ml-2 text-lg font-display font-semibold tracking-tight text-white">
-                Center <span className="text-center-orange">Eletrônica</span>
-              </span>
-            </Link>
-            <button
-              onClick={() => setIsMenuOpen(false)}
-              className="p-2 text-gray-300 rounded-md hover:bg-[#333333]"
-            >
-              <X size={18} />
-            </button>
-          </div>
-
           <div className="mb-6">
             <form onSubmit={handleSearch} className="relative">
               <Input
@@ -241,7 +223,7 @@ export default function Navbar() {
             </form>
           </div>
 
-          <nav className="flex flex-col gap-3">
+          <nav className="flex flex-col gap-2">
             {navLinks.map((link) => (
               <Link
                 key={link.name}
@@ -257,7 +239,7 @@ export default function Navbar() {
               </Link>
             ))}
             
-            <div className="mt-6 pt-4 border-t border-[#333333]">
+            <div className="mt-4 pt-4 border-t border-[#333333]">
               <button
                 onClick={() => {
                   setIsCartOpen(true);
