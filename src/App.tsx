@@ -8,7 +8,6 @@ import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
 import { ThemeProvider } from "./hooks/useTheme";
 import CategoryPage from "./pages/CategoryPage";
-import FavoritesPage from "./pages/FavoritesPage";
 import { CartProvider } from "./context/CartContext";
 
 const queryClient = new QueryClient();
@@ -24,7 +23,6 @@ const App = () => (
             <Routes>
               <Route path="/" element={<Index />} />
               <Route path="/categoria/:slug" element={<CategoryPage />} />
-              <Route path="/favoritos" element={<FavoritesPage />} />
               {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
               <Route path="*" element={<NotFound />} />
             </Routes>

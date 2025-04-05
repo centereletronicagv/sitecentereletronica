@@ -1,7 +1,7 @@
 
 import { useState, useEffect, FormEvent } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { Menu, X, Search, Wind, Plug, Terminal, Router, ChevronDown, Heart, ShoppingCart } from 'lucide-react';
+import { Menu, X, Search, Wind, Plug, Terminal, Router, ChevronDown, ShoppingCart } from 'lucide-react';
 import { Input } from './ui/input';
 import { useCart } from '@/context/CartContext';
 import CartModal from './CartModal';
@@ -84,7 +84,7 @@ export default function Navbar() {
             : 'bg-[#181818]'
         }`}
       >
-        <div className="container-custom py-5">
+        <div className="container-custom py-3 md:py-5">
           {/* Top bar with logo, search and actions */}
           <div className="flex items-center justify-between gap-4">
             <Link 
@@ -93,13 +93,13 @@ export default function Navbar() {
             >
               <div className="flex items-center">
                 <svg 
-                  className="h-8 w-8 text-center-orange" 
+                  className="h-7 w-7 md:h-8 md:w-8 text-center-orange" 
                   viewBox="0 0 24 24" 
                   fill="currentColor"
                 >
                   <path d="M12 2L2 12h3v8h14v-8h3L12 2z" />
                 </svg>
-                <span className="ml-2 text-xl font-display font-semibold tracking-tight text-white">
+                <span className="ml-2 text-lg md:text-xl font-display font-semibold tracking-tight text-white">
                   Center <span className="text-center-orange">Eletrônica</span>
                 </span>
               </div>
@@ -144,30 +144,34 @@ export default function Navbar() {
                     </span>
                   )}
                 </button>
-                
-                <Link
-                  to="/favoritos"
-                  className="flex items-center gap-1.5 text-gray-300 hover:text-center-orange transition-colors"
-                >
-                  <Heart size={20} />
-                  <span className="text-sm font-medium">Favoritos</span>
-                </Link>
               </div>
             </div>
 
-            <div className="flex items-center gap-3 md:hidden">
+            <div className="flex items-center gap-2 md:hidden">
               <button 
                 className="p-2 text-gray-300 bg-[#333333] rounded-full"
                 onClick={handleMobileSearchOpen}
               >
-                <Search size={18} />
+                <Search size={16} />
+              </button>
+              
+              <button
+                onClick={() => setIsCartOpen(true)}
+                className="p-2 text-gray-300 bg-[#333333] rounded-full relative"
+              >
+                <ShoppingCart size={16} />
+                {getTotalItems() > 0 && (
+                  <span className="absolute -top-1 -right-1 bg-center-orange text-white text-xs w-4 h-4 flex items-center justify-center rounded-full text-[10px]">
+                    {getTotalItems()}
+                  </span>
+                )}
               </button>
               
               <button
                 onClick={() => setIsMenuOpen(!isMenuOpen)}
                 className="p-2 text-gray-300 rounded-md transition-colors hover:bg-[#333333]"
               >
-                {isMenuOpen ? <X size={20} /> : <Menu size={20} />}
+                {isMenuOpen ? <X size={18} /> : <Menu size={18} />}
               </button>
             </div>
           </div>
@@ -205,11 +209,13 @@ export default function Navbar() {
         <div className="container-custom py-4">
           <div className="flex justify-between items-center mb-8 pt-2">
             <Link to="/" className="flex items-center">
-              <img 
-                src="/public/lovable-uploads/9b2aa237-3c25-41e5-89fc-4a1be00b9aec.png" 
-                alt="Center Eletrônica Logo" 
-                className="h-8 w-auto" 
-              />
+              <svg 
+                className="h-7 w-7 text-center-orange" 
+                viewBox="0 0 24 24" 
+                fill="currentColor"
+              >
+                <path d="M12 2L2 12h3v8h14v-8h3L12 2z" />
+              </svg>
               <span className="ml-2 text-lg font-display font-semibold tracking-tight text-white">
                 Center <span className="text-center-orange">Eletrônica</span>
               </span>
@@ -218,7 +224,7 @@ export default function Navbar() {
               onClick={() => setIsMenuOpen(false)}
               className="p-2 text-gray-300 rounded-md hover:bg-[#333333]"
             >
-              <X size={20} />
+              <X size={18} />
             </button>
           </div>
 
@@ -235,7 +241,7 @@ export default function Navbar() {
             </form>
           </div>
 
-          <nav className="flex flex-col gap-4">
+          <nav className="flex flex-col gap-3">
             {navLinks.map((link) => (
               <Link
                 key={link.name}
@@ -267,14 +273,6 @@ export default function Navbar() {
                   </span>
                 )}
               </button>
-              
-              <Link
-                to="/favoritos"
-                className="flex items-center gap-2 px-4 py-3 text-base font-medium text-gray-300 hover:bg-[#333333] rounded-md"
-              >
-                <Heart size={18} />
-                <span>Favoritos</span>
-              </Link>
             </div>
             
             <a 
