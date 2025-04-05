@@ -279,68 +279,18 @@ export default function Navbar() {
             <div className="flex flex-col">
               {navLinks.map((link) => (
                 <div key={link.name} className="border-b border-[#333333]">
-                  {link.subCategories && link.name !== 'Início' && link.name !== 'Contato' ? (
-                    <Collapsible
-                      open={openCategories[link.name] || false}
-                      onOpenChange={() => toggleCategory(link.name)}
-                    >
-                      <CollapsibleTrigger className="w-full">
-                        <div 
-                          className={`flex items-center justify-between px-4 py-3 text-base font-medium rounded-md transition-colors ${
-                            location.pathname === link.href
-                              ? 'text-center-orange'
-                              : 'text-gray-300 hover:bg-[#333333]'
-                          }`}
-                        >
-                          <div className="flex items-center gap-2">
-                            {link.icon && link.icon}
-                            {link.name}
-                          </div>
-                          <ChevronDown 
-                            size={16}
-                            className={`transition-transform duration-200 ${
-                              openCategories[link.name] ? 'rotate-180' : ''
-                            }`}
-                          />
-                        </div>
-                      </CollapsibleTrigger>
-                      <CollapsibleContent>
-                        <div className="border-l-2 border-[#333333] ml-4 pl-4 py-2 space-y-2">
-                          <Link
-                            to={link.href}
-                            className="flex items-center gap-2 px-4 py-2 text-sm font-medium text-gray-300 hover:text-center-orange rounded-md"
-                            onClick={() => setIsMenuOpen(false)}
-                          >
-                            Ver todos
-                          </Link>
-                          {link.subCategories.map((subCat) => (
-                            <Link
-                              key={subCat.name}
-                              to={subCat.href}
-                              className="flex items-center gap-2 px-4 py-2 text-sm font-medium text-gray-300 hover:text-center-orange rounded-md"
-                              onClick={() => setIsMenuOpen(false)}
-                            >
-                              <ChevronRight size={14} />
-                              {subCat.name}
-                            </Link>
-                          ))}
-                        </div>
-                      </CollapsibleContent>
-                    </Collapsible>
-                  ) : (
-                    <Link
-                      to={link.href}
-                      onClick={() => setIsMenuOpen(false)}
-                      className={`flex items-center gap-2 px-4 py-3 text-base font-medium rounded-md transition-colors ${
-                        location.pathname === link.href
-                          ? 'bg-center-orange/10 text-center-orange'
-                          : 'text-gray-300 hover:bg-[#333333]'
-                      }`}
-                    >
-                      {link.icon && link.icon}
-                      {link.name}
-                    </Link>
-                  )}
+                  <Link
+                    to={link.href}
+                    onClick={() => setIsMenuOpen(false)}
+                    className={`flex items-center gap-2 px-4 py-3 text-base font-medium rounded-md transition-colors ${
+                      location.pathname === link.href
+                        ? 'bg-center-orange/10 text-center-orange'
+                        : 'text-gray-300 hover:bg-[#333333]'
+                    }`}
+                  >
+                    {link.icon && link.icon}
+                    {link.name}
+                  </Link>
                 </div>
               ))}
             </div>
