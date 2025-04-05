@@ -18,14 +18,14 @@ export default function Hero() {
             
             <div className="flex flex-wrap gap-3 mt-1 md:mt-2">
               <Link 
-                to="/produtos" 
+                to="/categoria/ar-condicionado" 
                 className="btn-primary flex items-center gap-1.5 text-sm md:text-base py-2 md:py-2.5 px-4 md:px-5"
               >
                 Ver Produtos
               </Link>
               
               <Link 
-                to="/contato" 
+                to="/categoria/ar-condicionado" 
                 className="inline-flex items-center gap-1.5 px-4 md:px-5 py-2 md:py-2.5 text-white bg-[#252525] hover:bg-[#333333] rounded-md transition-colors text-sm md:text-base"
               >
                 Faça seu pedido

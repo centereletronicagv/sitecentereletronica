@@ -261,6 +261,14 @@ export default function Navbar() {
           isMenuOpen ? 'translate-x-0' : 'translate-x-full'
         }`}
       >
+        <button
+          onClick={() => setIsMenuOpen(false)}
+          className="absolute top-4 right-4 p-2 rounded-full bg-[#333333] text-gray-300 hover:text-white"
+          aria-label="Fechar menu"
+        >
+          <X size={20} />
+        </button>
+        
         <div className="container-custom py-4">
           <div className="mb-6">
             <form onSubmit={handleSearch} className="relative">
