@@ -1,3 +1,4 @@
+
 import { useState, useEffect, FormEvent } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { Menu, X, Search, Wind, Plug, Terminal, Router, ChevronDown, ChevronRight, ShoppingCart } from 'lucide-react';
@@ -41,7 +42,7 @@ const navLinks: NavLink[] = [
     ]
   },
   { 
-    name: 'Terminais', 
+    name: 'Terminais e Conectores', 
     href: '/categoria/terminais', 
     icon: <Terminal size={16} />,
     subCategories: [

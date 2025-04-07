@@ -24,7 +24,7 @@ const categories = [
   },
   {
     id: 3,
-    name: "Terminais",
+    name: "Terminais e Conectores",
     icon: <Terminal className="h-5 w-5" />,
     color: "bg-slate-800",
     textColor: "text-white",

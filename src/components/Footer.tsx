@@ -5,7 +5,7 @@ import { Phone, Mail, MapPin, Clock, Instagram, Facebook, ArrowRight, Wind, Plug
 const categories = [
   { name: 'Ar Condicionado', href: '/categoria/ar-condicionado', icon: <Wind size={14} /> },
   { name: 'Instalações Elétricas', href: '/categoria/instalacoes-eletricas', icon: <Plug size={14} /> },
-  { name: 'Terminais', href: '/categoria/terminais', icon: <Terminal size={14} /> },
+  { name: 'Terminais e Conectores', href: '/categoria/terminais', icon: <Terminal size={14} /> },
   { name: 'Automação', href: '/categoria/automacao', icon: <Router size={14} /> },
 ];
 
