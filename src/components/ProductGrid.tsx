@@ -6,38 +6,18 @@ interface ProductGridProps {
   products: Product[];
   isLoading?: boolean;
   searchQuery?: string;
-  category?: string; // Adicionando suporte para filtrar por categoria
+  category?: string; // Mantendo para compatibilidade
 }
 
 export default function ProductGrid({ 
   products, 
-  isLoading = false, 
-  searchQuery = '',
-  category
+  isLoading = false
 }: ProductGridProps) {
   if (isLoading) {
     return <ProductGridSkeleton />;
   }
 
-  // Filtrar produtos por categoria se fornecida
-  let filteredProducts = products;
-  
-  if (category) {
-    filteredProducts = filteredProducts.filter(product => 
-      product.category === category
-    );
-  }
-
-  // Filtrar produtos com base na pesquisa se fornecida
-  if (searchQuery) {
-    filteredProducts = filteredProducts.filter(product => 
-      product.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      (product.code?.toLowerCase() || '').includes(searchQuery.toLowerCase()) ||
-      product.category.toLowerCase().includes(searchQuery.toLowerCase())
-    );
-  }
-
-  if (filteredProducts.length === 0) {
+  if (products.length === 0) {
     return (
       <div className="pt-14 pb-10 text-center">
         <h3 className="text-xl font-medium text-white">Nenhum produto encontrado</h3>
@@ -48,7 +28,7 @@ export default function ProductGrid({
 
   return (
     <div className="grid grid-cols-2 gap-2 sm:gap-6 md:grid-cols-3 lg:grid-cols-4">
-      {filteredProducts.map((product) => (
+      {products.map((product) => (
         <ProductCard key={product.id} product={product} />
       ))}
     </div>

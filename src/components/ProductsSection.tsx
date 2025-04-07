@@ -53,7 +53,7 @@ const ProductsSection = ({ searchQuery = '', category }: ProductsSectionProps) =
           )}
         </div>
         
-        <ProductGrid products={filteredProducts} category={category} />
+        <ProductGrid products={filteredProducts} />
         
         {filteredProducts.length === 0 && (
           <div className="text-center py-12">

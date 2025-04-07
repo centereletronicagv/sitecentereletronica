@@ -10,6 +10,7 @@ import { useMediaQuery } from '@/hooks/use-mobile';
 
 const Index = () => {
   const [searchQuery, setSearchQuery] = useState('');
+  const [category, setCategory] = useState<string | undefined>(undefined);
   const location = useLocation();
   const { isMobile } = useMediaQuery();
 
@@ -20,8 +21,16 @@ const Index = () => {
     // Extract search query from URL if present
     const params = new URLSearchParams(location.search);
     const searchFromUrl = params.get('search') || '';
+    const categoryFromUrl = params.get('category') || undefined;
+    
     if (searchFromUrl) {
       setSearchQuery(searchFromUrl);
+    }
+    
+    if (categoryFromUrl) {
+      setCategory(categoryFromUrl);
+    } else {
+      setCategory(undefined);
     }
   }, [location]);
 
@@ -38,13 +47,18 @@ const Index = () => {
     };
   }, []);
 
+  // Para debug, vamos ver os produtos de automação no console
+  useEffect(() => {
+    console.log("Produtos e categoria atual:", { searchQuery, category });
+  }, [searchQuery, category]);
+
   return (
     <div className="flex flex-col min-h-screen">
       <Navbar />
       <main className={`flex-grow ${isMobile ? 'pt-14' : 'pt-16 md:pt-20'}`}>
-        {!searchQuery && <Hero />}
+        {!searchQuery && !category && <Hero />}
         
-        <ProductsSection searchQuery={searchQuery} />
+        <ProductsSection searchQuery={searchQuery} category={category} />
         
         <ContactSection />
       </main>
