@@ -1,19 +1,13 @@
-
 import { useEffect, useState } from 'react';
 import { ArrowRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import ProductGrid from './ProductGrid';
+import { ProductType } from '@/types/types';
 
-interface Product {
-  id: string;
-  name: string;
+interface Product extends Omit<ProductType, 'barcode'> {
   code: string;
-  price: number;
-  image: string;
-  category: string;
   recommendedOrder?: number;
   popularity?: number;
-  featured?: boolean;
 }
 
 const mockProducts: Product[] = [
@@ -869,16 +863,12 @@ const ProductsSection = ({ searchQuery = '' }: ProductsSectionProps) => {
   const [products, setProducts] = useState<Product[]>([]);
 
   useEffect(() => {
-    // Simulate loading
     setIsLoading(true);
     
-    // In a real app, this would be a fetch request to an API
     setTimeout(() => {
       let filteredProducts = [...mockProducts];
       
-      // If we're on the homepage and there's no search query, only show first 8 recommended products
       if (!searchQuery) {
-        // Sort by recommendedOrder if available, otherwise use the order in the array
         filteredProducts = filteredProducts
           .filter(product => product.recommendedOrder !== undefined)
           .sort((a, b) => {

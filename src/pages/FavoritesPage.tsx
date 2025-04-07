@@ -1,13 +1,13 @@
-
 import { useEffect } from 'react';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import ProductGrid from '../components/ProductGrid';
 import { Heart } from 'lucide-react';
+import { ProductType } from '../types/types';
 
 // This is a placeholder. In a real implementation, favorites would be stored
 // and retrieved from localStorage or a backend service
-const sampleFavorites = [
+const sampleFavorites: (ProductType & { code?: string })[] = [
   {
     id: '1',
     name: 'Abraçadeira 3/4" Tramontina Cinza',
@@ -15,6 +15,10 @@ const sampleFavorites = [
     price: 3.70,
     image: '/lovable-uploads/fe15bc67-99a8-48bb-9477-8a5f5d5f928d.png',
     category: 'instalacoes-eletricas',
+    description: 'Abraçadeiras',
+    barcode: 'ABR-001',
+    inStock: true,
+    featured: false
   },
   {
     id: '3',
@@ -23,6 +27,10 @@ const sampleFavorites = [
     price: 17.00,
     image: '/lovable-uploads/fe15bc67-99a8-48bb-9477-8a5f5d5f928d.png',
     category: 'instalacoes-eletricas',
+    description: 'Curvas',
+    barcode: 'CRV-001',
+    inStock: true,
+    featured: false
   },
 ];
 

@@ -5,7 +5,7 @@ import { toast } from "@/hooks/use-toast";
 export interface CartProduct {
   id: string;
   name: string;
-  code: string;
+  code?: string;  // Changed to optional to match ProductType
   price: number;
   image: string;
   quantity: number;
