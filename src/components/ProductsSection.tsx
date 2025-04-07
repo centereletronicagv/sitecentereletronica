@@ -1,4 +1,3 @@
-
 import { useEffect, useState } from 'react';
 import { ArrowRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
@@ -7,8 +6,17 @@ import { Product } from '../types';
 
 const defaultDescription = "Produto eletrônico para diversas aplicações.";
 
+// Process mock products to ensure they have description and isFeatured properties
+const processMockProduct = (product: Partial<Product>): Product => {
+  return {
+    description: defaultDescription,
+    isFeatured: false,
+    ...product
+  } as Product;
+};
+
 const mockProducts: Product[] = [
-  {
+  processMockProduct({
     id: '1',
     name: 'Abraçadeira 3/4" Tramontina Cinza',
     code: 'ABR-001',
@@ -17,10 +25,9 @@ const mockProducts: Product[] = [
     imageUrl: '/lovable-uploads/fe15bc67-99a8-48bb-9477-8a5f5d5f928d.png',
     category: 'ar-condicionado',
     recommendedOrder: 10,
-    description: 'Abraçadeira para instalações elétricas',
-    isFeatured: false
-  },
-  {
+    description: 'Abraçadeira para instalações elétricas'
+  }),
+  processMockProduct({
     id: '101',
     name: 'SUPORTE 400MM',
     code: '13160',
@@ -29,8 +36,8 @@ const mockProducts: Product[] = [
     imageUrl: '/lovable-uploads/suporte.png',
     category: 'ar-condicionado',
     recommendedOrder: 1
-  },
-  {
+  }),
+  processMockProduct({
     id: '102',
     name: 'SUPORTE 450MM',
     code: '12602',
@@ -39,8 +46,8 @@ const mockProducts: Product[] = [
     imageUrl: '/lovable-uploads/suporte.png',
     category: 'ar-condicionado',
     recommendedOrder: 2
-  },
-  {
+  }),
+  processMockProduct({
     id: '103',
     name: 'SUPORTE 500MM',
     code: '7204',
@@ -49,8 +56,8 @@ const mockProducts: Product[] = [
     imageUrl: '/lovable-uploads/suporte.png',
     category: 'ar-condicionado',
     recommendedOrder: 3
-  },
-  {
+  }),
+  processMockProduct({
     id: '104',
     name: 'SUPORTE 550MM',
     code: '13309',
@@ -59,8 +66,8 @@ const mockProducts: Product[] = [
     imageUrl: '/lovable-uploads/suporte.png',
     category: 'ar-condicionado',
     recommendedOrder: 4
-  },
-  {
+  }),
+  processMockProduct({
     id: '105',
     name: 'SUPORTE 900MM',
     code: '13310',
@@ -69,8 +76,8 @@ const mockProducts: Product[] = [
     imageUrl: '/lovable-uploads/suporte.png',
     category: 'ar-condicionado',
     recommendedOrder: 5
-  },
-  {
+  }),
+  processMockProduct({
     id: '106',
     name: 'TUBULAÇÃO 1/4 Por Metro',
     code: '12710',
@@ -79,8 +86,8 @@ const mockProducts: Product[] = [
     imageUrl: '/lovable-uploads/tubulacao.png',
     category: 'ar-condicionado',
     recommendedOrder: 6
-  },
-  {
+  }),
+  processMockProduct({
     id: '107',
     name: 'TUBULAÇÃO 3/8 Por Metro',
     code: '12711',
@@ -89,8 +96,8 @@ const mockProducts: Product[] = [
     imageUrl: '/lovable-uploads/tubulacao.png',
     category: 'ar-condicionado',
     recommendedOrder: 7
-  },
-  {
+  }),
+  processMockProduct({
     id: '108',
     name: 'TUBULAÇÃO 1/2 Por Metro',
     code: '12709',
@@ -99,8 +106,8 @@ const mockProducts: Product[] = [
     imageUrl: '/lovable-uploads/tubulacao.png',
     category: 'ar-condicionado',
     recommendedOrder: 8
-  },
-  {
+  }),
+  processMockProduct({
     id: '109',
     name: 'TUBULAÇÃO 5/8 Por Metro',
     code: '12712',
@@ -109,8 +116,8 @@ const mockProducts: Product[] = [
     imageUrl: '/lovable-uploads/tubulacao.png',
     category: 'ar-condicionado',
     recommendedOrder: 9
-  },
-  {
+  }),
+  processMockProduct({
     id: '110',
     name: 'TUBULAÇÃO 3/4 Por Metro',
     code: '12713',
@@ -118,8 +125,8 @@ const mockProducts: Product[] = [
     image: '/lovable-uploads/tubulacao.png',
     imageUrl: '/lovable-uploads/tubulacao.png',
     category: 'ar-condicionado'
-  },
-  {
+  }),
+  processMockProduct({
     id: '111',
     name: 'TUBEX 1/4 2m',
     code: '7199',
@@ -127,8 +134,8 @@ const mockProducts: Product[] = [
     image: '/lovable-uploads/tubex.png',
     imageUrl: '/lovable-uploads/tubex.png',
     category: 'ar-condicionado'
-  },
-  {
+  }),
+  processMockProduct({
     id: '3',
     name: 'Curva Longa 90° 1/2" com Bolsa Tramontina Cinza',
     code: 'CRV-001',
@@ -137,8 +144,8 @@ const mockProducts: Product[] = [
     imageUrl: '/public/lovable-uploads/fe15bc67-99a8-48bb-9477-8a5f5d5f928d.png',
     category: 'ar-condicionado',
     popularity: 5
-  },
-  {
+  }),
+  processMockProduct({
     id: '4',
     name: 'Curva Longa 90° 3/4" com Bolsa Tramontina Cinza',
     code: 'CRV-002',
@@ -148,8 +155,8 @@ const mockProducts: Product[] = [
     category: 'ar-condicionado',
     popularity: 6,
     featured: true
-  },
-  {
+  }),
+  processMockProduct({
     id: '5',
     name: 'Adaptador para Condulete Múltiplo 1.1/2" para 1.1/4" Tramontina',
     code: 'ADP-001',
@@ -158,8 +165,8 @@ const mockProducts: Product[] = [
     imageUrl: '/public/lovable-uploads/fe15bc67-99a8-48bb-9477-8a5f5d5f928d.png',
     category: 'ar-condicionado',
     popularity: 4
-  },
-  {
+  }),
+  processMockProduct({
     id: '6',
     name: 'Adaptador para Condulete Múltiplo 1" Tramontina',
     code: 'ADP-002',
@@ -169,8 +176,8 @@ const mockProducts: Product[] = [
     category: 'ar-condicionado',
     popularity: 7,
     featured: true
-  },
-  {
+  }),
+  processMockProduct({
     id: '8',
     name: 'Terminal de Compressão 50mm',
     code: 'TRM-001',
@@ -179,8 +186,8 @@ const mockProducts: Product[] = [
     imageUrl: '/public/lovable-uploads/fe15bc67-99a8-48bb-9477-8a5f5d5f928d.png',
     category: 'ar-condicionado',
     popularity: 8
-  },
-  {
+  }),
+  processMockProduct({
     id: '9',
     name: 'Sensor de Temperatura PTC',
     code: 'SNS-001',
@@ -189,8 +196,8 @@ const mockProducts: Product[] = [
     imageUrl: '/public/lovable-uploads/fe15bc67-99a8-48bb-9477-8a5f5d5f928d.png',
     category: 'ar-condicionado',
     popularity: 7
-  },
-  {
+  }),
+  processMockProduct({
     id: '30',
     name: 'FLUÍDO R32 650g',
     code: '7899733823641',
@@ -200,8 +207,8 @@ const mockProducts: Product[] = [
     category: 'ar-condicionado',
     popularity: 9,
     featured: true
-  },
-  {
+  }),
+  processMockProduct({
     id: '20',
     name: 'TUBEX 1/4 2m',
     code: '7199',
@@ -211,8 +218,8 @@ const mockProducts: Product[] = [
     category: 'ar-condicionado',
     popularity: 7,
     featured: true
-  },
-  {
+  }),
+  processMockProduct({
     id: '37',
     name: 'DISJUTNOR 10A C WEG',
     code: '7909522567677',
@@ -222,8 +229,8 @@ const mockProducts: Product[] = [
     category: 'ar-condicionado',
     popularity: 9,
     featured: true
-  },
-  {
+  }),
+  processMockProduct({
     id: '53',
     name: 'CAPACITOR 0,9UF 400VAC',
     code: '11305',
@@ -233,8 +240,8 @@ const mockProducts: Product[] = [
     category: 'ar-condicionado',
     popularity: 8,
     featured: true
-  },
-  {
+  }),
+  processMockProduct({
     id: '102',
     name: 'SUPORTE 450MM',
     code: '12602',
@@ -243,8 +250,8 @@ const mockProducts: Product[] = [
     imageUrl: '/lovable-uploads/suporte.png',
     category: 'ar-condicionado',
     popularity: 7
-  },
-  {
+  }),
+  processMockProduct({
     id: '103',
     name: 'SUPORTE 500MM',
     code: '7204',
@@ -253,8 +260,8 @@ const mockProducts: Product[] = [
     imageUrl: '/lovable-uploads/suporte.png',
     category: 'ar-condicionado',
     popularity: 7
-  },
-  {
+  }),
+  processMockProduct({
     id: '104',
     name: 'SUPORTE 550MM',
     code: '13309',
@@ -263,8 +270,8 @@ const mockProducts: Product[] = [
     imageUrl: '/lovable-uploads/suporte.png',
     category: 'ar-condicionado',
     popularity: 7
-  },
-  {
+  }),
+  processMockProduct({
     id: '105',
     name: 'SUPORTE 900MM',
     code: '13310',
@@ -273,8 +280,8 @@ const mockProducts: Product[] = [
     imageUrl: '/lovable-uploads/suporte.png',
     category: 'ar-condicionado',
     popularity: 7
-  },
-  {
+  }),
+  processMockProduct({
     id: '106',
     name: 'TUBULAÇÃO 1/4 Por Metro',
     code: '12710',
@@ -283,8 +290,8 @@ const mockProducts: Product[] = [
     imageUrl: '/lovable-uploads/tubulacao.png',
     category: 'ar-condicionado',
     popularity: 7
-  },
-  {
+  }),
+  processMockProduct({
     id: '107',
     name: 'TUBULAÇÃO 3/8 Por Metro',
     code: '12711',
@@ -293,8 +300,8 @@ const mockProducts: Product[] = [
     imageUrl: '/lovable-uploads/tubulacao.png',
     category: 'ar-condicionado',
     popularity: 7
-  },
-  {
+  }),
+  processMockProduct({
     id: '108',
     name: 'TUBULAÇÃO 1/2 Por Metro',
     code: '12709',
@@ -303,8 +310,8 @@ const mockProducts: Product[] = [
     imageUrl: '/lovable-uploads/tubulacao.png',
     category: 'ar-condicionado',
     popularity: 7
-  },
-  {
+  }),
+  processMockProduct({
     id: '109',
     name: 'TUBULAÇÃO 5/8 Por Metro',
     code: '12712',
@@ -313,8 +320,8 @@ const mockProducts: Product[] = [
     imageUrl: '/lovable-uploads/tubulacao.png',
     category: 'ar-condicionado',
     popularity: 7
-  },
-  {
+  }),
+  processMockProduct({
     id: '110',
     name: 'TUBULAÇÃO 3/4 Por Metro',
     code: '12713',
@@ -323,8 +330,8 @@ const mockProducts: Product[] = [
     imageUrl: '/lovable-uploads/tubulacao.png',
     category: 'ar-condicionado',
     popularity: 7
-  },
-  {
+  }),
+  processMockProduct({
     id: '111',
     name: 'TUBEX 1/4 2m',
     code: '7199',
@@ -333,8 +340,8 @@ const mockProducts: Product[] = [
     imageUrl: '/lovable-uploads/tubex.png',
     category: 'ar-condicionado',
     popularity: 7
-  },
-  {
+  }),
+  processMockProduct({
     id: '112',
     name: 'TUBEX 3/8 2m',
     code: '7200',
@@ -343,8 +350,8 @@ const mockProducts: Product[] = [
     imageUrl: '/lovable-uploads/tubex.png',
     category: 'ar-condicionado',
     popularity: 7
-  },
-  {
+  }),
+  processMockProduct({
     id: '113',
     name: 'TUBEX 1/2 2m',
     code: '7201',
@@ -353,8 +360,8 @@ const mockProducts: Product[] = [
     imageUrl: '/lovable-uploads/tubex.png',
     category: 'ar-condicionado',
     popularity: 7
-  },
-  {
+  }),
+  processMockProduct({
     id: '114',
     name: 'TUBEX 5/8 2m',
     code: '10504',
@@ -363,8 +370,8 @@ const mockProducts: Product[] = [
     imageUrl: '/lovable-uploads/tubex.png',
     category: 'ar-condicionado',
     popularity: 7
-  },
-  {
+  }),
+  processMockProduct({
     id: '115',
     name: 'TUBEX 3/4 2m',
     code: '100232514',
@@ -373,8 +380,8 @@ const mockProducts: Product[] = [
     imageUrl: '/lovable-uploads/tubex.png',
     category: 'ar-condicionado',
     popularity: 7
-  },
-  {
+  }),
+  processMockProduct({
     id: '116',
     name: 'FITA PVC 10M',
     code: '7202',
@@ -383,8 +390,8 @@ const mockProducts: Product[] = [
     imageUrl: '/lovable-uploads/fitapvc.png',
     category: 'ar-condicionado',
     popularity: 7
-  },
-  {
+  }),
+  processMockProduct({
     id: '117',
     name: 'FITA ALUMINIZADA 45M',
     code: '7195',
@@ -393,8 +400,8 @@ const mockProducts: Product[] = [
     imageUrl: '/lovable-uploads/fitaalum.png',
     category: 'ar-condicionado',
     popularity: 7
-  },
-  {
+  }),
+  processMockProduct({
     id: '118',
     name: 'MANGUEIRA P/ DRENO Por Metro',
     code: '11407',
@@ -403,8 +410,8 @@ const mockProducts: Product[] = [
     imageUrl: '/lovable-uploads/dreno.png',
     category: 'ar-condicionado',
     popularity: 7
-  },
-  {
+  }),
+  processMockProduct({
     id: '119',
     name: 'MANGUEIRA P/ DRENO CRISTAL Por Metro',
     code: '11993',
@@ -413,8 +420,8 @@ const mockProducts: Product[] = [
     imageUrl: '/lovable-uploads/drenocristal.png',
     category: 'ar-condicionado',
     popularity: 7
-  },
-  {
+  }),
+  processMockProduct({
     id: '120',
     name: 'BICO P/ DRENO',
     code: '12644',
@@ -423,8 +430,8 @@ const mockProducts: Product[] = [
     imageUrl: '/lovable-uploads/bicodreno.png',
     category: 'ar-condicionado',
     popularity: 7
-  },
-  {
+  }),
+  processMockProduct({
     id: '121',
     name: 'FLUÍDO R32 650g',
     code: '7899733823641',
@@ -433,8 +440,8 @@ const mockProducts: Product[] = [
     imageUrl: '/lovable-uploads/r32650g.png',
     category: 'ar-condicionado',
     popularity: 7
-  },
-  {
+  }),
+  processMockProduct({
     id: '122',
     name: 'FLUÍDO R32 3Kg',
     code: '7899733819095',
@@ -443,8 +450,8 @@ const mockProducts: Product[] = [
     imageUrl: '/lovable-uploads/r323kg.png',
     category: 'ar-condicionado',
     popularity: 7
-  },
-  {
+  }),
+  processMockProduct({
     id: '123',
     name: 'FLUÍDO R410A 750g',
     code: '7899733805227',
@@ -453,8 +460,8 @@ const mockProducts: Product[] = [
     imageUrl: '/lovable-uploads/r410a750g.png',
     category: 'ar-condicionado',
     popularity: 7
-  },
-  {
+  }),
+  processMockProduct({
     id: '124',
     name: 'FLUÍDO R22 900g',
     code: '7899733805180',
@@ -463,8 +470,8 @@ const mockProducts: Product[] = [
     imageUrl: '/lovable-uploads/r22.png',
     category: 'ar-condicionado',
     popularity: 7
-  },
-  {
+  }),
+  processMockProduct({
     id: '125',
     name: 'CABO PP 4 X 1,5mm Por Metro',
     code: '9947',
@@ -473,8 +480,8 @@ const mockProducts: Product[] = [
     imageUrl: '/lovable-uploads/pp4.png',
     category: 'ar-condicionado',
     popularity: 7
-  },
-  {
+  }),
+  processMockProduct({
     id: '126',
     name: 'CABO PP 5 X 1,5mm Por Metro',
     code: '8492',
@@ -483,8 +490,8 @@ const mockProducts: Product[] = [
     imageUrl: '/lovable-uploads/pp5.png',
     category: 'ar-condicionado',
     popularity: 7
-  },
-  {
+  }),
+  processMockProduct({
     id: '127',
     name: 'DISJUTNOR 10A C WEG',
     code: '7909522567677',
@@ -493,8 +500,8 @@ const mockProducts: Product[] = [
     imageUrl: '/lovable-uploads/weg.png',
     category: 'ar-condicionado',
     popularity: 7
-  },
-  {
+  }),
+  processMockProduct({
     id: '128',
     name: 'DISJUTNOR 10A B SCHNEIDER',
     code: '7891341466906',
@@ -503,8 +510,8 @@ const mockProducts: Product[] = [
     imageUrl: '/lovable-uploads/schneider.png',
     category: 'ar-condicionado',
     popularity: 7
-  },
-  {
+  }),
+  processMockProduct({
     id: '129',
     name: 'DISJUNTOR 10A C LUKMA',
     code: '5418',
@@ -513,8 +520,8 @@ const mockProducts: Product[] = [
     imageUrl: '/lovable-uploads/lukma.png',
     category: 'ar-condicionado',
     popularity: 7
-  },
-  {
+  }),
+  processMockProduct({
     id: '130',
     name: 'VÁLVULA P/ GÁS 1/2',
     code: '13255',
@@ -523,8 +530,8 @@ const mockProducts: Product[] = [
     imageUrl: '/lovable-uploads/valve.png',
     category: 'ar-condicionado',
     popularity: 7
-  },
-  {
+  }),
+  processMockProduct({
     id: '131',
     name: 'UNIÃO REGULAR 1/4',
     code: '10062',
@@ -533,8 +540,8 @@ const mockProducts: Product[] = [
     imageUrl: '/lovable-uploads/uniao.png',
     category: 'ar-condicionado',
     popularity: 7
-  },
-  {
+  }),
+  processMockProduct({
     id: '132',
     name: 'UNIÃO REGULAR 3/8',
     code: '10059',
@@ -543,8 +550,8 @@ const mockProducts: Product[] = [
     imageUrl: '/lovable-uploads/uniao.png',
     category: 'ar-condicionado',
     popularity: 7
-  },
-  {
+  }),
+  processMockProduct({
     id: '133',
     name: 'UNIÃO REGULAR 1/2',
     code: '10061',
@@ -553,8 +560,8 @@ const mockProducts: Product[] = [
     imageUrl: '/lovable-uploads/uniao.png',
     category: 'ar-condicionado',
     popularity: 7
-  },
-  {
+  }),
+  processMockProduct({
     id: '134',
     name: 'UNIÃO REGULAR 5/8',
     code: '10060',
@@ -563,8 +570,8 @@ const mockProducts: Product[] = [
     imageUrl: '/lovable-uploads/uniao.png',
     category: 'ar-condicionado',
     popularity: 7
-  },
-  {
+  }),
+  processMockProduct({
     id: '135',
     name: 'UNIÃO REGULAR 3/4',
     code: '10058',
@@ -573,8 +580,8 @@ const mockProducts: Product[] = [
     imageUrl: '/lovable-uploads/uniao.png',
     category: 'ar-condicionado',
     popularity: 7
-  },
-  {
+  }),
+  processMockProduct({
     id: '136',
     name: 'REDUTOR 3/8 P/ 1/4',
     code: '12717',
@@ -583,8 +590,8 @@ const mockProducts: Product[] = [
     imageUrl: '/lovable-uploads/redutor.png',
     category: 'ar-condicionado',
     popularity: 7
-  },
-  {
+  }),
+  processMockProduct({
     id: '137',
     name: 'REDUTOR 1/2 P/ 3/8',
     code: '12716',
@@ -593,8 +600,8 @@ const mockProducts: Product[] = [
     imageUrl: '/lovable-uploads/redutor.png',
     category: 'ar-condicionado',
     popularity: 7
-  },
-  {
+  }),
+  processMockProduct({
     id: '138',
     name: 'REDUTOR 1/2 P/ 1/4',
     code: '12715',
@@ -603,8 +610,8 @@ const mockProducts: Product[] = [
     imageUrl: '/lovable-uploads/redutor.png',
     category: 'ar-condicionado',
     popularity: 7
-  },
-  {
+  }),
+  processMockProduct({
     id: '139',
     name: 'PORCA 1/4',
     code: '10054',
@@ -613,8 +620,8 @@ const mockProducts: Product[] = [
     imageUrl: '/lovable-uploads/porca.png',
     category: 'ar-condicionado',
     popularity: 7
-  },
-  {
+  }),
+  processMockProduct({
     id: '140',
     name: 'PORCA 3/8',
     code: '10055',
@@ -623,8 +630,8 @@ const mockProducts: Product[] = [
     imageUrl: '/lovable-uploads/porca.png',
     category: 'ar-condicionado',
     popularity: 7
-  },
-  {
+  }),
+  processMockProduct({
     id: '141',
     name: 'PORCA 1/2',
     code: '10051',
@@ -633,8 +640,8 @@ const mockProducts: Product[] = [
     imageUrl: '/lovable-uploads/porca.png',
     category: 'ar-condicionado',
     popularity: 7
-  },
-  {
+  }),
+  processMockProduct({
     id: '142',
     name: 'PORCA 5/8',
     code: '10053',
@@ -643,8 +650,8 @@ const mockProducts: Product[] = [
     imageUrl: '/lovable-uploads/porca.png',
     category: 'ar-condicionado',
     popularity: 7
-  },
-  {
+  }),
+  processMockProduct({
     id: '143',
     name: 'PORCA 3/4',
     code: '10052',
@@ -653,8 +660,8 @@ const mockProducts: Product[] = [
     imageUrl: '/lovable-uploads/porca.png',
     category: 'ar-condicionado',
     popularity: 7
-  },
-  {
+  }),
+  processMockProduct({
     id: '144',
     name: 'CAPACITOR 0,9UF 400VAC',
     code: '11305',
@@ -663,8 +670,8 @@ const mockProducts: Product[] = [
     imageUrl: '/lovable-uploads/capacitorpreto.png',
     category: 'ar-condicionado',
     popularity: 7
-  },
-  {
+  }),
+  processMockProduct({
     id: '145',
     name: 'CAPACITOR 1UF 400VAC',
     code: '11306',
@@ -673,8 +680,8 @@ const mockProducts: Product[] = [
     imageUrl: '/lovable-uploads/capacitorpreto.png',
     category: 'ar-condicionado',
     popularity: 7
-  },
-  {
+  }),
+  processMockProduct({
     id: '146',
     name: 'CAPACITOR 1,5UF 400VAC',
     code: '11307',
@@ -683,8 +690,8 @@ const mockProducts: Product[] = [
     imageUrl: '/lovable-uploads/capacitorpreto.png',
     category: 'ar-condicionado',
     popularity: 7
-  },
-  {
+  }),
+  processMockProduct({
     id: '147',
     name: 'CAPACITOR 2UF 400VAC',
     code: '11308',
@@ -693,8 +700,8 @@ const mockProducts: Product[] = [
     imageUrl: '/lovable-uploads/capacitorpreto.png',
     category: 'ar-condicionado',
     popularity: 7
-  },
-  {
+  }),
+  processMockProduct({
     id: '148',
     name: 'CAPACITOR 2,5UF 400VAC',
     code: '11309',
@@ -703,8 +710,8 @@ const mockProducts: Product[] = [
     imageUrl: '/lovable-uploads/capacitorpreto.png',
     category: 'ar-condicionado',
     popularity: 7
-  },
-  {
+  }),
+  processMockProduct({
     id: '149',
     name: 'CAPACITOR 3UF 380V',
     code: '12642',
@@ -713,8 +720,8 @@ const mockProducts: Product[] = [
     imageUrl: '/lovable-uploads/capacitor.png',
     category: 'ar-condicionado',
     popularity: 7
-  },
-  {
+  }),
+  processMockProduct({
     id: '150',
     name: 'CAPACITOR 15UF 440V',
     code: '7899733814250',
@@ -723,8 +730,8 @@ const mockProducts: Product[] = [
     imageUrl: '/lovable-uploads/capacitor.png',
     category: 'ar-condicionado',
     popularity: 7
-  },
-  {
+  }),
+  processMockProduct({
     id: '151',
     name: 'CAPACITOR 20UF 380VAC',
     code: '11997',
@@ -733,271 +740,10 @@ const mockProducts: Product[] = [
     imageUrl: '/lovable-uploads/capacitor.png',
     category: 'ar-condicionado',
     popularity: 7
-  },
-  {
+  }),
+  processMockProduct({
     id: '152',
     name: 'CAPACITOR 25UF 380VAC',
     code: '11327',
     price: 43.00,
-    image: '/lovable-uploads/capacitor.png',
-    imageUrl: '/lovable-uploads/capacitor.png',
-    category: 'ar-condicionado',
-    popularity: 7
-  },
-  {
-    id: '153',
-    name: 'CAPACITOR 25UF 440VAC',
-    code: '11325',
-    price: 48.00,
-    image: '/lovable-uploads/capacitor.png',
-    imageUrl: '/lovable-uploads/capacitor.png',
-    category: 'ar-condicionado',
-    popularity: 7
-  },
-  {
-    id: '154',
-    name: 'CAPACITOR 30UF 380VAC',
-    code: '11311',
-    price: 48.00,
-    image: '/lovable-uploads/capacitor.png',
-    imageUrl: '/lovable-uploads/capacitor.png',
-    category: 'ar-condicionado',
-    popularity: 7
-  },
-  {
-    id: '155',
-    name: 'CAPACITOR 30UF 440VAC',
-    code: '11326',
-    price: 53.00,
-    image: '/lovable-uploads/capacitor.png',
-    imageUrl: '/lovable-uploads/capacitor.png',
-    category: 'ar-condicionado',
-    popularity: 7
-  },
-  {
-    id: '156',
-    name: 'CAPACITOR 35UF 450/380VAC',
-    code: '11312',
-    price: 35.00,
-    image: '/lovable-uploads/capacitor.png',
-    imageUrl: '/lovable-uploads/capacitor.png',
-    category: 'ar-condicionado',
-    popularity: 7
-  },
-  {
-    id: '157',
-    name: 'CAPACITOR 40UF 380VAC',
-    code: '12643',
-    price: 52.00,
-    image: '/lovable-uploads/capacitor.png',
-    imageUrl: '/lovable-uploads/capacitor.png',
-    category: 'ar-condicionado',
-    popularity: 7
-  },
-  {
-    id: '158',
-    name: 'CAPACITOR 55UF 380VAC',
-    code: '11998',
-    price: 65.00,
-    image: '/lovable-uploads/capacitor.png',
-    imageUrl: '/lovable-uploads/capacitor.png',
-    category: 'ar-condicionado',
-    popularity: 7
-  },
-  {
-    id: '159',
-    name: 'CAPACITOR 60UF 380VAC',
-    code: '11999',
-    price: 45.00,
-    image: '/lovable-uploads/capacitor.png',
-    imageUrl: '/lovable-uploads/capacitor.png',
-    category: 'ar-condicionado',
-    popularity: 7
-  },
-  {
-    id: '160',
-    name: 'CAPACITOR 65UF 380VAC',
-    code: '12000',
-    price: 27.00,
-    image: '/lovable-uploads/capacitor.png',
-    imageUrl: '/lovable-uploads/capacitor.png',
-    category: 'ar-condicionado',
-    popularity: 7
-  },
-  {
-    id: '161',
-    name: 'CAPACITOR DUPLO 15 + 2,5UF 440VAC',
-    code: '12799',
-    price: 39.00,
-    image: '/lovable-uploads/duplo.png',
-    imageUrl: '/lovable-uploads/duplo.png',
-    category: 'ar-condicionado',
-    popularity: 7
-  },
-  {
-    id: '162',
-    name: 'CAPACITOR DUPLO 15 + 2,5UF 450VAC',
-    code: '12485',
-    price: 45.00,
-    image: '/lovable-uploads/duplo.png',
-    imageUrl: '/lovable-uploads/duplo.png',
-    category: 'ar-condicionado',
-    popularity: 7
-  },
-  {
-    id: '163',
-    name: 'CAPACITOR DUPLO 25+ 2,5UF 450V',
-    code: '13163',
-    price: 45.00,
-    image: '/lovable-uploads/duplo.png',
-    imageUrl: '/lovable-uploads/duplo.png',
-    category: 'ar-condicionado',
-    popularity: 7
-  },
-  {
-    id: '164',
-    name: 'CANALETA CB30 2M',
-    code: '12651',
-    price: 35.00,
-    image: '/lovable-uploads/canaleta.png',
-    imageUrl: '/lovable-uploads/canaleta.png',
-    category: 'ar-condicionado',
-    popularity: 7
-  },
-  {
-    id: '165',
-    name: 'CANALETA CB60 2M',
-    code: '12652',
-    price: 40.00,
-    image: '/lovable-uploads/canaleta.png',
-    imageUrl: '/lovable-uploads/canaleta.png',
-    category: 'ar-condicionado',
-    popularity: 7
-  },
-  {
-    id: '166',
-    name: 'TERMINAL ACABAMENTO CB30',
-    code: '12645',
-    price: 38.00,
-    image: '/lovable-uploads/terminalacabamento.png',
-    imageUrl: '/lovable-uploads/terminalacabamento.png',
-    category: 'ar-condicionado',
-    popularity: 7
-  },
-  {
-    id: '167',
-    name: 'TERMINAL ACABAMENTO CB60',
-    code: '12649',
-    price: 55.00,
-    image: '/lovable-uploads/terminalacabamento.png',
-    imageUrl: '/lovable-uploads/terminalacabamento.png',
-    category: 'ar-condicionado',
-    popularity: 7
-  },
-  {
-    id: '168',
-    name: 'CURVA ANG. INTERNO CB60',
-    code: '12647',
-    price: 13.00,
-    image: '/lovable-uploads/curvainterna.png',
-    imageUrl: '/lovable-uploads/curvainterna.png',
-    category: 'ar-condicionado',
-    popularity: 7
-  },
-  {
-    id: '169',
-    name: 'PASSAGEM DE PAREDE CB60',
-    code: '12649',
-    price: 15.00,
-    image: '/lovable-uploads/passagemparede.png',
-    imageUrl: '/lovable-uploads/passagemparede.png',
-    category: 'ar-condicionado',
-    popularity: 7
-  },
-  {
-    id: '170',
-    name: 'CURVA PLANA REGULÁVEL CB60',
-    code: '12646',
-    price: 21.00,
-    image: '/lovable-uploads/curvaregulavel.png',
-    imageUrl: '/lovable-uploads/curvaregulavel.png',
-    category: 'ar-condicionado',
-    popularity: 7
-  },
-  {
-    id: '171',
-    name: 'CAIXA DE PASSAGEM PARA DRENO',
-    code: '7899611800016',
-    price: 23.00,
-    image: '/lovable-uploads/passagemdreno.png',
-    imageUrl: '/lovable-uploads/passagemdreno.png',
-    category: 'ar-condicionado',
-    popularity: 7
-  },
-  {
-    id: '172',
-    name: 'CAIXA DE PASSAGEM PARA DRENO',
-    code: '789961180047',
-    price: 25.00,
-    image: '/lovable-uploads/passagemdreno.png',
-    imageUrl: '/lovable-uploads/passagemdreno.png',
-    category: 'ar-condicionado',
-    popularity: 7
-  }
-];
-
-interface ProductsSectionProps {
-  searchQuery?: string;
-}
-
-const ProductsSection = ({ searchQuery = '' }: ProductsSectionProps) => {
-  const [isLoading, setIsLoading] = useState(true);
-  const [products, setProducts] = useState<Product[]>([]);
-
-  useEffect(() => {
-    setIsLoading(true);
-    
-    setTimeout(() => {
-      let filteredProducts = [...mockProducts];
-      
-      if (!searchQuery) {
-        filteredProducts = filteredProducts
-          .filter(product => product.recommendedOrder !== undefined)
-          .sort((a, b) => {
-            const orderA = a.recommendedOrder || 999;
-            const orderB = b.recommendedOrder || 999;
-            return orderA - orderB;
-          })
-          .slice(0, 8);
-      }
-      
-      setProducts(filteredProducts);
-      setIsLoading(false);
-    }, 500);
-  }, [searchQuery]);
-
-  return (
-    <section id="products" className="py-16 px-4 bg-[#121212]">
-      <div className="container mx-auto">
-        {!searchQuery ? (
-          <div className="flex justify-between items-center mb-8">
-            <h2 className="text-2xl md:text-3xl font-bold text-white">Produtos Recomendados</h2>
-            <Link to="/categoria/ar-condicionado" className="flex items-center gap-2 text-center-orange hover:text-center-orange/80 transition-colors duration-300">
-              <span>Ver todos</span>
-              <ArrowRight size={16} />
-            </Link>
-          </div>
-        ) : (
-          <div className="mb-8">
-            <h2 className="text-2xl md:text-3xl font-bold text-white">Resultados da Pesquisa</h2>
-            <p className="text-gray-400 mt-2">Mostrando resultados para: <span className="text-center-orange">"{searchQuery}"</span></p>
-          </div>
-        )}
-        
-        <ProductGrid products={products} isLoading={isLoading} searchQuery={searchQuery} />
-      </div>
-    </section>
-  );
-};
-
-export default ProductsSection;
+    image: '/lovable
