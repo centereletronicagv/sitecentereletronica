@@ -1,5 +1,6 @@
+
 import { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useSearchParams } from 'react-router-dom';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import ProductGrid from '../components/ProductGrid';
@@ -784,6 +785,7 @@ type SortOption = 'recommended' | 'price-low' | 'price-high';
 
 export default function CategoryPage() {
   const { slug } = useParams<{ slug: string }>();
+  const [searchParams, setSearchParams] = useSearchParams();
   const [products, setProducts] = useState<Product[]>([]);
   const [priceRange, setPriceRange] = useState<[number, number]>([0, 300]);
   const [sortBy, setSortBy] = useState<SortOption>('recommended');
@@ -805,7 +807,14 @@ export default function CategoryPage() {
         .filter(Boolean) as string[]));
       
       setSubcategories(subCats);
-      setSelectedSubcategories([]);
+      
+      // Check URL for subcategory param
+      const subcategoryParam = searchParams.get('subcategoria');
+      if (subcategoryParam) {
+        setSelectedSubcategories([subcategoryParam]);
+      } else {
+        setSelectedSubcategories([]);
+      }
     }
     
     filterProducts();
@@ -817,7 +826,7 @@ export default function CategoryPage() {
     }
     
     window.scrollTo(0, 0);
-  }, [slug]);
+  }, [slug, searchParams]);
 
   useEffect(() => {
     filterProducts();
@@ -866,16 +875,26 @@ export default function CategoryPage() {
 
   const toggleSubcategory = (subcategory: string) => {
     setSelectedSubcategories(prev => {
-      if (prev.includes(subcategory)) {
-        return prev.filter(sc => sc !== subcategory);
+      const newSelection = prev.includes(subcategory)
+        ? prev.filter(sc => sc !== subcategory)
+        : [...prev, subcategory];
+      
+      // Update URL with selected subcategory
+      if (newSelection.length === 0) {
+        searchParams.delete('subcategoria');
       } else {
-        return [...prev, subcategory];
+        searchParams.set('subcategoria', newSelection[0]);
       }
+      setSearchParams(searchParams);
+      
+      return newSelection;
     });
   };
 
   const clearSubcategoryFilters = () => {
     setSelectedSubcategories([]);
+    searchParams.delete('subcategoria');
+    setSearchParams(searchParams);
   };
 
   const maxPrice = Math.max(...sampleProducts.map(product => product.price));
@@ -906,7 +925,7 @@ export default function CategoryPage() {
           
           {subcategories.length > 0 && (
             <div className="mb-6">
-              <div className="flex items-center justify-between flex-wrap gap-2">
+              <div className="flex items-center justify-between flex-wrap gap-2 mb-3">
                 <h2 className="text-lg text-white font-medium flex items-center gap-2">
                   <Tag size={16} className="text-center-orange" />
                   Subcategorias
@@ -922,7 +941,7 @@ export default function CategoryPage() {
                 )}
               </div>
               
-              <div className="mt-3 flex flex-wrap gap-2">
+              <div className="flex flex-wrap gap-2 bg-[#222] p-3 rounded-lg">
                 {subcategories.map(subcategory => (
                   <button
                     key={subcategory}
@@ -930,7 +949,7 @@ export default function CategoryPage() {
                     className={`px-3 py-1.5 text-sm rounded-lg flex items-center gap-2 transition-colors ${
                       selectedSubcategories.includes(subcategory)
                         ? 'bg-center-orange text-white'
-                        : 'bg-[#252525] text-gray-300 hover:bg-[#333]'
+                        : 'bg-[#333] text-gray-300 hover:bg-[#444]'
                     }`}
                   >
                     {selectedSubcategories.includes(subcategory) && (
