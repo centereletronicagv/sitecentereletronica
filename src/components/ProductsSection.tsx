@@ -746,4 +746,9 @@ const mockProducts: Product[] = [
     name: 'CAPACITOR 25UF 380VAC',
     code: '11327',
     price: 43.00,
-    image: '/lovable
+    image: '/lovable-uploads/capacitor.png',
+    imageUrl: '/lovable-uploads/capacitor.png',
+    category: 'ar-condicionado',
+    popularity: 7
+  })
+];
