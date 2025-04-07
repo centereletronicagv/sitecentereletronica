@@ -2,15 +2,7 @@
 import { useState } from 'react';
 import { ShoppingCart } from 'lucide-react';
 import { useCart } from '@/context/CartContext';
-
-interface Product {
-  id: string;
-  name: string;
-  code: string;
-  price: number;
-  image: string;
-  category: string;
-}
+import { Product } from '../types';
 
 interface ProductCardProps {
   product: Product;

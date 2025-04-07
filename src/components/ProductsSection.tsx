@@ -1,8 +1,11 @@
+
 import { useEffect, useState } from 'react';
 import { ArrowRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import ProductGrid from './ProductGrid';
 import { Product } from '../types';
+
+const defaultDescription = "Produto eletrônico para diversas aplicações.";
 
 const mockProducts: Product[] = [
   {

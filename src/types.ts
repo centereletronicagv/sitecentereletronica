@@ -7,8 +7,8 @@ export interface Product {
   price: number;
   imageUrl: string;
   isFeatured: boolean;
-  code?: string;
-  image?: string;
+  code: string;
+  image: string;
   recommendedOrder?: number;
   popularity?: number;
   featured?: boolean;

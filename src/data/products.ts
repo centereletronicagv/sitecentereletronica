@@ -9,7 +9,9 @@ export const products: Product[] = [
     description: 'Sensor de Temperatura PTC para aplicações de automação.',
     price: 29.99,
     imageUrl: '/lovable-uploads/00b83df6-8857-4892-a9a5-37085b5cf813.png',
+    image: '/lovable-uploads/00b83df6-8857-4892-a9a5-37085b5cf813.png',
     isFeatured: true,
+    code: 'PTC-001'
   },
   {
     id: 'arduino-uno',
@@ -18,7 +20,9 @@ export const products: Product[] = [
     description: 'Placa de desenvolvimento Arduino Uno R3.',
     price: 59.99,
     imageUrl: '/arduino-uno.jpg',
+    image: '/arduino-uno.jpg',
     isFeatured: true,
+    code: 'ARD-001'
   },
   {
     id: 'resistor-1k-ohm',
@@ -27,7 +31,9 @@ export const products: Product[] = [
     description: 'Resistor de 1k Ohm para diversas aplicações eletrônicas.',
     price: 0.20,
     imageUrl: '/resistor-1k-ohm.jpg',
+    image: '/resistor-1k-ohm.jpg',
     isFeatured: false,
+    code: 'RES-001'
   },
   {
     id: 'capacitor-eletrolitico-100uf',
@@ -36,7 +42,9 @@ export const products: Product[] = [
     description: 'Capacitor eletrolítico de 100uF para filtragem e acoplamento.',
     price: 0.50,
     imageUrl: '/capacitor-eletrolitico-100uf.jpg',
+    image: '/capacitor-eletrolitico-100uf.jpg',
     isFeatured: false,
+    code: 'CAP-001'
   },
   {
     id: 'led-vermelho-5mm',
@@ -45,7 +53,9 @@ export const products: Product[] = [
     description: 'LED vermelho de 5mm para sinalização e iluminação.',
     price: 0.15,
     imageUrl: '/led-vermelho-5mm.jpg',
+    image: '/led-vermelho-5mm.jpg',
     isFeatured: false,
+    code: 'LED-001'
   },
   {
     id: 'transistor-bc548',
@@ -54,7 +64,9 @@ export const products: Product[] = [
     description: 'Transistor NPN BC548 para amplificação e chaveamento.',
     price: 0.30,
     imageUrl: '/transistor-bc548.jpg',
+    image: '/transistor-bc548.jpg',
     isFeatured: false,
+    code: 'TRS-001'
   },
   {
     id: 'protoboard-400-pontos',
@@ -63,7 +75,9 @@ export const products: Product[] = [
     description: 'Protoboard de 400 pontos para montagem de circuitos experimentais.',
     price: 7.99,
     imageUrl: '/protoboard-400-pontos.jpg',
+    image: '/protoboard-400-pontos.jpg',
     isFeatured: false,
+    code: 'PRO-001'
   },
   {
     id: 'jumpers-macho-macho',
@@ -72,7 +86,9 @@ export const products: Product[] = [
     description: 'Conjunto de jumpers macho-macho para conexões em protoboards.',
     price: 3.50,
     imageUrl: '/jumpers-macho-macho.jpg',
+    image: '/jumpers-macho-macho.jpg',
     isFeatured: false,
+    code: 'JUM-001'
   },
 ];
 
