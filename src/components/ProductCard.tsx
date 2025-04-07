@@ -2,18 +2,10 @@
 import { useState } from 'react';
 import { ShoppingCart } from 'lucide-react';
 import { useCart } from '@/context/CartContext';
-
-interface Product {
-  id: string;
-  name: string;
-  code: string;
-  price: number;
-  image: string;
-  category: string;
-}
+import { ProductType } from '@/types/types';
 
 interface ProductCardProps {
-  product: Product;
+  product: ProductType & { code?: string };
 }
 
 export default function ProductCard({ product }: ProductCardProps) {
@@ -38,11 +30,11 @@ export default function ProductCard({ product }: ProductCardProps) {
 
   // Check if the product is sold by meter
   const isSoldByMeter = 
-    product.name.toLowerCase().includes('/m') || 
-    product.name.toLowerCase().includes('por metro');
+    (product.name && product.name.toLowerCase().includes('/m')) || 
+    (product.name && product.name.toLowerCase().includes('por metro'));
 
-  // Clean up the product name to remove the "/m" or "Por Metro" text
-  const displayName = product.name;
+  // Product code can be barcode or id
+  const displayCode = product.code || product.barcode || product.id;
 
   return (
     <div 
@@ -61,25 +53,21 @@ export default function ProductCard({ product }: ProductCardProps) {
         <div className={`absolute inset-0 bg-[#252525] ${isImageLoaded ? 'opacity-0' : 'opacity-100 animate-pulse'} transition-opacity`}></div>
         <img
           src={product.image} 
-          alt={displayName}
+          alt={product.name}
           className={`max-h-full max-w-full object-contain transition-opacity duration-300 ${isImageLoaded ? 'opacity-100' : 'opacity-0'}`}
           onLoad={handleImageLoad}
           loading="lazy"
-          width="120"
-          height="120"
-          decoding="async"
-          fetchPriority="high"
         />
         <div className="absolute top-2 left-2">
           <span className="bg-center-orange text-white text-[10px] sm:text-xs px-1.5 py-0.5 rounded-full font-medium">
-            {product.code}
+            {displayCode}
           </span>
         </div>
       </div>
 
       <div className="p-2 sm:p-4 flex flex-col flex-grow">
         <h3 className="font-medium text-white text-xs sm:text-base group-hover:text-center-orange transition-colors mb-1.5 sm:mb-4 line-clamp-2 h-8 sm:h-12">
-          {displayName}
+          {product.name}
         </h3>
         <div className="mt-auto">
           <div className="flex justify-between items-center">
