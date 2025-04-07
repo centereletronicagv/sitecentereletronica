@@ -1,6 +1,5 @@
-
 import { useState } from 'react';
-import { ShoppingCart } from 'lucide-react';
+import { ShoppingCart, Heart } from 'lucide-react';
 import { useCart } from '@/context/CartContext';
 import { ProductType } from '@/types/types';
 
@@ -25,15 +24,19 @@ export default function ProductCard({ product }: ProductCardProps) {
   };
 
   const handleAddToCart = () => {
-    addToCart(product);
+    addToCart({
+      id: product.id,
+      name: product.name,
+      code: product.code || product.barcode,
+      price: product.price,
+      image: product.image,
+    });
   };
 
-  // Check if the product is sold by meter
   const isSoldByMeter = 
     (product.name && product.name.toLowerCase().includes('/m')) || 
     (product.name && product.name.toLowerCase().includes('por metro'));
 
-  // Product code can be barcode or id
   const displayCode = product.code || product.barcode || product.id;
 
   return (
