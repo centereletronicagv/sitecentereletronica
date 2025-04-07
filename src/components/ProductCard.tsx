@@ -1,3 +1,4 @@
+
 import { useState } from 'react';
 import { ShoppingCart, Heart } from 'lucide-react';
 import { useCart } from '@/context/CartContext';
@@ -9,6 +10,7 @@ interface ProductCardProps {
 
 export default function ProductCard({ product }: ProductCardProps) {
   const [isImageLoaded, setIsImageLoaded] = useState(false);
+  const [isImageError, setIsImageError] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
   const { addToCart } = useCart();
 
@@ -21,6 +23,11 @@ export default function ProductCard({ product }: ProductCardProps) {
 
   const handleImageLoad = () => {
     setIsImageLoaded(true);
+  };
+
+  const handleImageError = () => {
+    setIsImageError(true);
+    setIsImageLoaded(true); // Consider the image "loaded" so we don't show the loading state indefinitely
   };
 
   const handleAddToCart = () => {
@@ -39,6 +46,9 @@ export default function ProductCard({ product }: ProductCardProps) {
 
   const displayCode = product.code || product.barcode || product.id;
 
+  // Use uploaded product image or fallback to the generic product image
+  const productImage = isImageError ? "/lovable-uploads/generico.png" : product.image;
+
   return (
     <div 
       className={`group relative flex flex-col bg-[#1E1E1E] rounded-xl border border-[#333333] overflow-hidden transition-all duration-300 ${
@@ -55,10 +65,11 @@ export default function ProductCard({ product }: ProductCardProps) {
       <div className="relative pt-3 px-3 flex items-center justify-center h-28 sm:h-48 bg-gradient-to-br from-[#252525] to-[#202020]">
         <div className={`absolute inset-0 bg-[#252525] ${isImageLoaded ? 'opacity-0' : 'opacity-100 animate-pulse'} transition-opacity`}></div>
         <img
-          src={product.image} 
+          src={productImage} 
           alt={product.name}
           className={`max-h-full max-w-full object-contain transition-opacity duration-300 ${isImageLoaded ? 'opacity-100' : 'opacity-0'}`}
           onLoad={handleImageLoad}
+          onError={handleImageError}
           loading="lazy"
         />
         <div className="absolute top-2 left-2">
