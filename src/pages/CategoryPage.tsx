@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import Navbar from '../components/Navbar';
@@ -6,9 +5,10 @@ import Footer from '../components/Footer';
 import ProductGrid from '../components/ProductGrid';
 import { Slider } from "@/components/ui/slider";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { ArrowDownNarrowWide, ArrowUpNarrowWide, ThumbsUp, Filter, Tag } from "lucide-react";
+import { ArrowDownNarrowWide, ArrowUpNarrowWide, ThumbsUp, Filter, Tag, Check } from "lucide-react";
 import { motion } from "framer-motion";
 import { useIsMobile } from '@/hooks/use-mobile';
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger, DropdownMenuCheckboxItem } from "@/components/ui/dropdown-menu";
 
 interface Product {
   id: string;
@@ -18,6 +18,7 @@ interface Product {
   image: string;
   category: string;
   recommendedOrder?: number;
+  subcategory?: string;
 }
 
 const sampleProducts: Product[] = [
@@ -28,7 +29,8 @@ const sampleProducts: Product[] = [
     price: 43.00,
     image: '/lovable-uploads/suporte.png',
     category: 'ar-condicionado',
-    recommendedOrder: 1
+    recommendedOrder: 1,
+    subcategory: 'suportes'
   },
   {
     id: '11',
@@ -37,7 +39,8 @@ const sampleProducts: Product[] = [
     price: 48.00,
     image: '/lovable-uploads/suporte.png',
     category: 'ar-condicionado',
-    recommendedOrder: 2
+    recommendedOrder: 2,
+    subcategory: 'suportes'
   },
   {
     id: '12',
@@ -46,7 +49,8 @@ const sampleProducts: Product[] = [
     price: 75.00,
     image: '/lovable-uploads/suporte.png',
     category: 'ar-condicionado',
-    recommendedOrder: 3
+    recommendedOrder: 3,
+    subcategory: 'suportes'
   },
   {
     id: '13',
@@ -55,7 +59,8 @@ const sampleProducts: Product[] = [
     price: 156.00,
     image: '/lovable-uploads/suporte.png',
     category: 'ar-condicionado',
-    recommendedOrder: 4
+    recommendedOrder: 4,
+    subcategory: 'suportes'
   },
   {
     id: '14',
@@ -64,7 +69,8 @@ const sampleProducts: Product[] = [
     price: 255.00,
     image: '/lovable-uploads/suporte.png',
     category: 'ar-condicionado',
-    recommendedOrder: 5
+    recommendedOrder: 5,
+    subcategory: 'suportes'
   },
   {
     id: '15',
@@ -73,7 +79,8 @@ const sampleProducts: Product[] = [
     price: 19.00,
     image: '/lovable-uploads/tubulacao.png',
     category: 'ar-condicionado',
-    recommendedOrder: 6
+    recommendedOrder: 6,
+    subcategory: 'tubulacao'
   },
   {
     id: '16',
@@ -82,7 +89,8 @@ const sampleProducts: Product[] = [
     price: 28.00,
     image: '/lovable-uploads/tubulacao.png',
     category: 'ar-condicionado',
-    recommendedOrder: 7
+    recommendedOrder: 7,
+    subcategory: 'tubulacao'
   },
   {
     id: '17',
@@ -91,7 +99,8 @@ const sampleProducts: Product[] = [
     price: 37.00,
     image: '/lovable-uploads/tubulacao.png',
     category: 'ar-condicionado',
-    recommendedOrder: 8
+    recommendedOrder: 8,
+    subcategory: 'tubulacao'
   },
   {
     id: '18',
@@ -100,7 +109,8 @@ const sampleProducts: Product[] = [
     price: 49.00,
     image: '/lovable-uploads/tubulacao.png',
     category: 'ar-condicionado',
-    recommendedOrder: 9
+    recommendedOrder: 9,
+    subcategory: 'tubulacao'
   },
   {
     id: '19',
@@ -109,7 +119,8 @@ const sampleProducts: Product[] = [
     price: 59.00,
     image: '/lovable-uploads/tubulacao.png',
     category: 'ar-condicionado',
-    recommendedOrder: 10
+    recommendedOrder: 10,
+    subcategory: 'tubulacao'
   },
   {
     id: '20',
@@ -118,7 +129,8 @@ const sampleProducts: Product[] = [
     price: 6.50,
     image: '/lovable-uploads/tubex.png',
     category: 'ar-condicionado',
-    recommendedOrder: 11
+    recommendedOrder: 11,
+    subcategory: 'tubex'
   },
   {
     id: '21',
@@ -127,7 +139,8 @@ const sampleProducts: Product[] = [
     price: 6.50,
     image: '/lovable-uploads/tubex.png',
     category: 'ar-condicionado',
-    recommendedOrder: 12
+    recommendedOrder: 12,
+    subcategory: 'tubex'
   },
   {
     id: '22',
@@ -136,7 +149,8 @@ const sampleProducts: Product[] = [
     price: 6.50,
     image: '/lovable-uploads/tubex.png',
     category: 'ar-condicionado',
-    recommendedOrder: 13
+    recommendedOrder: 13,
+    subcategory: 'tubex'
   },
   {
     id: '23',
@@ -145,7 +159,8 @@ const sampleProducts: Product[] = [
     price: 8.00,
     image: '/lovable-uploads/tubex.png',
     category: 'ar-condicionado',
-    recommendedOrder: 14
+    recommendedOrder: 14,
+    subcategory: 'tubex'
   },
   {
     id: '24',
@@ -154,7 +169,8 @@ const sampleProducts: Product[] = [
     price: 10.00,
     image: '/lovable-uploads/tubex.png',
     category: 'ar-condicionado',
-    recommendedOrder: 15
+    recommendedOrder: 15,
+    subcategory: 'tubex'
   },
   {
     id: '25',
@@ -163,7 +179,8 @@ const sampleProducts: Product[] = [
     price: 8.00,
     image: '/lovable-uploads/fitapvc.png',
     category: 'ar-condicionado',
-    recommendedOrder: 16
+    recommendedOrder: 16,
+    subcategory: 'fitas'
   },
   {
     id: '26',
@@ -172,7 +189,8 @@ const sampleProducts: Product[] = [
     price: 9.00,
     image: '/lovable-uploads/fitaalum.png',
     category: 'ar-condicionado',
-    recommendedOrder: 17
+    recommendedOrder: 17,
+    subcategory: 'fitas'
   },
   {
     id: '27',
@@ -181,7 +199,8 @@ const sampleProducts: Product[] = [
     price: 5.80,
     image: '/lovable-uploads/dreno.png',
     category: 'ar-condicionado',
-    recommendedOrder: 18
+    recommendedOrder: 18,
+    subcategory: 'dreno'
   },
   {
     id: '28',
@@ -190,7 +209,8 @@ const sampleProducts: Product[] = [
     price: 6.50,
     image: '/lovable-uploads/drenocristal.png',
     category: 'ar-condicionado',
-    recommendedOrder: 19
+    recommendedOrder: 19,
+    subcategory: 'dreno'
   },
   {
     id: '29',
@@ -199,7 +219,8 @@ const sampleProducts: Product[] = [
     price: 15.00,
     image: '/lovable-uploads/bicodreno.png',
     category: 'ar-condicionado',
-    recommendedOrder: 20
+    recommendedOrder: 20,
+    subcategory: 'dreno'
   },
   {
     id: '30',
@@ -208,7 +229,8 @@ const sampleProducts: Product[] = [
     price: 130.00,
     image: '/lovable-uploads/r32650g.png',
     category: 'ar-condicionado',
-    recommendedOrder: 21
+    recommendedOrder: 21,
+    subcategory: 'fluidos'
   },
   {
     id: '31',
@@ -217,7 +239,8 @@ const sampleProducts: Product[] = [
     price: 290.00,
     image: '/lovable-uploads/r323kg.png',
     category: 'ar-condicionado',
-    recommendedOrder: 22
+    recommendedOrder: 22,
+    subcategory: 'fluidos'
   },
   {
     id: '32',
@@ -226,7 +249,8 @@ const sampleProducts: Product[] = [
     price: 129.00,
     image: '/lovable-uploads/r410a750g.png',
     category: 'ar-condicionado',
-    recommendedOrder: 23
+    recommendedOrder: 23,
+    subcategory: 'fluidos'
   },
   {
     id: '33',
@@ -235,7 +259,8 @@ const sampleProducts: Product[] = [
     price: 132.00,
     image: '/lovable-uploads/r22.png',
     category: 'ar-condicionado',
-    recommendedOrder: 24
+    recommendedOrder: 24,
+    subcategory: 'fluidos'
   },
   {
     id: '35',
@@ -608,7 +633,7 @@ const sampleProducts: Product[] = [
   },
   {
     id: '75',
-    name: 'TERMINAL ACABAMENT0 CB30',
+    name: 'TERMINAL ACABAMENTO CB30',
     code: '12645',
     price: 38.00,
     image: '/lovable-uploads/terminalacabamento.png',
@@ -737,7 +762,7 @@ const sampleProducts: Product[] = [
 
 const categoryLabels: Record<string, string> = {
   'instalacoes-eletricas': 'Instalações Elétricas',
-  'terminais': 'Terminais',
+  'terminais': 'Terminais e Conectores',
   'automacao': 'Automação',
   'suportes': 'Suportes',
   'tubulacao': 'Tubulação',
@@ -765,11 +790,40 @@ export default function CategoryPage() {
   const [allCategories, setAllCategories] = useState<string[]>([]);
   const [showFilters, setShowFilters] = useState(false);
   const isMobile = useIsMobile();
+  
+  const [subcategories, setSubcategories] = useState<string[]>([]);
+  const [selectedSubcategories, setSelectedSubcategories] = useState<string[]>([]);
 
   useEffect(() => {
     const categories = Array.from(new Set(sampleProducts.map(product => product.category)));
     setAllCategories(categories);
     
+    if (slug) {
+      const categoryProducts = sampleProducts.filter(product => product.category === slug);
+      const subCats = Array.from(new Set(categoryProducts
+        .map(product => product.subcategory)
+        .filter(Boolean) as string[]));
+      
+      setSubcategories(subCats);
+      setSelectedSubcategories([]);
+    }
+    
+    filterProducts();
+    
+    if (slug && slug in categoryLabels) {
+      document.title = `${categoryLabels[slug]} | Center Eletrônica`;
+    } else {
+      document.title = "Todos os Produtos | Center Eletrônica";
+    }
+    
+    window.scrollTo(0, 0);
+  }, [slug]);
+
+  useEffect(() => {
+    filterProducts();
+  }, [priceRange, sortBy, selectedSubcategories]);
+
+  const filterProducts = () => {
     let filteredProducts = slug 
       ? sampleProducts.filter(product => product.category === slug)
       : sampleProducts;
@@ -777,6 +831,12 @@ export default function CategoryPage() {
     filteredProducts = filteredProducts.filter(
       product => product.price >= priceRange[0] && product.price <= priceRange[1]
     );
+    
+    if (selectedSubcategories.length > 0) {
+      filteredProducts = filteredProducts.filter(
+        product => product.subcategory && selectedSubcategories.includes(product.subcategory)
+      );
+    }
     
     switch(sortBy) {
       case 'recommended':
@@ -802,20 +862,30 @@ export default function CategoryPage() {
     }
     
     setProducts(filteredProducts);
-    
-    if (slug && slug in categoryLabels) {
-      document.title = `${categoryLabels[slug]} | Center Eletrônica`;
-    } else {
-      document.title = "Todos os Produtos | Center Eletrônica";
-    }
-    
-    window.scrollTo(0, 0);
-  }, [slug, priceRange, sortBy]);
+  };
+
+  const toggleSubcategory = (subcategory: string) => {
+    setSelectedSubcategories(prev => {
+      if (prev.includes(subcategory)) {
+        return prev.filter(sc => sc !== subcategory);
+      } else {
+        return [...prev, subcategory];
+      }
+    });
+  };
+
+  const clearSubcategoryFilters = () => {
+    setSelectedSubcategories([]);
+  };
 
   const maxPrice = Math.max(...sampleProducts.map(product => product.price));
   
   const formatCurrency = (value: number) => {
     return new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(value);
+  };
+
+  const formatSubcategoryName = (name: string) => {
+    return categoryLabels[name] || name.charAt(0).toUpperCase() + name.slice(1);
   };
 
   return (
@@ -833,6 +903,45 @@ export default function CategoryPage() {
             </h1>
             <p className="text-gray-400">Encontre os melhores produtos para seu projeto</p>
           </motion.div>
+          
+          {subcategories.length > 0 && (
+            <div className="mb-6">
+              <div className="flex items-center justify-between flex-wrap gap-2">
+                <h2 className="text-lg text-white font-medium flex items-center gap-2">
+                  <Tag size={16} className="text-center-orange" />
+                  Subcategorias
+                </h2>
+                
+                {selectedSubcategories.length > 0 && (
+                  <button 
+                    onClick={clearSubcategoryFilters}
+                    className="text-sm text-center-orange hover:text-center-orange/80 transition-colors"
+                  >
+                    Limpar filtros
+                  </button>
+                )}
+              </div>
+              
+              <div className="mt-3 flex flex-wrap gap-2">
+                {subcategories.map(subcategory => (
+                  <button
+                    key={subcategory}
+                    onClick={() => toggleSubcategory(subcategory)}
+                    className={`px-3 py-1.5 text-sm rounded-lg flex items-center gap-2 transition-colors ${
+                      selectedSubcategories.includes(subcategory)
+                        ? 'bg-center-orange text-white'
+                        : 'bg-[#252525] text-gray-300 hover:bg-[#333]'
+                    }`}
+                  >
+                    {selectedSubcategories.includes(subcategory) && (
+                      <Check size={14} className="text-white" />
+                    )}
+                    {formatSubcategoryName(subcategory)}
+                  </button>
+                ))}
+              </div>
+            </div>
+          )}
           
           <div className="lg:hidden flex justify-between items-center mb-6">
             <div className="text-gray-400 text-sm flex items-center">
@@ -877,6 +986,32 @@ export default function CategoryPage() {
                   ))}
                 </nav>
               </div>
+              
+              {subcategories.length > 0 && (
+                <div className="bg-gradient-to-b from-[#1E1E1E] to-[#232323] p-6 rounded-xl border border-[#333333] shadow-lg">
+                  <div className="flex items-center gap-2 mb-4">
+                    <Tag size={18} className="text-center-orange" />
+                    <h2 className="text-white font-semibold text-xl">Subcategorias</h2>
+                  </div>
+                  
+                  <div className="space-y-2">
+                    {subcategories.map(subcategory => (
+                      <label 
+                        key={subcategory}
+                        className="flex items-center gap-3 py-2 px-4 rounded-md text-sm cursor-pointer hover:bg-[#333333]"
+                      >
+                        <input 
+                          type="checkbox"
+                          checked={selectedSubcategories.includes(subcategory)}
+                          onChange={() => toggleSubcategory(subcategory)}
+                          className="rounded border-gray-500 text-center-orange focus:ring-center-orange"
+                        />
+                        <span className="text-gray-300">{formatSubcategoryName(subcategory)}</span>
+                      </label>
+                    ))}
+                  </div>
+                </div>
+              )}
               
               <div className="bg-gradient-to-b from-[#1E1E1E] to-[#232323] p-6 rounded-xl border border-[#333333] shadow-lg">
                 <div className="flex items-center gap-2 mb-6">

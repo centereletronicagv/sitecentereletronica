@@ -13,6 +13,12 @@ const categories = [
     color: "bg-slate-800",
     textColor: "text-white",
     href: "/categoria/ar-condicionado",
+    subcategories: [
+      { name: "Suportes", href: "/categoria/ar-condicionado" },
+      { name: "Tubulação", href: "/categoria/ar-condicionado" },
+      { name: "Tubex", href: "/categoria/ar-condicionado" },
+      { name: "Fluídos", href: "/categoria/ar-condicionado" },
+    ]
   },
   {
     id: 2,
@@ -21,6 +27,10 @@ const categories = [
     color: "bg-slate-800",
     textColor: "text-white",
     href: "/categoria/instalacoes-eletricas",
+    subcategories: [
+      { name: "Disjuntores", href: "/categoria/instalacoes-eletricas" },
+      { name: "Cabos", href: "/categoria/instalacoes-eletricas" },
+    ]
   },
   {
     id: 3,
@@ -29,6 +39,10 @@ const categories = [
     color: "bg-slate-800",
     textColor: "text-white",
     href: "/categoria/terminais",
+    subcategories: [
+      { name: "Terminais", href: "/categoria/terminais" },
+      { name: "Conectores", href: "/categoria/terminais" },
+    ]
   },
   {
     id: 4,
@@ -37,6 +51,10 @@ const categories = [
     color: "bg-slate-800",
     textColor: "text-white",
     href: "/categoria/automacao",
+    subcategories: [
+      { name: "Sensores", href: "/categoria/automacao" },
+      { name: "Atuadores", href: "/categoria/automacao" },
+    ]
   },
 ];
 
@@ -68,22 +86,41 @@ const CategorySection = () => {
           ) : (
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
               {categories.map((category) => (
-                <Link
-                  key={category.id}
-                  to={category.href}
-                  className="flex flex-col items-center justify-center p-6 border rounded-lg hover:shadow-md transition-shadow"
-                >
-                  <div
-                    className={cn(
-                      "w-12 h-12 flex items-center justify-center rounded-full mb-2",
-                      category.color,
-                      category.textColor
-                    )}
+                <div key={category.id} className="flex flex-col border rounded-lg hover:shadow-md transition-shadow overflow-hidden">
+                  <Link
+                    to={category.href}
+                    className="flex flex-col items-center justify-center p-6 hover:bg-gray-50 dark:hover:bg-gray-900 transition-colors"
                   >
-                    {category.icon}
-                  </div>
-                  <span className="text-center font-medium">{category.name}</span>
-                </Link>
+                    <div
+                      className={cn(
+                        "w-12 h-12 flex items-center justify-center rounded-full mb-2",
+                        category.color,
+                        category.textColor
+                      )}
+                    >
+                      {category.icon}
+                    </div>
+                    <span className="text-center font-medium">{category.name}</span>
+                  </Link>
+                  
+                  {category.subcategories && category.subcategories.length > 0 && (
+                    <div className="px-4 py-3 border-t border-gray-200 dark:border-gray-800 bg-gray-50 dark:bg-gray-900">
+                      <p className="text-xs text-gray-500 mb-2 font-medium">Subcategorias:</p>
+                      <ul className="flex flex-wrap gap-1.5">
+                        {category.subcategories.map((subcategory, idx) => (
+                          <li key={idx}>
+                            <Link 
+                              to={`${subcategory.href}`}
+                              className="text-xs px-2 py-1 bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 rounded hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors inline-block"
+                            >
+                              {subcategory.name}
+                            </Link>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  )}
+                </div>
               ))}
             </div>
           )}
