@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from 'react';
 import { useParams, useSearchParams } from 'react-router-dom';
 import Navbar from '../components/Navbar';
@@ -10,17 +9,7 @@ import { ArrowDownNarrowWide, ArrowUpNarrowWide, ThumbsUp, Filter, Tag, Check } 
 import { motion } from "framer-motion";
 import { useIsMobile } from '@/hooks/use-mobile';
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger, DropdownMenuCheckboxItem } from "@/components/ui/dropdown-menu";
-
-interface Product {
-  id: string;
-  name: string;
-  code: string;
-  price: number;
-  image: string;
-  category: string;
-  recommendedOrder?: number;
-  subcategory?: string;
-}
+import { Product } from '../types';
 
 const sampleProducts: Product[] = [
   {
@@ -29,9 +18,12 @@ const sampleProducts: Product[] = [
     code: '13160',
     price: 43.00,
     image: '/lovable-uploads/suporte.png',
+    imageUrl: '/lovable-uploads/suporte.png',
     category: 'ar-condicionado',
     recommendedOrder: 1,
-    subcategory: 'suportes'
+    subcategory: 'suportes',
+    description: 'Suporte para instalação de ar-condicionado',
+    isFeatured: false
   },
   {
     id: '11',
@@ -39,9 +31,12 @@ const sampleProducts: Product[] = [
     code: '12602',
     price: 48.00,
     image: '/lovable-uploads/suporte.png',
+    imageUrl: '/lovable-uploads/suporte.png',
     category: 'ar-condicionado',
     recommendedOrder: 2,
-    subcategory: 'suportes'
+    subcategory: 'suportes',
+    description: 'Suporte para instalação de ar-condicionado',
+    isFeatured: false
   },
   {
     id: '12',
@@ -49,9 +44,12 @@ const sampleProducts: Product[] = [
     code: '7204',
     price: 75.00,
     image: '/lovable-uploads/suporte.png',
+    imageUrl: '/lovable-uploads/suporte.png',
     category: 'ar-condicionado',
     recommendedOrder: 3,
-    subcategory: 'suportes'
+    subcategory: 'suportes',
+    description: 'Suporte para instalação de ar-condicionado',
+    isFeatured: false
   },
   {
     id: '13',
@@ -59,9 +57,12 @@ const sampleProducts: Product[] = [
     code: '13309',
     price: 156.00,
     image: '/lovable-uploads/suporte.png',
+    imageUrl: '/lovable-uploads/suporte.png',
     category: 'ar-condicionado',
     recommendedOrder: 4,
-    subcategory: 'suportes'
+    subcategory: 'suportes',
+    description: 'Suporte para instalação de ar-condicionado',
+    isFeatured: false
   },
   {
     id: '14',
@@ -69,9 +70,12 @@ const sampleProducts: Product[] = [
     code: '13310',
     price: 255.00,
     image: '/lovable-uploads/suporte.png',
+    imageUrl: '/lovable-uploads/suporte.png',
     category: 'ar-condicionado',
     recommendedOrder: 5,
-    subcategory: 'suportes'
+    subcategory: 'suportes',
+    description: 'Suporte para instalação de ar-condicionado',
+    isFeatured: false
   },
   {
     id: '15',
@@ -79,9 +83,12 @@ const sampleProducts: Product[] = [
     code: '12710',
     price: 19.00,
     image: '/lovable-uploads/tubulacao.png',
+    imageUrl: '/lovable-uploads/tubulacao.png',
     category: 'ar-condicionado',
     recommendedOrder: 6,
-    subcategory: 'tubulacao'
+    subcategory: 'tubulacao',
+    description: 'Tubulação para instalação de ar-condicionado',
+    isFeatured: false
   },
   {
     id: '16',
@@ -89,9 +96,12 @@ const sampleProducts: Product[] = [
     code: '12711',
     price: 28.00,
     image: '/lovable-uploads/tubulacao.png',
+    imageUrl: '/lovable-uploads/tubulacao.png',
     category: 'ar-condicionado',
     recommendedOrder: 7,
-    subcategory: 'tubulacao'
+    subcategory: 'tubulacao',
+    description: 'Tubulação para instalação de ar-condicionado',
+    isFeatured: false
   },
   {
     id: '17',
@@ -99,9 +109,12 @@ const sampleProducts: Product[] = [
     code: '12709',
     price: 37.00,
     image: '/lovable-uploads/tubulacao.png',
+    imageUrl: '/lovable-uploads/tubulacao.png',
     category: 'ar-condicionado',
     recommendedOrder: 8,
-    subcategory: 'tubulacao'
+    subcategory: 'tubulacao',
+    description: 'Tubulação para instalação de ar-condicionado',
+    isFeatured: false
   },
   {
     id: '18',
@@ -109,9 +122,12 @@ const sampleProducts: Product[] = [
     code: '12712',
     price: 49.00,
     image: '/lovable-uploads/tubulacao.png',
+    imageUrl: '/lovable-uploads/tubulacao.png',
     category: 'ar-condicionado',
     recommendedOrder: 9,
-    subcategory: 'tubulacao'
+    subcategory: 'tubulacao',
+    description: 'Tubulação para instalação de ar-condicionado',
+    isFeatured: false
   },
   {
     id: '19',
@@ -119,9 +135,12 @@ const sampleProducts: Product[] = [
     code: '12713',
     price: 59.00,
     image: '/lovable-uploads/tubulacao.png',
+    imageUrl: '/lovable-uploads/tubulacao.png',
     category: 'ar-condicionado',
     recommendedOrder: 10,
-    subcategory: 'tubulacao'
+    subcategory: 'tubulacao',
+    description: 'Tubulação para instalação de ar-condicionado',
+    isFeatured: false
   },
   {
     id: '20',
@@ -129,9 +148,12 @@ const sampleProducts: Product[] = [
     code: '7199',
     price: 6.50,
     image: '/lovable-uploads/tubex.png',
+    imageUrl: '/lovable-uploads/tubex.png',
     category: 'ar-condicionado',
     recommendedOrder: 11,
-    subcategory: 'tubex'
+    subcategory: 'tubex',
+    description: 'Tubex para instalação de ar-condicionado',
+    isFeatured: false
   },
   {
     id: '21',
@@ -139,9 +161,12 @@ const sampleProducts: Product[] = [
     code: '7200',
     price: 6.50,
     image: '/lovable-uploads/tubex.png',
+    imageUrl: '/lovable-uploads/tubex.png',
     category: 'ar-condicionado',
     recommendedOrder: 12,
-    subcategory: 'tubex'
+    subcategory: 'tubex',
+    description: 'Tubex para instalação de ar-condicionado',
+    isFeatured: false
   },
   {
     id: '22',
@@ -149,9 +174,12 @@ const sampleProducts: Product[] = [
     code: '7201',
     price: 6.50,
     image: '/lovable-uploads/tubex.png',
+    imageUrl: '/lovable-uploads/tubex.png',
     category: 'ar-condicionado',
     recommendedOrder: 13,
-    subcategory: 'tubex'
+    subcategory: 'tubex',
+    description: 'Tubex para instalação de ar-condicionado',
+    isFeatured: false
   },
   {
     id: '23',
@@ -159,9 +187,12 @@ const sampleProducts: Product[] = [
     code: '10504',
     price: 8.00,
     image: '/lovable-uploads/tubex.png',
+    imageUrl: '/lovable-uploads/tubex.png',
     category: 'ar-condicionado',
     recommendedOrder: 14,
-    subcategory: 'tubex'
+    subcategory: 'tubex',
+    description: 'Tubex para instalação de ar-condicionado',
+    isFeatured: false
   },
   {
     id: '24',
@@ -169,9 +200,12 @@ const sampleProducts: Product[] = [
     code: '100232514',
     price: 10.00,
     image: '/lovable-uploads/tubex.png',
+    imageUrl: '/lovable-uploads/tubex.png',
     category: 'ar-condicionado',
     recommendedOrder: 15,
-    subcategory: 'tubex'
+    subcategory: 'tubex',
+    description: 'Tubex para instalação de ar-condicionado',
+    isFeatured: false
   },
   {
     id: '25',
@@ -179,9 +213,12 @@ const sampleProducts: Product[] = [
     code: '7202',
     price: 8.00,
     image: '/lovable-uploads/fitapvc.png',
+    imageUrl: '/lovable-uploads/fitapvc.png',
     category: 'ar-condicionado',
     recommendedOrder: 16,
-    subcategory: 'fitas'
+    subcategory: 'fitas',
+    description: 'Fita PVC para instalação de ar-condicionado',
+    isFeatured: false
   },
   {
     id: '26',
@@ -189,9 +226,12 @@ const sampleProducts: Product[] = [
     code: '7195',
     price: 9.00,
     image: '/lovable-uploads/fitaalum.png',
+    imageUrl: '/lovable-uploads/fitaalum.png',
     category: 'ar-condicionado',
     recommendedOrder: 17,
-    subcategory: 'fitas'
+    subcategory: 'fitas',
+    description: 'Fita aluminizada para instalação de ar-condicionado',
+    isFeatured: false
   },
   {
     id: '27',
@@ -199,9 +239,12 @@ const sampleProducts: Product[] = [
     code: '11407',
     price: 5.80,
     image: '/lovable-uploads/dreno.png',
+    imageUrl: '/lovable-uploads/dreno.png',
     category: 'ar-condicionado',
     recommendedOrder: 18,
-    subcategory: 'dreno'
+    subcategory: 'dreno',
+    description: 'Mangueira para dreno de ar-condicionado',
+    isFeatured: false
   },
   {
     id: '28',
@@ -209,9 +252,12 @@ const sampleProducts: Product[] = [
     code: '11993',
     price: 6.50,
     image: '/lovable-uploads/drenocristal.png',
+    imageUrl: '/lovable-uploads/drenocristal.png',
     category: 'ar-condicionado',
     recommendedOrder: 19,
-    subcategory: 'dreno'
+    subcategory: 'dreno',
+    description: 'Mangueira cristal para dreno de ar-condicionado',
+    isFeatured: false
   },
   {
     id: '29',
@@ -219,9 +265,12 @@ const sampleProducts: Product[] = [
     code: '12644',
     price: 15.00,
     image: '/lovable-uploads/bicodreno.png',
+    imageUrl: '/lovable-uploads/bicodreno.png',
     category: 'ar-condicionado',
     recommendedOrder: 20,
-    subcategory: 'dreno'
+    subcategory: 'dreno',
+    description: 'Bico para dreno de ar-condicionado',
+    isFeatured: false
   },
   {
     id: '30',
@@ -229,9 +278,12 @@ const sampleProducts: Product[] = [
     code: '7899733823641',
     price: 130.00,
     image: '/lovable-uploads/r32650g.png',
+    imageUrl: '/lovable-uploads/r32650g.png',
     category: 'ar-condicionado',
     recommendedOrder: 21,
-    subcategory: 'fluidos'
+    subcategory: 'fluidos',
+    description: 'Fluído refrigerante R32 para ar-condicionado',
+    isFeatured: false
   },
   {
     id: '31',
@@ -239,9 +291,12 @@ const sampleProducts: Product[] = [
     code: '7899733819095',
     price: 290.00,
     image: '/lovable-uploads/r323kg.png',
+    imageUrl: '/lovable-uploads/r323kg.png',
     category: 'ar-condicionado',
     recommendedOrder: 22,
-    subcategory: 'fluidos'
+    subcategory: 'fluidos',
+    description: 'Fluído refrigerante R32 para ar-condicionado',
+    isFeatured: false
   },
   {
     id: '32',
@@ -249,9 +304,12 @@ const sampleProducts: Product[] = [
     code: '7899733805227',
     price: 129.00,
     image: '/lovable-uploads/r410a750g.png',
+    imageUrl: '/lovable-uploads/r410a750g.png',
     category: 'ar-condicionado',
     recommendedOrder: 23,
-    subcategory: 'fluidos'
+    subcategory: 'fluidos',
+    description: 'Fluído refrigerante R410A para ar-condicionado',
+    isFeatured: false
   },
   {
     id: '33',
@@ -259,9 +317,12 @@ const sampleProducts: Product[] = [
     code: '7899733805180',
     price: 132.00,
     image: '/lovable-uploads/r22.png',
+    imageUrl: '/lovable-uploads/r22.png',
     category: 'ar-condicionado',
     recommendedOrder: 24,
-    subcategory: 'fluidos'
+    subcategory: 'fluidos',
+    description: 'Fluído refrigerante R22 para ar-condicionado',
+    isFeatured: false
   },
   {
     id: '35',
@@ -269,8 +330,11 @@ const sampleProducts: Product[] = [
     code: '9947',
     price: 9.50,
     image: '/lovable-uploads/pp4.png',
+    imageUrl: '/lovable-uploads/pp4.png',
     category: 'ar-condicionado',
-    recommendedOrder: 25
+    recommendedOrder: 25,
+    description: 'Cabo PP para instalação de ar-condicionado',
+    isFeatured: false
   },
   {
     id: '36',
@@ -278,8 +342,11 @@ const sampleProducts: Product[] = [
     code: '8492',
     price: 10.20,
     image: '/lovable-uploads/pp5.png',
+    imageUrl: '/lovable-uploads/pp5.png',
     category: 'ar-condicionado',
-    recommendedOrder: 26
+    recommendedOrder: 26,
+    description: 'Cabo PP para instalação de ar-condicionado',
+    isFeatured: false
   },
   {
     id: '37',
@@ -287,8 +354,11 @@ const sampleProducts: Product[] = [
     code: '7909522567677',
     price: 14.00,
     image: '/lovable-uploads/weg.png',
+    imageUrl: '/lovable-uploads/weg.png',
     category: 'ar-condicionado',
-    recommendedOrder: 27
+    recommendedOrder: 27,
+    description: 'Disjuntor WEG para instalação de ar-condicionado',
+    isFeatured: false
   },
   {
     id: '38',
@@ -296,8 +366,11 @@ const sampleProducts: Product[] = [
     code: '7891341466906',
     price: 24.00,
     image: '/lovable-uploads/schneider.png',
+    imageUrl: '/lovable-uploads/schneider.png',
     category: 'ar-condicionado',
-    recommendedOrder: 28
+    recommendedOrder: 28,
+    description: 'Disjuntor Schneider para instalação de ar-condicionado',
+    isFeatured: false
   },
   {
     id: '39',
@@ -305,8 +378,11 @@ const sampleProducts: Product[] = [
     code: '5418',
     price: 24.00,
     image: '/lovable-uploads/lukma.png',
+    imageUrl: '/lovable-uploads/lukma.png',
     category: 'ar-condicionado',
-    recommendedOrder: 29
+    recommendedOrder: 29,
+    description: 'Disjuntor Lukma para instalação de ar-condicionado',
+    isFeatured: false
   },
   {
     id: '34',
@@ -314,8 +390,11 @@ const sampleProducts: Product[] = [
     code: '13255',
     price: 42.00,
     image: '/lovable-uploads/valve.png',
+    imageUrl: '/lovable-uploads/valve.png',
     category: 'ar-condicionado',
-    recommendedOrder: 30
+    recommendedOrder: 30,
+    description: 'Válvula para gás de ar-condicionado',
+    isFeatured: false
   },
   {
     id: '40',
@@ -323,8 +402,11 @@ const sampleProducts: Product[] = [
     code: '10062',
     price: 9.80,
     image: '/lovable-uploads/uniao.png',
+    imageUrl: '/lovable-uploads/uniao.png',
     category: 'ar-condicionado',
-    recommendedOrder: 31
+    recommendedOrder: 31,
+    description: 'União regular para instalação de ar-condicionado',
+    isFeatured: false
   },
   {
     id: '41',
@@ -332,8 +414,11 @@ const sampleProducts: Product[] = [
     code: '10059',
     price: 20.00,
     image: '/lovable-uploads/uniao.png',
+    imageUrl: '/lovable-uploads/uniao.png',
     category: 'ar-condicionado',
-    recommendedOrder: 32
+    recommendedOrder: 32,
+    description: 'União regular para instalação de ar-condicionado',
+    isFeatured: false
   },
   {
     id: '42',
@@ -341,8 +426,11 @@ const sampleProducts: Product[] = [
     code: '10061',
     price: 27.00,
     image: '/lovable-uploads/uniao.png',
+    imageUrl: '/lovable-uploads/uniao.png',
     category: 'ar-condicionado',
-    recommendedOrder: 33
+    recommendedOrder: 33,
+    description: 'União regular para instalação de ar-condicionado',
+    isFeatured: false
   },
   {
     id: '43',
@@ -350,8 +438,11 @@ const sampleProducts: Product[] = [
     code: '10060',
     price: 38.00,
     image: '/lovable-uploads/uniao.png',
+    imageUrl: '/lovable-uploads/uniao.png',
     category: 'ar-condicionado',
-    recommendedOrder: 34
+    recommendedOrder: 34,
+    description: 'União regular para instalação de ar-condicionado',
+    isFeatured: false
   },
   {
     id: '44',
@@ -359,8 +450,11 @@ const sampleProducts: Product[] = [
     code: '10058',
     price: 55.00,
     image: '/lovable-uploads/uniao.png',
+    imageUrl: '/lovable-uploads/uniao.png',
     category: 'ar-condicionado',
-    recommendedOrder: 35
+    recommendedOrder: 35,
+    description: 'União regular para instalação de ar-condicionado',
+    isFeatured: false
   },
   {
     id: '45',
@@ -368,8 +462,11 @@ const sampleProducts: Product[] = [
     code: '12717',
     price: 20.00,
     image: '/lovable-uploads/redutor.png',
+    imageUrl: '/lovable-uploads/redutor.png',
     category: 'ar-condicionado',
-    recommendedOrder: 36
+    recommendedOrder: 36,
+    description: 'Redutor para instalação de ar-condicionado',
+    isFeatured: false
   },
   {
     id: '46',
@@ -377,8 +474,11 @@ const sampleProducts: Product[] = [
     code: '12716',
     price: 25.00,
     image: '/lovable-uploads/redutor.png',
+    imageUrl: '/lovable-uploads/redutor.png',
     category: 'ar-condicionado',
-    recommendedOrder: 37
+    recommendedOrder: 37,
+    description: 'Redutor para instalação de ar-condicionado',
+    isFeatured: false
   },
   {
     id: '47',
@@ -386,8 +486,11 @@ const sampleProducts: Product[] = [
     code: '12715',
     price: 28.00,
     image: '/lovable-uploads/redutor.png',
+    imageUrl: '/lovable-uploads/redutor.png',
     category: 'ar-condicionado',
-    recommendedOrder: 38
+    recommendedOrder: 38,
+    description: 'Redutor para instalação de ar-condicionado',
+    isFeatured: false
   },
   {
     id: '48',
@@ -395,8 +498,11 @@ const sampleProducts: Product[] = [
     code: '10054',
     price: 9.50,
     image: '/lovable-uploads/porca.png',
+    imageUrl: '/lovable-uploads/porca.png',
     category: 'ar-condicionado',
-    recommendedOrder: 39
+    recommendedOrder: 39,
+    description: 'Porca para instalação de ar-condicionado',
+    isFeatured: false
   },
   {
     id: '49',
@@ -404,8 +510,11 @@ const sampleProducts: Product[] = [
     code: '10055',
     price: 9.80,
     image: '/lovable-uploads/porca.png',
+    imageUrl: '/lovable-uploads/porca.png',
     category: 'ar-condicionado',
-    recommendedOrder: 40
+    recommendedOrder: 40,
+    description: 'Porca para instalação de ar-condicionado',
+    isFeatured: false
   },
   {
     id: '50',
@@ -413,8 +522,11 @@ const sampleProducts: Product[] = [
     code: '10051',
     price: 12.00,
     image: '/lovable-uploads/porca.png',
+    imageUrl: '/lovable-uploads/porca.png',
     category: 'ar-condicionado',
-    recommendedOrder: 41
+    recommendedOrder: 41,
+    description: 'Porca para instalação de ar-condicionado',
+    isFeatured: false
   },
   {
     id: '51',
@@ -422,8 +534,11 @@ const sampleProducts: Product[] = [
     code: '10053',
     price: 29.00,
     image: '/lovable-uploads/porca.png',
+    imageUrl: '/lovable-uploads/porca.png',
     category: 'ar-condicionado',
-    recommendedOrder: 42
+    recommendedOrder: 42,
+    description: 'Porca para instalação de ar-condicionado',
+    isFeatured: false
   },
   {
     id: '52',
@@ -431,8 +546,11 @@ const sampleProducts: Product[] = [
     code: '10052',
     price: 32.00,
     image: '/lovable-uploads/porca.png',
+    imageUrl: '/lovable-uploads/porca.png',
     category: 'ar-condicionado',
-    recommendedOrder: 43
+    recommendedOrder: 43,
+    description: 'Porca para instalação de ar-condicionado',
+    isFeatured: false
   },
   {
     id: '53',
@@ -440,8 +558,11 @@ const sampleProducts: Product[] = [
     code: '11305',
     price: 20.00,
     image: '/lovable-uploads/capacitorpreto.png',
+    imageUrl: '/lovable-uploads/capacitorpreto.png',
     category: 'ar-condicionado',
-    recommendedOrder: 44
+    recommendedOrder: 44,
+    description: 'Capacitor para ar-condicionado',
+    isFeatured: false
   },
   {
     id: '54',
@@ -449,8 +570,11 @@ const sampleProducts: Product[] = [
     code: '11306',
     price: 20.00,
     image: '/lovable-uploads/capacitorpreto.png',
+    imageUrl: '/lovable-uploads/capacitorpreto.png',
     category: 'ar-condicionado',
-    recommendedOrder: 45
+    recommendedOrder: 45,
+    description: 'Capacitor para ar-condicionado',
+    isFeatured: false
   },
   {
     id: '55',
@@ -458,8 +582,11 @@ const sampleProducts: Product[] = [
     code: '11307',
     price: 20.00,
     image: '/lovable-uploads/capacitorpreto.png',
+    imageUrl: '/lovable-uploads/capacitorpreto.png',
     category: 'ar-condicionado',
-    recommendedOrder: 46
+    recommendedOrder: 46,
+    description: 'Capacitor para ar-condicionado',
+    isFeatured: false
   },
   {
     id: '56',
@@ -467,8 +594,11 @@ const sampleProducts: Product[] = [
     code: '11308',
     price: 20.00,
     image: '/lovable-uploads/capacitorpreto.png',
+    imageUrl: '/lovable-uploads/capacitorpreto.png',
     category: 'ar-condicionado',
-    recommendedOrder: 47
+    recommendedOrder: 47,
+    description: 'Capacitor para ar-condicionado',
+    isFeatured: false
   },
   {
     id: '57',
@@ -476,8 +606,11 @@ const sampleProducts: Product[] = [
     code: '11309',
     price: 20.00,
     image: '/lovable-uploads/capacitorpreto.png',
+    imageUrl: '/lovable-uploads/capacitorpreto.png',
     category: 'ar-condicionado',
-    recommendedOrder: 48
+    recommendedOrder: 48,
+    description: 'Capacitor para ar-condicionado',
+    isFeatured: false
   },
   {
     id: '58',
@@ -485,8 +618,11 @@ const sampleProducts: Product[] = [
     code: '12642',
     price: 30.00,
     image: '/lovable-uploads/capacitor.png',
+    imageUrl: '/lovable-uploads/capacitor.png',
     category: 'ar-condicionado',
-    recommendedOrder: 49
+    recommendedOrder: 49,
+    description: 'Capacitor para ar-condicionado',
+    isFeatured: false
   },
   {
     id: '59',
@@ -494,8 +630,11 @@ const sampleProducts: Product[] = [
     code: '7899733814250',
     price: 25.00,
     image: '/lovable-uploads/capacitor.png',
+    imageUrl: '/lovable-uploads/capacitor.png',
     category: 'ar-condicionado',
-    recommendedOrder: 50
+    recommendedOrder: 50,
+    description: 'Capacitor para ar-condicionado',
+    isFeatured: false
   },
   {
     id: '60',
@@ -503,8 +642,11 @@ const sampleProducts: Product[] = [
     code: '11997',
     price: 35.00,
     image: '/lovable-uploads/capacitor.png',
+    imageUrl: '/lovable-uploads/capacitor.png',
     category: 'ar-condicionado',
-    recommendedOrder: 51
+    recommendedOrder: 51,
+    description: 'Capacitor para ar-condicionado',
+    isFeatured: false
   },
   {
     id: '61',
@@ -512,8 +654,11 @@ const sampleProducts: Product[] = [
     code: '11327',
     price: 43.00,
     image: '/lovable-uploads/capacitor.png',
+    imageUrl: '/lovable-uploads/capacitor.png',
     category: 'ar-condicionado',
-    recommendedOrder: 52
+    recommendedOrder: 52,
+    description: 'Capacitor para ar-condicionado',
+    isFeatured: false
   },
   {
     id: '62',
@@ -521,8 +666,11 @@ const sampleProducts: Product[] = [
     code: '11325',
     price: 48.00,
     image: '/lovable-uploads/capacitor.png',
+    imageUrl: '/lovable-uploads/capacitor.png',
     category: 'ar-condicionado',
-    recommendedOrder: 53
+    recommendedOrder: 53,
+    description: 'Capacitor para ar-condicionado',
+    isFeatured: false
   },
   {
     id: '63',
@@ -530,8 +678,11 @@ const sampleProducts: Product[] = [
     code: '11311',
     price: 48.00,
     image: '/lovable-uploads/capacitor.png',
+    imageUrl: '/lovable-uploads/capacitor.png',
     category: 'ar-condicionado',
-    recommendedOrder: 54
+    recommendedOrder: 54,
+    description: 'Capacitor para ar-condicionado',
+    isFeatured: false
   },
   {
     id: '64',
@@ -539,8 +690,11 @@ const sampleProducts: Product[] = [
     code: '11326',
     price: 53.00,
     image: '/lovable-uploads/capacitor.png',
+    imageUrl: '/lovable-uploads/capacitor.png',
     category: 'ar-condicionado',
-    recommendedOrder: 55
+    recommendedOrder: 55,
+    description: 'Capacitor para ar-condicionado',
+    isFeatured: false
   },
   {
     id: '65',
@@ -548,8 +702,11 @@ const sampleProducts: Product[] = [
     code: '11312',
     price: 35.00,
     image: '/lovable-uploads/capacitor.png',
+    imageUrl: '/lovable-uploads/capacitor.png',
     category: 'ar-condicionado',
-    recommendedOrder: 56
+    recommendedOrder: 56,
+    description: 'Capacitor para ar-condicionado',
+    isFeatured: false
   },
   {
     id: '66',
@@ -557,8 +714,11 @@ const sampleProducts: Product[] = [
     code: '12643',
     price: 52.00,
     image: '/lovable-uploads/capacitor.png',
+    imageUrl: '/lovable-uploads/capacitor.png',
     category: 'ar-condicionado',
-    recommendedOrder: 57
+    recommendedOrder: 57,
+    description: 'Capacitor para ar-condicionado',
+    isFeatured: false
   },
   {
     id: '67',
@@ -566,8 +726,11 @@ const sampleProducts: Product[] = [
     code: '11998',
     price: 65.00,
     image: '/lovable-uploads/capacitor.png',
+    imageUrl: '/lovable-uploads/capacitor.png',
     category: 'ar-condicionado',
-    recommendedOrder: 58
+    recommendedOrder: 58,
+    description: 'Capacitor para ar-condicionado',
+    isFeatured: false
   },
   {
     id: '68',
@@ -575,8 +738,11 @@ const sampleProducts: Product[] = [
     code: '11999',
     price: 45.00,
     image: '/lovable-uploads/capacitor.png',
+    imageUrl: '/lovable-uploads/capacitor.png',
     category: 'ar-condicionado',
-    recommendedOrder: 59
+    recommendedOrder: 59,
+    description: 'Capacitor para ar-condicionado',
+    isFeatured: false
   },
   {
     id: '69',
@@ -584,8 +750,11 @@ const sampleProducts: Product[] = [
     code: '12000',
     price: 27.00,
     image: '/lovable-uploads/capacitor.png',
+    imageUrl: '/lovable-uploads/capacitor.png',
     category: 'ar-condicionado',
-    recommendedOrder: 60
+    recommendedOrder: 60,
+    description: 'Capacitor para ar-condicionado',
+    isFeatured: false
   },
   {
     id: '70',
@@ -593,8 +762,11 @@ const sampleProducts: Product[] = [
     code: '12799',
     price: 39.00,
     image: '/lovable-uploads/duplo.png',
+    imageUrl: '/lovable-uploads/duplo.png',
     category: 'ar-condicionado',
-    recommendedOrder: 61
+    recommendedOrder: 61,
+    description: 'Capacitor duplo para ar-condicionado',
+    isFeatured: false
   },
   {
     id: '71',
@@ -602,8 +774,11 @@ const sampleProducts: Product[] = [
     code: '12485',
     price: 45.00,
     image: '/lovable-uploads/duplo.png',
+    imageUrl: '/lovable-uploads/duplo.png',
     category: 'ar-condicionado',
-    recommendedOrder: 62
+    recommendedOrder: 62,
+    description: 'Capacitor duplo para ar-condicionado',
+    isFeatured: false
   },
   {
     id: '72',
@@ -611,8 +786,11 @@ const sampleProducts: Product[] = [
     code: '13163',
     price: 45.00,
     image: '/lovable-uploads/duplo.png',
+    imageUrl: '/lovable-uploads/duplo.png',
     category: 'ar-condicionado',
-    recommendedOrder: 63
+    recommendedOrder: 63,
+    description: 'Capacitor duplo para ar-condicionado',
+    isFeatured: false
   },
   {
     id: '73',
@@ -620,8 +798,11 @@ const sampleProducts: Product[] = [
     code: '12651',
     price: 25.00,
     image: '/lovable-uploads/canaleta.png',
+    imageUrl: '/lovable-uploads/canaleta.png',
     category: 'ar-condicionado',
-    recommendedOrder: 64
+    recommendedOrder: 64,
+    description: 'Canaleta para instalação de ar-condicionado',
+    isFeatured: false
   },
   {
     id: '74',
@@ -629,8 +810,11 @@ const sampleProducts: Product[] = [
     code: '12652',
     price: 35.00,
     image: '/lovable-uploads/canaleta.png',
+    imageUrl: '/lovable-uploads/canaleta.png',
     category: 'ar-condicionado',
-    recommendedOrder: 65
+    recommendedOrder: 65,
+    description: 'Canaleta para instalação de ar-condicionado',
+    isFeatured: false
   },
   {
     id: '75',
@@ -638,8 +822,11 @@ const sampleProducts: Product[] = [
     code: '12645',
     price: 38.00,
     image: '/lovable-uploads/terminalacabamento.png',
+    imageUrl: '/lovable-uploads/terminalacabamento.png',
     category: 'ar-condicionado',
-    recommendedOrder: 66
+    recommendedOrder: 66,
+    description: 'Terminal de acabamento para instalação de ar-condicionado',
+    isFeatured: false
   },
   {
     id: '76',
@@ -647,8 +834,11 @@ const sampleProducts: Product[] = [
     code: '12649',
     price: 55.00,
     image: '/lovable-uploads/terminalacabamento.png',
+    imageUrl: '/lovable-uploads/terminalacabamento.png',
     category: 'ar-condicionado',
-    recommendedOrder: 67
+    recommendedOrder: 67,
+    description: 'Terminal de acabamento para instalação de ar-condicionado',
+    isFeatured: false
   },
   {
     id: '77',
@@ -656,8 +846,11 @@ const sampleProducts: Product[] = [
     code: '12647',
     price: 13.00,
     image: '/lovable-uploads/curvainterna.png',
+    imageUrl: '/lovable-uploads/curvainterna.png',
     category: 'ar-condicionado',
-    recommendedOrder: 68
+    recommendedOrder: 68,
+    description: 'Curva angular interna para instalação de ar-condicionado',
+    isFeatured: false
   },
   {
     id: '78',
@@ -665,8 +858,11 @@ const sampleProducts: Product[] = [
     code: '12649',
     price: 15.00,
     image: '/lovable-uploads/passagemparede.png',
+    imageUrl: '/lovable-uploads/passagemparede.png',
     category: 'ar-condicionado',
-    recommendedOrder: 69
+    recommendedOrder: 69,
+    description: 'Passagem de parede para instalação de ar-condicionado',
+    isFeatured: false
   },
   {
     id: '79',
@@ -674,8 +870,11 @@ const sampleProducts: Product[] = [
     code: '12646',
     price: 21.00,
     image: '/lovable-uploads/curvaregulavel.png',
+    imageUrl: '/lovable-uploads/curvaregulavel.png',
     category: 'ar-condicionado',
-    recommendedOrder: 70
+    recommendedOrder: 70,
+    description: 'Curva plana regulável para instalação de ar-condicionado',
+    isFeatured: false
   },
   {
     id: '80',
@@ -683,8 +882,11 @@ const sampleProducts: Product[] = [
     code: '7899611800016',
     price: 23.00,
     image: '/lovable-uploads/passagemdreno.png',
+    imageUrl: '/lovable-uploads/passagemdreno.png',
     category: 'ar-condicionado',
-    recommendedOrder: 71
+    recommendedOrder: 71,
+    description: 'Caixa de passagem para dreno de ar-condicionado',
+    isFeatured: false
   },
   {
     id: '81',
@@ -692,8 +894,11 @@ const sampleProducts: Product[] = [
     code: '789961180047',
     price: 25.00,
     image: '/lovable-uploads/passagemdreno.png',
+    imageUrl: '/lovable-uploads/passagemdreno.png',
     category: 'ar-condicionado',
-    recommendedOrder: 72
+    recommendedOrder: 72,
+    description: 'Caixa de passagem para dreno de ar-condicionado',
+    isFeatured: false
   },
   {
     id: '1',
@@ -701,7 +906,10 @@ const sampleProducts: Product[] = [
     code: 'ABR-001',
     price: 3.70,
     image: '/lovable-uploads/fe15bc67-99a8-48bb-9477-8a5f5d5f928d.png',
+    imageUrl: '/lovable-uploads/fe15bc67-99a8-48bb-9477-8a5f5d5f928d.png',
     category: 'instalacoes-eletricas',
+    description: 'Abraçadeira para instalações elétricas',
+    isFeatured: false
   },
   {
     id: '2',
@@ -709,7 +917,10 @@ const sampleProducts: Product[] = [
     code: 'LUV-001',
     price: 2.75,
     image: '/lovable-uploads/fe15bc67-99a8-48bb-9477-8a5f5d5f928d.png',
+    imageUrl: '/lovable-uploads/fe15bc67-99a8-48bb-9477-8a5f5d5f928d.png',
     category: 'instalacoes-eletricas',
+    description: 'Luva para eletroduto',
+    isFeatured: false
   },
   {
     id: '3',
@@ -717,7 +928,10 @@ const sampleProducts: Product[] = [
     code: 'CRV-001',
     price: 17.00,
     image: '/lovable-uploads/fe15bc67-99a8-48bb-9477-8a5f5d5f928d.png',
+    imageUrl: '/lovable-uploads/fe15bc67-99a8-48bb-9477-8a5f5d5f928d.png',
     category: 'instalacoes-eletricas',
+    description: 'Curva longa para instalações elétricas',
+    isFeatured: false
   },
   {
     id: '4',
@@ -725,7 +939,10 @@ const sampleProducts: Product[] = [
     code: 'CRV-002',
     price: 19.50,
     image: '/lovable-uploads/fe15bc67-99a8-48bb-9477-8a5f5d5f928d.png',
+    imageUrl: '/lovable-uploads/fe15bc67-99a8-48bb-9477-8a5f5d5f928d.png',
     category: 'instalacoes-eletricas',
+    description: 'Curva longa para instalações elétricas',
+    isFeatured: false
   },
   {
     id: '5',
@@ -733,7 +950,10 @@ const sampleProducts: Product[] = [
     code: 'ADP-001',
     price: 25.30,
     image: '/lovable-uploads/fe15bc67-99a8-48bb-9477-8a5f5d5f928d.png',
+    imageUrl: '/lovable-uploads/fe15bc67-99a8-48bb-9477-8a5f5d5f928d.png',
     category: 'instalacoes-eletricas',
+    description: 'Adaptador para condulete múltiplo',
+    isFeatured: false
   },
   {
     id: '6',
@@ -741,7 +961,10 @@ const sampleProducts: Product[] = [
     code: 'ADP-002',
     price: 22.80,
     image: '/lovable-uploads/fe15bc67-99a8-48bb-9477-8a5f5d5f928d.png',
+    imageUrl: '/lovable-uploads/fe15bc67-99a8-48bb-9477-8a5f5d5f928d.png',
     category: 'instalacoes-eletricas',
+    description: 'Adaptador para condulete múltiplo',
+    isFeatured: false
   },
   {
     id: '8',
@@ -749,7 +972,10 @@ const sampleProducts: Product[] = [
     code: 'TRM-001',
     price: 12.50,
     image: '/lovable-uploads/fe15bc67-99a8-48bb-9477-8a5f5d5f928d.png',
+    imageUrl: '/lovable-uploads/fe15bc67-99a8-48bb-9477-8a5f5d5f928d.png',
     category: 'terminais',
+    description: 'Terminal de compressão para instalações elétricas',
+    isFeatured: false
   },
   {
     id: '9',
@@ -757,7 +983,10 @@ const sampleProducts: Product[] = [
     code: 'SNS-001',
     price: 45.90,
     image: '/lovable-uploads/fe15bc67-99a8-48bb-9477-8a5f5d5f928d.png',
+    imageUrl: '/lovable-uploads/fe15bc67-99a8-48bb-9477-8a5f5d5f928d.png',
     category: 'automacao',
+    description: 'Sensor de temperatura PTC para automação',
+    isFeatured: false
   },
 ];
 

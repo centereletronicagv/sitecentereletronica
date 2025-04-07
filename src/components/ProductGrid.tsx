@@ -1,10 +1,5 @@
 import ProductCard from './ProductCard';
-import { Product as TypeProduct } from '../types';
-
-interface Product extends TypeProduct {
-  code: string;
-  recommendedOrder?: number;
-}
+import { Product } from '../types';
 
 interface ProductGridProps {
   products: Product[];
@@ -21,7 +16,7 @@ export default function ProductGrid({ products, isLoading = false, searchQuery =
   const filteredProducts = searchQuery
     ? products.filter(product => 
         product.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        product.code.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        (product.code?.toLowerCase() || '').includes(searchQuery.toLowerCase()) ||
         product.category.toLowerCase().includes(searchQuery.toLowerCase())
       )
     : products;

@@ -4,17 +4,21 @@ import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import ProductGrid from '../components/ProductGrid';
 import { Heart } from 'lucide-react';
+import { Product } from '../types';
 
 // This is a placeholder. In a real implementation, favorites would be stored
 // and retrieved from localStorage or a backend service
-const sampleFavorites = [
+const sampleFavorites: Product[] = [
   {
     id: '1',
     name: 'Abraçadeira 3/4" Tramontina Cinza',
     code: 'ABR-001',
     price: 3.70,
     image: '/lovable-uploads/fe15bc67-99a8-48bb-9477-8a5f5d5f928d.png',
+    imageUrl: '/lovable-uploads/fe15bc67-99a8-48bb-9477-8a5f5d5f928d.png',
     category: 'instalacoes-eletricas',
+    description: 'Abraçadeira para instalações elétricas',
+    isFeatured: false
   },
   {
     id: '3',
@@ -22,7 +26,10 @@ const sampleFavorites = [
     code: 'CRV-001',
     price: 17.00,
     image: '/lovable-uploads/fe15bc67-99a8-48bb-9477-8a5f5d5f928d.png',
+    imageUrl: '/lovable-uploads/fe15bc67-99a8-48bb-9477-8a5f5d5f928d.png',
     category: 'instalacoes-eletricas',
+    description: 'Curva longa para instalações elétricas',
+    isFeatured: false
   },
 ];
 

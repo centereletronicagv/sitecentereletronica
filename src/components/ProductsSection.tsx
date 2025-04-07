@@ -1,20 +1,8 @@
-
 import { useEffect, useState } from 'react';
 import { ArrowRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import ProductGrid from './ProductGrid';
-
-interface Product {
-  id: string;
-  name: string;
-  code: string;
-  price: number;
-  image: string;
-  category: string;
-  recommendedOrder?: number;
-  popularity?: number;
-  featured?: boolean;
-}
+import { Product } from '../types';
 
 const mockProducts: Product[] = [
   {
@@ -23,8 +11,11 @@ const mockProducts: Product[] = [
     code: 'ABR-001',
     price: 3.70,
     image: '/lovable-uploads/fe15bc67-99a8-48bb-9477-8a5f5d5f928d.png',
+    imageUrl: '/lovable-uploads/fe15bc67-99a8-48bb-9477-8a5f5d5f928d.png',
     category: 'ar-condicionado',
-    recommendedOrder: 10
+    recommendedOrder: 10,
+    description: 'Abraçadeira para instalações elétricas',
+    isFeatured: false
   },
   {
     id: '101',
@@ -32,6 +23,7 @@ const mockProducts: Product[] = [
     code: '13160',
     price: 43.00,
     image: '/lovable-uploads/suporte.png',
+    imageUrl: '/lovable-uploads/suporte.png',
     category: 'ar-condicionado',
     recommendedOrder: 1
   },
@@ -41,6 +33,7 @@ const mockProducts: Product[] = [
     code: '12602',
     price: 48.00,
     image: '/lovable-uploads/suporte.png',
+    imageUrl: '/lovable-uploads/suporte.png',
     category: 'ar-condicionado',
     recommendedOrder: 2
   },
@@ -50,6 +43,7 @@ const mockProducts: Product[] = [
     code: '7204',
     price: 75.00,
     image: '/lovable-uploads/suporte.png',
+    imageUrl: '/lovable-uploads/suporte.png',
     category: 'ar-condicionado',
     recommendedOrder: 3
   },
@@ -59,6 +53,7 @@ const mockProducts: Product[] = [
     code: '13309',
     price: 156.00,
     image: '/lovable-uploads/suporte.png',
+    imageUrl: '/lovable-uploads/suporte.png',
     category: 'ar-condicionado',
     recommendedOrder: 4
   },
@@ -68,6 +63,7 @@ const mockProducts: Product[] = [
     code: '13310',
     price: 255.00,
     image: '/lovable-uploads/suporte.png',
+    imageUrl: '/lovable-uploads/suporte.png',
     category: 'ar-condicionado',
     recommendedOrder: 5
   },
@@ -77,6 +73,7 @@ const mockProducts: Product[] = [
     code: '12710',
     price: 19.00,
     image: '/lovable-uploads/tubulacao.png',
+    imageUrl: '/lovable-uploads/tubulacao.png',
     category: 'ar-condicionado',
     recommendedOrder: 6
   },
@@ -86,6 +83,7 @@ const mockProducts: Product[] = [
     code: '12711',
     price: 28.00,
     image: '/lovable-uploads/tubulacao.png',
+    imageUrl: '/lovable-uploads/tubulacao.png',
     category: 'ar-condicionado',
     recommendedOrder: 7
   },
@@ -95,6 +93,7 @@ const mockProducts: Product[] = [
     code: '12709',
     price: 37.00,
     image: '/lovable-uploads/tubulacao.png',
+    imageUrl: '/lovable-uploads/tubulacao.png',
     category: 'ar-condicionado',
     recommendedOrder: 8
   },
@@ -104,6 +103,7 @@ const mockProducts: Product[] = [
     code: '12712',
     price: 49.00,
     image: '/lovable-uploads/tubulacao.png',
+    imageUrl: '/lovable-uploads/tubulacao.png',
     category: 'ar-condicionado',
     recommendedOrder: 9
   },
@@ -113,6 +113,7 @@ const mockProducts: Product[] = [
     code: '12713',
     price: 59.00,
     image: '/lovable-uploads/tubulacao.png',
+    imageUrl: '/lovable-uploads/tubulacao.png',
     category: 'ar-condicionado'
   },
   {
@@ -121,6 +122,7 @@ const mockProducts: Product[] = [
     code: '7199',
     price: 6.50,
     image: '/lovable-uploads/tubex.png',
+    imageUrl: '/lovable-uploads/tubex.png',
     category: 'ar-condicionado'
   },
   {
@@ -129,6 +131,7 @@ const mockProducts: Product[] = [
     code: 'CRV-001',
     price: 17.00,
     image: '/public/lovable-uploads/fe15bc67-99a8-48bb-9477-8a5f5d5f928d.png',
+    imageUrl: '/public/lovable-uploads/fe15bc67-99a8-48bb-9477-8a5f5d5f928d.png',
     category: 'ar-condicionado',
     popularity: 5
   },
@@ -138,6 +141,7 @@ const mockProducts: Product[] = [
     code: 'CRV-002',
     price: 19.50,
     image: '/public/lovable-uploads/fe15bc67-99a8-48bb-9477-8a5f5d5f928d.png',
+    imageUrl: '/public/lovable-uploads/fe15bc67-99a8-48bb-9477-8a5f5d5f928d.png',
     category: 'ar-condicionado',
     popularity: 6,
     featured: true
@@ -148,6 +152,7 @@ const mockProducts: Product[] = [
     code: 'ADP-001',
     price: 25.30,
     image: '/public/lovable-uploads/fe15bc67-99a8-48bb-9477-8a5f5d5f928d.png',
+    imageUrl: '/public/lovable-uploads/fe15bc67-99a8-48bb-9477-8a5f5d5f928d.png',
     category: 'ar-condicionado',
     popularity: 4
   },
@@ -157,6 +162,7 @@ const mockProducts: Product[] = [
     code: 'ADP-002',
     price: 22.80,
     image: '/public/lovable-uploads/fe15bc67-99a8-48bb-9477-8a5f5d5f928d.png',
+    imageUrl: '/public/lovable-uploads/fe15bc67-99a8-48bb-9477-8a5f5d5f928d.png',
     category: 'ar-condicionado',
     popularity: 7,
     featured: true
@@ -167,6 +173,7 @@ const mockProducts: Product[] = [
     code: 'TRM-001',
     price: 12.50,
     image: '/public/lovable-uploads/fe15bc67-99a8-48bb-9477-8a5f5d5f928d.png',
+    imageUrl: '/public/lovable-uploads/fe15bc67-99a8-48bb-9477-8a5f5d5f928d.png',
     category: 'ar-condicionado',
     popularity: 8
   },
@@ -176,6 +183,7 @@ const mockProducts: Product[] = [
     code: 'SNS-001',
     price: 45.90,
     image: '/public/lovable-uploads/fe15bc67-99a8-48bb-9477-8a5f5d5f928d.png',
+    imageUrl: '/public/lovable-uploads/fe15bc67-99a8-48bb-9477-8a5f5d5f928d.png',
     category: 'ar-condicionado',
     popularity: 7
   },
@@ -185,6 +193,7 @@ const mockProducts: Product[] = [
     code: '7899733823641',
     price: 130.00,
     image: '/lovable-uploads/r32650g.png',
+    imageUrl: '/lovable-uploads/r32650g.png',
     category: 'ar-condicionado',
     popularity: 9,
     featured: true
@@ -195,6 +204,7 @@ const mockProducts: Product[] = [
     code: '7199',
     price: 6.50,
     image: '/lovable-uploads/tubex.png',
+    imageUrl: '/lovable-uploads/tubex.png',
     category: 'ar-condicionado',
     popularity: 7,
     featured: true
@@ -205,6 +215,7 @@ const mockProducts: Product[] = [
     code: '7909522567677',
     price: 14.00,
     image: '/lovable-uploads/weg.png',
+    imageUrl: '/lovable-uploads/weg.png',
     category: 'ar-condicionado',
     popularity: 9,
     featured: true
@@ -215,6 +226,7 @@ const mockProducts: Product[] = [
     code: '11305',
     price: 20.00,
     image: '/lovable-uploads/capacitorpreto.png',
+    imageUrl: '/lovable-uploads/capacitorpreto.png',
     category: 'ar-condicionado',
     popularity: 8,
     featured: true
@@ -225,6 +237,7 @@ const mockProducts: Product[] = [
     code: '12602',
     price: 48.00,
     image: '/lovable-uploads/suporte.png',
+    imageUrl: '/lovable-uploads/suporte.png',
     category: 'ar-condicionado',
     popularity: 7
   },
@@ -234,6 +247,7 @@ const mockProducts: Product[] = [
     code: '7204',
     price: 75.00,
     image: '/lovable-uploads/suporte.png',
+    imageUrl: '/lovable-uploads/suporte.png',
     category: 'ar-condicionado',
     popularity: 7
   },
@@ -243,6 +257,7 @@ const mockProducts: Product[] = [
     code: '13309',
     price: 156.00,
     image: '/lovable-uploads/suporte.png',
+    imageUrl: '/lovable-uploads/suporte.png',
     category: 'ar-condicionado',
     popularity: 7
   },
@@ -252,6 +267,7 @@ const mockProducts: Product[] = [
     code: '13310',
     price: 255.00,
     image: '/lovable-uploads/suporte.png',
+    imageUrl: '/lovable-uploads/suporte.png',
     category: 'ar-condicionado',
     popularity: 7
   },
@@ -261,6 +277,7 @@ const mockProducts: Product[] = [
     code: '12710',
     price: 19.00,
     image: '/lovable-uploads/tubulacao.png',
+    imageUrl: '/lovable-uploads/tubulacao.png',
     category: 'ar-condicionado',
     popularity: 7
   },
@@ -270,6 +287,7 @@ const mockProducts: Product[] = [
     code: '12711',
     price: 28.00,
     image: '/lovable-uploads/tubulacao.png',
+    imageUrl: '/lovable-uploads/tubulacao.png',
     category: 'ar-condicionado',
     popularity: 7
   },
@@ -279,6 +297,7 @@ const mockProducts: Product[] = [
     code: '12709',
     price: 37.00,
     image: '/lovable-uploads/tubulacao.png',
+    imageUrl: '/lovable-uploads/tubulacao.png',
     category: 'ar-condicionado',
     popularity: 7
   },
@@ -288,6 +307,7 @@ const mockProducts: Product[] = [
     code: '12712',
     price: 49.00,
     image: '/lovable-uploads/tubulacao.png',
+    imageUrl: '/lovable-uploads/tubulacao.png',
     category: 'ar-condicionado',
     popularity: 7
   },
@@ -297,6 +317,7 @@ const mockProducts: Product[] = [
     code: '12713',
     price: 59.00,
     image: '/lovable-uploads/tubulacao.png',
+    imageUrl: '/lovable-uploads/tubulacao.png',
     category: 'ar-condicionado',
     popularity: 7
   },
@@ -306,6 +327,7 @@ const mockProducts: Product[] = [
     code: '7199',
     price: 6.50,
     image: '/lovable-uploads/tubex.png',
+    imageUrl: '/lovable-uploads/tubex.png',
     category: 'ar-condicionado',
     popularity: 7
   },
@@ -315,6 +337,7 @@ const mockProducts: Product[] = [
     code: '7200',
     price: 6.50,
     image: '/lovable-uploads/tubex.png',
+    imageUrl: '/lovable-uploads/tubex.png',
     category: 'ar-condicionado',
     popularity: 7
   },
@@ -324,6 +347,7 @@ const mockProducts: Product[] = [
     code: '7201',
     price: 6.50,
     image: '/lovable-uploads/tubex.png',
+    imageUrl: '/lovable-uploads/tubex.png',
     category: 'ar-condicionado',
     popularity: 7
   },
@@ -333,6 +357,7 @@ const mockProducts: Product[] = [
     code: '10504',
     price: 8.00,
     image: '/lovable-uploads/tubex.png',
+    imageUrl: '/lovable-uploads/tubex.png',
     category: 'ar-condicionado',
     popularity: 7
   },
@@ -342,6 +367,7 @@ const mockProducts: Product[] = [
     code: '100232514',
     price: 10.00,
     image: '/lovable-uploads/tubex.png',
+    imageUrl: '/lovable-uploads/tubex.png',
     category: 'ar-condicionado',
     popularity: 7
   },
@@ -351,6 +377,7 @@ const mockProducts: Product[] = [
     code: '7202',
     price: 8.00,
     image: '/lovable-uploads/fitapvc.png',
+    imageUrl: '/lovable-uploads/fitapvc.png',
     category: 'ar-condicionado',
     popularity: 7
   },
@@ -360,6 +387,7 @@ const mockProducts: Product[] = [
     code: '7195',
     price: 9.00,
     image: '/lovable-uploads/fitaalum.png',
+    imageUrl: '/lovable-uploads/fitaalum.png',
     category: 'ar-condicionado',
     popularity: 7
   },
@@ -369,6 +397,7 @@ const mockProducts: Product[] = [
     code: '11407',
     price: 5.80,
     image: '/lovable-uploads/dreno.png',
+    imageUrl: '/lovable-uploads/dreno.png',
     category: 'ar-condicionado',
     popularity: 7
   },
@@ -378,6 +407,7 @@ const mockProducts: Product[] = [
     code: '11993',
     price: 6.50,
     image: '/lovable-uploads/drenocristal.png',
+    imageUrl: '/lovable-uploads/drenocristal.png',
     category: 'ar-condicionado',
     popularity: 7
   },
@@ -387,6 +417,7 @@ const mockProducts: Product[] = [
     code: '12644',
     price: 15.00,
     image: '/lovable-uploads/bicodreno.png',
+    imageUrl: '/lovable-uploads/bicodreno.png',
     category: 'ar-condicionado',
     popularity: 7
   },
@@ -396,6 +427,7 @@ const mockProducts: Product[] = [
     code: '7899733823641',
     price: 130.00,
     image: '/lovable-uploads/r32650g.png',
+    imageUrl: '/lovable-uploads/r32650g.png',
     category: 'ar-condicionado',
     popularity: 7
   },
@@ -405,6 +437,7 @@ const mockProducts: Product[] = [
     code: '7899733819095',
     price: 290.00,
     image: '/lovable-uploads/r323kg.png',
+    imageUrl: '/lovable-uploads/r323kg.png',
     category: 'ar-condicionado',
     popularity: 7
   },
@@ -414,6 +447,7 @@ const mockProducts: Product[] = [
     code: '7899733805227',
     price: 129.00,
     image: '/lovable-uploads/r410a750g.png',
+    imageUrl: '/lovable-uploads/r410a750g.png',
     category: 'ar-condicionado',
     popularity: 7
   },
@@ -423,6 +457,7 @@ const mockProducts: Product[] = [
     code: '7899733805180',
     price: 132.00,
     image: '/lovable-uploads/r22.png',
+    imageUrl: '/lovable-uploads/r22.png',
     category: 'ar-condicionado',
     popularity: 7
   },
@@ -432,6 +467,7 @@ const mockProducts: Product[] = [
     code: '9947',
     price: 9.50,
     image: '/lovable-uploads/pp4.png',
+    imageUrl: '/lovable-uploads/pp4.png',
     category: 'ar-condicionado',
     popularity: 7
   },
@@ -441,6 +477,7 @@ const mockProducts: Product[] = [
     code: '8492',
     price: 10.20,
     image: '/lovable-uploads/pp5.png',
+    imageUrl: '/lovable-uploads/pp5.png',
     category: 'ar-condicionado',
     popularity: 7
   },
@@ -450,6 +487,7 @@ const mockProducts: Product[] = [
     code: '7909522567677',
     price: 14.00,
     image: '/lovable-uploads/weg.png',
+    imageUrl: '/lovable-uploads/weg.png',
     category: 'ar-condicionado',
     popularity: 7
   },
@@ -459,6 +497,7 @@ const mockProducts: Product[] = [
     code: '7891341466906',
     price: 24.00,
     image: '/lovable-uploads/schneider.png',
+    imageUrl: '/lovable-uploads/schneider.png',
     category: 'ar-condicionado',
     popularity: 7
   },
@@ -468,6 +507,7 @@ const mockProducts: Product[] = [
     code: '5418',
     price: 24.00,
     image: '/lovable-uploads/lukma.png',
+    imageUrl: '/lovable-uploads/lukma.png',
     category: 'ar-condicionado',
     popularity: 7
   },
@@ -477,6 +517,7 @@ const mockProducts: Product[] = [
     code: '13255',
     price: 42.00,
     image: '/lovable-uploads/valve.png',
+    imageUrl: '/lovable-uploads/valve.png',
     category: 'ar-condicionado',
     popularity: 7
   },
@@ -486,6 +527,7 @@ const mockProducts: Product[] = [
     code: '10062',
     price: 9.80,
     image: '/lovable-uploads/uniao.png',
+    imageUrl: '/lovable-uploads/uniao.png',
     category: 'ar-condicionado',
     popularity: 7
   },
@@ -495,6 +537,7 @@ const mockProducts: Product[] = [
     code: '10059',
     price: 20.00,
     image: '/lovable-uploads/uniao.png',
+    imageUrl: '/lovable-uploads/uniao.png',
     category: 'ar-condicionado',
     popularity: 7
   },
@@ -504,6 +547,7 @@ const mockProducts: Product[] = [
     code: '10061',
     price: 27.00,
     image: '/lovable-uploads/uniao.png',
+    imageUrl: '/lovable-uploads/uniao.png',
     category: 'ar-condicionado',
     popularity: 7
   },
@@ -513,6 +557,7 @@ const mockProducts: Product[] = [
     code: '10060',
     price: 38.00,
     image: '/lovable-uploads/uniao.png',
+    imageUrl: '/lovable-uploads/uniao.png',
     category: 'ar-condicionado',
     popularity: 7
   },
@@ -522,6 +567,7 @@ const mockProducts: Product[] = [
     code: '10058',
     price: 55.00,
     image: '/lovable-uploads/uniao.png',
+    imageUrl: '/lovable-uploads/uniao.png',
     category: 'ar-condicionado',
     popularity: 7
   },
@@ -531,6 +577,7 @@ const mockProducts: Product[] = [
     code: '12717',
     price: 20.00,
     image: '/lovable-uploads/redutor.png',
+    imageUrl: '/lovable-uploads/redutor.png',
     category: 'ar-condicionado',
     popularity: 7
   },
@@ -540,6 +587,7 @@ const mockProducts: Product[] = [
     code: '12716',
     price: 25.00,
     image: '/lovable-uploads/redutor.png',
+    imageUrl: '/lovable-uploads/redutor.png',
     category: 'ar-condicionado',
     popularity: 7
   },
@@ -549,6 +597,7 @@ const mockProducts: Product[] = [
     code: '12715',
     price: 28.00,
     image: '/lovable-uploads/redutor.png',
+    imageUrl: '/lovable-uploads/redutor.png',
     category: 'ar-condicionado',
     popularity: 7
   },
@@ -558,6 +607,7 @@ const mockProducts: Product[] = [
     code: '10054',
     price: 9.50,
     image: '/lovable-uploads/porca.png',
+    imageUrl: '/lovable-uploads/porca.png',
     category: 'ar-condicionado',
     popularity: 7
   },
@@ -567,6 +617,7 @@ const mockProducts: Product[] = [
     code: '10055',
     price: 9.80,
     image: '/lovable-uploads/porca.png',
+    imageUrl: '/lovable-uploads/porca.png',
     category: 'ar-condicionado',
     popularity: 7
   },
@@ -576,6 +627,7 @@ const mockProducts: Product[] = [
     code: '10051',
     price: 12.00,
     image: '/lovable-uploads/porca.png',
+    imageUrl: '/lovable-uploads/porca.png',
     category: 'ar-condicionado',
     popularity: 7
   },
@@ -585,6 +637,7 @@ const mockProducts: Product[] = [
     code: '10053',
     price: 29.00,
     image: '/lovable-uploads/porca.png',
+    imageUrl: '/lovable-uploads/porca.png',
     category: 'ar-condicionado',
     popularity: 7
   },
@@ -594,6 +647,7 @@ const mockProducts: Product[] = [
     code: '10052',
     price: 32.00,
     image: '/lovable-uploads/porca.png',
+    imageUrl: '/lovable-uploads/porca.png',
     category: 'ar-condicionado',
     popularity: 7
   },
@@ -603,6 +657,7 @@ const mockProducts: Product[] = [
     code: '11305',
     price: 20.00,
     image: '/lovable-uploads/capacitorpreto.png',
+    imageUrl: '/lovable-uploads/capacitorpreto.png',
     category: 'ar-condicionado',
     popularity: 7
   },
@@ -612,6 +667,7 @@ const mockProducts: Product[] = [
     code: '11306',
     price: 20.00,
     image: '/lovable-uploads/capacitorpreto.png',
+    imageUrl: '/lovable-uploads/capacitorpreto.png',
     category: 'ar-condicionado',
     popularity: 7
   },
@@ -621,6 +677,7 @@ const mockProducts: Product[] = [
     code: '11307',
     price: 20.00,
     image: '/lovable-uploads/capacitorpreto.png',
+    imageUrl: '/lovable-uploads/capacitorpreto.png',
     category: 'ar-condicionado',
     popularity: 7
   },
@@ -630,6 +687,7 @@ const mockProducts: Product[] = [
     code: '11308',
     price: 20.00,
     image: '/lovable-uploads/capacitorpreto.png',
+    imageUrl: '/lovable-uploads/capacitorpreto.png',
     category: 'ar-condicionado',
     popularity: 7
   },
@@ -639,6 +697,7 @@ const mockProducts: Product[] = [
     code: '11309',
     price: 20.00,
     image: '/lovable-uploads/capacitorpreto.png',
+    imageUrl: '/lovable-uploads/capacitorpreto.png',
     category: 'ar-condicionado',
     popularity: 7
   },
@@ -648,6 +707,7 @@ const mockProducts: Product[] = [
     code: '12642',
     price: 30.00,
     image: '/lovable-uploads/capacitor.png',
+    imageUrl: '/lovable-uploads/capacitor.png',
     category: 'ar-condicionado',
     popularity: 7
   },
@@ -657,6 +717,7 @@ const mockProducts: Product[] = [
     code: '7899733814250',
     price: 25.00,
     image: '/lovable-uploads/capacitor.png',
+    imageUrl: '/lovable-uploads/capacitor.png',
     category: 'ar-condicionado',
     popularity: 7
   },
@@ -666,6 +727,7 @@ const mockProducts: Product[] = [
     code: '11997',
     price: 35.00,
     image: '/lovable-uploads/capacitor.png',
+    imageUrl: '/lovable-uploads/capacitor.png',
     category: 'ar-condicionado',
     popularity: 7
   },
@@ -675,6 +737,7 @@ const mockProducts: Product[] = [
     code: '11327',
     price: 43.00,
     image: '/lovable-uploads/capacitor.png',
+    imageUrl: '/lovable-uploads/capacitor.png',
     category: 'ar-condicionado',
     popularity: 7
   },
@@ -684,6 +747,7 @@ const mockProducts: Product[] = [
     code: '11325',
     price: 48.00,
     image: '/lovable-uploads/capacitor.png',
+    imageUrl: '/lovable-uploads/capacitor.png',
     category: 'ar-condicionado',
     popularity: 7
   },
@@ -693,6 +757,7 @@ const mockProducts: Product[] = [
     code: '11311',
     price: 48.00,
     image: '/lovable-uploads/capacitor.png',
+    imageUrl: '/lovable-uploads/capacitor.png',
     category: 'ar-condicionado',
     popularity: 7
   },
@@ -702,6 +767,7 @@ const mockProducts: Product[] = [
     code: '11326',
     price: 53.00,
     image: '/lovable-uploads/capacitor.png',
+    imageUrl: '/lovable-uploads/capacitor.png',
     category: 'ar-condicionado',
     popularity: 7
   },
@@ -711,6 +777,7 @@ const mockProducts: Product[] = [
     code: '11312',
     price: 35.00,
     image: '/lovable-uploads/capacitor.png',
+    imageUrl: '/lovable-uploads/capacitor.png',
     category: 'ar-condicionado',
     popularity: 7
   },
@@ -720,6 +787,7 @@ const mockProducts: Product[] = [
     code: '12643',
     price: 52.00,
     image: '/lovable-uploads/capacitor.png',
+    imageUrl: '/lovable-uploads/capacitor.png',
     category: 'ar-condicionado',
     popularity: 7
   },
@@ -729,6 +797,7 @@ const mockProducts: Product[] = [
     code: '11998',
     price: 65.00,
     image: '/lovable-uploads/capacitor.png',
+    imageUrl: '/lovable-uploads/capacitor.png',
     category: 'ar-condicionado',
     popularity: 7
   },
@@ -738,6 +807,7 @@ const mockProducts: Product[] = [
     code: '11999',
     price: 45.00,
     image: '/lovable-uploads/capacitor.png',
+    imageUrl: '/lovable-uploads/capacitor.png',
     category: 'ar-condicionado',
     popularity: 7
   },
@@ -747,6 +817,7 @@ const mockProducts: Product[] = [
     code: '12000',
     price: 27.00,
     image: '/lovable-uploads/capacitor.png',
+    imageUrl: '/lovable-uploads/capacitor.png',
     category: 'ar-condicionado',
     popularity: 7
   },
@@ -756,6 +827,7 @@ const mockProducts: Product[] = [
     code: '12799',
     price: 39.00,
     image: '/lovable-uploads/duplo.png',
+    imageUrl: '/lovable-uploads/duplo.png',
     category: 'ar-condicionado',
     popularity: 7
   },
@@ -765,6 +837,7 @@ const mockProducts: Product[] = [
     code: '12485',
     price: 45.00,
     image: '/lovable-uploads/duplo.png',
+    imageUrl: '/lovable-uploads/duplo.png',
     category: 'ar-condicionado',
     popularity: 7
   },
@@ -774,6 +847,7 @@ const mockProducts: Product[] = [
     code: '13163',
     price: 45.00,
     image: '/lovable-uploads/duplo.png',
+    imageUrl: '/lovable-uploads/duplo.png',
     category: 'ar-condicionado',
     popularity: 7
   },
@@ -783,6 +857,7 @@ const mockProducts: Product[] = [
     code: '12651',
     price: 35.00,
     image: '/lovable-uploads/canaleta.png',
+    imageUrl: '/lovable-uploads/canaleta.png',
     category: 'ar-condicionado',
     popularity: 7
   },
@@ -792,6 +867,7 @@ const mockProducts: Product[] = [
     code: '12652',
     price: 40.00,
     image: '/lovable-uploads/canaleta.png',
+    imageUrl: '/lovable-uploads/canaleta.png',
     category: 'ar-condicionado',
     popularity: 7
   },
@@ -801,6 +877,7 @@ const mockProducts: Product[] = [
     code: '12645',
     price: 38.00,
     image: '/lovable-uploads/terminalacabamento.png',
+    imageUrl: '/lovable-uploads/terminalacabamento.png',
     category: 'ar-condicionado',
     popularity: 7
   },
@@ -810,6 +887,7 @@ const mockProducts: Product[] = [
     code: '12649',
     price: 55.00,
     image: '/lovable-uploads/terminalacabamento.png',
+    imageUrl: '/lovable-uploads/terminalacabamento.png',
     category: 'ar-condicionado',
     popularity: 7
   },
@@ -819,6 +897,7 @@ const mockProducts: Product[] = [
     code: '12647',
     price: 13.00,
     image: '/lovable-uploads/curvainterna.png',
+    imageUrl: '/lovable-uploads/curvainterna.png',
     category: 'ar-condicionado',
     popularity: 7
   },
@@ -828,6 +907,7 @@ const mockProducts: Product[] = [
     code: '12649',
     price: 15.00,
     image: '/lovable-uploads/passagemparede.png',
+    imageUrl: '/lovable-uploads/passagemparede.png',
     category: 'ar-condicionado',
     popularity: 7
   },
@@ -837,6 +917,7 @@ const mockProducts: Product[] = [
     code: '12646',
     price: 21.00,
     image: '/lovable-uploads/curvaregulavel.png',
+    imageUrl: '/lovable-uploads/curvaregulavel.png',
     category: 'ar-condicionado',
     popularity: 7
   },
@@ -846,6 +927,7 @@ const mockProducts: Product[] = [
     code: '7899611800016',
     price: 23.00,
     image: '/lovable-uploads/passagemdreno.png',
+    imageUrl: '/lovable-uploads/passagemdreno.png',
     category: 'ar-condicionado',
     popularity: 7
   },
@@ -855,6 +937,7 @@ const mockProducts: Product[] = [
     code: '789961180047',
     price: 25.00,
     image: '/lovable-uploads/passagemdreno.png',
+    imageUrl: '/lovable-uploads/passagemdreno.png',
     category: 'ar-condicionado',
     popularity: 7
   }
@@ -869,16 +952,12 @@ const ProductsSection = ({ searchQuery = '' }: ProductsSectionProps) => {
   const [products, setProducts] = useState<Product[]>([]);
 
   useEffect(() => {
-    // Simulate loading
     setIsLoading(true);
     
-    // In a real app, this would be a fetch request to an API
     setTimeout(() => {
       let filteredProducts = [...mockProducts];
       
-      // If we're on the homepage and there's no search query, only show first 8 recommended products
       if (!searchQuery) {
-        // Sort by recommendedOrder if available, otherwise use the order in the array
         filteredProducts = filteredProducts
           .filter(product => product.recommendedOrder !== undefined)
           .sort((a, b) => {
