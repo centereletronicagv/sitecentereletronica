@@ -1,16 +1,23 @@
 
 import { useState } from 'react';
-import { ShoppingCart, Heart } from 'lucide-react';
+import { ShoppingCart } from 'lucide-react';
 import { useCart } from '@/context/CartContext';
-import { ProductType } from '@/types/types';
+
+interface Product {
+  id: string;
+  name: string;
+  code: string;
+  price: number;
+  image: string;
+  category: string;
+}
 
 interface ProductCardProps {
-  product: ProductType & { code?: string };
+  product: Product;
 }
 
 export default function ProductCard({ product }: ProductCardProps) {
   const [isImageLoaded, setIsImageLoaded] = useState(false);
-  const [isImageError, setIsImageError] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
   const { addToCart } = useCart();
 
@@ -25,29 +32,17 @@ export default function ProductCard({ product }: ProductCardProps) {
     setIsImageLoaded(true);
   };
 
-  const handleImageError = () => {
-    setIsImageError(true);
-    setIsImageLoaded(true); // Consider the image "loaded" so we don't show the loading state indefinitely
-  };
-
   const handleAddToCart = () => {
-    addToCart({
-      id: product.id,
-      name: product.name,
-      code: product.code || product.barcode,
-      price: product.price,
-      image: product.image,
-    });
+    addToCart(product);
   };
 
+  // Check if the product is sold by meter
   const isSoldByMeter = 
-    (product.name && product.name.toLowerCase().includes('/m')) || 
-    (product.name && product.name.toLowerCase().includes('por metro'));
+    product.name.toLowerCase().includes('/m') || 
+    product.name.toLowerCase().includes('por metro');
 
-  const displayCode = product.code || product.barcode || product.id;
-
-  // Use uploaded product image or fallback to the generic product image
-  const productImage = isImageError ? "/lovable-uploads/generico.png" : product.image;
+  // Clean up the product name to remove the "/m" or "Por Metro" text
+  const displayName = product.name;
 
   return (
     <div 
@@ -65,23 +60,26 @@ export default function ProductCard({ product }: ProductCardProps) {
       <div className="relative pt-3 px-3 flex items-center justify-center h-28 sm:h-48 bg-gradient-to-br from-[#252525] to-[#202020]">
         <div className={`absolute inset-0 bg-[#252525] ${isImageLoaded ? 'opacity-0' : 'opacity-100 animate-pulse'} transition-opacity`}></div>
         <img
-          src={productImage} 
-          alt={product.name}
+          src={product.image} 
+          alt={displayName}
           className={`max-h-full max-w-full object-contain transition-opacity duration-300 ${isImageLoaded ? 'opacity-100' : 'opacity-0'}`}
           onLoad={handleImageLoad}
-          onError={handleImageError}
           loading="lazy"
+          width="120"
+          height="120"
+          decoding="async"
+          fetchPriority="high"
         />
         <div className="absolute top-2 left-2">
           <span className="bg-center-orange text-white text-[10px] sm:text-xs px-1.5 py-0.5 rounded-full font-medium">
-            {displayCode}
+            {product.code}
           </span>
         </div>
       </div>
 
       <div className="p-2 sm:p-4 flex flex-col flex-grow">
         <h3 className="font-medium text-white text-xs sm:text-base group-hover:text-center-orange transition-colors mb-1.5 sm:mb-4 line-clamp-2 h-8 sm:h-12">
-          {product.name}
+          {displayName}
         </h3>
         <div className="mt-auto">
           <div className="flex justify-between items-center">

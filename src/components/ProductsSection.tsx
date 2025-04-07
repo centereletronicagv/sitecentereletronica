@@ -1,10 +1,10 @@
+
 import { useEffect, useState } from 'react';
 import { ArrowRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import ProductGrid from './ProductGrid';
-import { ProductType } from '@/types/types';
 
-interface Product extends Partial<Omit<ProductType, 'barcode'>> {
+interface Product {
   id: string;
   name: string;
   code: string;
@@ -13,7 +13,7 @@ interface Product extends Partial<Omit<ProductType, 'barcode'>> {
   category: string;
   recommendedOrder?: number;
   popularity?: number;
-  barcode?: string;
+  featured?: boolean;
 }
 
 const mockProducts: Product[] = [
@@ -24,10 +24,6 @@ const mockProducts: Product[] = [
     price: 3.70,
     image: '/lovable-uploads/fe15bc67-99a8-48bb-9477-8a5f5d5f928d.png',
     category: 'ar-condicionado',
-    description: 'Abraçadeiras',
-    barcode: 'ABR-001',
-    inStock: true,
-    featured: false,
     recommendedOrder: 10
   },
   {
@@ -37,10 +33,6 @@ const mockProducts: Product[] = [
     price: 43.00,
     image: '/lovable-uploads/suporte.png',
     category: 'ar-condicionado',
-    description: 'Suportes',
-    barcode: '13160',
-    inStock: true,
-    featured: false,
     recommendedOrder: 1
   },
   {
@@ -50,10 +42,6 @@ const mockProducts: Product[] = [
     price: 48.00,
     image: '/lovable-uploads/suporte.png',
     category: 'ar-condicionado',
-    description: 'Suportes',
-    barcode: '12602',
-    inStock: true,
-    featured: false,
     recommendedOrder: 2
   },
   {
@@ -63,10 +51,6 @@ const mockProducts: Product[] = [
     price: 75.00,
     image: '/lovable-uploads/suporte.png',
     category: 'ar-condicionado',
-    description: 'Suportes',
-    barcode: '7204',
-    inStock: true,
-    featured: false,
     recommendedOrder: 3
   },
   {
@@ -76,10 +60,6 @@ const mockProducts: Product[] = [
     price: 156.00,
     image: '/lovable-uploads/suporte.png',
     category: 'ar-condicionado',
-    description: 'Suportes',
-    barcode: '13309',
-    inStock: true,
-    featured: false,
     recommendedOrder: 4
   },
   {
@@ -89,10 +69,6 @@ const mockProducts: Product[] = [
     price: 255.00,
     image: '/lovable-uploads/suporte.png',
     category: 'ar-condicionado',
-    description: 'Suportes',
-    barcode: '13310',
-    inStock: true,
-    featured: false,
     recommendedOrder: 5
   },
   {
@@ -102,10 +78,6 @@ const mockProducts: Product[] = [
     price: 19.00,
     image: '/lovable-uploads/tubulacao.png',
     category: 'ar-condicionado',
-    description: 'Tubulação',
-    barcode: '12710',
-    inStock: true,
-    featured: false,
     recommendedOrder: 6
   },
   {
@@ -115,10 +87,6 @@ const mockProducts: Product[] = [
     price: 28.00,
     image: '/lovable-uploads/tubulacao.png',
     category: 'ar-condicionado',
-    description: 'Tubulação',
-    barcode: '12711',
-    inStock: true,
-    featured: false,
     recommendedOrder: 7
   },
   {
@@ -128,10 +96,6 @@ const mockProducts: Product[] = [
     price: 37.00,
     image: '/lovable-uploads/tubulacao.png',
     category: 'ar-condicionado',
-    description: 'Tubulação',
-    barcode: '12709',
-    inStock: true,
-    featured: false,
     recommendedOrder: 8
   },
   {
@@ -141,10 +105,6 @@ const mockProducts: Product[] = [
     price: 49.00,
     image: '/lovable-uploads/tubulacao.png',
     category: 'ar-condicionado',
-    description: 'Tubulação',
-    barcode: '12712',
-    inStock: true,
-    featured: false,
     recommendedOrder: 9
   },
   {
@@ -153,11 +113,7 @@ const mockProducts: Product[] = [
     code: '12713',
     price: 59.00,
     image: '/lovable-uploads/tubulacao.png',
-    category: 'ar-condicionado',
-    description: 'Tubulação',
-    barcode: '12713',
-    inStock: true,
-    featured: false
+    category: 'ar-condicionado'
   },
   {
     id: '111',
@@ -165,11 +121,7 @@ const mockProducts: Product[] = [
     code: '7199',
     price: 6.50,
     image: '/lovable-uploads/tubex.png',
-    category: 'ar-condicionado',
-    description: 'Tubex',
-    barcode: '7199',
-    inStock: true,
-    featured: false
+    category: 'ar-condicionado'
   },
   {
     id: '3',
@@ -178,10 +130,6 @@ const mockProducts: Product[] = [
     price: 17.00,
     image: '/public/lovable-uploads/fe15bc67-99a8-48bb-9477-8a5f5d5f928d.png',
     category: 'ar-condicionado',
-    description: 'Curvas',
-    barcode: 'CRV-001',
-    inStock: true,
-    featured: false,
     popularity: 5
   },
   {
@@ -191,11 +139,8 @@ const mockProducts: Product[] = [
     price: 19.50,
     image: '/public/lovable-uploads/fe15bc67-99a8-48bb-9477-8a5f5d5f928d.png',
     category: 'ar-condicionado',
-    description: 'Curvas',
-    barcode: 'CRV-002',
-    inStock: true,
-    featured: true,
-    popularity: 6
+    popularity: 6,
+    featured: true
   },
   {
     id: '5',
@@ -204,10 +149,6 @@ const mockProducts: Product[] = [
     price: 25.30,
     image: '/public/lovable-uploads/fe15bc67-99a8-48bb-9477-8a5f5d5f928d.png',
     category: 'ar-condicionado',
-    description: 'Adaptadores',
-    barcode: 'ADP-001',
-    inStock: true,
-    featured: false,
     popularity: 4
   },
   {
@@ -217,11 +158,8 @@ const mockProducts: Product[] = [
     price: 22.80,
     image: '/public/lovable-uploads/fe15bc67-99a8-48bb-9477-8a5f5d5f928d.png',
     category: 'ar-condicionado',
-    description: 'Adaptadores',
-    barcode: 'ADP-002',
-    inStock: true,
-    featured: true,
-    popularity: 7
+    popularity: 7,
+    featured: true
   },
   {
     id: '8',
@@ -230,10 +168,6 @@ const mockProducts: Product[] = [
     price: 12.50,
     image: '/public/lovable-uploads/fe15bc67-99a8-48bb-9477-8a5f5d5f928d.png',
     category: 'ar-condicionado',
-    description: 'Terminals',
-    barcode: 'TRM-001',
-    inStock: true,
-    featured: false,
     popularity: 8
   },
   {
@@ -243,10 +177,6 @@ const mockProducts: Product[] = [
     price: 45.90,
     image: '/public/lovable-uploads/fe15bc67-99a8-48bb-9477-8a5f5d5f928d.png',
     category: 'ar-condicionado',
-    description: 'Sensores',
-    barcode: 'SNS-001',
-    inStock: true,
-    featured: false,
     popularity: 7
   },
   {
@@ -256,11 +186,8 @@ const mockProducts: Product[] = [
     price: 130.00,
     image: '/lovable-uploads/r32650g.png',
     category: 'ar-condicionado',
-    description: 'Fluidos',
-    barcode: '7899733823641',
-    inStock: true,
-    featured: true,
-    popularity: 9
+    popularity: 9,
+    featured: true
   },
   {
     id: '20',
@@ -269,11 +196,8 @@ const mockProducts: Product[] = [
     price: 6.50,
     image: '/lovable-uploads/tubex.png',
     category: 'ar-condicionado',
-    description: 'Tubex',
-    barcode: '7199',
-    inStock: true,
-    featured: true,
-    popularity: 7
+    popularity: 7,
+    featured: true
   },
   {
     id: '37',
@@ -282,11 +206,8 @@ const mockProducts: Product[] = [
     price: 14.00,
     image: '/lovable-uploads/weg.png',
     category: 'ar-condicionado',
-    description: 'Disjuntores',
-    barcode: '7909522567677',
-    inStock: true,
-    featured: true,
-    popularity: 9
+    popularity: 9,
+    featured: true
   },
   {
     id: '53',
@@ -295,11 +216,8 @@ const mockProducts: Product[] = [
     price: 20.00,
     image: '/lovable-uploads/capacitorpreto.png',
     category: 'ar-condicionado',
-    description: 'Capacitores',
-    barcode: '11305',
-    inStock: true,
-    featured: true,
-    popularity: 8
+    popularity: 8,
+    featured: true
   },
   {
     id: '102',
@@ -308,10 +226,6 @@ const mockProducts: Product[] = [
     price: 48.00,
     image: '/lovable-uploads/suporte.png',
     category: 'ar-condicionado',
-    description: 'Suportes',
-    barcode: '12602',
-    inStock: true,
-    featured: false,
     popularity: 7
   },
   {
@@ -321,10 +235,6 @@ const mockProducts: Product[] = [
     price: 75.00,
     image: '/lovable-uploads/suporte.png',
     category: 'ar-condicionado',
-    description: 'Suportes',
-    barcode: '7204',
-    inStock: true,
-    featured: false,
     popularity: 7
   },
   {
@@ -334,10 +244,6 @@ const mockProducts: Product[] = [
     price: 156.00,
     image: '/lovable-uploads/suporte.png',
     category: 'ar-condicionado',
-    description: 'Suportes',
-    barcode: '13309',
-    inStock: true,
-    featured: false,
     popularity: 7
   },
   {
@@ -347,10 +253,6 @@ const mockProducts: Product[] = [
     price: 255.00,
     image: '/lovable-uploads/suporte.png',
     category: 'ar-condicionado',
-    description: 'Suportes',
-    barcode: '13310',
-    inStock: true,
-    featured: false,
     popularity: 7
   },
   {
@@ -360,10 +262,6 @@ const mockProducts: Product[] = [
     price: 19.00,
     image: '/lovable-uploads/tubulacao.png',
     category: 'ar-condicionado',
-    description: 'Tubulação',
-    barcode: '12710',
-    inStock: true,
-    featured: false,
     popularity: 7
   },
   {
@@ -373,10 +271,6 @@ const mockProducts: Product[] = [
     price: 28.00,
     image: '/lovable-uploads/tubulacao.png',
     category: 'ar-condicionado',
-    description: 'Tubulação',
-    barcode: '12711',
-    inStock: true,
-    featured: false,
     popularity: 7
   },
   {
@@ -386,10 +280,6 @@ const mockProducts: Product[] = [
     price: 37.00,
     image: '/lovable-uploads/tubulacao.png',
     category: 'ar-condicionado',
-    description: 'Tubulação',
-    barcode: '12709',
-    inStock: true,
-    featured: false,
     popularity: 7
   },
   {
@@ -399,10 +289,6 @@ const mockProducts: Product[] = [
     price: 49.00,
     image: '/lovable-uploads/tubulacao.png',
     category: 'ar-condicionado',
-    description: 'Tubulação',
-    barcode: '12712',
-    inStock: true,
-    featured: false,
     popularity: 7
   },
   {
@@ -412,10 +298,6 @@ const mockProducts: Product[] = [
     price: 59.00,
     image: '/lovable-uploads/tubulacao.png',
     category: 'ar-condicionado',
-    description: 'Tubulação',
-    barcode: '12713',
-    inStock: true,
-    featured: false,
     popularity: 7
   },
   {
@@ -425,10 +307,6 @@ const mockProducts: Product[] = [
     price: 6.50,
     image: '/lovable-uploads/tubex.png',
     category: 'ar-condicionado',
-    description: 'Tubex',
-    barcode: '7199',
-    inStock: true,
-    featured: false,
     popularity: 7
   },
   {
@@ -438,10 +316,6 @@ const mockProducts: Product[] = [
     price: 6.50,
     image: '/lovable-uploads/tubex.png',
     category: 'ar-condicionado',
-    description: 'Tubex',
-    barcode: '7200',
-    inStock: true,
-    featured: false,
     popularity: 7
   },
   {
@@ -451,10 +325,6 @@ const mockProducts: Product[] = [
     price: 6.50,
     image: '/lovable-uploads/tubex.png',
     category: 'ar-condicionado',
-    description: 'Tubex',
-    barcode: '7201',
-    inStock: true,
-    featured: false,
     popularity: 7
   },
   {
@@ -464,10 +334,6 @@ const mockProducts: Product[] = [
     price: 8.00,
     image: '/lovable-uploads/tubex.png',
     category: 'ar-condicionado',
-    description: 'Tubex',
-    barcode: '10504',
-    inStock: true,
-    featured: false,
     popularity: 7
   },
   {
@@ -477,10 +343,6 @@ const mockProducts: Product[] = [
     price: 10.00,
     image: '/lovable-uploads/tubex.png',
     category: 'ar-condicionado',
-    description: 'Tubex',
-    barcode: '100232514',
-    inStock: true,
-    featured: false,
     popularity: 7
   },
   {
@@ -490,10 +352,6 @@ const mockProducts: Product[] = [
     price: 8.00,
     image: '/lovable-uploads/fitapvc.png',
     category: 'ar-condicionado',
-    description: 'Fitas',
-    barcode: '7202',
-    inStock: true,
-    featured: false,
     popularity: 7
   },
   {
@@ -503,10 +361,6 @@ const mockProducts: Product[] = [
     price: 9.00,
     image: '/lovable-uploads/fitaalum.png',
     category: 'ar-condicionado',
-    description: 'Fitas',
-    barcode: '7195',
-    inStock: true,
-    featured: false,
     popularity: 7
   },
   {
@@ -516,10 +370,6 @@ const mockProducts: Product[] = [
     price: 5.80,
     image: '/lovable-uploads/dreno.png',
     category: 'ar-condicionado',
-    description: 'Manguirras',
-    barcode: '11407',
-    inStock: true,
-    featured: false,
     popularity: 7
   },
   {
@@ -529,10 +379,6 @@ const mockProducts: Product[] = [
     price: 6.50,
     image: '/lovable-uploads/drenocristal.png',
     category: 'ar-condicionado',
-    description: 'Manguirras',
-    barcode: '11993',
-    inStock: true,
-    featured: false,
     popularity: 7
   },
   {
@@ -542,10 +388,6 @@ const mockProducts: Product[] = [
     price: 15.00,
     image: '/lovable-uploads/bicodreno.png',
     category: 'ar-condicionado',
-    description: 'Bicos',
-    barcode: '12644',
-    inStock: true,
-    featured: false,
     popularity: 7
   },
   {
@@ -555,10 +397,6 @@ const mockProducts: Product[] = [
     price: 130.00,
     image: '/lovable-uploads/r32650g.png',
     category: 'ar-condicionado',
-    description: 'Fluidos',
-    barcode: '7899733823641',
-    inStock: true,
-    featured: false,
     popularity: 7
   },
   {
@@ -568,10 +406,6 @@ const mockProducts: Product[] = [
     price: 290.00,
     image: '/lovable-uploads/r323kg.png',
     category: 'ar-condicionado',
-    description: 'Fluidos',
-    barcode: '7899733819095',
-    inStock: true,
-    featured: false,
     popularity: 7
   },
   {
@@ -581,10 +415,6 @@ const mockProducts: Product[] = [
     price: 129.00,
     image: '/lovable-uploads/r410a750g.png',
     category: 'ar-condicionado',
-    description: 'Fluidos',
-    barcode: '7899733805227',
-    inStock: true,
-    featured: false,
     popularity: 7
   },
   {
@@ -594,10 +424,6 @@ const mockProducts: Product[] = [
     price: 132.00,
     image: '/lovable-uploads/r22.png',
     category: 'ar-condicionado',
-    description: 'Fluidos',
-    barcode: '7899733805180',
-    inStock: true,
-    featured: false,
     popularity: 7
   },
   {
@@ -607,10 +433,6 @@ const mockProducts: Product[] = [
     price: 9.50,
     image: '/lovable-uploads/pp4.png',
     category: 'ar-condicionado',
-    description: 'Cabos',
-    barcode: '9947',
-    inStock: true,
-    featured: false,
     popularity: 7
   },
   {
@@ -620,10 +442,6 @@ const mockProducts: Product[] = [
     price: 10.20,
     image: '/lovable-uploads/pp5.png',
     category: 'ar-condicionado',
-    description: 'Cabos',
-    barcode: '8492',
-    inStock: true,
-    featured: false,
     popularity: 7
   },
   {
@@ -633,10 +451,6 @@ const mockProducts: Product[] = [
     price: 14.00,
     image: '/lovable-uploads/weg.png',
     category: 'ar-condicionado',
-    description: 'Disjuntores',
-    barcode: '7909522567677',
-    inStock: true,
-    featured: false,
     popularity: 7
   },
   {
@@ -646,10 +460,6 @@ const mockProducts: Product[] = [
     price: 24.00,
     image: '/lovable-uploads/schneider.png',
     category: 'ar-condicionado',
-    description: 'Disjuntores',
-    barcode: '7891341466906',
-    inStock: true,
-    featured: false,
     popularity: 7
   },
   {
@@ -659,10 +469,6 @@ const mockProducts: Product[] = [
     price: 24.00,
     image: '/lovable-uploads/lukma.png',
     category: 'ar-condicionado',
-    description: 'Disjuntores',
-    barcode: '5418',
-    inStock: true,
-    featured: false,
     popularity: 7
   },
   {
@@ -672,10 +478,6 @@ const mockProducts: Product[] = [
     price: 42.00,
     image: '/lovable-uploads/valve.png',
     category: 'ar-condicionado',
-    description: 'Valvulas',
-    barcode: '13255',
-    inStock: true,
-    featured: false,
     popularity: 7
   },
   {
@@ -685,10 +487,6 @@ const mockProducts: Product[] = [
     price: 9.80,
     image: '/lovable-uploads/uniao.png',
     category: 'ar-condicionado',
-    description: 'Uniones',
-    barcode: '10062',
-    inStock: true,
-    featured: false,
     popularity: 7
   },
   {
@@ -698,10 +496,6 @@ const mockProducts: Product[] = [
     price: 20.00,
     image: '/lovable-uploads/uniao.png',
     category: 'ar-condicionado',
-    description: 'Uniones',
-    barcode: '10059',
-    inStock: true,
-    featured: false,
     popularity: 7
   },
   {
@@ -711,10 +505,6 @@ const mockProducts: Product[] = [
     price: 27.00,
     image: '/lovable-uploads/uniao.png',
     category: 'ar-condicionado',
-    description: 'Uniones',
-    barcode: '10061',
-    inStock: true,
-    featured: false,
     popularity: 7
   },
   {
@@ -724,10 +514,6 @@ const mockProducts: Product[] = [
     price: 38.00,
     image: '/lovable-uploads/uniao.png',
     category: 'ar-condicionado',
-    description: 'Uniones',
-    barcode: '10060',
-    inStock: true,
-    featured: false,
     popularity: 7
   },
   {
@@ -737,10 +523,6 @@ const mockProducts: Product[] = [
     price: 55.00,
     image: '/lovable-uploads/uniao.png',
     category: 'ar-condicionado',
-    description: 'Uniones',
-    barcode: '10058',
-    inStock: true,
-    featured: false,
     popularity: 7
   },
   {
@@ -750,10 +532,6 @@ const mockProducts: Product[] = [
     price: 20.00,
     image: '/lovable-uploads/redutor.png',
     category: 'ar-condicionado',
-    description: 'Reductores',
-    barcode: '12717',
-    inStock: true,
-    featured: false,
     popularity: 7
   },
   {
@@ -763,10 +541,6 @@ const mockProducts: Product[] = [
     price: 25.00,
     image: '/lovable-uploads/redutor.png',
     category: 'ar-condicionado',
-    description: 'Reductores',
-    barcode: '12716',
-    inStock: true,
-    featured: false,
     popularity: 7
   },
   {
@@ -776,10 +550,6 @@ const mockProducts: Product[] = [
     price: 28.00,
     image: '/lovable-uploads/redutor.png',
     category: 'ar-condicionado',
-    description: 'Reductores',
-    barcode: '12715',
-    inStock: true,
-    featured: false,
     popularity: 7
   },
   {
@@ -789,10 +559,6 @@ const mockProducts: Product[] = [
     price: 9.50,
     image: '/lovable-uploads/porca.png',
     category: 'ar-condicionado',
-    description: 'Porcas',
-    barcode: '10054',
-    inStock: true,
-    featured: false,
     popularity: 7
   },
   {
@@ -802,10 +568,6 @@ const mockProducts: Product[] = [
     price: 9.80,
     image: '/lovable-uploads/porca.png',
     category: 'ar-condicionado',
-    description: 'Porcas',
-    barcode: '10055',
-    inStock: true,
-    featured: false,
     popularity: 7
   },
   {
@@ -815,10 +577,6 @@ const mockProducts: Product[] = [
     price: 12.00,
     image: '/lovable-uploads/porca.png',
     category: 'ar-condicionado',
-    description: 'Porcas',
-    barcode: '10051',
-    inStock: true,
-    featured: false,
     popularity: 7
   },
   {
@@ -828,10 +586,6 @@ const mockProducts: Product[] = [
     price: 29.00,
     image: '/lovable-uploads/porca.png',
     category: 'ar-condicionado',
-    description: 'Porcas',
-    barcode: '10053',
-    inStock: true,
-    featured: false,
     popularity: 7
   },
   {
@@ -841,10 +595,6 @@ const mockProducts: Product[] = [
     price: 32.00,
     image: '/lovable-uploads/porca.png',
     category: 'ar-condicionado',
-    description: 'Porcas',
-    barcode: '10052',
-    inStock: true,
-    featured: false,
     popularity: 7
   },
   {
@@ -854,10 +604,6 @@ const mockProducts: Product[] = [
     price: 20.00,
     image: '/lovable-uploads/capacitorpreto.png',
     category: 'ar-condicionado',
-    description: 'Capacitores',
-    barcode: '11305',
-    inStock: true,
-    featured: false,
     popularity: 7
   },
   {
@@ -867,10 +613,6 @@ const mockProducts: Product[] = [
     price: 20.00,
     image: '/lovable-uploads/capacitorpreto.png',
     category: 'ar-condicionado',
-    description: 'Capacitores',
-    barcode: '11306',
-    inStock: true,
-    featured: false,
     popularity: 7
   },
   {
@@ -880,10 +622,6 @@ const mockProducts: Product[] = [
     price: 20.00,
     image: '/lovable-uploads/capacitorpreto.png',
     category: 'ar-condicionado',
-    description: 'Capacitores',
-    barcode: '11307',
-    inStock: true,
-    featured: false,
     popularity: 7
   },
   {
@@ -893,10 +631,6 @@ const mockProducts: Product[] = [
     price: 20.00,
     image: '/lovable-uploads/capacitorpreto.png',
     category: 'ar-condicionado',
-    description: 'Capacitores',
-    barcode: '11308',
-    inStock: true,
-    featured: false,
     popularity: 7
   },
   {
@@ -906,10 +640,6 @@ const mockProducts: Product[] = [
     price: 20.00,
     image: '/lovable-uploads/capacitorpreto.png',
     category: 'ar-condicionado',
-    description: 'Capacitores',
-    barcode: '11309',
-    inStock: true,
-    featured: false,
     popularity: 7
   },
   {
@@ -919,10 +649,6 @@ const mockProducts: Product[] = [
     price: 30.00,
     image: '/lovable-uploads/capacitor.png',
     category: 'ar-condicionado',
-    description: 'Capacitores',
-    barcode: '12642',
-    inStock: true,
-    featured: false,
     popularity: 7
   },
   {
@@ -932,10 +658,6 @@ const mockProducts: Product[] = [
     price: 25.00,
     image: '/lovable-uploads/capacitor.png',
     category: 'ar-condicionado',
-    description: 'Capacitores',
-    barcode: '7899733814250',
-    inStock: true,
-    featured: false,
     popularity: 7
   },
   {
@@ -945,10 +667,6 @@ const mockProducts: Product[] = [
     price: 35.00,
     image: '/lovable-uploads/capacitor.png',
     category: 'ar-condicionado',
-    description: 'Capacitores',
-    barcode: '11997',
-    inStock: true,
-    featured: false,
     popularity: 7
   },
   {
@@ -958,10 +676,6 @@ const mockProducts: Product[] = [
     price: 43.00,
     image: '/lovable-uploads/capacitor.png',
     category: 'ar-condicionado',
-    description: 'Capacitores',
-    barcode: '11327',
-    inStock: true,
-    featured: false,
     popularity: 7
   },
   {
@@ -971,10 +685,6 @@ const mockProducts: Product[] = [
     price: 48.00,
     image: '/lovable-uploads/capacitor.png',
     category: 'ar-condicionado',
-    description: 'Capacitores',
-    barcode: '11325',
-    inStock: true,
-    featured: false,
     popularity: 7
   },
   {
@@ -984,10 +694,6 @@ const mockProducts: Product[] = [
     price: 48.00,
     image: '/lovable-uploads/capacitor.png',
     category: 'ar-condicionado',
-    description: 'Capacitores',
-    barcode: '11311',
-    inStock: true,
-    featured: false,
     popularity: 7
   },
   {
@@ -997,10 +703,6 @@ const mockProducts: Product[] = [
     price: 53.00,
     image: '/lovable-uploads/capacitor.png',
     category: 'ar-condicionado',
-    description: 'Capacitores',
-    barcode: '11326',
-    inStock: true,
-    featured: false,
     popularity: 7
   },
   {
@@ -1010,10 +712,6 @@ const mockProducts: Product[] = [
     price: 35.00,
     image: '/lovable-uploads/capacitor.png',
     category: 'ar-condicionado',
-    description: 'Capacitores',
-    barcode: '11312',
-    inStock: true,
-    featured: false,
     popularity: 7
   },
   {
@@ -1023,10 +721,6 @@ const mockProducts: Product[] = [
     price: 52.00,
     image: '/lovable-uploads/capacitor.png',
     category: 'ar-condicionado',
-    description: 'Capacitores',
-    barcode: '12643',
-    inStock: true,
-    featured: false,
     popularity: 7
   },
   {
@@ -1036,10 +730,6 @@ const mockProducts: Product[] = [
     price: 65.00,
     image: '/lovable-uploads/capacitor.png',
     category: 'ar-condicionado',
-    description: 'Capacitores',
-    barcode: '11998',
-    inStock: true,
-    featured: false,
     popularity: 7
   },
   {
@@ -1049,10 +739,6 @@ const mockProducts: Product[] = [
     price: 45.00,
     image: '/lovable-uploads/capacitor.png',
     category: 'ar-condicionado',
-    description: 'Capacitores',
-    barcode: '11999',
-    inStock: true,
-    featured: false,
     popularity: 7
   },
   {
@@ -1062,10 +748,6 @@ const mockProducts: Product[] = [
     price: 27.00,
     image: '/lovable-uploads/capacitor.png',
     category: 'ar-condicionado',
-    description: 'Capacitores',
-    barcode: '12000',
-    inStock: true,
-    featured: false,
     popularity: 7
   },
   {
@@ -1075,10 +757,6 @@ const mockProducts: Product[] = [
     price: 39.00,
     image: '/lovable-uploads/duplo.png',
     category: 'ar-condicionado',
-    description: 'Capacitores',
-    barcode: '12799',
-    inStock: true,
-    featured: false,
     popularity: 7
   },
   {
@@ -1088,10 +766,6 @@ const mockProducts: Product[] = [
     price: 45.00,
     image: '/lovable-uploads/duplo.png',
     category: 'ar-condicionado',
-    description: 'Capacitores',
-    barcode: '12485',
-    inStock: true,
-    featured: false,
     popularity: 7
   },
   {
@@ -1101,10 +775,6 @@ const mockProducts: Product[] = [
     price: 45.00,
     image: '/lovable-uploads/duplo.png',
     category: 'ar-condicionado',
-    description: 'Capacitores',
-    barcode: '13163',
-    inStock: true,
-    featured: false,
     popularity: 7
   },
   {
@@ -1114,10 +784,6 @@ const mockProducts: Product[] = [
     price: 35.00,
     image: '/lovable-uploads/canaleta.png',
     category: 'ar-condicionado',
-    description: 'Canaletas',
-    barcode: '12651',
-    inStock: true,
-    featured: false,
     popularity: 7
   },
   {
@@ -1127,10 +793,6 @@ const mockProducts: Product[] = [
     price: 40.00,
     image: '/lovable-uploads/canaleta.png',
     category: 'ar-condicionado',
-    description: 'Canaletas',
-    barcode: '12652',
-    inStock: true,
-    featured: false,
     popularity: 7
   },
   {
@@ -1140,10 +802,6 @@ const mockProducts: Product[] = [
     price: 38.00,
     image: '/lovable-uploads/terminalacabamento.png',
     category: 'ar-condicionado',
-    description: 'Terminals',
-    barcode: '12645',
-    inStock: true,
-    featured: false,
     popularity: 7
   },
   {
@@ -1153,10 +811,6 @@ const mockProducts: Product[] = [
     price: 55.00,
     image: '/lovable-uploads/terminalacabamento.png',
     category: 'ar-condicionado',
-    description: 'Terminals',
-    barcode: '12649',
-    inStock: true,
-    featured: false,
     popularity: 7
   },
   {
@@ -1166,10 +820,6 @@ const mockProducts: Product[] = [
     price: 13.00,
     image: '/lovable-uploads/curvainterna.png',
     category: 'ar-condicionado',
-    description: 'Curvas',
-    barcode: '12647',
-    inStock: true,
-    featured: false,
     popularity: 7
   },
   {
@@ -1179,10 +829,6 @@ const mockProducts: Product[] = [
     price: 15.00,
     image: '/lovable-uploads/passagemparede.png',
     category: 'ar-condicionado',
-    description: 'Passagens',
-    barcode: '12649',
-    inStock: true,
-    featured: false,
     popularity: 7
   },
   {
@@ -1192,10 +838,6 @@ const mockProducts: Product[] = [
     price: 21.00,
     image: '/lovable-uploads/curvaregulavel.png',
     category: 'ar-condicionado',
-    description: 'Curvas',
-    barcode: '12646',
-    inStock: true,
-    featured: false,
     popularity: 7
   },
   {
@@ -1205,10 +847,6 @@ const mockProducts: Product[] = [
     price: 23.00,
     image: '/lovable-uploads/passagemdreno.png',
     category: 'ar-condicionado',
-    description: 'Dreno',
-    barcode: '7899611800016',
-    inStock: true,
-    featured: false,
     popularity: 7
   },
   {
@@ -1218,10 +856,6 @@ const mockProducts: Product[] = [
     price: 25.00,
     image: '/lovable-uploads/passagemdreno.png',
     category: 'ar-condicionado',
-    description: 'Dreno',
-    barcode: '789961180047',
-    inStock: true,
-    featured: false,
     popularity: 7
   }
 ];
@@ -1235,12 +869,16 @@ const ProductsSection = ({ searchQuery = '' }: ProductsSectionProps) => {
   const [products, setProducts] = useState<Product[]>([]);
 
   useEffect(() => {
+    // Simulate loading
     setIsLoading(true);
     
+    // In a real app, this would be a fetch request to an API
     setTimeout(() => {
       let filteredProducts = [...mockProducts];
       
+      // If we're on the homepage and there's no search query, only show first 8 recommended products
       if (!searchQuery) {
+        // Sort by recommendedOrder if available, otherwise use the order in the array
         filteredProducts = filteredProducts
           .filter(product => product.recommendedOrder !== undefined)
           .sort((a, b) => {
@@ -1255,14 +893,6 @@ const ProductsSection = ({ searchQuery = '' }: ProductsSectionProps) => {
       setIsLoading(false);
     }, 500);
   }, [searchQuery]);
-
-  const formattedProducts = products.map(product => ({
-    ...product,
-    barcode: product.barcode || product.code,
-    inStock: product.inStock !== undefined ? product.inStock : true,
-    featured: product.featured !== undefined ? product.featured : false,
-    description: product.description || product.category
-  })) as (ProductType & { code?: string })[];
 
   return (
     <section id="products" className="py-16 px-4 bg-[#121212]">
@@ -1282,7 +912,7 @@ const ProductsSection = ({ searchQuery = '' }: ProductsSectionProps) => {
           </div>
         )}
         
-        <ProductGrid products={formattedProducts} isLoading={isLoading} searchQuery={searchQuery} />
+        <ProductGrid products={products} isLoading={isLoading} searchQuery={searchQuery} />
       </div>
     </section>
   );
