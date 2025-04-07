@@ -9,6 +9,7 @@ import NotFound from "./pages/NotFound";
 import { ThemeProvider } from "./hooks/useTheme";
 import CategoryPage from "./pages/CategoryPage";
 import { CartProvider } from "./context/CartContext";
+import FavoritesPage from "./pages/FavoritesPage";
 
 // Create a custom scrollToTop function
 const scrollToTop = () => {
@@ -39,6 +40,7 @@ const App = () => (
             <Routes>
               <Route path="/" element={<Index />} />
               <Route path="/categoria/:slug" element={<CategoryPage />} />
+              <Route path="/favoritos" element={<FavoritesPage />} />
               {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
               <Route path="*" element={<NotFound />} />
             </Routes>

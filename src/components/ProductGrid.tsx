@@ -1,13 +1,8 @@
-
 import ProductCard from './ProductCard';
+import { Product as TypeProduct } from '../types';
 
-interface Product {
-  id: string;
-  name: string;
+interface Product extends TypeProduct {
   code: string;
-  price: number;
-  image: string;
-  category: string;
   recommendedOrder?: number;
 }
 
