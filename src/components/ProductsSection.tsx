@@ -1,3 +1,4 @@
+
 import { useEffect, useState } from 'react';
 import { ArrowRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
@@ -752,3 +753,50 @@ const mockProducts: Product[] = [
     popularity: 7
   })
 ];
+
+const ProductsSection = ({ searchQuery }: { searchQuery: string }) => {
+  const [filteredProducts, setFilteredProducts] = useState<Product[]>([]);
+  
+  useEffect(() => {
+    // Filter products based on search query
+    if (searchQuery) {
+      const filtered = mockProducts.filter(product => 
+        product.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        product.code.toLowerCase().includes(searchQuery.toLowerCase())
+      );
+      setFilteredProducts(filtered);
+    } else {
+      // Show featured products or all products if no featured ones
+      const featured = mockProducts.filter(product => product.featured);
+      setFilteredProducts(featured.length > 0 ? featured : mockProducts.slice(0, 8));
+    }
+  }, [searchQuery]);
+
+  return (
+    <div className="py-12 md:py-16">
+      <div className="container">
+        <div className="flex justify-between items-center mb-8">
+          <h2 className="text-2xl md:text-3xl font-bold">
+            {searchQuery ? `Resultados para "${searchQuery}"` : 'Produtos Destacados'}
+          </h2>
+          {!searchQuery && (
+            <Link to="/produtos" className="flex items-center text-primary hover:underline">
+              Ver todos <ArrowRight className="ml-2 h-4 w-4" />
+            </Link>
+          )}
+        </div>
+        
+        <ProductGrid products={filteredProducts} />
+        
+        {filteredProducts.length === 0 && (
+          <div className="text-center py-12">
+            <p className="text-lg text-gray-500">Nenhum produto encontrado.</p>
+            <p className="mt-2">Tente uma nova pesquisa ou navegue por nossas categorias.</p>
+          </div>
+        )}
+      </div>
+    </div>
+  );
+};
+
+export default ProductsSection;
