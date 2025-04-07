@@ -1,3 +1,4 @@
+
 import { useState, useEffect, FormEvent } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { Menu, X, Search, Wind, Plug, Terminal, Router, ChevronDown, ChevronRight, ShoppingCart } from 'lucide-react';
@@ -10,7 +11,20 @@ import {
   Collapsible,
   CollapsibleContent,
   CollapsibleTrigger,
-} from "@/components/ui/collapsible"
+} from "@/components/ui/collapsible";
+import {
+  Drawer,
+  DrawerContent,
+  DrawerHeader,
+  DrawerTitle,
+  DrawerTrigger,
+} from "@/components/ui/drawer";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 
 interface NavLink {
   name: string;
@@ -108,11 +122,6 @@ export default function Navbar() {
     setIsMobileSearchOpen(false);
   };
 
-  const handleMobileSearchOpen = () => {
-    console.log('Open mobile search');
-    setIsMobileSearchOpen(true);
-  };
-
   const toggleCategory = (name: string) => {
     setOpenCategories(prev => ({
       ...prev,
@@ -120,13 +129,15 @@ export default function Navbar() {
     }));
   };
 
-  const handleCategoryClick = (link: NavLink) => {
-    if (!link.subCategories || link.name === 'Início' || link.name === 'Contato') {
+  const handleCategoryClick = (link: NavLink, event?: React.MouseEvent) => {
+    if (link.subCategories && link.name !== 'Início' && link.name !== 'Contato') {
+      if (event) {
+        event.preventDefault();
+      }
+      toggleCategory(link.name);
+    } else {
       navigate(link.href);
       setIsMenuOpen(false);
-    }
-    else {
-      toggleCategory(link.name);
     }
   };
 
@@ -201,21 +212,23 @@ export default function Navbar() {
               </div>
             </div>
 
-            <div className="flex items-center gap-1.5 md:hidden">
+            <div className="flex items-center gap-2 md:hidden">
+              {/* Mobile Search Button */}
               <button 
-                className="p-1.5 text-gray-300 bg-[#333333] rounded-full"
-                onClick={handleMobileSearchOpen}
+                className="p-2 text-gray-300 bg-[#333333] rounded-full"
+                onClick={() => setIsMobileSearchOpen(true)}
                 aria-label="Buscar"
               >
-                <Search size={16} />
+                <Search size={18} />
               </button>
               
+              {/* Mobile Cart Button */}
               <button
                 onClick={() => setIsCartOpen(true)}
-                className="p-1.5 text-gray-300 bg-[#333333] rounded-full relative"
+                className="p-2 text-gray-300 bg-[#333333] rounded-full relative"
                 aria-label="Carrinho"
               >
-                <ShoppingCart size={16} />
+                <ShoppingCart size={18} />
                 {getTotalItems() > 0 && (
                   <span className="absolute -top-1 -right-1 bg-center-orange text-white text-xs w-4 h-4 flex items-center justify-center rounded-full text-[10px]">
                     {getTotalItems()}
@@ -223,32 +236,64 @@ export default function Navbar() {
                 )}
               </button>
               
+              {/* Mobile Menu Button */}
               <button
                 onClick={() => setIsMenuOpen(!isMenuOpen)}
-                className="p-1.5 text-gray-300 bg-[#333333] rounded-full"
+                className="p-2 text-gray-300 bg-[#333333] rounded-full"
                 aria-label="Menu"
               >
-                {isMenuOpen ? <X size={16} /> : <Menu size={16} />}
+                {isMenuOpen ? <X size={18} /> : <Menu size={18} />}
               </button>
             </div>
           </div>
 
+          {/* Desktop Navigation */}
           <nav className="hidden md:block mt-4 border-t border-[#333333] pt-4">
-            <ul className="flex items-center gap-12">
+            <ul className="flex items-center gap-6 lg:gap-12">
               {navLinks.map((link) => (
                 <li key={link.name}>
-                  <Link
-                    to={link.href}
-                    className={`flex items-center gap-2 py-2 text-sm font-medium transition-colors ${
-                      location.pathname === link.href
-                        ? 'text-center-orange'
-                        : 'text-gray-300 hover:text-center-orange'
-                    }`}
-                  >
-                    {link.icon && link.icon}
-                    {link.name}
-                    {link.name !== 'Início' && link.name !== 'Contato' && <ChevronDown size={14} />}
-                  </Link>
+                  {link.subCategories && link.name !== 'Início' && link.name !== 'Contato' ? (
+                    <DropdownMenu>
+                      <DropdownMenuTrigger className={`flex items-center gap-2 py-2 text-sm font-medium transition-colors ${
+                        location.pathname === link.href
+                          ? 'text-center-orange'
+                          : 'text-gray-300 hover:text-center-orange'
+                      }`}>
+                        {link.icon && link.icon}
+                        {link.name}
+                        <ChevronDown size={14} />
+                      </DropdownMenuTrigger>
+                      <DropdownMenuContent className="bg-[#222] border-[#333] rounded-md shadow-lg py-1">
+                        <DropdownMenuItem 
+                          className="px-4 py-2 text-sm hover:bg-[#333] hover:text-center-orange cursor-pointer"
+                          onClick={() => navigate(link.href)}
+                        >
+                          Ver todos
+                        </DropdownMenuItem>
+                        {link.subCategories.map((subCat) => (
+                          <DropdownMenuItem 
+                            key={subCat.name}
+                            className="px-4 py-2 text-sm hover:bg-[#333] hover:text-center-orange cursor-pointer"
+                            onClick={() => navigate(subCat.href)}
+                          >
+                            {subCat.name}
+                          </DropdownMenuItem>
+                        ))}
+                      </DropdownMenuContent>
+                    </DropdownMenu>
+                  ) : (
+                    <Link
+                      to={link.href}
+                      className={`flex items-center gap-2 py-2 text-sm font-medium transition-colors ${
+                        location.pathname === link.href
+                          ? 'text-center-orange'
+                          : 'text-gray-300 hover:text-center-orange'
+                      }`}
+                    >
+                      {link.icon && link.icon}
+                      {link.name}
+                    </Link>
+                  )}
                 </li>
               ))}
             </ul>
@@ -256,80 +301,113 @@ export default function Navbar() {
         </div>
       </div>
 
-      <div 
-        className={`fixed inset-0 z-40 bg-[#222222] transform transition-transform duration-300 ease-in-out pt-16 ${
-          isMenuOpen ? 'translate-x-0' : 'translate-x-full'
-        }`}
-      >
-        <button
-          onClick={() => setIsMenuOpen(false)}
-          className="absolute top-4 right-4 p-2 rounded-full bg-[#333333] text-gray-300 hover:text-white"
-          aria-label="Fechar menu"
-        >
-          <X size={20} />
-        </button>
-        
-        <div className="container-custom py-4">
-          <div className="mb-6">
-            <form onSubmit={handleSearch} className="relative">
-              <Input
-                type="search"
-                placeholder="Buscar produtos..."
-                className="pl-10 pr-4 py-2 w-full bg-[#333333] border-0 text-white"
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-              />
-              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
-            </form>
-          </div>
+      {/* Mobile Menu Drawer */}
+      <Drawer open={isMenuOpen} onOpenChange={setIsMenuOpen}>
+        <DrawerContent className="max-h-[90vh] bg-[#222222] border-t-2 border-[#333333] overflow-y-auto pb-8">
+          <DrawerHeader className="border-b border-[#333333] sticky top-0 bg-[#222222] z-10">
+            <DrawerTitle className="text-white">Menu</DrawerTitle>
+          </DrawerHeader>
+          
+          <div className="px-4 py-4">
+            <div className="mb-4">
+              <form onSubmit={handleSearch} className="relative">
+                <Input
+                  type="search"
+                  placeholder="Buscar produtos..."
+                  className="pl-10 pr-4 py-2 w-full bg-[#333333] border-0 text-white"
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                />
+                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
+              </form>
+            </div>
 
-          <nav className="flex flex-col gap-2">
-            <div className="flex flex-col">
-              {navLinks.map((link) => (
-                <div key={link.name} className="border-b border-[#333333]">
-                  <Link
-                    to={link.href}
-                    onClick={() => setIsMenuOpen(false)}
-                    className={`flex items-center gap-2 px-4 py-3 text-base font-medium rounded-md transition-colors ${
-                      location.pathname === link.href
-                        ? 'bg-center-orange/10 text-center-orange'
-                        : 'text-gray-300 hover:bg-[#333333]'
-                    }`}
-                  >
-                    {link.icon && link.icon}
-                    {link.name}
-                  </Link>
-                </div>
-              ))}
-            </div>
-            
-            <div className="mt-4 pt-4 border-t border-[#333333]">
-              <button
-                onClick={() => {
-                  setIsCartOpen(true);
-                  setIsMenuOpen(false);
-                }}
-                className="flex items-center gap-2 px-4 py-3 text-base font-medium text-gray-300 hover:bg-[#333333] rounded-md w-full text-left"
+            <nav className="flex flex-col gap-2">
+              <div className="flex flex-col">
+                {navLinks.map((link) => (
+                  <div key={link.name} className="border-b border-[#333333]">
+                    {link.subCategories && link.name !== 'Início' && link.name !== 'Contato' ? (
+                      <Collapsible
+                        open={!!openCategories[link.name]}
+                        onOpenChange={() => toggleCategory(link.name)}
+                      >
+                        <CollapsibleTrigger className="flex w-full items-center justify-between px-4 py-3.5 text-base font-medium rounded-md transition-colors text-gray-300 hover:bg-[#333333]">
+                          <div className="flex items-center gap-2">
+                            {link.icon && link.icon}
+                            {link.name}
+                          </div>
+                          {openCategories[link.name] ? (
+                            <ChevronDown size={18} />
+                          ) : (
+                            <ChevronRight size={18} />
+                          )}
+                        </CollapsibleTrigger>
+                        <CollapsibleContent className="pl-8 pb-2">
+                          <Link
+                            to={link.href}
+                            onClick={() => setIsMenuOpen(false)}
+                            className="block py-2.5 text-sm text-gray-400 hover:text-center-orange"
+                          >
+                            Ver todos
+                          </Link>
+                          {link.subCategories.map((subCat) => (
+                            <Link
+                              key={subCat.name}
+                              to={subCat.href}
+                              onClick={() => setIsMenuOpen(false)}
+                              className="block py-2.5 text-sm text-gray-400 hover:text-center-orange"
+                            >
+                              {subCat.name}
+                            </Link>
+                          ))}
+                        </CollapsibleContent>
+                      </Collapsible>
+                    ) : (
+                      <Link
+                        to={link.href}
+                        onClick={() => setIsMenuOpen(false)}
+                        className={`flex items-center gap-2 px-4 py-3.5 text-base font-medium rounded-md transition-colors ${
+                          location.pathname === link.href
+                            ? 'bg-center-orange/10 text-center-orange'
+                            : 'text-gray-300 hover:bg-[#333333]'
+                        }`}
+                      >
+                        {link.icon && link.icon}
+                        {link.name}
+                      </Link>
+                    )}
+                  </div>
+                ))}
+              </div>
+              
+              <div className="mt-4 pt-4 border-t border-[#333333]">
+                <button
+                  onClick={() => {
+                    setIsCartOpen(true);
+                    setIsMenuOpen(false);
+                  }}
+                  className="flex items-center gap-2 px-4 py-3 text-base font-medium text-gray-300 hover:bg-[#333333] rounded-md w-full text-left"
+                >
+                  <ShoppingCart size={18} />
+                  <span>Carrinho</span>
+                  {getTotalItems() > 0 && (
+                    <span className="ml-auto bg-center-orange text-white text-xs w-5 h-5 flex items-center justify-center rounded-full">
+                      {getTotalItems()}
+                    </span>
+                  )}
+                </button>
+              </div>
+              
+              <a 
+                href="tel:5499270560" 
+                className="mt-2 flex items-center gap-2 px-4 py-3 text-base font-medium text-white bg-center-orange rounded-md"
               >
-                <ShoppingCart size={18} />
-                <span>Carrinho</span>
-                {getTotalItems() > 0 && (
-                  <span className="ml-auto bg-center-orange text-white text-xs w-5 h-5 flex items-center justify-center rounded-full">
-                    {getTotalItems()}
-                  </span>
-                )}
-              </button>
-            </div>
-            
-            <a 
-              href="tel:5499270560" 
-              className="mt-2 flex items-center gap-2 px-4 py-3 text-base font-medium text-white bg-center-orange rounded-md"
-            >
-              <span>Ligar: 54 9927-0560</span>
-            </a>
-          </nav>
-        </div>
-      </div>
+                <span>Ligar: 54 9927-0560</span>
+              </a>
+            </nav>
+          </div>
+        </DrawerContent>
+      </Drawer>
 
       <CartModal open={isCartOpen} onOpenChange={setIsCartOpen} />
 
