@@ -14,10 +14,17 @@ const categories = [
     textColor: "text-white",
     href: "/categoria/ar-condicionado",
     subcategories: [
-      { name: "Suportes", href: "/categoria/ar-condicionado" },
-      { name: "Tubulação", href: "/categoria/ar-condicionado" },
-      { name: "Tubex", href: "/categoria/ar-condicionado" },
-      { name: "Fluídos", href: "/categoria/ar-condicionado" },
+      { name: "Suportes", href: "/categoria/ar-condicionado?subcategoria=suportes" },
+      { name: "Tubulação", href: "/categoria/ar-condicionado?subcategoria=tubulacao" },
+      { name: "Tubex", href: "/categoria/ar-condicionado?subcategoria=tubex" },
+      { name: "Fluídos", href: "/categoria/ar-condicionado?subcategoria=fluidos" },
+      { name: "Fitas", href: "/categoria/ar-condicionado?subcategoria=fitas" },
+      { name: "Dreno", href: "/categoria/ar-condicionado?subcategoria=dreno" },
+      { name: "Capacitores", href: "/categoria/ar-condicionado?subcategoria=capacitor" },
+      { name: "Uniões", href: "/categoria/ar-condicionado?subcategoria=uniao" },
+      { name: "Redutores", href: "/categoria/ar-condicionado?subcategoria=redutor" },
+      { name: "Porcas", href: "/categoria/ar-condicionado?subcategoria=porca" },
+      { name: "Acabamentos", href: "/categoria/ar-condicionado?subcategoria=acabamento" },
     ]
   },
   {
@@ -28,8 +35,8 @@ const categories = [
     textColor: "text-white",
     href: "/categoria/instalacoes-eletricas",
     subcategories: [
-      { name: "Disjuntores", href: "/categoria/instalacoes-eletricas" },
-      { name: "Cabos", href: "/categoria/instalacoes-eletricas" },
+      { name: "Disjuntores", href: "/categoria/instalacoes-eletricas?subcategoria=disjuntores" },
+      { name: "Cabos", href: "/categoria/instalacoes-eletricas?subcategoria=cabos" },
     ]
   },
   {
@@ -40,8 +47,8 @@ const categories = [
     textColor: "text-white",
     href: "/categoria/terminais",
     subcategories: [
-      { name: "Terminais", href: "/categoria/terminais" },
-      { name: "Conectores", href: "/categoria/terminais" },
+      { name: "Terminais", href: "/categoria/terminais?subcategoria=terminais" },
+      { name: "Conectores", href: "/categoria/terminais?subcategoria=conectores" },
     ]
   },
   {
@@ -52,8 +59,8 @@ const categories = [
     textColor: "text-white",
     href: "/categoria/automacao",
     subcategories: [
-      { name: "Sensores", href: "/categoria/automacao" },
-      { name: "Atuadores", href: "/categoria/automacao" },
+      { name: "Sensores", href: "/categoria/automacao?subcategoria=sensores" },
+      { name: "Atuadores", href: "/categoria/automacao?subcategoria=atuadores" },
     ]
   },
 ];
