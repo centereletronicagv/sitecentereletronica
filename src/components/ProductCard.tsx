@@ -33,6 +33,9 @@ export default function ProductCard({ product }: ProductCardProps) {
     product.name.toLowerCase().includes('/m') || 
     product.name.toLowerCase().includes('por metro');
 
+  // Check if the price is "Sob Consulta"
+  const isPriceOnRequest = product.price === 0 || product.price === null;
+
   // Clean up the product name to remove the "/m" or "Por Metro" text
   const displayName = product.name;
 
@@ -76,8 +79,14 @@ export default function ProductCard({ product }: ProductCardProps) {
         <div className="mt-auto">
           <div className="flex justify-between items-center">
             <div className="text-sm sm:text-lg font-semibold text-center-orange">
-              {formatPrice(product.price)}
-              {isSoldByMeter && <span className="text-[10px] sm:text-xs font-normal text-gray-400 ml-1">/m</span>}
+              {isPriceOnRequest ? (
+                <span>Sob Consulta</span>
+              ) : (
+                <>
+                  {formatPrice(product.price)}
+                  {isSoldByMeter && <span className="text-[10px] sm:text-xs font-normal text-gray-400 ml-1">/m</span>}
+                </>
+              )}
             </div>
             <button 
               onClick={(e) => {

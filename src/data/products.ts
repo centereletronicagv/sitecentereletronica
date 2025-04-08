@@ -1,4 +1,3 @@
-
 import { Product } from "../types";
 
 export const products: Product[] = [
@@ -178,7 +177,6 @@ export const products: Product[] = [
     code: '7898623748842',
     subcategory: 'Botão de emergência'
   },
-  // Chaves seletoras
   {
     id: 'chave-seletora-1na-2pos-chave',
     name: 'CHAVE SELETORA 1NA 2 POS C/ CHAVE',
@@ -278,7 +276,6 @@ export const products: Product[] = [
     code: '7898623749399',
     subcategory: 'Chave seletora'
   },
-  // LEDs e sinalizadores
   {
     id: 'led-22mm-sibratec',
     name: 'LED 22MM 220/127v SIBRATEC',
@@ -422,7 +419,6 @@ export const products: Product[] = [
     code: '7891435936209',
     subcategory: 'Sinalizadores'
   },
-  // Chaves para motores
   {
     id: 'chave-motor-mono',
     name: 'CHAVE P/ MOTOR MONO. 30A 2CV 250V',
@@ -500,7 +496,6 @@ export const products: Product[] = [
     code: '7890428162731',
     subcategory: 'Partida de motores'
   },
-  // Relés
   {
     id: 'rele-multifuncao',
     name: 'RELÉ TEMP. MULTIFUNÇÃO 24-220V 1,5s-10d',
@@ -568,7 +563,7 @@ export const products: Product[] = [
     subcategory: 'Relé de monitoramento'
   },
   {
-    id: 'rele-estrela-triangulo',
+    id: 'rele-estrela-triangular',
     name: 'RELÉ TEMP. ESTRELA-TRIÂNGULO 24-220V',
     category: 'automacao',
     description: 'Relé temporizador estrela-triângulo, 24-220V.',
@@ -599,5 +594,291 @@ export const products: Product[] = [
     image: '/lovable-uploads/relenivel.png',
     code: '7898640445182',
     subcategory: 'Relé de nível'
+  },
+  {
+    id: 'mini-contator-7a-220v-weg',
+    name: 'MINI CONTATOR 7A 220V 1NA WEG',
+    category: 'automacao',
+    description: 'Mini contator 7A, tensão 220V, contato 1NA, marca WEG.',
+    price: null,
+    imageUrl: '/lovable-uploads/miniweg220.png',
+    image: '/lovable-uploads/miniweg220.png',
+    code: '7909158141210',
+    subcategory: 'Contatores'
+  },
+  {
+    id: 'mini-contator-9a-220v-tramontina',
+    name: 'MINI CONTATOR 9A 220V 1NA TRAMONTINA',
+    category: 'automacao',
+    description: 'Mini contator 9A, tensão 220V, contato 1NA, marca Tramontina.',
+    price: null,
+    imageUrl: '/lovable-uploads/minitramontina220.png',
+    image: '/lovable-uploads/minitramontina220.png',
+    code: '7891435934670',
+    subcategory: 'Contatores'
+  },
+  {
+    id: 'mini-contator-9a-220v-soprano',
+    name: 'MINI CONTATOR 9A 220V 1NA SOPRANO',
+    category: 'automacao',
+    description: 'Mini contator 9A, tensão 220V, contato 1NA, marca Soprano.',
+    price: null,
+    imageUrl: '/lovable-uploads/minisoprano220.png',
+    image: '/lovable-uploads/minisoprano220.png',
+    code: '7487',
+    subcategory: 'Contatores'
+  },
+  {
+    id: 'contator-9a-220v-cwl',
+    name: 'CONTATOR 9A 220V 1NA CWL',
+    category: 'automacao',
+    description: 'Contator 9A, tensão 220V, contato 1NA, modelo CWL.',
+    price: null,
+    imageUrl: '/lovable-uploads/cwl.png',
+    image: '/lovable-uploads/cwl.png',
+    code: '7909323350638',
+    subcategory: 'Contatores'
+  },
+  {
+    id: 'contator-12a-220v-cwb',
+    name: 'CONTATOR 12A 220V 1NA+1NF CWB',
+    category: 'automacao',
+    description: 'Contator 12A, tensão 220V, contatos 1NA+1NF, modelo CWB.',
+    price: null,
+    imageUrl: '/lovable-uploads/cwb.png',
+    image: '/lovable-uploads/cwb.png',
+    code: '7909018771342',
+    subcategory: 'Contatores'
+  },
+  {
+    id: 'contator-18a-220v-cwb',
+    name: 'CONTATOR 18A 220V 1NA+1NF CWB',
+    category: 'automacao',
+    description: 'Contator 18A, tensão 220V, contatos 1NA+1NF, modelo CWB.',
+    price: null,
+    imageUrl: '/lovable-uploads/cwb.png',
+    image: '/lovable-uploads/cwb.png',
+    code: '7909018772202',
+    subcategory: 'Contatores'
+  },
+  {
+    id: 'contator-25a-220v-cwl',
+    name: 'CONTATOR 25A 220V 1NA CWL',
+    category: 'automacao',
+    description: 'Contator 25A, tensão 220V, contato 1NA, modelo CWL.',
+    price: null,
+    imageUrl: '/lovable-uploads/cwl.png',
+    image: '/lovable-uploads/cwl.png',
+    code: '7909323346211',
+    subcategory: 'Contatores'
+  },
+  {
+    id: 'contator-32a-220v-cwl',
+    name: 'CONTATOR 32A 220V S/ AUX. CWL',
+    category: 'automacao',
+    description: 'Contator 32A, tensão 220V, sem auxiliar, modelo CWL.',
+    price: null,
+    imageUrl: '/lovable-uploads/cwl.png',
+    image: '/lovable-uploads/cwl.png',
+    code: '7909323854457',
+    subcategory: 'Contatores'
+  },
+  {
+    id: 'contator-40a-220v-cwl',
+    name: 'CONTATOR 40A 220V S/ AUX. CWL',
+    category: 'automacao',
+    description: 'Contator 40A, tensão 220V, sem auxiliar, modelo CWL.',
+    price: null,
+    imageUrl: '/lovable-uploads/cwl.png',
+    image: '/lovable-uploads/cwl.png',
+    code: '7909323854471',
+    subcategory: 'Contatores'
+  },
+  {
+    id: 'contator-45a-220v-cwl',
+    name: 'CONTATOR 45A 220V S/ AUX. CWL',
+    category: 'automacao',
+    description: 'Contator 45A, tensão 220V, sem auxiliar, modelo CWL.',
+    price: null,
+    imageUrl: '/lovable-uploads/cwl.png',
+    image: '/lovable-uploads/cwl.png',
+    code: '7909323854655',
+    subcategory: 'Contatores'
+  },
+  {
+    id: 'contator-50a-220v-cwl',
+    name: 'CONTATOR 50A 220V S/ AUX. CWL',
+    category: 'automacao',
+    description: 'Contator 50A, tensão 220V, sem auxiliar, modelo CWL.',
+    price: null,
+    imageUrl: '/lovable-uploads/cwl.png',
+    image: '/lovable-uploads/cwl.png',
+    code: '7909522389347',
+    subcategory: 'Contatores'
+  },
+  {
+    id: 'contator-65a-220v-cwl',
+    name: 'CONTATOR 65A 220V S/ AUX. CWL',
+    category: 'automacao',
+    description: 'Contator 65A, tensão 220V, sem auxiliar, modelo CWL.',
+    price: null,
+    imageUrl: '/lovable-uploads/cwl.png',
+    image: '/lovable-uploads/cwl.png',
+    code: '7909522389354',
+    subcategory: 'Contatores'
+  },
+  {
+    id: 'mini-contator-9a-24vac-cwc',
+    name: 'MINI CONTATOR 9A 24VAC 1NA CWC',
+    category: 'automacao',
+    description: 'Mini contator 9A, tensão 24VAC, contato 1NA, modelo CWC.',
+    price: null,
+    imageUrl: '/lovable-uploads/miniweg220.png',
+    image: '/lovable-uploads/miniweg220.png',
+    code: '7909158138159',
+    subcategory: 'Contatores'
+  },
+  {
+    id: 'contator-9a-24vac-cwb',
+    name: 'CONTATOR 9A 24VAC 1NA+1NF CWB',
+    category: 'automacao',
+    description: 'Contator 9A, tensão 24VAC, contatos 1NA+1NF, modelo CWB.',
+    price: null,
+    imageUrl: '/lovable-uploads/cwb.png',
+    image: '/lovable-uploads/cwb.png',
+    code: '7909158498963',
+    subcategory: 'Contatores'
+  },
+  {
+    id: 'contator-12a-24vac-cwb',
+    name: 'CONTATOR 12A 24VAC 1NA+1NF CWB',
+    category: 'automacao',
+    description: 'Contator 12A, tensão 24VAC, contatos 1NA+1NF, modelo CWB.',
+    price: null,
+    imageUrl: '/lovable-uploads/cwb.png',
+    image: '/lovable-uploads/cwb.png',
+    code: '7909158498369',
+    subcategory: 'Contatores'
+  },
+  {
+    id: 'contator-12a-24vac-tramontina',
+    name: 'CONTATOR 12A 24VAC 1NF TRAMONTINA',
+    category: 'automacao',
+    description: 'Contator 12A, tensão 24VAC, contato 1NF, marca Tramontina.',
+    price: null,
+    imageUrl: '/lovable-uploads/tramontina24vac.png',
+    image: '/lovable-uploads/tramontina24vac.png',
+    code: '7891435938852',
+    subcategory: 'Contatores'
+  },
+  {
+    id: 'contator-18a-24vac-cwb',
+    name: 'CONTATOR 18A 24VAC 1NA+1NF CWB',
+    category: 'automacao',
+    description: 'Contator 18A, tensão 24VAC, contatos 1NA+1NF, modelo CWB.',
+    price: null,
+    imageUrl: '/lovable-uploads/cwb.png',
+    image: '/lovable-uploads/cwb.png',
+    code: '7909158499076',
+    subcategory: 'Contatores'
+  },
+  {
+    id: 'contator-25a-24vac-cwb',
+    name: 'CONTATOR 25A 24VAC 1NA+1NF CWB',
+    category: 'automacao',
+    description: 'Contator 25A, tensão 24VAC, contatos 1NA+1NF, modelo CWB.',
+    price: null,
+    imageUrl: '/lovable-uploads/cwb.png',
+    image: '/lovable-uploads/cwb.png',
+    code: '7909018798578',
+    subcategory: 'Contatores'
+  },
+  {
+    id: 'contator-32a-24vac-cwb',
+    name: 'CONTATOR 32A 24VAC 1NA+1NF CWB',
+    category: 'automacao',
+    description: 'Contator 32A, tensão 24VAC, contatos 1NA+1NF, modelo CWB.',
+    price: null,
+    imageUrl: '/lovable-uploads/cwb.png',
+    image: '/lovable-uploads/cwb.png',
+    code: '7909018812922',
+    subcategory: 'Contatores'
+  },
+  {
+    id: 'contator-40a-12vac-ic4011',
+    name: 'CONTATOR 40A 12VAC 1NA IC4011',
+    category: 'automacao',
+    description: 'Contator 40A, tensão 12VAC, contato 1NA, modelo IC4011.',
+    price: null,
+    imageUrl: '/lovable-uploads/sibratec.png',
+    image: '/lovable-uploads/sibratec.png',
+    code: '13092',
+    subcategory: 'Contatores'
+  },
+  {
+    id: 'mini-contator-aux-10a-24vdc-cwc',
+    name: 'MINI CONTATOR AUX. 10A 24VDC 2NA CWC',
+    category: 'automacao',
+    description: 'Mini contator auxiliar 10A, tensão 24VDC, contatos 2NA, modelo CWC.',
+    price: null,
+    imageUrl: '/lovable-uploads/miniweg220.png',
+    image: '/lovable-uploads/miniweg220.png',
+    code: '7909158138593',
+    subcategory: 'Contatores'
+  },
+  {
+    id: 'contator-9a-24vdc-cwb',
+    name: 'CONTATOR 9A 24VDC 1NA+1NF CWB',
+    category: 'automacao',
+    description: 'Contator 9A, tensão 24VDC, contatos 1NA+1NF, modelo CWB.',
+    price: null,
+    imageUrl: '/lovable-uploads/cwb.png',
+    image: '/lovable-uploads/cwb.png',
+    code: '7909158247493',
+    subcategory: 'Contatores'
+  },
+  {
+    id: 'contator-12a-24vdc-cwb',
+    name: 'CONTATOR 12A 24VDC 1NA+1NF CWB',
+    category: 'automacao',
+    description: 'Contator 12A, tensão 24VDC, contatos 1NA+1NF, modelo CWB.',
+    price: null,
+    imageUrl: '/lovable-uploads/cwb.png',
+    image: '/lovable-uploads/cwb.png',
+    code: '7909158247561',
+    subcategory: 'Contatores'
+  },
+  {
+    id: 'contator-18a-24vdc-cwb',
+    name: 'CONTATOR 18A 24VDC 1NA+1NF CWB',
+    category: 'automacao',
+    description: 'Contator 18A, tensão 24VDC, contatos 1NA+1NF, modelo CWB.',
+    price: null,
+    imageUrl: '/lovable-uploads/cwb.png',
+    image: '/lovable-uploads/cwb.png',
+    code: '7909158247974',
+    subcategory: 'Contatores'
+  },
+  {
+    id: 'contator-25a-24vdc-cwb',
+    name: 'CONTATOR 25A 24VDC 1NA+1NF CWB',
+    category: 'automacao',
+    description: 'Contator 25A, tensão 24VDC, contatos 1NA+1NF, modelo CWB.',
+    price: null,
+    imageUrl: '/lovable-uploads/cwb.png',
+    image: '/lovable-uploads/cwb.png',
+    code: '7909018817117',
+    subcategory: 'Contatores'
+  },
+  {
+    id: 'contator-32a-24vdc-tramontina',
+    name: 'CONTATOR 32A 24VDC 1NF',
+    category: 'automacao',
+    description: 'Contator 32A, tensão 24VDC, contato 1NF.',
+    price: null,
+    imageUrl: '/lovable-uploads/tramontina24vac.png',
+    image: '/lovable-uploads/tramontina24vac.png',
+    code: '7891435938913',
+    subcategory: 'Contatores'
   }
 ];
