@@ -1,33 +1,8 @@
 import { Product } from "../types";
 
 export const products: Product[] = [
-  // Ar Condicionado Products
   {
-    id: 1,
-    name: "ACOPLADOR HIDRÁULICO",
-    description: "Acoplamor hidráulico para instalação de equipamentos ar condicionado.",
-    price: 25.0,
-    code: "100232512",
-    image: "/lovable-uploads/acoplador.png",
-    category: "ar-condicionado",
-    subcategory: "Acessórios",
-    inStock: true,
-    isFeatured: false,
-  },
-  {
-    id: 2,
-    name: "EMENDA INLINE",
-    description: "Emenda inline para tubulação de ar condicionado.",
-    price: 15.0,
-    code: "100232513",
-    image: "/lovable-uploads/emendainline.png",
-    category: "ar-condicionado",
-    subcategory: "Acessórios",
-    inStock: true,
-    isFeatured: false,
-  },
-  {
-    id: 3,
+    id: "3",
     name: "COMPRESSOR 6HP QJ316PAA TJX4454YXA",
     description: "Compressor de ar condicionado 6HP.",
     price: 1599.0,
@@ -38,34 +13,8 @@ export const products: Product[] = [
     inStock: true,
     isFeatured: true,
   },
-  // Removed the two gas refrigerant products per request
   {
-    id: 6,
-    name: "WAGO DERIVAÇÃO 3 VIAS",
-    description: "Conector para derivação elétrica de 3 vias.",
-    price: 2.5,
-    code: "100232520",
-    image: "/lovable-uploads/wagoderivacao.png",
-    category: "ar-condicionado",
-    subcategory: "Acessórios",
-    inStock: true,
-    isFeatured: false,
-  },
-  {
-    id: 7,
-    name: "WAGO EMENDA 1 A 1",
-    description: "Conector para emenda elétrica 1 a 1.",
-    price: 1.5,
-    code: "100232521",
-    image: "/lovable-uploads/wagoemenda.png",
-    category: "ar-condicionado",
-    subcategory: "Acessórios",
-    inStock: true,
-    isFeatured: false,
-  },
-  // Automação Products
-  {
-    id: 100,
+    id: "100",
     name: "SENSOR DE PRESENÇA",
     description: "Sensor de presença para automação residencial.",
     price: 45.0,
@@ -77,7 +26,7 @@ export const products: Product[] = [
     isFeatured: true,
   },
   {
-    id: 101,
+    id: "101",
     name: "INTERRUPTOR INTELIGENTE",
     description: "Interruptor inteligente para automação residencial.",
     price: 89.0,
@@ -89,7 +38,7 @@ export const products: Product[] = [
     isFeatured: true,
   },
   {
-    id: 102,
+    id: "102",
     name: "CENTRAL DE AUTOMAÇÃO",
     description: "Central de automação para controle de dispositivos.",
     price: 299.0,
@@ -101,7 +50,7 @@ export const products: Product[] = [
     isFeatured: true,
   },
   {
-    id: 103,
+    id: "103",
     name: "CÂMERA DE SEGURANÇA WIFI",
     description: "Câmera de segurança com conexão WiFi.",
     price: 199.0,
@@ -113,7 +62,7 @@ export const products: Product[] = [
     isFeatured: false,
   },
   {
-    id: 104,
+    id: "104",
     name: "FECHADURA ELETRÔNICA",
     description: "Fechadura eletrônica com controle por aplicativo.",
     price: 499.0,
@@ -125,9 +74,8 @@ export const products: Product[] = [
     isFeatured: false,
   },
 
-  // Adding the new products
   {
-    id: 8,
+    id: "8",
     name: "SUPORTE 400MM",
     description: "Suporte de 400mm para ar condicionado.",
     price: 43.0,
@@ -139,7 +87,7 @@ export const products: Product[] = [
     isFeatured: false,
   },
   {
-    id: 9,
+    id: "9",
     name: "SUPORTE 450MM",
     description: "Suporte de 450mm para ar condicionado.",
     price: 48.0,
@@ -151,7 +99,7 @@ export const products: Product[] = [
     isFeatured: false,
   },
   {
-    id: 10,
+    id: "10",
     name: "SUPORTE 500MM",
     description: "Suporte de 500mm para ar condicionado.",
     price: 75.0,
@@ -163,7 +111,7 @@ export const products: Product[] = [
     isFeatured: false,
   },
   {
-    id: 11,
+    id: "11",
     name: "SUPORTE 550MM",
     description: "Suporte de 550mm para ar condicionado.",
     price: 156.0,
@@ -175,7 +123,7 @@ export const products: Product[] = [
     isFeatured: false,
   },
   {
-    id: 12,
+    id: "12",
     name: "SUPORTE 900MM",
     description: "Suporte de 900mm para ar condicionado.",
     price: 255.0,
@@ -187,7 +135,7 @@ export const products: Product[] = [
     isFeatured: false,
   },
   {
-    id: 13,
+    id: "13",
     name: "TUBULAÇÃO 1/4",
     description: "Tubulação 1/4 para ar condicionado.",
     price: 19.0,
@@ -199,7 +147,7 @@ export const products: Product[] = [
     isFeatured: false,
   },
   {
-    id: 14,
+    id: "14",
     name: "TUBULAÇÃO 3/8",
     description: "Tubulação 3/8 para ar condicionado.",
     price: 28.0,
@@ -211,7 +159,7 @@ export const products: Product[] = [
     isFeatured: false,
   },
   {
-    id: 15,
+    id: "15",
     name: "TUBULAÇÃO 1/2",
     description: "Tubulação 1/2 para ar condicionado.",
     price: 37.0,
@@ -223,7 +171,7 @@ export const products: Product[] = [
     isFeatured: false,
   },
   {
-    id: 16,
+    id: "16",
     name: "TUBULAÇÃO 5/8",
     description: "Tubulação 5/8 para ar condicionado.",
     price: 49.0,
@@ -235,7 +183,7 @@ export const products: Product[] = [
     isFeatured: false,
   },
   {
-    id: 17,
+    id: "17",
     name: "TUBULAÇÃO 3/4",
     description: "Tubulação 3/4 para ar condicionado.",
     price: 59.0,
@@ -247,7 +195,7 @@ export const products: Product[] = [
     isFeatured: false,
   },
   {
-    id: 18,
+    id: "18",
     name: "TUBEX 1/4 2m",
     description: "Tubex 1/4 2m para isolamento térmico.",
     price: 6.5,
@@ -259,7 +207,7 @@ export const products: Product[] = [
     isFeatured: false,
   },
   {
-    id: 19,
+    id: "19",
     name: "TUBEX 3/8 2m",
     description: "Tubex 3/8 2m para isolamento térmico.",
     price: 6.5,
@@ -271,7 +219,7 @@ export const products: Product[] = [
     isFeatured: false,
   },
   {
-    id: 20,
+    id: "20",
     name: "TUBEX 1/2 2m",
     description: "Tubex 1/2 2m para isolamento térmico.",
     price: 6.5,
@@ -283,7 +231,7 @@ export const products: Product[] = [
     isFeatured: false,
   },
   {
-    id: 21,
+    id: "21",
     name: "TUBEX 5/8 2m",
     description: "Tubex 5/8 2m para isolamento térmico.",
     price: 8.0,
@@ -295,7 +243,7 @@ export const products: Product[] = [
     isFeatured: false,
   },
   {
-    id: 22,
+    id: "22",
     name: "TUBEX 3/4 2m",
     description: "Tubex 3/4 2m para isolamento térmico.",
     price: 10.0,
@@ -307,7 +255,7 @@ export const products: Product[] = [
     isFeatured: false,
   },
   {
-    id: 23,
+    id: "23",
     name: "FITA PVC 10M",
     description: "Fita PVC 10M para instalação de ar condicionado.",
     price: 8.0,
@@ -319,7 +267,7 @@ export const products: Product[] = [
     isFeatured: false,
   },
   {
-    id: 24,
+    id: "24",
     name: "FITA ALUMINIZADA 45M",
     description: "Fita aluminizada 45M para instalação de ar condicionado.",
     price: 9.0,
@@ -331,7 +279,7 @@ export const products: Product[] = [
     isFeatured: false,
   },
   {
-    id: 25,
+    id: "25",
     name: "MANGUEIRA P/ DRENO",
     description: "Mangueira para dreno de ar condicionado.",
     price: 5.8,
@@ -343,7 +291,7 @@ export const products: Product[] = [
     isFeatured: false,
   },
   {
-    id: 26,
+    id: "26",
     name: "MANGUEIRA P/ DRENO CRISTAL",
     description: "Mangueira para dreno cristal de ar condicionado.",
     price: 6.5,
@@ -355,7 +303,7 @@ export const products: Product[] = [
     isFeatured: false,
   },
   {
-    id: 27,
+    id: "27",
     name: "BICO P/ DRENO",
     description: "Bico para dreno de ar condicionado.",
     price: 15.0,
@@ -367,7 +315,7 @@ export const products: Product[] = [
     isFeatured: false,
   },
   {
-    id: 28,
+    id: "28",
     name: "FLUÍDO R32 650g",
     description: "Fluído refrigerante R32 650g para ar condicionado.",
     price: 130.0,
@@ -379,7 +327,7 @@ export const products: Product[] = [
     isFeatured: false,
   },
   {
-    id: 29,
+    id: "29",
     name: "FLUÍDO R32 3Kg",
     description: "Fluído refrigerante R32 3Kg para ar condicionado.",
     price: 290.0,
@@ -391,7 +339,7 @@ export const products: Product[] = [
     isFeatured: false,
   },
   {
-    id: 30,
+    id: "30",
     name: "FLUÍDO R410A 750g",
     description: "Fluído refrigerante R410A 750g para ar condicionado.",
     price: 129.0,
@@ -403,7 +351,7 @@ export const products: Product[] = [
     isFeatured: false,
   },
   {
-    id: 31,
+    id: "31",
     name: "FLUÍDO R22 900g",
     description: "Fluído refrigerante R22 900g para ar condicionado.",
     price: 132.0,
@@ -415,7 +363,7 @@ export const products: Product[] = [
     isFeatured: false,
   },
   {
-    id: 32,
+    id: "32",
     name: "CABO PP 4 X 1,5mm",
     description: "Cabo PP 4x1,5mm para instalação elétrica.",
     price: 9.5,
@@ -427,7 +375,7 @@ export const products: Product[] = [
     isFeatured: false,
   },
   {
-    id: 33,
+    id: "33",
     name: "CABO PP 5 X 1,5mm",
     description: "Cabo PP 5x1,5mm para instalação elétrica.",
     price: 10.2,
@@ -439,7 +387,7 @@ export const products: Product[] = [
     isFeatured: false,
   },
   {
-    id: 34,
+    id: "34",
     name: "DISJUTNOR 10A C WEG",
     description: "Disjuntor 10A curva C WEG para instalação elétrica.",
     price: 14.0,
@@ -451,7 +399,7 @@ export const products: Product[] = [
     isFeatured: false,
   },
   {
-    id: 35,
+    id: "35",
     name: "DISJUTNOR 10A B SCHNEIDER",
     description: "Disjuntor 10A curva B SCHNEIDER para instalação elétrica.",
     price: 24.0,
@@ -463,8 +411,8 @@ export const products: Product[] = [
     isFeatured: false,
   },
   {
-    id: 36,
-    name: "DISJUNTOR 10A C LUKMA",
+    id: "36",
+    name: "DISJUTNOR 10A C LUKMA",
     description: "Disjuntor 10A curva C LUKMA para instalação elétrica.",
     price: 24.0,
     code: "5418",
@@ -475,7 +423,7 @@ export const products: Product[] = [
     isFeatured: false,
   },
   {
-    id: 37,
+    id: "37",
     name: "VÁLVULA P/ GÁS 1/2",
     description: "Válvula para gás 1/2 para ar condicionado.",
     price: 42.0,
@@ -487,7 +435,7 @@ export const products: Product[] = [
     isFeatured: false,
   },
   {
-    id: 38,
+    id: "38",
     name: "UNIÃO REGULAR 1/4",
     description: "União regular 1/4 para tubulação de ar condicionado.",
     price: 9.8,
@@ -499,7 +447,7 @@ export const products: Product[] = [
     isFeatured: false,
   },
   {
-    id: 39,
+    id: "39",
     name: "UNIÃO REGULAR 3/8",
     description: "União regular 3/8 para tubulação de ar condicionado.",
     price: 20.0,
@@ -511,7 +459,7 @@ export const products: Product[] = [
     isFeatured: false,
   },
   {
-    id: 40,
+    id: "40",
     name: "UNIÃO REGULAR 1/2",
     description: "União regular 1/2 para tubulação de ar condicionado.",
     price: 27.0,
@@ -523,7 +471,7 @@ export const products: Product[] = [
     isFeatured: false,
   },
   {
-    id: 41,
+    id: "41",
     name: "UNIÃO REGULAR 5/8",
     description: "União regular 5/8 para tubulação de ar condicionado.",
     price: 38.0,
@@ -535,7 +483,7 @@ export const products: Product[] = [
     isFeatured: false,
   },
   {
-    id: 42,
+    id: "42",
     name: "UNIÃO REGULAR 3/4",
     description: "União regular 3/4 para tubulação de ar condicionado.",
     price: 55.0,
@@ -547,7 +495,7 @@ export const products: Product[] = [
     isFeatured: false,
   },
   {
-    id: 43,
+    id: "43",
     name: "REDUTOR 3/8 P/ 1/4",
     description: "Redutor 3/8 para 1/4 para tubulação de ar condicionado.",
     price: 20.0,
@@ -559,7 +507,7 @@ export const products: Product[] = [
     isFeatured: false,
   },
   {
-    id: 44,
+    id: "44",
     name: "REDUTOR 1/2 P/ 3/8",
     description: "Redutor 1/2 para 3/8 para tubulação de ar condicionado.",
     price: 25.0,
@@ -571,7 +519,7 @@ export const products: Product[] = [
     isFeatured: false,
   },
   {
-    id: 45,
+    id: "45",
     name: "REDUTOR 1/2 P/ 1/4",
     description: "Redutor 1/2 para 1/4 para tubulação de ar condicionado.",
     price: 28.0,
@@ -583,7 +531,7 @@ export const products: Product[] = [
     isFeatured: false,
   },
   {
-    id: 46,
+    id: "46",
     name: "PORCA 1/4",
     description: "Porca 1/4 para tubulação de ar condicionado.",
     price: 9.5,
@@ -595,7 +543,7 @@ export const products: Product[] = [
     isFeatured: false,
   },
   {
-    id: 47,
+    id: "47",
     name: "PORCA 3/8",
     description: "Porca 3/8 para tubulação de ar condicionado.",
     price: 9.8,
@@ -607,7 +555,7 @@ export const products: Product[] = [
     isFeatured: false,
   },
   {
-    id: 48,
+    id: "48",
     name: "PORCA 1/2",
     description: "Porca 1/2 para tubulação de ar condicionado.",
     price: 12.0,
@@ -619,7 +567,7 @@ export const products: Product[] = [
     isFeatured: false,
   },
   {
-    id: 49,
+    id: "49",
     name: "PORCA 5/8",
     description: "Porca 5/8 para tubulação de ar condicionado.",
     price: 29.0,
@@ -631,7 +579,7 @@ export const products: Product[] = [
     isFeatured: false,
   },
   {
-    id: 50,
+    id: "50",
     name: "PORCA 3/4",
     description: "Porca 3/4 para tubulação de ar condicionado.",
     price: 32.0,
@@ -643,7 +591,7 @@ export const products: Product[] = [
     isFeatured: false,
   },
   {
-    id: 51,
+    id: "51",
     name: "CAPACITOR 0,9UF 400VAC",
     description: "Capacitor 0,9UF 400VAC para ar condicionado.",
     price: 20.0,
@@ -655,7 +603,7 @@ export const products: Product[] = [
     isFeatured: false,
   },
   {
-    id: 52,
+    id: "52",
     name: "CAPACITOR 1UF 400VAC",
     description: "Capacitor 1UF 400VAC para ar condicionado.",
     price: 20.0,
@@ -667,7 +615,7 @@ export const products: Product[] = [
     isFeatured: false,
   },
   {
-    id: 53,
+    id: "53",
     name: "CAPACITOR 1,5UF 400VAC",
     description: "Capacitor 1,5UF 400VAC para ar condicionado.",
     price: 20.0,
@@ -679,7 +627,7 @@ export const products: Product[] = [
     isFeatured: false,
   },
   {
-    id: 54,
+    id: "54",
     name: "CAPACITOR 2UF 400VAC",
     description: "Capacitor 2UF 400VAC para ar condicionado.",
     price: 20.0,
@@ -691,7 +639,7 @@ export const products: Product[] = [
     isFeatured: false,
   },
   {
-    id: 55,
+    id: "55",
     name: "CAPACITOR 2,5UF 400VAC",
     description: "Capacitor 2,5UF 400VAC para ar condicionado.",
     price: 20.0,
@@ -703,7 +651,7 @@ export const products: Product[] = [
     isFeatured: false,
   },
   {
-    id: 56,
+    id: "56",
     name: "CAPACITOR 3UF 380V",
     description: "Capacitor 3UF 380V para ar condicionado.",
     price: 30.0,
@@ -715,7 +663,7 @@ export const products: Product[] = [
     isFeatured: false,
   },
   {
-    id: 57,
+    id: "57",
     name: "CAPACITOR 15UF 440V",
     description: "Capacitor 15UF 440V para ar condicionado.",
     price: 25.0,
@@ -727,7 +675,7 @@ export const products: Product[] = [
     isFeatured: false,
   },
   {
-    id: 58,
+    id: "58",
     name: "CAPACITOR 20UF 380VAC",
     description: "Capacitor 20UF 380VAC para ar condicionado.",
     price: 35.0,
@@ -739,7 +687,7 @@ export const products: Product[] = [
     isFeatured: false,
   },
   {
-    id: 59,
+    id: "59",
     name: "CAPACITOR 25UF 380VAC",
     description: "Capacitor 25UF 380VAC para ar condicionado.",
     price: 43.0,
@@ -751,7 +699,7 @@ export const products: Product[] = [
     isFeatured: false,
   },
   {
-    id: 60,
+    id: "60",
     name: "CAPACITOR 25UF 440VAC",
     description: "Capacitor 25UF 440VAC para ar condicionado.",
     price: 48.0,
@@ -763,7 +711,7 @@ export const products: Product[] = [
     isFeatured: false,
   },
   {
-    id: 61,
+    id: "61",
     name: "CAPACITOR 30UF 380VAC",
     description: "Capacitor 30UF 380VAC para ar condicionado.",
     price: 48.0,
@@ -775,7 +723,7 @@ export const products: Product[] = [
     isFeatured: false,
   },
   {
-    id: 62,
+    id: "62",
     name: "CAPACITOR 30UF 440VAC",
     description: "Capacitor 30UF 440VAC para ar condicionado.",
     price: 53.0,
@@ -787,7 +735,7 @@ export const products: Product[] = [
     isFeatured: false,
   },
   {
-    id: 63,
+    id: "63",
     name: "CAPACITOR 35UF 450/380VAC",
     description: "Capacitor 35UF 450/380VAC para ar condicionado.",
     price: 35.0,
@@ -799,7 +747,7 @@ export const products: Product[] = [
     isFeatured: false,
   },
   {
-    id: 64,
+    id: "64",
     name: "CAPACITOR 40UF 380VAC",
     description: "Capacitor 40UF 380VAC para ar condicionado.",
     price: 52.0,
@@ -811,7 +759,7 @@ export const products: Product[] = [
     isFeatured: false,
   },
   {
-    id: 65,
+    id: "65",
     name: "CAPACITOR 55UF 380VAC",
     description: "Capacitor 55UF 380VAC para ar condicionado.",
     price: 65.0,
@@ -823,7 +771,7 @@ export const products: Product[] = [
     isFeatured: false,
   },
   {
-    id: 66,
+    id: "66",
     name: "CAPACITOR 60UF 380VAC",
     description: "Capacitor 60UF 380VAC para ar condicionado.",
     price: 45.0,
@@ -835,7 +783,7 @@ export const products: Product[] = [
     isFeatured: false,
   },
   {
-    id: 67,
+    id: "67",
     name: "CAPACITOR 65UF 380VAC",
     description: "Capacitor 65UF 380VAC para ar condicionado.",
     price: 27.0,
@@ -847,7 +795,7 @@ export const products: Product[] = [
     isFeatured: false,
   },
   {
-    id: 68,
+    id: "68",
     name: "CAPACITOR DUPLO 15 + 2,5UF 440VAC",
     description: "Capacitor duplo 15 + 2,5UF 440VAC para ar condicionado.",
     price: 39.0,
@@ -859,7 +807,7 @@ export const products: Product[] = [
     isFeatured: false,
   },
   {
-    id: 69,
+    id: "69",
     name: "CAPACITOR DUPLO 15 + 2,5UF 450VAC",
     description: "Capacitor duplo 15 + 2,5UF 450VAC para ar condicionado.",
     price: 45.0,
@@ -871,7 +819,7 @@ export const products: Product[] = [
     isFeatured: false,
   },
   {
-    id: 70,
+    id: "70",
     name: "CAPACITOR DUPLO 25+ 2,5UF 450V",
     description: "Capacitor duplo 25+ 2,5UF 450V para ar condicionado.",
     price: 45.0,
@@ -883,7 +831,7 @@ export const products: Product[] = [
     isFeatured: false,
   },
   {
-    id: 71,
+    id: "71",
     name: "CANALETA CB30 2M",
     description: "Canaleta CB30 2M para acabamento de ar condicionado.",
     price: 25.0,
@@ -895,7 +843,7 @@ export const products: Product[] = [
     isFeatured: false,
   },
   {
-    id: 72,
+    id: "72",
     name: "CANALETA CB60 2M",
     description: "Canaleta CB60 2M para acabamento de ar condicionado.",
     price: 35.0,
@@ -907,8 +855,8 @@ export const products: Product[] = [
     isFeatured: false,
   },
   {
-    id: 73,
-    name: "TERMINAL ACABAMENT0 CB30",
+    id: "73",
+    name: "TERMINAL ACABAMENTO CB30",
     description: "Terminal acabamento CB30 para canaleta.",
     price: 38.0,
     code: "12645",
@@ -919,7 +867,7 @@ export const products: Product[] = [
     isFeatured: false,
   },
   {
-    id: 74,
+    id: "74",
     name: "TERMINAL ACABAMENTO CB60",
     description: "Terminal acabamento CB60 para canaleta.",
     price: 55.0,
@@ -931,7 +879,7 @@ export const products: Product[] = [
     isFeatured: false,
   },
   {
-    id: 75,
+    id: "75",
     name: "CURVA ANG. INTERNO CB60",
     description: "Curva angular interna CB60 para canaleta.",
     price: 13.0,
@@ -943,7 +891,7 @@ export const products: Product[] = [
     isFeatured: false,
   },
   {
-    id: 76,
+    id: "76",
     name: "PASSAGEM DE PAREDE CB60",
     description: "Passagem de parede CB60 para canaleta.",
     price: 15.0,
@@ -955,7 +903,7 @@ export const products: Product[] = [
     isFeatured: false,
   },
   {
-    id: 77,
+    id: "77",
     name: "CURVA PLANA REGULÁVEL CB60",
     description: "Curva plana regulável CB60 para canaleta.",
     price: 21.0,
@@ -967,7 +915,7 @@ export const products: Product[] = [
     isFeatured: false,
   },
   {
-    id: 78,
+    id: "78",
     name: "CAIXA DE PASSAGEM PARA DRENO",
     description: "Caixa de passagem para dreno de ar condicionado.",
     price: 23.0,
@@ -979,7 +927,7 @@ export const products: Product[] = [
     isFeatured: false,
   },
   {
-    id: 79,
+    id: "79",
     name: "CAIXA DE PASSAGEM PARA DRENO",
     description: "Caixa de passagem para dreno de ar condicionado.",
     price: 25.0,
