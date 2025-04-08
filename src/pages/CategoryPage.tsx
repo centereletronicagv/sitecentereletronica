@@ -10,985 +10,7 @@ import { motion } from "framer-motion";
 import { useIsMobile } from '@/hooks/use-mobile';
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger, DropdownMenuCheckboxItem } from "@/components/ui/dropdown-menu";
 import { Product } from '../types';
-
-const sampleProducts: Product[] = [
-  {
-    id: '10',
-    name: 'SUPORTE 400MM',
-    code: '13160',
-    price: 43.00,
-    image: '/lovable-uploads/suporte.png',
-    imageUrl: '/lovable-uploads/suporte.png',
-    category: 'ar-condicionado',
-    recommendedOrder: 1,
-    subcategory: 'suportes',
-    description: 'Suporte para instalação de ar-condicionado',
-    isFeatured: false
-  },
-  {
-    id: '11',
-    name: 'SUPORTE 450MM',
-    code: '12602',
-    price: 48.00,
-    image: '/lovable-uploads/suporte.png',
-    imageUrl: '/lovable-uploads/suporte.png',
-    category: 'ar-condicionado',
-    recommendedOrder: 2,
-    subcategory: 'suportes',
-    description: 'Suporte para instalação de ar-condicionado',
-    isFeatured: false
-  },
-  {
-    id: '12',
-    name: 'SUPORTE 500MM',
-    code: '7204',
-    price: 75.00,
-    image: '/lovable-uploads/suporte.png',
-    imageUrl: '/lovable-uploads/suporte.png',
-    category: 'ar-condicionado',
-    recommendedOrder: 3,
-    subcategory: 'suportes',
-    description: 'Suporte para instalação de ar-condicionado',
-    isFeatured: false
-  },
-  {
-    id: '13',
-    name: 'SUPORTE 550MM',
-    code: '13309',
-    price: 156.00,
-    image: '/lovable-uploads/suporte.png',
-    imageUrl: '/lovable-uploads/suporte.png',
-    category: 'ar-condicionado',
-    recommendedOrder: 4,
-    subcategory: 'suportes',
-    description: 'Suporte para instalação de ar-condicionado',
-    isFeatured: false
-  },
-  {
-    id: '14',
-    name: 'SUPORTE 900MM',
-    code: '13310',
-    price: 255.00,
-    image: '/lovable-uploads/suporte.png',
-    imageUrl: '/lovable-uploads/suporte.png',
-    category: 'ar-condicionado',
-    recommendedOrder: 5,
-    subcategory: 'suportes',
-    description: 'Suporte para instalação de ar-condicionado',
-    isFeatured: false
-  },
-  {
-    id: '15',
-    name: 'TUBULAÇÃO 1/4 Por Metro',
-    code: '12710',
-    price: 19.00,
-    image: '/lovable-uploads/tubulacao.png',
-    imageUrl: '/lovable-uploads/tubulacao.png',
-    category: 'ar-condicionado',
-    recommendedOrder: 6,
-    subcategory: 'tubulacao',
-    description: 'Tubulação para instalação de ar-condicionado',
-    isFeatured: false
-  },
-  {
-    id: '16',
-    name: 'TUBULAÇÃO 3/8 Por Metro',
-    code: '12711',
-    price: 28.00,
-    image: '/lovable-uploads/tubulacao.png',
-    imageUrl: '/lovable-uploads/tubulacao.png',
-    category: 'ar-condicionado',
-    recommendedOrder: 7,
-    subcategory: 'tubulacao',
-    description: 'Tubulação para instalação de ar-condicionado',
-    isFeatured: false
-  },
-  {
-    id: '17',
-    name: 'TUBULAÇÃO 1/2 Por Metro',
-    code: '12709',
-    price: 37.00,
-    image: '/lovable-uploads/tubulacao.png',
-    imageUrl: '/lovable-uploads/tubulacao.png',
-    category: 'ar-condicionado',
-    recommendedOrder: 8,
-    subcategory: 'tubulacao',
-    description: 'Tubulação para instalação de ar-condicionado',
-    isFeatured: false
-  },
-  {
-    id: '18',
-    name: 'TUBULAÇÃO 5/8 Por Metro',
-    code: '12712',
-    price: 49.00,
-    image: '/lovable-uploads/tubulacao.png',
-    imageUrl: '/lovable-uploads/tubulacao.png',
-    category: 'ar-condicionado',
-    recommendedOrder: 9,
-    subcategory: 'tubulacao',
-    description: 'Tubulação para instalação de ar-condicionado',
-    isFeatured: false
-  },
-  {
-    id: '19',
-    name: 'TUBULAÇÃO 3/4 Por Metro',
-    code: '12713',
-    price: 59.00,
-    image: '/lovable-uploads/tubulacao.png',
-    imageUrl: '/lovable-uploads/tubulacao.png',
-    category: 'ar-condicionado',
-    recommendedOrder: 10,
-    subcategory: 'tubulacao',
-    description: 'Tubulação para instalação de ar-condicionado',
-    isFeatured: false
-  },
-  {
-    id: '20',
-    name: 'TUBEX 1/4 2m',
-    code: '7199',
-    price: 6.50,
-    image: '/lovable-uploads/tubex.png',
-    imageUrl: '/lovable-uploads/tubex.png',
-    category: 'ar-condicionado',
-    recommendedOrder: 11,
-    subcategory: 'tubex',
-    description: 'Tubex para instalação de ar-condicionado',
-    isFeatured: false
-  },
-  {
-    id: '21',
-    name: 'TUBEX 3/8 2m',
-    code: '7200',
-    price: 6.50,
-    image: '/lovable-uploads/tubex.png',
-    imageUrl: '/lovable-uploads/tubex.png',
-    category: 'ar-condicionado',
-    recommendedOrder: 12,
-    subcategory: 'tubex',
-    description: 'Tubex para instalação de ar-condicionado',
-    isFeatured: false
-  },
-  {
-    id: '22',
-    name: 'TUBEX 1/2 2m',
-    code: '7201',
-    price: 6.50,
-    image: '/lovable-uploads/tubex.png',
-    imageUrl: '/lovable-uploads/tubex.png',
-    category: 'ar-condicionado',
-    recommendedOrder: 13,
-    subcategory: 'tubex',
-    description: 'Tubex para instalação de ar-condicionado',
-    isFeatured: false
-  },
-  {
-    id: '23',
-    name: 'TUBEX 5/8 2m',
-    code: '10504',
-    price: 8.00,
-    image: '/lovable-uploads/tubex.png',
-    imageUrl: '/lovable-uploads/tubex.png',
-    category: 'ar-condicionado',
-    recommendedOrder: 14,
-    subcategory: 'tubex',
-    description: 'Tubex para instalação de ar-condicionado',
-    isFeatured: false
-  },
-  {
-    id: '24',
-    name: 'TUBEX 3/4 2m',
-    code: '100232514',
-    price: 10.00,
-    image: '/lovable-uploads/tubex.png',
-    imageUrl: '/lovable-uploads/tubex.png',
-    category: 'ar-condicionado',
-    recommendedOrder: 15,
-    subcategory: 'tubex',
-    description: 'Tubex para instalação de ar-condicionado',
-    isFeatured: false
-  },
-  {
-    id: '25',
-    name: 'FITA PVC 10M',
-    code: '7202',
-    price: 8.00,
-    image: '/lovable-uploads/fitapvc.png',
-    imageUrl: '/lovable-uploads/fitapvc.png',
-    category: 'ar-condicionado',
-    recommendedOrder: 16,
-    subcategory: 'fitas',
-    description: 'Fita PVC para instalação de ar-condicionado',
-    isFeatured: false
-  },
-  {
-    id: '26',
-    name: 'FITA ALUMINIZADA 45M',
-    code: '7195',
-    price: 9.00,
-    image: '/lovable-uploads/fitaalum.png',
-    imageUrl: '/lovable-uploads/fitaalum.png',
-    category: 'ar-condicionado',
-    recommendedOrder: 17,
-    subcategory: 'fitas',
-    description: 'Fita aluminizada para instalação de ar-condicionado',
-    isFeatured: false
-  },
-  {
-    id: '27',
-    name: 'MANGUEIRA P/ DRENO Por Metro',
-    code: '11407',
-    price: 5.80,
-    image: '/lovable-uploads/dreno.png',
-    imageUrl: '/lovable-uploads/dreno.png',
-    category: 'ar-condicionado',
-    recommendedOrder: 18,
-    subcategory: 'dreno',
-    description: 'Mangueira para dreno de ar-condicionado',
-    isFeatured: false
-  },
-  {
-    id: '28',
-    name: 'MANGUEIRA P/ DRENO CRISTAL Por Metro',
-    code: '11993',
-    price: 6.50,
-    image: '/lovable-uploads/drenocristal.png',
-    imageUrl: '/lovable-uploads/drenocristal.png',
-    category: 'ar-condicionado',
-    recommendedOrder: 19,
-    subcategory: 'dreno',
-    description: 'Mangueira cristal para dreno de ar-condicionado',
-    isFeatured: false
-  },
-  {
-    id: '29',
-    name: 'BICO P/ DRENO',
-    code: '12644',
-    price: 15.00,
-    image: '/lovable-uploads/bicodreno.png',
-    imageUrl: '/lovable-uploads/bicodreno.png',
-    category: 'ar-condicionado',
-    recommendedOrder: 20,
-    subcategory: 'dreno',
-    description: 'Bico para dreno de ar-condicionado',
-    isFeatured: false
-  },
-  {
-    id: '30',
-    name: 'FLUÍDO R32 650g',
-    code: '7899733823641',
-    price: 130.00,
-    image: '/lovable-uploads/r32650g.png',
-    imageUrl: '/lovable-uploads/r32650g.png',
-    category: 'ar-condicionado',
-    recommendedOrder: 21,
-    subcategory: 'fluidos',
-    description: 'Fluído refrigerante R32 para ar-condicionado',
-    isFeatured: false
-  },
-  {
-    id: '31',
-    name: 'FLUÍDO R32 3Kg',
-    code: '7899733819095',
-    price: 290.00,
-    image: '/lovable-uploads/r323kg.png',
-    imageUrl: '/lovable-uploads/r323kg.png',
-    category: 'ar-condicionado',
-    recommendedOrder: 22,
-    subcategory: 'fluidos',
-    description: 'Fluído refrigerante R32 para ar-condicionado',
-    isFeatured: false
-  },
-  {
-    id: '32',
-    name: 'FLUÍDO R410A 750g',
-    code: '7899733805227',
-    price: 129.00,
-    image: '/lovable-uploads/r410a750g.png',
-    imageUrl: '/lovable-uploads/r410a750g.png',
-    category: 'ar-condicionado',
-    recommendedOrder: 23,
-    subcategory: 'fluidos',
-    description: 'Fluído refrigerante R410A para ar-condicionado',
-    isFeatured: false
-  },
-  {
-    id: '33',
-    name: 'FLUÍDO R22 900g',
-    code: '7899733805180',
-    price: 132.00,
-    image: '/lovable-uploads/r22.png',
-    imageUrl: '/lovable-uploads/r22.png',
-    category: 'ar-condicionado',
-    recommendedOrder: 24,
-    subcategory: 'fluidos',
-    description: 'Fluído refrigerante R22 para ar-condicionado',
-    isFeatured: false
-  },
-  {
-    id: '35',
-    name: 'CABO PP 4 X 1,5mm Por Metro',
-    code: '9947',
-    price: 9.50,
-    image: '/lovable-uploads/pp4.png',
-    imageUrl: '/lovable-uploads/pp4.png',
-    category: 'ar-condicionado',
-    recommendedOrder: 25,
-    description: 'Cabo PP para instalação de ar-condicionado',
-    isFeatured: false
-  },
-  {
-    id: '36',
-    name: 'CABO PP 5 X 1,5mm Por Metro',
-    code: '8492',
-    price: 10.20,
-    image: '/lovable-uploads/pp5.png',
-    imageUrl: '/lovable-uploads/pp5.png',
-    category: 'ar-condicionado',
-    recommendedOrder: 26,
-    description: 'Cabo PP para instalação de ar-condicionado',
-    isFeatured: false
-  },
-  {
-    id: '37',
-    name: 'DISJUTNOR 10A C WEG',
-    code: '7909522567677',
-    price: 14.00,
-    image: '/lovable-uploads/weg.png',
-    imageUrl: '/lovable-uploads/weg.png',
-    category: 'ar-condicionado',
-    recommendedOrder: 27,
-    description: 'Disjuntor WEG para instalação de ar-condicionado',
-    isFeatured: false
-  },
-  {
-    id: '38',
-    name: 'DISJUTNOR 10A B SCHNEIDER',
-    code: '7891341466906',
-    price: 24.00,
-    image: '/lovable-uploads/schneider.png',
-    imageUrl: '/lovable-uploads/schneider.png',
-    category: 'ar-condicionado',
-    recommendedOrder: 28,
-    description: 'Disjuntor Schneider para instalação de ar-condicionado',
-    isFeatured: false
-  },
-  {
-    id: '39',
-    name: 'DISJUNTOR 10A C LUKMA',
-    code: '5418',
-    price: 24.00,
-    image: '/lovable-uploads/lukma.png',
-    imageUrl: '/lovable-uploads/lukma.png',
-    category: 'ar-condicionado',
-    recommendedOrder: 29,
-    description: 'Disjuntor Lukma para instalação de ar-condicionado',
-    isFeatured: false
-  },
-  {
-    id: '34',
-    name: 'VÁLVULA P/ GÁS 1/2',
-    code: '13255',
-    price: 42.00,
-    image: '/lovable-uploads/valve.png',
-    imageUrl: '/lovable-uploads/valve.png',
-    category: 'ar-condicionado',
-    recommendedOrder: 30,
-    description: 'Válvula para gás de ar-condicionado',
-    isFeatured: false
-  },
-  {
-    id: '40',
-    name: 'UNIÃO REGULAR 1/4',
-    code: '10062',
-    price: 9.80,
-    image: '/lovable-uploads/uniao.png',
-    imageUrl: '/lovable-uploads/uniao.png',
-    category: 'ar-condicionado',
-    recommendedOrder: 31,
-    description: 'União regular para instalação de ar-condicionado',
-    isFeatured: false
-  },
-  {
-    id: '41',
-    name: 'UNIÃO REGULAR 3/8',
-    code: '10059',
-    price: 20.00,
-    image: '/lovable-uploads/uniao.png',
-    imageUrl: '/lovable-uploads/uniao.png',
-    category: 'ar-condicionado',
-    recommendedOrder: 32,
-    description: 'União regular para instalação de ar-condicionado',
-    isFeatured: false
-  },
-  {
-    id: '42',
-    name: 'UNIÃO REGULAR 1/2',
-    code: '10061',
-    price: 27.00,
-    image: '/lovable-uploads/uniao.png',
-    imageUrl: '/lovable-uploads/uniao.png',
-    category: 'ar-condicionado',
-    recommendedOrder: 33,
-    description: 'União regular para instalação de ar-condicionado',
-    isFeatured: false
-  },
-  {
-    id: '43',
-    name: 'UNIÃO REGULAR 5/8',
-    code: '10060',
-    price: 38.00,
-    image: '/lovable-uploads/uniao.png',
-    imageUrl: '/lovable-uploads/uniao.png',
-    category: 'ar-condicionado',
-    recommendedOrder: 34,
-    description: 'União regular para instalação de ar-condicionado',
-    isFeatured: false
-  },
-  {
-    id: '44',
-    name: 'UNIÃO REGULAR 3/4',
-    code: '10058',
-    price: 55.00,
-    image: '/lovable-uploads/uniao.png',
-    imageUrl: '/lovable-uploads/uniao.png',
-    category: 'ar-condicionado',
-    recommendedOrder: 35,
-    description: 'União regular para instalação de ar-condicionado',
-    isFeatured: false
-  },
-  {
-    id: '45',
-    name: 'REDUTOR 3/8 P/ 1/4',
-    code: '12717',
-    price: 20.00,
-    image: '/lovable-uploads/redutor.png',
-    imageUrl: '/lovable-uploads/redutor.png',
-    category: 'ar-condicionado',
-    recommendedOrder: 36,
-    description: 'Redutor para instalação de ar-condicionado',
-    isFeatured: false
-  },
-  {
-    id: '46',
-    name: 'REDUTOR 1/2 P/ 3/8',
-    code: '12716',
-    price: 25.00,
-    image: '/lovable-uploads/redutor.png',
-    imageUrl: '/lovable-uploads/redutor.png',
-    category: 'ar-condicionado',
-    recommendedOrder: 37,
-    description: 'Redutor para instalação de ar-condicionado',
-    isFeatured: false
-  },
-  {
-    id: '47',
-    name: 'REDUTOR 1/2 P/ 1/4',
-    code: '12715',
-    price: 28.00,
-    image: '/lovable-uploads/redutor.png',
-    imageUrl: '/lovable-uploads/redutor.png',
-    category: 'ar-condicionado',
-    recommendedOrder: 38,
-    description: 'Redutor para instalação de ar-condicionado',
-    isFeatured: false
-  },
-  {
-    id: '48',
-    name: 'PORCA 1/4',
-    code: '10054',
-    price: 9.50,
-    image: '/lovable-uploads/porca.png',
-    imageUrl: '/lovable-uploads/porca.png',
-    category: 'ar-condicionado',
-    recommendedOrder: 39,
-    description: 'Porca para instalação de ar-condicionado',
-    isFeatured: false
-  },
-  {
-    id: '49',
-    name: 'PORCA 3/8',
-    code: '10055',
-    price: 9.80,
-    image: '/lovable-uploads/porca.png',
-    imageUrl: '/lovable-uploads/porca.png',
-    category: 'ar-condicionado',
-    recommendedOrder: 40,
-    description: 'Porca para instalação de ar-condicionado',
-    isFeatured: false
-  },
-  {
-    id: '50',
-    name: 'PORCA 1/2',
-    code: '10051',
-    price: 12.00,
-    image: '/lovable-uploads/porca.png',
-    imageUrl: '/lovable-uploads/porca.png',
-    category: 'ar-condicionado',
-    recommendedOrder: 41,
-    description: 'Porca para instalação de ar-condicionado',
-    isFeatured: false
-  },
-  {
-    id: '51',
-    name: 'PORCA 5/8',
-    code: '10053',
-    price: 29.00,
-    image: '/lovable-uploads/porca.png',
-    imageUrl: '/lovable-uploads/porca.png',
-    category: 'ar-condicionado',
-    recommendedOrder: 42,
-    description: 'Porca para instalação de ar-condicionado',
-    isFeatured: false
-  },
-  {
-    id: '52',
-    name: 'PORCA 3/4',
-    code: '10052',
-    price: 32.00,
-    image: '/lovable-uploads/porca.png',
-    imageUrl: '/lovable-uploads/porca.png',
-    category: 'ar-condicionado',
-    recommendedOrder: 43,
-    description: 'Porca para instalação de ar-condicionado',
-    isFeatured: false
-  },
-  {
-    id: '53',
-    name: 'CAPACITOR 0,9UF 400VAC',
-    code: '11305',
-    price: 20.00,
-    image: '/lovable-uploads/capacitorpreto.png',
-    imageUrl: '/lovable-uploads/capacitorpreto.png',
-    category: 'ar-condicionado',
-    recommendedOrder: 44,
-    description: 'Capacitor para ar-condicionado',
-    isFeatured: false
-  },
-  {
-    id: '54',
-    name: 'CAPACITOR 1UF 400VAC',
-    code: '11306',
-    price: 20.00,
-    image: '/lovable-uploads/capacitorpreto.png',
-    imageUrl: '/lovable-uploads/capacitorpreto.png',
-    category: 'ar-condicionado',
-    recommendedOrder: 45,
-    description: 'Capacitor para ar-condicionado',
-    isFeatured: false
-  },
-  {
-    id: '55',
-    name: 'CAPACITOR 1,5UF 400VAC',
-    code: '11307',
-    price: 20.00,
-    image: '/lovable-uploads/capacitorpreto.png',
-    imageUrl: '/lovable-uploads/capacitorpreto.png',
-    category: 'ar-condicionado',
-    recommendedOrder: 46,
-    description: 'Capacitor para ar-condicionado',
-    isFeatured: false
-  },
-  {
-    id: '56',
-    name: 'CAPACITOR 2UF 400VAC',
-    code: '11308',
-    price: 20.00,
-    image: '/lovable-uploads/capacitorpreto.png',
-    imageUrl: '/lovable-uploads/capacitorpreto.png',
-    category: 'ar-condicionado',
-    recommendedOrder: 47,
-    description: 'Capacitor para ar-condicionado',
-    isFeatured: false
-  },
-  {
-    id: '57',
-    name: 'CAPACITOR 2,5UF 400VAC',
-    code: '11309',
-    price: 20.00,
-    image: '/lovable-uploads/capacitorpreto.png',
-    imageUrl: '/lovable-uploads/capacitorpreto.png',
-    category: 'ar-condicionado',
-    recommendedOrder: 48,
-    description: 'Capacitor para ar-condicionado',
-    isFeatured: false
-  },
-  {
-    id: '58',
-    name: 'CAPACITOR 3UF 380V',
-    code: '12642',
-    price: 30.00,
-    image: '/lovable-uploads/capacitor.png',
-    imageUrl: '/lovable-uploads/capacitor.png',
-    category: 'ar-condicionado',
-    recommendedOrder: 49,
-    description: 'Capacitor para ar-condicionado',
-    isFeatured: false
-  },
-  {
-    id: '59',
-    name: 'CAPACITOR 15UF 440V',
-    code: '7899733814250',
-    price: 25.00,
-    image: '/lovable-uploads/capacitor.png',
-    imageUrl: '/lovable-uploads/capacitor.png',
-    category: 'ar-condicionado',
-    recommendedOrder: 50,
-    description: 'Capacitor para ar-condicionado',
-    isFeatured: false
-  },
-  {
-    id: '60',
-    name: 'CAPACITOR 20UF 380VAC',
-    code: '11997',
-    price: 35.00,
-    image: '/lovable-uploads/capacitor.png',
-    imageUrl: '/lovable-uploads/capacitor.png',
-    category: 'ar-condicionado',
-    recommendedOrder: 51,
-    description: 'Capacitor para ar-condicionado',
-    isFeatured: false
-  },
-  {
-    id: '61',
-    name: 'CAPACITOR 25UF 380VAC',
-    code: '11327',
-    price: 43.00,
-    image: '/lovable-uploads/capacitor.png',
-    imageUrl: '/lovable-uploads/capacitor.png',
-    category: 'ar-condicionado',
-    recommendedOrder: 52,
-    description: 'Capacitor para ar-condicionado',
-    isFeatured: false
-  },
-  {
-    id: '62',
-    name: 'CAPACITOR 25UF 440VAC',
-    code: '11325',
-    price: 48.00,
-    image: '/lovable-uploads/capacitor.png',
-    imageUrl: '/lovable-uploads/capacitor.png',
-    category: 'ar-condicionado',
-    recommendedOrder: 53,
-    description: 'Capacitor para ar-condicionado',
-    isFeatured: false
-  },
-  {
-    id: '63',
-    name: 'CAPACITOR 30UF 380VAC',
-    code: '11311',
-    price: 48.00,
-    image: '/lovable-uploads/capacitor.png',
-    imageUrl: '/lovable-uploads/capacitor.png',
-    category: 'ar-condicionado',
-    recommendedOrder: 54,
-    description: 'Capacitor para ar-condicionado',
-    isFeatured: false
-  },
-  {
-    id: '64',
-    name: 'CAPACITOR 30UF 440VAC',
-    code: '11326',
-    price: 53.00,
-    image: '/lovable-uploads/capacitor.png',
-    imageUrl: '/lovable-uploads/capacitor.png',
-    category: 'ar-condicionado',
-    recommendedOrder: 55,
-    description: 'Capacitor para ar-condicionado',
-    isFeatured: false
-  },
-  {
-    id: '65',
-    name: 'CAPACITOR 35UF 450/380VAC',
-    code: '11312',
-    price: 35.00,
-    image: '/lovable-uploads/capacitor.png',
-    imageUrl: '/lovable-uploads/capacitor.png',
-    category: 'ar-condicionado',
-    recommendedOrder: 56,
-    description: 'Capacitor para ar-condicionado',
-    isFeatured: false
-  },
-  {
-    id: '66',
-    name: 'CAPACITOR 40UF 380VAC',
-    code: '12643',
-    price: 52.00,
-    image: '/lovable-uploads/capacitor.png',
-    imageUrl: '/lovable-uploads/capacitor.png',
-    category: 'ar-condicionado',
-    recommendedOrder: 57,
-    description: 'Capacitor para ar-condicionado',
-    isFeatured: false
-  },
-  {
-    id: '67',
-    name: 'CAPACITOR 55UF 380VAC',
-    code: '11998',
-    price: 65.00,
-    image: '/lovable-uploads/capacitor.png',
-    imageUrl: '/lovable-uploads/capacitor.png',
-    category: 'ar-condicionado',
-    recommendedOrder: 58,
-    description: 'Capacitor para ar-condicionado',
-    isFeatured: false
-  },
-  {
-    id: '68',
-    name: 'CAPACITOR 60UF 380VAC',
-    code: '11999',
-    price: 45.00,
-    image: '/lovable-uploads/capacitor.png',
-    imageUrl: '/lovable-uploads/capacitor.png',
-    category: 'ar-condicionado',
-    recommendedOrder: 59,
-    description: 'Capacitor para ar-condicionado',
-    isFeatured: false
-  },
-  {
-    id: '69',
-    name: 'CAPACITOR 65UF 380VAC',
-    code: '12000',
-    price: 27.00,
-    image: '/lovable-uploads/capacitor.png',
-    imageUrl: '/lovable-uploads/capacitor.png',
-    category: 'ar-condicionado',
-    recommendedOrder: 60,
-    description: 'Capacitor para ar-condicionado',
-    isFeatured: false
-  },
-  {
-    id: '70',
-    name: 'CAPACITOR DUPLO 15 + 2,5UF 440VAC',
-    code: '12799',
-    price: 39.00,
-    image: '/lovable-uploads/duplo.png',
-    imageUrl: '/lovable-uploads/duplo.png',
-    category: 'ar-condicionado',
-    recommendedOrder: 61,
-    description: 'Capacitor duplo para ar-condicionado',
-    isFeatured: false
-  },
-  {
-    id: '71',
-    name: 'CAPACITOR DUPLO 15 + 2,5UF 450VAC',
-    code: '12485',
-    price: 45.00,
-    image: '/lovable-uploads/duplo.png',
-    imageUrl: '/lovable-uploads/duplo.png',
-    category: 'ar-condicionado',
-    recommendedOrder: 62,
-    description: 'Capacitor duplo para ar-condicionado',
-    isFeatured: false
-  },
-  {
-    id: '72',
-    name: 'CAPACITOR DUPLO 25+ 2,5UF 450V',
-    code: '13163',
-    price: 45.00,
-    image: '/lovable-uploads/duplo.png',
-    imageUrl: '/lovable-uploads/duplo.png',
-    category: 'ar-condicionado',
-    recommendedOrder: 63,
-    description: 'Capacitor duplo para ar-condicionado',
-    isFeatured: false
-  },
-  {
-    id: '73',
-    name: 'CANALETA CB30 2M',
-    code: '12651',
-    price: 25.00,
-    image: '/lovable-uploads/canaleta.png',
-    imageUrl: '/lovable-uploads/canaleta.png',
-    category: 'ar-condicionado',
-    recommendedOrder: 64,
-    description: 'Canaleta para instalação de ar-condicionado',
-    isFeatured: false
-  },
-  {
-    id: '74',
-    name: 'CANALETA CB60 2M',
-    code: '12652',
-    price: 35.00,
-    image: '/lovable-uploads/canaleta.png',
-    imageUrl: '/lovable-uploads/canaleta.png',
-    category: 'ar-condicionado',
-    recommendedOrder: 65,
-    description: 'Canaleta para instalação de ar-condicionado',
-    isFeatured: false
-  },
-  {
-    id: '75',
-    name: 'TERMINAL ACABAMENTO CB30',
-    code: '12645',
-    price: 38.00,
-    image: '/lovable-uploads/terminalacabamento.png',
-    imageUrl: '/lovable-uploads/terminalacabamento.png',
-    category: 'ar-condicionado',
-    recommendedOrder: 66,
-    description: 'Terminal de acabamento para instalação de ar-condicionado',
-    isFeatured: false
-  },
-  {
-    id: '76',
-    name: 'TERMINAL ACABAMENTO CB60',
-    code: '12649',
-    price: 55.00,
-    image: '/lovable-uploads/terminalacabamento.png',
-    imageUrl: '/lovable-uploads/terminalacabamento.png',
-    category: 'ar-condicionado',
-    recommendedOrder: 67,
-    description: 'Terminal de acabamento para instalação de ar-condicionado',
-    isFeatured: false
-  },
-  {
-    id: '77',
-    name: 'CURVA ANG. INTERNO CB60',
-    code: '12647',
-    price: 13.00,
-    image: '/lovable-uploads/curvainterna.png',
-    imageUrl: '/lovable-uploads/curvainterna.png',
-    category: 'ar-condicionado',
-    recommendedOrder: 68,
-    description: 'Curva angular interna para instalação de ar-condicionado',
-    isFeatured: false
-  },
-  {
-    id: '78',
-    name: 'PASSAGEM DE PAREDE CB60',
-    code: '12649',
-    price: 15.00,
-    image: '/lovable-uploads/passagemparede.png',
-    imageUrl: '/lovable-uploads/passagemparede.png',
-    category: 'ar-condicionado',
-    recommendedOrder: 69,
-    description: 'Passagem de parede para instalação de ar-condicionado',
-    isFeatured: false
-  },
-  {
-    id: '79',
-    name: 'CURVA PLANA REGULÁVEL CB60',
-    code: '12646',
-    price: 21.00,
-    image: '/lovable-uploads/curvaregulavel.png',
-    imageUrl: '/lovable-uploads/curvaregulavel.png',
-    category: 'ar-condicionado',
-    recommendedOrder: 70,
-    description: 'Curva plana regulável para instalação de ar-condicionado',
-    isFeatured: false
-  },
-  {
-    id: '80',
-    name: 'CAIXA DE PASSAGEM PARA DRENO',
-    code: '7899611800016',
-    price: 23.00,
-    image: '/lovable-uploads/passagemdreno.png',
-    imageUrl: '/lovable-uploads/passagemdreno.png',
-    category: 'ar-condicionado',
-    recommendedOrder: 71,
-    description: 'Caixa de passagem para dreno de ar-condicionado',
-    isFeatured: false
-  },
-  {
-    id: '81',
-    name: 'CAIXA DE PASSAGEM PARA DRENO',
-    code: '789961180047',
-    price: 25.00,
-    image: '/lovable-uploads/passagemdreno.png',
-    imageUrl: '/lovable-uploads/passagemdreno.png',
-    category: 'ar-condicionado',
-    recommendedOrder: 72,
-    description: 'Caixa de passagem para dreno de ar-condicionado',
-    isFeatured: false
-  },
-  {
-    id: '1',
-    name: 'Abraçadeira 3/4" Tramontina Cinza',
-    code: 'ABR-001',
-    price: 3.70,
-    image: '/lovable-uploads/fe15bc67-99a8-48bb-9477-8a5f5d5f928d.png',
-    imageUrl: '/lovable-uploads/fe15bc67-99a8-48bb-9477-8a5f5d5f928d.png',
-    category: 'instalacoes-eletricas',
-    description: 'Abraçadeira para instalações elétricas',
-    isFeatured: false
-  },
-  {
-    id: '2',
-    name: 'Luva para Eletroduto 3/4" Tramontina Cinza',
-    code: 'LUV-001',
-    price: 2.75,
-    image: '/lovable-uploads/fe15bc67-99a8-48bb-9477-8a5f5d5f928d.png',
-    imageUrl: '/lovable-uploads/fe15bc67-99a8-48bb-9477-8a5f5d5f928d.png',
-    category: 'instalacoes-eletricas',
-    description: 'Luva para eletroduto',
-    isFeatured: false
-  },
-  {
-    id: '3',
-    name: 'Curva Longa 90° 1/2" com Bolsa Tramontina Cinza',
-    code: 'CRV-001',
-    price: 17.00,
-    image: '/lovable-uploads/fe15bc67-99a8-48bb-9477-8a5f5d5f928d.png',
-    imageUrl: '/lovable-uploads/fe15bc67-99a8-48bb-9477-8a5f5d5f928d.png',
-    category: 'instalacoes-eletricas',
-    description: 'Curva longa para instalações elétricas',
-    isFeatured: false
-  },
-  {
-    id: '4',
-    name: 'Curva Longa 90° 3/4" com Bolsa Tramontina Cinza',
-    code: 'CRV-002',
-    price: 19.50,
-    image: '/lovable-uploads/fe15bc67-99a8-48bb-9477-8a5f5d5f928d.png',
-    imageUrl: '/lovable-uploads/fe15bc67-99a8-48bb-9477-8a5f5d5f928d.png',
-    category: 'instalacoes-eletricas',
-    description: 'Curva longa para instalações elétricas',
-    isFeatured: false
-  },
-  {
-    id: '5',
-    name: 'Adaptador para Condulete Múltiplo 1.1/2" para 1.1/4" Tramontina',
-    code: 'ADP-001',
-    price: 25.30,
-    image: '/lovable-uploads/fe15bc67-99a8-48bb-9477-8a5f5d5f928d.png',
-    imageUrl: '/lovable-uploads/fe15bc67-99a8-48bb-9477-8a5f5d5f928d.png',
-    category: 'instalacoes-eletricas',
-    description: 'Adaptador para condulete múltiplo',
-    isFeatured: false
-  },
-  {
-    id: '6',
-    name: 'Adaptador para Condulete Múltiplo 1" Tramontina',
-    code: 'ADP-002',
-    price: 22.80,
-    image: '/lovable-uploads/fe15bc67-99a8-48bb-9477-8a5f5d5f928d.png',
-    imageUrl: '/lovable-uploads/fe15bc67-99a8-48bb-9477-8a5f5d5f928d.png',
-    category: 'instalacoes-eletricas',
-    description: 'Adaptador para condulete múltiplo',
-    isFeatured: false
-  },
-  {
-    id: '8',
-    name: 'Terminal de Compressão 50mm',
-    code: 'TRM-001',
-    price: 12.50,
-    image: '/lovable-uploads/fe15bc67-99a8-48bb-9477-8a5f5d5f928d.png',
-    imageUrl: '/lovable-uploads/fe15bc67-99a8-48bb-9477-8a5f5d5f928d.png',
-    category: 'terminais',
-    description: 'Terminal de compressão para instalações elétricas',
-    isFeatured: false
-  },
-  {
-    id: '9',
-    name: 'Sensor de Temperatura PTC',
-    code: 'SNS-001',
-    price: 45.90,
-    image: '/lovable-uploads/fe15bc67-99a8-48bb-9477-8a5f5d5f928d.png',
-    imageUrl: '/lovable-uploads/fe15bc67-99a8-48bb-9477-8a5f5d5f928d.png',
-    category: 'automacao',
-    description: 'Sensor de temperatura PTC para automação',
-    isFeatured: false
-  },
-];
+import { products as allProducts } from '../data/products';
 
 const categoryLabels: Record<string, string> = {
   'instalacoes-eletricas': 'Instalações Elétricas',
@@ -1024,20 +46,27 @@ export default function CategoryPage() {
   
   const [subcategories, setSubcategories] = useState<string[]>([]);
   const [selectedSubcategories, setSelectedSubcategories] = useState<string[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    const categories = Array.from(new Set(sampleProducts.map(product => product.category)));
+    console.log("Current slug:", slug);
+    console.log("Product categories available:", Array.from(new Set(allProducts.map(p => p.category))));
+    
+    const categories = Array.from(new Set(allProducts.map(product => product.category)));
     setAllCategories(categories);
     
+    setIsLoading(true);
+    
     if (slug) {
-      const categoryProducts = sampleProducts.filter(product => product.category === slug);
+      const categoryProducts = allProducts.filter(product => product.category === slug);
+      console.log(`Found ${categoryProducts.length} products for category: ${slug}`);
+      
       const subCats = Array.from(new Set(categoryProducts
         .map(product => product.subcategory)
         .filter(Boolean) as string[]));
       
       setSubcategories(subCats);
       
-      // Check URL for subcategory param
       const subcategoryParam = searchParams.get('subcategoria');
       if (subcategoryParam) {
         setSelectedSubcategories([subcategoryParam]);
@@ -1046,8 +75,6 @@ export default function CategoryPage() {
       }
     }
     
-    filterProducts();
-    
     if (slug && slug in categoryLabels) {
       document.title = `${categoryLabels[slug]} | Center Eletrônica`;
     } else {
@@ -1055,6 +82,11 @@ export default function CategoryPage() {
     }
     
     window.scrollTo(0, 0);
+    
+    setTimeout(() => {
+      filterProducts();
+      setIsLoading(false);
+    }, 100);
   }, [slug, searchParams]);
 
   useEffect(() => {
@@ -1062,18 +94,25 @@ export default function CategoryPage() {
   }, [priceRange, sortBy, selectedSubcategories]);
 
   const filterProducts = () => {
+    console.log("Filtering products with slug:", slug);
+    
     let filteredProducts = slug 
-      ? sampleProducts.filter(product => product.category === slug)
-      : sampleProducts;
+      ? allProducts.filter(product => product.category === slug)
+      : allProducts;
+    
+    console.log(`After category filter: ${filteredProducts.length} products`);
     
     filteredProducts = filteredProducts.filter(
       product => product.price >= priceRange[0] && product.price <= priceRange[1]
     );
     
+    console.log(`After price filter: ${filteredProducts.length} products`);
+    
     if (selectedSubcategories.length > 0) {
       filteredProducts = filteredProducts.filter(
         product => product.subcategory && selectedSubcategories.includes(product.subcategory)
       );
+      console.log(`After subcategory filter: ${filteredProducts.length} products`);
     }
     
     switch(sortBy) {
@@ -1108,7 +147,6 @@ export default function CategoryPage() {
         ? prev.filter(sc => sc !== subcategory)
         : [...prev, subcategory];
       
-      // Update URL with selected subcategory
       if (newSelection.length === 0) {
         searchParams.delete('subcategoria');
       } else {
@@ -1126,7 +164,7 @@ export default function CategoryPage() {
     setSearchParams(searchParams);
   };
 
-  const maxPrice = Math.max(...sampleProducts.map(product => product.price));
+  const maxPrice = Math.max(...allProducts.map(product => product.price));
   
   const formatCurrency = (value: number) => {
     return new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(value);
@@ -1140,7 +178,7 @@ export default function CategoryPage() {
     <div className="flex flex-col min-h-screen bg-[#151515]">
       <Navbar />
       <main className="flex-grow">
-        <div className="container-custom py-12">
+        <div className="container py-12">
           <motion.div 
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -1269,7 +307,7 @@ export default function CategoryPage() {
                 <div className="px-2">
                   <Slider 
                     defaultValue={priceRange} 
-                    max={maxPrice} 
+                    max={300} 
                     step={1}
                     onValueChange={(value) => setPriceRange(value as [number, number])}
                     className="mb-6"
@@ -1316,7 +354,7 @@ export default function CategoryPage() {
                 </div>
               </div>
               
-              <ProductGrid products={products} />
+              <ProductGrid products={products} isLoading={isLoading} />
             </motion.div>
           </div>
         </div>
