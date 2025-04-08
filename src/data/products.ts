@@ -1,28 +1,7 @@
+
 import { Product } from "../types";
 
 export const products: Product[] = [
-  {
-    id: 'sensor-ptc-temperatura',
-    name: 'Sensor de Temperatura PTC',
-    category: 'automacao',
-    description: 'Sensor de Temperatura PTC para aplicações de automação.',
-    price: 29.99,
-    imageUrl: '/lovable-uploads/00b83df6-8857-4892-a9a5-37085b5cf813.png',
-    image: '/lovable-uploads/00b83df6-8857-4892-a9a5-37085b5cf813.png',
-    isFeatured: true,
-    code: 'PTC-001'
-  },
-  {
-    id: 'arduino-uno',
-    name: 'Arduino Uno R3',
-    category: 'automacao',
-    description: 'Placa de desenvolvimento Arduino Uno R3.',
-    price: 59.99,
-    imageUrl: '/arduino-uno.jpg',
-    image: '/arduino-uno.jpg',
-    isFeatured: true,
-    code: 'ARD-001'
-  },
   {
     id: 'botao-impulso-ilum-azul',
     name: 'BOTÃO DE IMPULSO ILUM. 1NA 24V',
@@ -615,4 +594,10 @@ export const products: Product[] = [
     name: 'RELÉ DE NÍVEL INFERIOR (ESVAZIAMENTO)',
     category: 'automacao',
     description: 'Relé de nível inferior, para controle de esvaziamento.',
-    price: 11
+    price: 110.00,
+    imageUrl: '/lovable-uploads/relenivel.png',
+    image: '/lovable-uploads/relenivel.png',
+    code: '7898640445182',
+    subcategory: 'Relé de nível'
+  }
+];
