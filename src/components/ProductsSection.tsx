@@ -38,8 +38,15 @@ const ProductsSection = ({ searchQuery = '', category }: ProductsSectionProps) =
 
   const sectionTitle = 
     searchQuery ? `Resultados para "${searchQuery}"` : 
-    category ? `Produtos de ${category === 'automacao' ? 'Automação' : category}` : 
+    category ? `Produtos de ${categoryLabels[category] || category}` : 
     'Produtos Destacados';
+    
+  const categoryLabels: Record<string, string> = {
+    'automacao': 'Automação',
+    'ar-condicionado': 'Ar Condicionado',
+    'instalacoes-eletricas': 'Instalações Elétricas',
+    'terminais': 'Terminais e Conectores',
+  };
 
   return (
     <div className="py-12 md:py-16">

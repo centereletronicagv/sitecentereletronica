@@ -1056,5 +1056,137 @@ export const products: Product[] = [
     image: '/lovable-uploads/tramontina24vac.png',
     code: '7891435938913',
     subcategory: 'Contatores'
+  },
+  {
+    id: 'ar-split-9000-inverter',
+    name: 'AR CONDICIONADO SPLIT 9000 BTUs INVERTER',
+    category: 'ar-condicionado',
+    description: 'Ar condicionado Split Inverter, 9000 BTUs, Frio.',
+    price: 1599.00,
+    imageUrl: '/lovable-uploads/971e4194-c7ba-483d-972e-e397dcb9519d.png',
+    image: '/lovable-uploads/971e4194-c7ba-483d-972e-e397dcb9519d.png',
+    code: 'AC-9000-INV',
+    subcategory: 'Split'
+  },
+  {
+    id: 'ar-split-12000-inverter',
+    name: 'AR CONDICIONADO SPLIT 12000 BTUs INVERTER',
+    category: 'ar-condicionado',
+    description: 'Ar condicionado Split Inverter, 12000 BTUs, Frio.',
+    price: 1899.00,
+    imageUrl: '/lovable-uploads/971e4194-c7ba-483d-972e-e397dcb9519d.png',
+    image: '/lovable-uploads/971e4194-c7ba-483d-972e-e397dcb9519d.png',
+    code: 'AC-12000-INV',
+    subcategory: 'Split'
+  },
+  {
+    id: 'ar-split-18000-inverter',
+    name: 'AR CONDICIONADO SPLIT 18000 BTUs INVERTER',
+    category: 'ar-condicionado',
+    description: 'Ar condicionado Split Inverter, 18000 BTUs, Frio.',
+    price: 2699.00,
+    imageUrl: '/lovable-uploads/971e4194-c7ba-483d-972e-e397dcb9519d.png',
+    image: '/lovable-uploads/971e4194-c7ba-483d-972e-e397dcb9519d.png',
+    code: 'AC-18000-INV',
+    subcategory: 'Split'
+  },
+  {
+    id: 'ar-split-24000-inverter',
+    name: 'AR CONDICIONADO SPLIT 24000 BTUs INVERTER',
+    category: 'ar-condicionado',
+    description: 'Ar condicionado Split Inverter, 24000 BTUs, Frio.',
+    price: 3499.00,
+    imageUrl: '/lovable-uploads/971e4194-c7ba-483d-972e-e397dcb9519d.png',
+    image: '/lovable-uploads/971e4194-c7ba-483d-972e-e397dcb9519d.png',
+    code: 'AC-24000-INV',
+    subcategory: 'Split'
+  },
+  {
+    id: 'ar-janela-7500',
+    name: 'AR CONDICIONADO JANELA 7500 BTUs',
+    category: 'ar-condicionado',
+    description: 'Ar condicionado de Janela, 7500 BTUs, Frio.',
+    price: 999.00,
+    imageUrl: '/lovable-uploads/0a217023-653b-422c-806e-ea826fee50b0.png',
+    image: '/lovable-uploads/0a217023-653b-422c-806e-ea826fee50b0.png',
+    code: 'AC-7500-JAN',
+    subcategory: 'Janela'
+  },
+  {
+    id: 'ar-janela-10000',
+    name: 'AR CONDICIONADO JANELA 10000 BTUs',
+    category: 'ar-condicionado',
+    description: 'Ar condicionado de Janela, 10000 BTUs, Frio.',
+    price: 1199.00,
+    imageUrl: '/lovable-uploads/0a217023-653b-422c-806e-ea826fee50b0.png',
+    image: '/lovable-uploads/0a217023-653b-422c-806e-ea826fee50b0.png',
+    code: 'AC-10000-JAN',
+    subcategory: 'Janela'
+  },
+  {
+    id: 'ar-portatil-9000',
+    name: 'AR CONDICIONADO PORTÁTIL 9000 BTUs',
+    category: 'ar-condicionado',
+    description: 'Ar condicionado Portátil, 9000 BTUs, Frio.',
+    price: 1799.00,
+    imageUrl: '/lovable-uploads/9b2aa237-3c25-41e5-89fc-4a1be00b9aec.png',
+    image: '/lovable-uploads/9b2aa237-3c25-41e5-89fc-4a1be00b9aec.png',
+    code: 'AC-9000-PORT',
+    subcategory: 'Portátil'
+  },
+  {
+    id: 'ar-portatil-12000',
+    name: 'AR CONDICIONADO PORTÁTIL 12000 BTUs',
+    category: 'ar-condicionado',
+    description: 'Ar condicionado Portátil, 12000 BTUs, Frio.',
+    price: 2099.00,
+    imageUrl: '/lovable-uploads/9b2aa237-3c25-41e5-89fc-4a1be00b9aec.png',
+    image: '/lovable-uploads/9b2aa237-3c25-41e5-89fc-4a1be00b9aec.png',
+    code: 'AC-12000-PORT',
+    subcategory: 'Portátil'
+  },
+  {
+    id: 'gas-r22',
+    name: 'GÁS REFRIGERANTE R22 - 13,6kg',
+    category: 'ar-condicionado',
+    description: 'Gás refrigerante R22, botijão de 13,6kg.',
+    price: 599.00,
+    imageUrl: '/lovable-uploads/r22.png',
+    image: '/lovable-uploads/r22.png',
+    code: 'GAS-R22-13KG',
+    subcategory: 'Gás Refrigerante'
+  },
+  {
+    id: 'gas-r410a',
+    name: 'GÁS REFRIGERANTE R410A - 750g',
+    category: 'ar-condicionado',
+    description: 'Gás refrigerante R410A, cilindro de 750g.',
+    price: 149.00,
+    imageUrl: '/lovable-uploads/r410a750g.png',
+    image: '/lovable-uploads/r410a750g.png',
+    code: 'GAS-R410A-750G',
+    subcategory: 'Gás Refrigerante'
+  },
+  {
+    id: 'gas-r32-650',
+    name: 'GÁS REFRIGERANTE R32 - 650g',
+    category: 'ar-condicionado',
+    description: 'Gás refrigerante R32, cilindro de 650g.',
+    price: 189.00,
+    imageUrl: '/lovable-uploads/r32650g.png',
+    image: '/lovable-uploads/r32650g.png',
+    code: 'GAS-R32-650G',
+    subcategory: 'Gás Refrigerante'
+  },
+  {
+    id: 'gas-r32-3kg',
+    name: 'GÁS REFRIGERANTE R32 - 3kg',
+    category: 'ar-condicionado',
+    description: 'Gás refrigerante R32, cilindro de 3kg.',
+    price: 499.00,
+    imageUrl: '/lovable-uploads/r323kg.png',
+    image: '/lovable-uploads/r323kg.png',
+    code: 'GAS-R32-3KG',
+    subcategory: 'Gás Refrigerante'
   }
 ];
