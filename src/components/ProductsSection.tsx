@@ -11,6 +11,14 @@ interface ProductsSectionProps {
   category?: string; // Adicionando suporte para filtrar por categoria
 }
 
+// Define categoryLabels before using it
+const categoryLabels: Record<string, string> = {
+  'automacao': 'Automação',
+  'ar-condicionado': 'Ar Condicionado',
+  'instalacoes-eletricas': 'Instalações Elétricas',
+  'terminais': 'Terminais e Conectores',
+};
+
 const ProductsSection = ({ searchQuery = '', category }: ProductsSectionProps) => {
   const [filteredProducts, setFilteredProducts] = useState<Product[]>([]);
   
@@ -40,13 +48,6 @@ const ProductsSection = ({ searchQuery = '', category }: ProductsSectionProps) =
     searchQuery ? `Resultados para "${searchQuery}"` : 
     category ? `Produtos de ${categoryLabels[category] || category}` : 
     'Produtos Destacados';
-    
-  const categoryLabels: Record<string, string> = {
-    'automacao': 'Automação',
-    'ar-condicionado': 'Ar Condicionado',
-    'instalacoes-eletricas': 'Instalações Elétricas',
-    'terminais': 'Terminais e Conectores',
-  };
 
   return (
     <div className="py-12 md:py-16">

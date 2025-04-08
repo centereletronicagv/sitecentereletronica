@@ -63,7 +63,7 @@ export default function ProductCard({ product }: ProductCardProps) {
           width="120"
           height="120"
           decoding="async"
-          fetchpriority="high"
+          fetchPriority="high"
         />
         <div className="absolute top-2 left-2">
           <span className="bg-center-orange text-white text-[10px] sm:text-xs px-1.5 py-0.5 rounded-full font-medium">

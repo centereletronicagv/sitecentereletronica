@@ -1,11 +1,11 @@
 
 export interface Product {
-  id: string;
+  id: string | number;
   name: string;
   category: string;
   description?: string;
   price: number | null;
-  imageUrl: string;
+  imageUrl?: string;
   isFeatured?: boolean;
   code: string;
   image: string;
@@ -13,4 +13,5 @@ export interface Product {
   popularity?: number;
   featured?: boolean;
   subcategory?: string;
+  inStock?: boolean;
 }
