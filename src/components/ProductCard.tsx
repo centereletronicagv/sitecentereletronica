@@ -13,7 +13,10 @@ export default function ProductCard({ product }: ProductCardProps) {
   const [isHovered, setIsHovered] = useState(false);
   const { addToCart } = useCart();
 
-  const formatPrice = (price: number) => {
+  const formatPrice = (price: number | null) => {
+    if (price === null || price === 0) {
+      return 'Sob Consulta';
+    }
     return new Intl.NumberFormat('pt-BR', {
       style: 'currency',
       currency: 'BRL',
