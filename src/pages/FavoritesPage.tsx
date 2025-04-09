@@ -15,11 +15,10 @@ const sampleFavorites: Product[] = [
     code: 'ABR-001',
     price: 3.70,
     image: '/lovable-uploads/fe15bc67-99a8-48bb-9477-8a5f5d5f928d.png',
+    imageUrl: '/lovable-uploads/fe15bc67-99a8-48bb-9477-8a5f5d5f928d.png',
     category: 'instalacoes-eletricas',
-    subcategory: 'abraçadeiras',
     description: 'Abraçadeira para instalações elétricas',
-    isFeatured: false,
-    inStock: true
+    isFeatured: false
   },
   {
     id: '3',
@@ -27,11 +26,10 @@ const sampleFavorites: Product[] = [
     code: 'CRV-001',
     price: 17.00,
     image: '/lovable-uploads/fe15bc67-99a8-48bb-9477-8a5f5d5f928d.png',
+    imageUrl: '/lovable-uploads/fe15bc67-99a8-48bb-9477-8a5f5d5f928d.png',
     category: 'instalacoes-eletricas',
-    subcategory: 'curvas',
     description: 'Curva longa para instalações elétricas',
-    isFeatured: false,
-    inStock: true
+    isFeatured: false
   },
 ];
 
