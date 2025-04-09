@@ -1,4 +1,3 @@
-
 import { useEffect, useState } from 'react';
 import { ArrowRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
@@ -27,6 +26,9 @@ const categoryLabels: Record<string, string> = {
   'rele-acoplador': 'Relé Acoplador',
   'rele-termico': 'Relé Térmico',
   'contatores': 'Contatores',
+  'disjuntores': 'Disjuntores',
+  'dps': 'DPS',
+  'idr': 'IDR',
 };
 
 interface ProductsSectionProps {

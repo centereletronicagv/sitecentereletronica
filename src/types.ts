@@ -1,17 +1,14 @@
-
 export interface Product {
   id: string;
   name: string;
-  category: string;
-  description?: string;
-  price: number | null;
-  imageUrl?: string;
-  isFeatured?: boolean;
+  description: string;
+  price: number;
   code: string;
   image: string;
+  category: string;
+  subcategory: string;
+  inStock: boolean;
+  isFeatured: boolean;
+  priceInfo?: string; // For products with "Sob Consulta" price
   recommendedOrder?: number;
-  popularity?: number;
-  featured?: boolean;
-  subcategory?: string;
-  inStock?: boolean;
 }
