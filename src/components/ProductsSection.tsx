@@ -6,18 +6,33 @@ import ProductGrid from './ProductGrid';
 import { Product } from '../types';
 import { products } from '../data/products'; // Importando produtos do arquivo de dados
 
-interface ProductsSectionProps {
-  searchQuery?: string;
-  category?: string; // Adicionando suporte para filtrar por categoria
-}
-
 // Define categoryLabels before using it
 const categoryLabels: Record<string, string> = {
   'automacao': 'Automação',
   'ar-condicionado': 'Ar Condicionado',
   'instalacoes-eletricas': 'Instalações Elétricas',
   'terminais': 'Terminais e Conectores',
+  'botao-de-impulso': 'Botão de Impulso',
+  'botao-de-impulso-duplo': 'Botão de Impulso Duplo',
+  'botao-cogumelo': 'Botão Cogumelo',
+  'botao-de-emergencia': 'Botão de Emergência',
+  'chave-seletora': 'Chave Seletora',
+  'led': 'Led',
+  'sinalizadores': 'Sinalizadores',
+  'partida-de-motores': 'Partida de Motores',
+  'rele-temporizador': 'Relé Temporizador',
+  'rele-de-monitoramento': 'Relé de Monitoramento',
+  'rele-de-nivel': 'Relé de Nível',
+  'rele-de-estado-solido': 'Relé de Estado Sólido',
+  'rele-acoplador': 'Relé Acoplador',
+  'rele-termico': 'Relé Térmico',
+  'contatores': 'Contatores',
 };
+
+interface ProductsSectionProps {
+  searchQuery?: string;
+  category?: string; // Adicionando suporte para filtrar por categoria
+}
 
 const ProductsSection = ({ searchQuery = '', category }: ProductsSectionProps) => {
   const [filteredProducts, setFilteredProducts] = useState<Product[]>([]);

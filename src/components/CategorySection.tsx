@@ -59,8 +59,21 @@ const categories = [
     textColor: "text-white",
     href: "/categoria/automacao",
     subcategories: [
-      { name: "Sensores", href: "/categoria/automacao?subcategoria=sensores" },
-      { name: "Atuadores", href: "/categoria/automacao?subcategoria=atuadores" },
+      { name: "Botões de Impulso", href: "/categoria/automacao?subcategoria=Botão de Impulso" },
+      { name: "Botões de Impulso Duplo", href: "/categoria/automacao?subcategoria=Botão de Impulso Duplo" },
+      { name: "Botões Cogumelo", href: "/categoria/automacao?subcategoria=Botão Cogumelo" },
+      { name: "Botões de Emergência", href: "/categoria/automacao?subcategoria=Botão de emergência" },
+      { name: "Chaves Seletoras", href: "/categoria/automacao?subcategoria=Chave seletora" },
+      { name: "Leds", href: "/categoria/automacao?subcategoria=Led" },
+      { name: "Sinalizadores", href: "/categoria/automacao?subcategoria=Sinalizadores" },
+      { name: "Partida de Motores", href: "/categoria/automacao?subcategoria=Partida de motores" },
+      { name: "Relés Temporizadores", href: "/categoria/automacao?subcategoria=Relé temporizador" },
+      { name: "Relés de Monitoramento", href: "/categoria/automacao?subcategoria=Relé de monitoramento" },
+      { name: "Relés de Nível", href: "/categoria/automacao?subcategoria=Relé de nível" },
+      { name: "Relés de Estado Sólido", href: "/categoria/automacao?subcategoria=Relé de estado sólido" },
+      { name: "Relés Acopladores", href: "/categoria/automacao?subcategoria=Relé acoplador" },
+      { name: "Relés Térmicos", href: "/categoria/automacao?subcategoria=Relé Térmico" },
+      { name: "Contatores", href: "/categoria/automacao?subcategoria=Contatores" },
     ]
   },
 ];
@@ -114,7 +127,7 @@ const CategorySection = () => {
                     <div className="px-4 py-3 border-t border-gray-200 dark:border-gray-800 bg-gray-50 dark:bg-gray-900">
                       <p className="text-xs text-gray-500 mb-2 font-medium">Subcategorias:</p>
                       <ul className="flex flex-wrap gap-1.5">
-                        {category.subcategories.map((subcategory, idx) => (
+                        {category.subcategories.slice(0, 8).map((subcategory, idx) => (
                           <li key={idx}>
                             <Link 
                               to={`${subcategory.href}`}
@@ -124,6 +137,16 @@ const CategorySection = () => {
                             </Link>
                           </li>
                         ))}
+                        {category.subcategories.length > 8 && (
+                          <li>
+                            <Link 
+                              to={category.href}
+                              className="text-xs px-2 py-1 text-center-orange hover:underline inline-block"
+                            >
+                              +{category.subcategories.length - 8} mais
+                            </Link>
+                          </li>
+                        )}
                       </ul>
                     </div>
                   )}
