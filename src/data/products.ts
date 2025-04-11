@@ -726,3 +726,11 @@ export const products: Product[] = [
     name: "RELÉ TÉRMICO 1,6-2,5A TRAMONTINA",
     description: "Relé térmico 1,6-2,5A TRAMONTINA.",
     price: 108.0,
+    code: "7891435967104",
+    image: "/lovable-uploads/termicotramontina.png",
+    category: "automacao",
+    subcategory: "Relé Térmico",
+    inStock: true,
+    isFeatured: false,
+  },
+];
