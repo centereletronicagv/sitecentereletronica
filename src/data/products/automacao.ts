@@ -1,18 +1,7 @@
-import { Product } from "../types";
 
-export const products: Product[] = [
-  {
-    id: "3",
-    name: "COMPRESSOR 6HP QJ316PAA TJX4454YXA",
-    description: "Compressor de ar condicionado 6HP.",
-    price: 1599.0,
-    code: "100232515",
-    image: "/lovable-uploads/compressao6.png",
-    category: "ar-condicionado",
-    subcategory: "Compressores",
-    inStock: true,
-    isFeatured: true,
-  },
+import { Product } from "../../types";
+
+export const automacaoProducts: Product[] = [
   {
     id: "a1",
     name: "BOTÃO DE IMPULSO ILUM. 1NA 24V",

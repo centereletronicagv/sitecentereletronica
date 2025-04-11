@@ -3,7 +3,7 @@ import { ArrowRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import ProductGrid from './ProductGrid';
 import { Product } from '../types';
-import { products } from '../data/products'; // Importando produtos do arquivo de dados
+import { products } from '../data/products'; // Updated import path
 
 // Define categoryLabels before using it
 const categoryLabels: Record<string, string> = {
