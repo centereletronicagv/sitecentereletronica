@@ -1,7 +1,6 @@
-
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import { AirVent, Plug, Terminal, Settings, X } from "lucide-react";
+import { AirVent, Plug, Cable, Settings, X } from "lucide-react";
 import {
   Drawer,
   DrawerContent,
@@ -9,11 +8,6 @@ import {
   DrawerTitle,
   DrawerClose,
 } from "@/components/ui/drawer";
-
-interface MobileCategoryDrawerProps {
-  open: boolean;
-  onOpenChange: (open: boolean) => void;
-}
 
 const categories = [
   {
@@ -31,7 +25,7 @@ const categories = [
   {
     id: "terminais",
     name: "Terminais e Conectores",
-    icon: <Terminal className="h-5 w-5" />,
+    icon: <Cable className="h-5 w-5" />,
     color: "bg-green-600",
   },
   {
@@ -41,6 +35,11 @@ const categories = [
     color: "bg-purple-600",
   },
 ];
+
+interface MobileCategoryDrawerProps {
+  open: boolean;
+  onOpenChange: (open: boolean) => void;
+}
 
 const MobileCategoryDrawer = ({ open, onOpenChange }: MobileCategoryDrawerProps) => {
   const navigate = useNavigate();

@@ -1,7 +1,7 @@
 
 import React from "react";
 import { Link } from "react-router-dom";
-import { AirVent, Plug, Terminal, Settings } from "lucide-react";
+import { AirVent, Plug, Cable, Settings } from "lucide-react";
 import { useMediaQuery } from "@/hooks/use-mobile";
 
 const categories = [
@@ -20,7 +20,7 @@ const categories = [
   {
     id: "terminais",
     name: "Terminais e Conectores",
-    icon: <Terminal className="h-6 w-6" />,
+    icon: <Cable className="h-6 w-6" />,
     color: "bg-green-600",
   },
   {
