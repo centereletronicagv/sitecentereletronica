@@ -1,70 +1,45 @@
 
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import ProductGrid from '../components/ProductGrid';
-import { Heart } from 'lucide-react';
+import { useLocalStorage } from '@/hooks/use-mobile';
 import { Product } from '../types';
-
-// This is a placeholder. In a real implementation, favorites would be stored
-// and retrieved from localStorage or a backend service
-const sampleFavorites: Product[] = [
-  {
-    id: '1',
-    name: 'Abraçadeira 3/4" Tramontina Cinza',
-    code: 'ABR-001',
-    price: 3.70,
-    image: '/lovable-uploads/fe15bc67-99a8-48bb-9477-8a5f5d5f928d.png',
-    imageUrl: '/lovable-uploads/fe15bc67-99a8-48bb-9477-8a5f5d5f928d.png',
-    category: 'instalacoes-eletricas',
-    description: 'Abraçadeira para instalações elétricas',
-    isFeatured: false
-  },
-  {
-    id: '3',
-    name: 'Curva Longa 90° 1/2" com Bolsa Tramontina Cinza',
-    code: 'CRV-001',
-    price: 17.00,
-    image: '/lovable-uploads/fe15bc67-99a8-48bb-9477-8a5f5d5f928d.png',
-    imageUrl: '/lovable-uploads/fe15bc67-99a8-48bb-9477-8a5f5d5f928d.png',
-    category: 'instalacoes-eletricas',
-    description: 'Curva longa para instalações elétricas',
-    isFeatured: false
-  },
-];
+import { getAllProducts } from '@/data/products';
 
 const FavoritesPage = () => {
+  const [favoriteIds, setFavoriteIds] = useLocalStorage<string[]>("favorites", []);
+  const [favoriteProducts, setFavoriteProducts] = useState<Product[]>([]);
+  const isMobile = window.innerWidth < 768;
+
   useEffect(() => {
     window.scrollTo(0, 0);
-    document.title = "Meus Favoritos | Center Eletrônica";
-  }, []);
+    document.title = "Favoritos - Center Eletrônica";
+    
+    // Get all products and filter by favorites
+    const allProducts = getAllProducts();
+    const favProducts = allProducts.filter(product => favoriteIds.includes(product.id));
+    setFavoriteProducts(favProducts);
+  }, [favoriteIds]);
 
   return (
     <div className="flex flex-col min-h-screen">
       <Navbar />
-      <main className="flex-grow py-12 bg-[#181818]">
-        <div className="container-custom">
-          <div className="mb-8">
-            <div className="flex items-center gap-3 mb-2">
-              <Heart className="w-6 h-6 text-center-orange" fill="#FF5722" />
-              <h1 className="text-3xl font-bold">Meus Favoritos</h1>
-            </div>
-            <p className="text-gray-400">Produtos que você marcou como favorito</p>
-          </div>
-
-          {sampleFavorites.length > 0 ? (
-            <ProductGrid products={sampleFavorites} />
+      <main className={`flex-grow ${isMobile ? 'pt-16 pb-16' : 'pt-20'}`}>
+        <div className="container-custom py-8">
+          <h1 className="text-2xl md:text-3xl font-display font-bold mb-8">
+            Meus <span className="text-center-orange">Favoritos</span>
+          </h1>
+          
+          {favoriteProducts.length > 0 ? (
+            <ProductGrid products={favoriteProducts} />
           ) : (
-            <div className="py-20 text-center">
-              <Heart className="w-16 h-16 text-gray-400 mx-auto mb-4" />
-              <h2 className="text-2xl font-medium text-white mb-2">Nenhum favorito encontrado</h2>
-              <p className="text-gray-400 mb-8">Você ainda não adicionou nenhum produto aos favoritos.</p>
-              <a 
-                href="/" 
-                className="btn-primary inline-flex items-center justify-center"
-              >
+            <div className="text-center py-12">
+              <h3 className="text-xl text-gray-400 mb-4">Você ainda não possui produtos favoritos.</h3>
+              <Link to="/" className="inline-flex items-center px-5 py-2.5 bg-center-orange hover:bg-center-orange-dark text-white font-medium rounded-md transition-colors">
                 Explorar produtos
-              </a>
+              </Link>
             </div>
           )}
         </div>
