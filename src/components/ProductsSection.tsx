@@ -29,6 +29,18 @@ const categoryLabels: Record<string, string> = {
   'disjuntores': 'Disjuntores',
   'dps': 'DPS',
   'idr': 'IDR',
+  'suportes': 'Suportes',
+  'tubulacao': 'Tubulação',
+  'tubex': 'Tubex',
+  'fitas': 'Fitas',
+  'dreno': 'Dreno',
+  'fluidos': 'Fluídos',
+  'cabos': 'Cabos',
+  'uniao': 'União',
+  'redutor': 'Redutor',
+  'porca': 'Porca',
+  'capacitor': 'Capacitor',
+  'acabamento': 'Acabamento',
 };
 
 interface ProductsSectionProps {
