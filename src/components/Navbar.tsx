@@ -1,10 +1,11 @@
 
 import { useState, useEffect, FormEvent } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { Menu, X, Search, Wind, Plug, Terminal, Router, ChevronDown, ChevronRight, ShoppingCart } from 'lucide-react';
+import { Menu, X, Search, Wind, Plug, Terminal, Router, ChevronDown, ChevronRight, ShoppingCart, Grid2X2 } from 'lucide-react';
 import { Input } from './ui/input';
 import { useCart } from '@/context/CartContext';
 import CartModal from './CartModal';
+import MobileCategoryDrawer from './MobileCategoryDrawer';
 import { Dialog, DialogContent } from '@/components/ui/dialog';
 import { useIsMobile } from '@/hooks/use-mobile';
 import { 
@@ -68,6 +69,7 @@ export default function Navbar() {
   const [searchQuery, setSearchQuery] = useState('');
   const [isCartOpen, setIsCartOpen] = useState(false);
   const [isMobileSearchOpen, setIsMobileSearchOpen] = useState(false);
+  const [isCategoryDrawerOpen, setIsCategoryDrawerOpen] = useState(false);
   const [openCategories, setOpenCategories] = useState<{[key: string]: boolean}>({});
   const location = useLocation();
   const navigate = useNavigate();
@@ -202,7 +204,15 @@ export default function Navbar() {
               </div>
             </div>
 
-            <div className="flex items-center gap-1.5 md:hidden">
+            <div className="flex items-center gap-2 md:hidden">
+              <button 
+                className="p-1.5 text-gray-300 bg-[#333333] rounded-full"
+                onClick={() => setIsCategoryDrawerOpen(true)}
+                aria-label="Categorias"
+              >
+                <Grid2X2 size={16} />
+              </button>
+              
               <button 
                 className="p-1.5 text-gray-300 bg-[#333333] rounded-full"
                 onClick={handleMobileSearchOpen}
@@ -333,6 +343,7 @@ export default function Navbar() {
       </div>
 
       <CartModal open={isCartOpen} onOpenChange={setIsCartOpen} />
+      <MobileCategoryDrawer open={isCategoryDrawerOpen} onOpenChange={setIsCategoryDrawerOpen} />
 
       <Dialog open={isMobileSearchOpen} onOpenChange={setIsMobileSearchOpen}>
         <DialogContent className="sm:max-w-md border-[#333333] bg-[#1E1E1E] p-0 overflow-hidden">

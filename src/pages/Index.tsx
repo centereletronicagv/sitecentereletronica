@@ -6,6 +6,7 @@ import Hero from '../components/Hero';
 import ContactSection from '../components/ContactSection';
 import Footer from '../components/Footer';
 import ProductsSection from '../components/ProductsSection';
+import CategorySection from '../components/CategorySection';
 import { useMediaQuery } from '@/hooks/use-mobile';
 
 const Index = () => {
@@ -56,7 +57,12 @@ const Index = () => {
     <div className="flex flex-col min-h-screen">
       <Navbar />
       <main className={`flex-grow ${isMobile ? 'pt-14' : 'pt-16 md:pt-20'}`}>
-        {!searchQuery && !category && <Hero />}
+        {!searchQuery && !category && (
+          <>
+            <Hero />
+            {isMobile && <CategorySection />}
+          </>
+        )}
         
         <ProductsSection searchQuery={searchQuery} category={category} />
         

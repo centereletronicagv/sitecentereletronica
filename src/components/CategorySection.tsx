@@ -2,6 +2,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { AirVent, Plug, Terminal, Settings } from "lucide-react";
+import { useMediaQuery } from "@/hooks/use-mobile";
 
 const categories = [
   {
@@ -31,23 +32,25 @@ const categories = [
 ];
 
 export default function CategorySection() {
+  const { isMobile } = useMediaQuery();
+
   return (
-    <div className="py-10 px-4 sm:px-6 lg:px-8">
+    <div className={`py-6 ${isMobile ? 'px-3' : 'px-4 sm:px-6 lg:px-8'} bg-[#1e1e1e]`}>
       <div className="max-w-7xl mx-auto">
-        <h2 className="text-2xl font-bold text-center mb-8">Categorias</h2>
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+        <h2 className="text-xl font-bold text-center mb-4 text-white">Categorias</h2>
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
           {categories.map((category) => (
             <Link
               key={category.id}
-              to={`/category/${category.id}`}
-              className="flex flex-col items-center justify-center p-4 rounded-lg border border-gray-200 hover:border-gray-300 transition-all duration-200 hover:shadow-md group"
+              to={`/?category=${category.id}`}
+              className="flex flex-col items-center justify-center p-3 rounded-lg bg-[#252525] border border-[#333333] hover:border-gray-300 transition-all duration-200 hover:shadow-md group"
             >
               <div
-                className={`${category.color} p-3 rounded-full text-white mb-3 group-hover:scale-110 transition-transform duration-200`}
+                className={`${category.color} p-2.5 rounded-full text-white mb-2 group-hover:scale-110 transition-transform duration-200`}
               >
                 {category.icon}
               </div>
-              <span className="text-sm font-medium text-gray-700 group-hover:text-gray-900">
+              <span className="text-sm font-medium text-gray-300 group-hover:text-white text-center">
                 {category.name}
               </span>
             </Link>
