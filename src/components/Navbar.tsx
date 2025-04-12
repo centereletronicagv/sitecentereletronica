@@ -8,14 +8,6 @@ import CartModal from './CartModal';
 import { Dialog, DialogContent } from '@/components/ui/dialog';
 import { useIsMobile } from '@/hooks/use-mobile';
 import { 
-  NavigationMenu,
-  NavigationMenuContent,
-  NavigationMenuItem,
-  NavigationMenuLink,
-  NavigationMenuList,
-  NavigationMenuTrigger,
-} from "@/components/ui/navigation-menu";
-import { 
   Collapsible,
   CollapsibleContent,
   CollapsibleTrigger,
@@ -138,32 +130,6 @@ export default function Navbar() {
       toggleCategory(link.name);
     }
   };
-
-  // Mobile category navigation component
-  const MobileCategoryNav = () => (
-    <div className="fixed bottom-0 left-0 right-0 z-30 bg-[#181818] border-t border-[#333333] py-2 md:hidden">
-      <div className="flex justify-between px-4">
-        {navLinks.slice(0, 5).map((link, index) => (
-          <Link 
-            key={link.name} 
-            to={link.href}
-            className={`flex flex-col items-center justify-center ${
-              location.pathname === link.href ? 'text-center-orange' : 'text-gray-300'
-            }`}
-          >
-            {link.icon && (
-              <div className="mb-1">
-                {link.icon}
-              </div>
-            )}
-            <span className="text-xs font-medium truncate max-w-[60px] text-center">
-              {link.name === 'Terminais e Conectores' ? 'Terminais' : link.name}
-            </span>
-          </Link>
-        ))}
-      </div>
-    </div>
-  );
 
   return (
     <header className="w-full">
@@ -408,12 +374,6 @@ export default function Navbar() {
           </div>
         </DialogContent>
       </Dialog>
-
-      {/* Mobile Category Nav */}
-      {isMobile && <MobileCategoryNav />}
-      
-      {/* Add padding to the bottom on mobile to account for the mobile nav */}
-      {isMobile && <div className="h-14 md:h-0" />}
     </header>
   );
 }
