@@ -1,19 +1,6 @@
-
 import { Product } from "../../types";
 
 export const arCondicionadoProducts: Product[] = [
-  {
-    id: "3",
-    name: "COMPRESSOR 6HP QJ316PAA TJX4454YXA",
-    description: "Compressor de ar condicionado 6HP.",
-    price: 1599.0,
-    code: "100232515",
-    image: "/lovable-uploads/compressao6.png",
-    category: "ar-condicionado",
-    subcategory: "Compressores",
-    inStock: true,
-    isFeatured: true,
-  },
   // Suportes
   {
     id: "ac-suporte-400",
@@ -24,6 +11,7 @@ export const arCondicionadoProducts: Product[] = [
     category: "ar-condicionado",
     subcategory: "Suportes",
     inStock: true,
+    isFeatured: true,
   },
   {
     id: "ac-suporte-450",
@@ -34,6 +22,7 @@ export const arCondicionadoProducts: Product[] = [
     category: "ar-condicionado",
     subcategory: "Suportes",
     inStock: true,
+    isFeatured: true,
   },
   {
     id: "ac-suporte-500",
@@ -44,6 +33,7 @@ export const arCondicionadoProducts: Product[] = [
     category: "ar-condicionado",
     subcategory: "Suportes",
     inStock: true,
+    isFeatured: true,
   },
   {
     id: "ac-suporte-550",
@@ -54,6 +44,7 @@ export const arCondicionadoProducts: Product[] = [
     category: "ar-condicionado",
     subcategory: "Suportes",
     inStock: true,
+    isFeatured: true,
   },
   {
     id: "ac-suporte-900",
@@ -64,6 +55,7 @@ export const arCondicionadoProducts: Product[] = [
     category: "ar-condicionado",
     subcategory: "Suportes",
     inStock: true,
+    isFeatured: true,
   },
   // Tubulação
   {
@@ -76,6 +68,7 @@ export const arCondicionadoProducts: Product[] = [
     subcategory: "Tubulação",
     description: "Por Metro",
     inStock: true,
+    isFeatured: true,
   },
   {
     id: "ac-tubulacao-3-8",
@@ -688,7 +681,7 @@ export const arCondicionadoProducts: Product[] = [
   },
   {
     id: "ac-terminal-cb30",
-    name: "TERMINAL ACABAMENT0 CB30",
+    name: "TERMINAL ACABAMENTO CB30",
     price: 38.0,
     code: "12645",
     image: "/lovable-uploads/terminalacabamento.png",
