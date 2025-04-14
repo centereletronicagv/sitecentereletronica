@@ -16,7 +16,6 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
     <CartProvider>
       <Router>
         <App />
-        <Toaster />
       </Router>
     </CartProvider>
   </React.StrictMode>
