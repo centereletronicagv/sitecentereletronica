@@ -3,6 +3,7 @@ import { useEffect } from 'react';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import ProductGrid from '../components/ProductGrid';
+import { Heart } from 'lucide-react';
 import { Product } from '../types';
 
 // This is a placeholder. In a real implementation, favorites would be stored
@@ -45,11 +46,7 @@ const FavoritesPage = () => {
         <div className="container-custom">
           <div className="mb-8">
             <div className="flex items-center gap-3 mb-2">
-              <img 
-                src="/lovable-uploads/00d593f6-7273-4d2c-9937-0589bd1643d0.png" 
-                alt="Center Eletrônica Logo" 
-                className="w-8 h-8 text-center-orange"
-              />
+              <Heart className="w-6 h-6 text-center-orange" fill="#FF5722" />
               <h1 className="text-3xl font-bold">Meus Favoritos</h1>
             </div>
             <p className="text-gray-400">Produtos que você marcou como favorito</p>
@@ -59,11 +56,7 @@ const FavoritesPage = () => {
             <ProductGrid products={sampleFavorites} />
           ) : (
             <div className="py-20 text-center">
-              <img 
-                src="/lovable-uploads/00d593f6-7273-4d2c-9937-0589bd1643d0.png" 
-                alt="Center Eletrônica Logo" 
-                className="w-16 h-16 mx-auto mb-4 opacity-70"
-              />
+              <Heart className="w-16 h-16 text-gray-400 mx-auto mb-4" />
               <h2 className="text-2xl font-medium text-white mb-2">Nenhum favorito encontrado</h2>
               <p className="text-gray-400 mb-8">Você ainda não adicionou nenhum produto aos favoritos.</p>
               <a 
