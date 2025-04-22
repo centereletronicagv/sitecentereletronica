@@ -11,25 +11,30 @@ import {
   SheetTrigger,
 } from "./ui/sheet";
 import { useState } from "react";
-import MobileCategoryDrawer from "./MobileCategoryDrawer";
+import { ThemeToggle } from "./ThemeToggle";
 import { useCart } from "@/context/CartContext";
 import CartModal from "./CartModal";
-import ThemeToggle from "./ThemeToggle";
+import MobileCategoryDrawer from "./MobileCategoryDrawer";
 
 const Navbar = () => {
   const { cartItems } = useCart();
   const [isCartOpen, setIsCartOpen] = useState(false);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
   const navigate = useNavigate();
 
   const toggleCart = () => {
     setIsCartOpen(!isCartOpen);
   };
 
+  const toggleMenu = (open: boolean) => {
+    setIsMenuOpen(open);
+  };
+
   return (
     <nav className="py-3 px-4 md:px-6 lg:px-8 border-b sticky top-0 z-10 bg-background">
       <div className="max-w-7xl mx-auto flex items-center justify-between">
         <div className="flex items-center gap-2">
-          <Sheet>
+          <Sheet open={isMenuOpen} onOpenChange={toggleMenu}>
             <SheetTrigger asChild>
               <Button variant="ghost" size="icon" className="md:hidden">
                 <Menu className="h-5 w-5" />
@@ -43,7 +48,7 @@ const Navbar = () => {
                   Navegue pelas nossas categorias
                 </SheetDescription>
               </SheetHeader>
-              <MobileCategoryDrawer />
+              <MobileCategoryDrawer open={isMenuOpen} onOpenChange={toggleMenu} />
             </SheetContent>
           </Sheet>
           <Link to="/" className="flex items-center gap-2">
@@ -95,7 +100,7 @@ const Navbar = () => {
               </span>
             )}
           </Button>
-          {isCartOpen && <CartModal onClose={toggleCart} />}
+          {isCartOpen && <CartModal open={isCartOpen} onOpenChange={setIsCartOpen} />}
         </div>
       </div>
     </nav>

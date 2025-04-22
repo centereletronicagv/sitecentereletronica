@@ -7,7 +7,7 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@
 import { useCart } from '@/context/CartContext';
 import { toast } from '@/hooks/use-toast';
 
-interface CartModalProps {
+export interface CartModalProps {
   open: boolean;
   onOpenChange: (open: boolean) => void;
 }

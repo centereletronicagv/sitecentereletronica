@@ -1,3 +1,4 @@
+
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { AirVent, Plug, Cable, Settings, X } from "lucide-react";
@@ -36,7 +37,7 @@ const categories = [
   },
 ];
 
-interface MobileCategoryDrawerProps {
+export interface MobileCategoryDrawerProps {
   open: boolean;
   onOpenChange: (open: boolean) => void;
 }
