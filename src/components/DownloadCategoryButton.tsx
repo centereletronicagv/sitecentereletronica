@@ -1,3 +1,4 @@
+
 import { Download } from "lucide-react";
 import { Button } from "./ui/button";
 import { Product } from "@/types";
@@ -66,23 +67,8 @@ export function DownloadCategoryButton({ products, categoryName }: DownloadCateg
         doc.text(categoryName.toUpperCase(), pageWidth / 2, 60, { align: 'center' });
 
         let yPosition = 80;
-        
-        // Ensure we don't have duplicate products by creating a Set of processed product IDs
-        const processedIds = new Set();
-        
-        // Filter out duplicate products by checking their IDs
-        const uniqueProducts = products.filter(product => {
-          // If we've already processed this ID, skip it
-          if (processedIds.has(product.id)) {
-            return false;
-          }
-          
-          // Otherwise add it to our set and keep the product
-          processedIds.add(product.id);
-          return true;
-        });
 
-        for (const product of uniqueProducts) {
+        for (const product of products) {
           if (itemCount > 0 && itemCount % itemsPerPage === 0) {
             doc.addPage();
             currentPage++;
