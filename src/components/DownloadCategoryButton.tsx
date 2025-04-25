@@ -1,3 +1,4 @@
+
 import { Download } from "lucide-react";
 import { Button } from "./ui/button";
 import { Product } from "@/types";
@@ -33,101 +34,123 @@ export function DownloadCategoryButton({ products, categoryName }: DownloadCateg
           cardBg: '#252525'
         };
 
-        doc.setFillColor(colors.background);
-        doc.rect(0, 0, doc.internal.pageSize.width, doc.internal.pageSize.height, 'F');
-        
-        doc.setTextColor(colors.text);
-        doc.setFontSize(32);
-        doc.setFont('helvetica', 'bold');
-        doc.text('CATÁLOGO DIGITAL', doc.internal.pageSize.width / 2, 40, { align: 'center' });
-        
-        doc.setTextColor(colors.primary);
-        doc.setFontSize(24);
-        doc.text(categoryName.toUpperCase(), doc.internal.pageSize.width / 2, 60, { align: 'center' });
-
+        // Constants for layout
         const itemsPerPage = 9;
         const itemsPerRow = 3;
         const margin = 15;
         const cardWidth = 55;
-        const cardHeight = 90;
-        const spacing = 8;
+        const cardHeight = 75;
+        const spacing = 10;
+        const pageWidth = doc.internal.pageSize.width;
+        const pageHeight = doc.internal.pageSize.height;
         
         let currentPage = 1;
-        let yPosition = 80;
-        let xPosition = margin;
         let itemCount = 0;
+
+        // Function to add background to new page
+        const addPageBackground = () => {
+          doc.setFillColor(colors.background);
+          doc.rect(0, 0, pageWidth, pageHeight, 'F');
+        };
+
+        // Add first page background
+        addPageBackground();
+        
+        // Add title only on first page
+        doc.setTextColor(colors.text);
+        doc.setFontSize(32);
+        doc.setFont('helvetica', 'bold');
+        doc.text('CATÁLOGO DIGITAL', pageWidth / 2, 40, { align: 'center' });
+        
+        doc.setTextColor(colors.primary);
+        doc.setFontSize(24);
+        doc.text(categoryName.toUpperCase(), pageWidth / 2, 60, { align: 'center' });
+
+        let yPosition = 80;
 
         for (const product of products) {
           if (itemCount > 0 && itemCount % itemsPerPage === 0) {
             doc.addPage();
             currentPage++;
             yPosition = 20;
-            doc.setFillColor(colors.background);
-            doc.rect(0, 0, doc.internal.pageSize.width, doc.internal.pageSize.height, 'F');
+            addPageBackground();
           }
 
-          xPosition = margin + (itemCount % itemsPerRow) * (cardWidth + spacing);
+          const row = Math.floor((itemCount % itemsPerPage) / itemsPerRow);
+          const col = itemCount % itemsPerRow;
           
-          if (itemCount % itemsPerRow === 0 && itemCount !== 0) {
-            yPosition += cardHeight + spacing;
+          const xPosition = margin + col * (cardWidth + spacing);
+          yPosition = 80 + row * (cardHeight + spacing);
+          
+          if (currentPage > 1) {
+            yPosition = 20 + row * (cardHeight + spacing);
           }
 
+          // Draw card background
           doc.setFillColor(colors.cardBg);
           doc.roundedRect(xPosition, yPosition, cardWidth, cardHeight, 3, 3, 'F');
 
+          // Add product image
           try {
             if (product.image) {
               const imagePath = product.image.replace('/public', '');
-              doc.addImage(imagePath, 'PNG', xPosition + 3, yPosition + 5, cardWidth - 6, 40);
+              doc.addImage(imagePath, 'PNG', xPosition + 3, yPosition + 5, cardWidth - 6, 35);
             }
           } catch (error) {
             console.error(`Erro ao carregar imagem do produto ${product.code}:`, error);
           }
 
+          // Add product name
           doc.setTextColor(colors.text);
           doc.setFontSize(8);
           doc.setFont('helvetica', 'bold');
-          doc.text(product.name, xPosition + 3, yPosition + 55, {
+          doc.text(product.name, xPosition + 3, yPosition + 50, {
             maxWidth: cardWidth - 6
           });
 
+          // Add product code
           doc.setFillColor(colors.primary);
-          doc.roundedRect(xPosition + 3, yPosition + 65, 30, 6, 2, 2, 'F');
+          doc.roundedRect(xPosition + 3, yPosition + 55, 30, 6, 2, 2, 'F');
           doc.setTextColor(colors.text);
           doc.setFontSize(7);
-          doc.text(`COD: ${product.code}`, xPosition + 5, yPosition + 69);
+          doc.text(`COD: ${product.code}`, xPosition + 5, yPosition + 59);
 
+          // Add product price
           doc.setTextColor(colors.primary);
           doc.setFontSize(10);
           doc.setFont('helvetica', 'bold');
           doc.text(
             product.price ? `R$ ${product.price.toFixed(2)}` : 'Sob consulta',
             xPosition + cardWidth - 3,
-            yPosition + 80,
+            yPosition + 70,
             { align: 'right' }
           );
 
           itemCount++;
         }
 
-        doc.addPage();
-        doc.setFillColor(colors.background);
-        doc.rect(0, 0, doc.internal.pageSize.width, doc.internal.pageSize.height, 'F');
+        // Add contact information on the last page
+        if (itemCount % itemsPerPage === 0) {
+          doc.addPage();
+          addPageBackground();
+        }
+
+        const lastPageY = itemCount % itemsPerPage === 0 ? 40 : yPosition + cardHeight + 40;
 
         doc.setTextColor(colors.text);
         doc.setFontSize(18);
         doc.setFont('helvetica', 'bold');
         doc.text('FAÇA SEU PEDIDO NOS MEIOS DE CONTATO ABAIXO:', 
-          doc.internal.pageSize.width / 2, 40, { align: 'center' });
+          pageWidth / 2, lastPageY, { align: 'center' });
 
         doc.setFontSize(14);
         doc.text('R. JACOB GREMMELMAIER, 409 - CENTRO', 
-          doc.internal.pageSize.width / 2, 70, { align: 'center' });
+          pageWidth / 2, lastPageY + 30, { align: 'center' });
         
         doc.setTextColor(colors.primary);
-        doc.text('54 9927-0560', doc.internal.pageSize.width / 2 - 50, 90, { align: 'center' });
-        doc.text('OU', doc.internal.pageSize.width / 2, 90, { align: 'center' });
-        doc.text('54 9998-6916', doc.internal.pageSize.width / 2 + 50, 90, { align: 'center' });
+        doc.text('54 9927-0560', pageWidth / 2 - 50, lastPageY + 50, { align: 'center' });
+        doc.text('OU', pageWidth / 2, lastPageY + 50, { align: 'center' });
+        doc.text('54 9998-6916', pageWidth / 2 + 50, lastPageY + 50, { align: 'center' });
 
         doc.save(`catalogo-${categoryName.toLowerCase()}.pdf`);
         
