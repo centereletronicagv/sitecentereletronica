@@ -1,4 +1,3 @@
-
 import { Download } from "lucide-react";
 import { Button } from "./ui/button";
 import { Product } from "@/types";
@@ -39,8 +38,8 @@ export function DownloadCategoryButton({ products, categoryName }: DownloadCateg
         const itemsPerRow = 3;
         const margin = 15;
         const cardWidth = 55;
-        const cardHeight = 80; // Increased card height to prevent cutoff
-        const spacing = 8; // Slightly reduced spacing to accommodate larger cards
+        const cardHeight = 85; // Increased height further
+        const spacing = 6; // Reduced spacing more to prevent cutoff
         const pageWidth = doc.internal.pageSize.width;
         const pageHeight = doc.internal.pageSize.height;
         
@@ -91,10 +90,9 @@ export function DownloadCategoryButton({ products, categoryName }: DownloadCateg
           
           const xPosition = margin + col * (cardWidth + spacing);
           
-          // Set vertical position with better spacing
+          // Adjust vertical positioning
           if (currentPage === 1) {
-            // First page: move everything up a bit to allow more space for bottom row
-            yPosition = 75 + row * (cardHeight + spacing);
+            yPosition = 70 + row * (cardHeight + spacing); // Moved up items on first page
           } else {
             yPosition = 20 + row * (cardHeight + spacing);
           }
@@ -103,52 +101,50 @@ export function DownloadCategoryButton({ products, categoryName }: DownloadCateg
           doc.setFillColor(colors.cardBg);
           doc.roundedRect(xPosition, yPosition, cardWidth, cardHeight, 3, 3, 'F');
 
-          // Add product image - slightly smaller to leave more space for text
+          // Add product image with adjusted size
           try {
             if (product.image) {
               const imagePath = product.image.replace('/public', '');
-              doc.addImage(imagePath, 'PNG', xPosition + 3, yPosition + 5, cardWidth - 6, 28);
+              doc.addImage(imagePath, 'PNG', xPosition + 3, yPosition + 5, cardWidth - 6, 25);
             }
           } catch (error) {
             console.error(`Erro ao carregar imagem do produto ${product.code}:`, error);
           }
 
-          // Add product name with reduced font size and better positioning
+          // Add product name with better positioning
           doc.setTextColor(colors.text);
-          doc.setFontSize(7); 
+          doc.setFontSize(7);
           doc.setFont('helvetica', 'bold');
           
-          // Ensure product name fits by limiting to 2 lines max with better positioning
+          // Handle product name wrapping
           const name = product.name || "";
           const maxCharsPerLine = 25;
           
           if (name.length > maxCharsPerLine) {
-            // Split into two lines if too long
             const firstLine = name.substring(0, maxCharsPerLine);
             const secondLine = name.substring(maxCharsPerLine, maxCharsPerLine * 2);
-            doc.text(firstLine, xPosition + 3, yPosition + 38);
-            doc.text(secondLine + (name.length > maxCharsPerLine * 2 ? "..." : ""), xPosition + 3, yPosition + 44);
+            doc.text(firstLine, xPosition + 3, yPosition + 35);
+            doc.text(secondLine + (name.length > maxCharsPerLine * 2 ? "..." : ""), xPosition + 3, yPosition + 41);
           } else {
-            doc.text(name, xPosition + 3, yPosition + 41);
+            doc.text(name, xPosition + 3, yPosition + 38);
           }
 
-          // Add product code with better positioning
-          doc.setFillColor(colors.primary);
-          doc.roundedRect(xPosition + 3, yPosition + 50, 30, 6, 2, 2, 'F');
-          doc.setTextColor(colors.text);
-          doc.setFontSize(7);
-          doc.text(`COD: ${product.code}`, xPosition + 5, yPosition + 54);
-
-          // Add product price with adjusted positioning
+          // Add product price moved to left side
           doc.setTextColor(colors.primary);
           doc.setFontSize(9);
           doc.setFont('helvetica', 'bold');
           doc.text(
             product.price ? `R$ ${product.price.toFixed(2)}` : 'Sob consulta',
-            xPosition + cardWidth - 3,
-            yPosition + 65,
-            { align: 'right' }
+            xPosition + 3,
+            yPosition + 55
           );
+
+          // Add product code below price
+          doc.setFillColor(colors.primary);
+          doc.roundedRect(xPosition + 3, yPosition + 65, 30, 6, 2, 2, 'F');
+          doc.setTextColor(colors.text);
+          doc.setFontSize(7);
+          doc.text(`COD: ${product.code}`, xPosition + 5, yPosition + 69);
 
           itemCount++;
         }
