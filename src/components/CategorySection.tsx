@@ -3,6 +3,8 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { AirVent, Plug, Cable, Settings } from "lucide-react";
 import { useMediaQuery } from "@/hooks/use-mobile";
+import { DownloadCategoryButton } from "./DownloadCategoryButton";
+import { products as allProducts } from "@/data/products";
 
 const categories = [
   {
@@ -40,20 +42,25 @@ export default function CategorySection() {
         <h2 className="text-xl font-bold text-center mb-4 text-white">Categorias</h2>
         <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
           {categories.map((category) => (
-            <Link
-              key={category.id}
-              to={`/?category=${category.id}`}
-              className="flex flex-col items-center justify-center p-3 rounded-lg bg-[#252525] border border-[#333333] hover:border-gray-300 transition-all duration-200 hover:shadow-md group"
-            >
-              <div
-                className={`${category.color} p-2.5 rounded-full text-white mb-2 group-hover:scale-110 transition-transform duration-200`}
+            <div key={category.id} className="flex flex-col gap-3">
+              <Link
+                to={`/?category=${category.id}`}
+                className="flex flex-col items-center justify-center p-3 rounded-lg bg-[#252525] border border-[#333333] hover:border-gray-300 transition-all duration-200 hover:shadow-md group"
               >
-                {category.icon}
-              </div>
-              <span className="text-sm font-medium text-gray-300 group-hover:text-white text-center">
-                {category.name}
-              </span>
-            </Link>
+                <div
+                  className={`${category.color} p-2.5 rounded-full text-white mb-2 group-hover:scale-110 transition-transform duration-200`}
+                >
+                  {category.icon}
+                </div>
+                <span className="text-sm font-medium text-gray-300 group-hover:text-white text-center">
+                  {category.name}
+                </span>
+              </Link>
+              <DownloadCategoryButton 
+                products={allProducts.filter(product => product.category === category.id)}
+                categoryName={category.name}
+              />
+            </div>
           ))}
         </div>
       </div>
