@@ -68,7 +68,17 @@ export function DownloadCategoryButton({ products, categoryName }: DownloadCateg
 
         let yPosition = 80;
 
-        for (const product of products) {
+        // Filter out duplicate products by ID
+        const uniqueProductIds = new Set();
+        const uniqueProducts = products.filter(product => {
+          if (!uniqueProductIds.has(product.id)) {
+            uniqueProductIds.add(product.id);
+            return true;
+          }
+          return false;
+        });
+
+        for (const product of uniqueProducts) {
           if (itemCount > 0 && itemCount % itemsPerPage === 0) {
             doc.addPage();
             currentPage++;
@@ -94,30 +104,41 @@ export function DownloadCategoryButton({ products, categoryName }: DownloadCateg
           try {
             if (product.image) {
               const imagePath = product.image.replace('/public', '');
-              doc.addImage(imagePath, 'PNG', xPosition + 3, yPosition + 5, cardWidth - 6, 35);
+              doc.addImage(imagePath, 'PNG', xPosition + 3, yPosition + 5, cardWidth - 6, 30);
             }
           } catch (error) {
             console.error(`Erro ao carregar imagem do produto ${product.code}:`, error);
           }
 
-          // Add product name
+          // Add product name with reduced font size and better positioning
           doc.setTextColor(colors.text);
-          doc.setFontSize(8);
+          doc.setFontSize(7); // Reduced font size from 8 to 7
           doc.setFont('helvetica', 'bold');
-          doc.text(product.name, xPosition + 3, yPosition + 50, {
-            maxWidth: cardWidth - 6
-          });
+          
+          // Ensure product name fits by limiting to 2 lines max
+          const name = product.name || "";
+          const maxCharsPerLine = 25;
+          
+          if (name.length > maxCharsPerLine) {
+            // Split into two lines if too long
+            const firstLine = name.substring(0, maxCharsPerLine);
+            const secondLine = name.substring(maxCharsPerLine, maxCharsPerLine * 2);
+            doc.text(firstLine, xPosition + 3, yPosition + 43);
+            doc.text(secondLine + (name.length > maxCharsPerLine * 2 ? "..." : ""), xPosition + 3, yPosition + 49);
+          } else {
+            doc.text(name, xPosition + 3, yPosition + 46);
+          }
 
-          // Add product code
+          // Add product code with better positioning
           doc.setFillColor(colors.primary);
           doc.roundedRect(xPosition + 3, yPosition + 55, 30, 6, 2, 2, 'F');
           doc.setTextColor(colors.text);
           doc.setFontSize(7);
           doc.text(`COD: ${product.code}`, xPosition + 5, yPosition + 59);
 
-          // Add product price
+          // Add product price with adjusted positioning
           doc.setTextColor(colors.primary);
-          doc.setFontSize(10);
+          doc.setFontSize(9); // Smaller font for price
           doc.setFont('helvetica', 'bold');
           doc.text(
             product.price ? `R$ ${product.price.toFixed(2)}` : 'Sob consulta',
