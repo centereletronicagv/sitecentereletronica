@@ -30,25 +30,29 @@ export function DownloadCategoryButton({ products, categoryName }: DownloadCateg
         
         // Configuração das cores do site
         const colors = {
-          background: '#1e1e1e',
-          primary: '#FF7A00',
-          text: '#333333',
-          secondary: '#252525'
+          background: '#181818',
+          cardBackground: '#1E1E1E',
+          orange: '#FF7A00',
+          text: '#FFFFFF',
+          border: '#333333'
         };
         
         // Configurações de página
         const pageWidth = doc.internal.pageSize.width;
         const pageHeight = doc.internal.pageSize.height;
         const margin = 15;
+        const productsPerPage = 6;
         
-        // Função para adicionar cabeçalho
-        const addHeader = () => {
+        // Função para adicionar cabeçalho (apenas na primeira página)
+        const addHeader = (isFirstPage: boolean) => {
+          if (!isFirstPage) return;
+          
           // Fundo do cabeçalho
           doc.setFillColor(colors.background);
           doc.rect(0, 0, pageWidth, 45, 'F');
           
           // Título principal
-          doc.setTextColor('#FFFFFF');
+          doc.setTextColor(colors.orange);
           doc.setFontSize(28);
           doc.setFont('helvetica', 'bold');
           doc.text('Center Eletrônica', pageWidth / 2, 25, { align: 'center' });
@@ -56,36 +60,51 @@ export function DownloadCategoryButton({ products, categoryName }: DownloadCateg
           // Subtítulo (categoria)
           doc.setFontSize(16);
           doc.setFont('helvetica', 'normal');
+          doc.setTextColor(colors.text);
           doc.text(`Catálogo - ${categoryName}`, pageWidth / 2, 38, { align: 'center' });
         };
         
-        // Função para adicionar rodapé
+        // Função para adicionar rodapé (apenas na última página)
         const addFooter = (pageNumber: number, totalPages: number) => {
-          const footerY = pageHeight - 25;
+          if (pageNumber !== totalPages) {
+            // Para páginas que não são a última, apenas número da página
+            doc.setTextColor(colors.text);
+            doc.setFontSize(8);
+            doc.text(`${pageNumber}/${totalPages}`, pageWidth / 2, pageHeight - 10, { align: 'center' });
+            return;
+          }
           
-          // Faixa laranja no rodapé
-          doc.setFillColor(colors.primary);
-          doc.rect(0, footerY - 5, pageWidth, 30, 'F');
+          // Rodapé completo para a última página
+          const footerY = pageHeight - 40;
+          
+          // Faixa de fundo do rodapé
+          doc.setFillColor(colors.orange);
+          doc.rect(0, footerY - 5, pageWidth, 45, 'F');
           
           // Informações de contato
-          doc.setTextColor('#FFFFFF');
-          doc.setFontSize(8);
-          doc.text('(54) 9927-0560 | (54) 9998-6916 | center@centereletronica.com.br', pageWidth / 2, footerY + 2, { align: 'center' });
-          doc.text('Rua Jacob Gremmelmaier, 409 - Centro, Getúlio Vargas - RS, 99900-000', pageWidth / 2, footerY + 8, { align: 'center' });
+          doc.setTextColor(colors.text);
+          doc.setFontSize(10);
+          doc.setFont('helvetica', 'bold');
+          doc.text('Entre em contato:', pageWidth / 2, footerY + 5, { align: 'center' });
           
-          // Numeração da página
-          doc.text(`Página ${pageNumber} de ${totalPages}`, pageWidth / 2, footerY + 14, { align: 'center' });
+          doc.setFont('helvetica', 'normal');
+          doc.setFontSize(9);
+          doc.text('(54) 9927-0560 | (54) 9998-6916', pageWidth / 2, footerY + 15, { align: 'center' });
+          doc.text('center@centereletronica.com.br', pageWidth / 2, footerY + 23, { align: 'center' });
+          doc.text('Rua Jacob Gremmelmaier, 409 - Centro', pageWidth / 2, footerY + 31, { align: 'center' });
+          doc.text('Getúlio Vargas - RS, 99900-000', pageWidth / 2, footerY + 38, { align: 'center' });
         };
         
         let currentPage = 1;
         let yPosition = 60;
-        const productsPerPage = 6;
         let productsOnCurrentPage = 0;
         
-        // Adicionar primeira página
-        addHeader();
+        // Configurar primeira página
+        doc.setFillColor(colors.background);
+        doc.rect(0, 0, pageWidth, pageHeight, 'F');
+        addHeader(true);
         
-        // Processar produtos em lotes
+        // Processar produtos
         for (let i = 0; i < products.length; i++) {
           const product = products[i];
           
@@ -93,59 +112,76 @@ export function DownloadCategoryButton({ products, categoryName }: DownloadCateg
           if (productsOnCurrentPage >= productsPerPage) {
             doc.addPage();
             currentPage++;
-            addHeader();
-            yPosition = 60;
+            // Fundo da nova página
+            doc.setFillColor(colors.background);
+            doc.rect(0, 0, pageWidth, pageHeight, 'F');
+            addHeader(false);
+            yPosition = 20;
             productsOnCurrentPage = 0;
           }
           
           // Card do produto
-          doc.setFillColor(250, 250, 250);
-          doc.roundedRect(margin, yPosition, pageWidth - (margin * 2), 40, 3, 3, 'F');
+          const cardX = margin + (productsOnCurrentPage % 2 * (pageWidth - margin * 2) / 2);
+          const cardWidth = (pageWidth - margin * 3) / 2;
+          const cardHeight = 80;
           
-          // Informações do produto
+          // Fundo do card
+          doc.setFillColor(parseInt(colors.cardBackground.slice(1, 3), 16), 
+                          parseInt(colors.cardBackground.slice(3, 5), 16), 
+                          parseInt(colors.cardBackground.slice(5, 7), 16));
+          doc.roundedRect(cardX, yPosition, cardWidth, cardHeight, 3, 3, 'F');
+          
+          // Borda do card
+          doc.setDrawColor(colors.border);
+          doc.roundedRect(cardX, yPosition, cardWidth, cardHeight, 3, 3, 'S');
+          
           try {
-            // Imagem do produto (se disponível)
+            // Imagem do produto
             if (product.image) {
               const imagePath = product.image.replace('/public', '');
               try {
-                doc.addImage(imagePath, 'PNG', margin + 5, yPosition + 5, 30, 30);
+                doc.addImage(imagePath, 'PNG', cardX + 5, yPosition + 5, 70, 70);
               } catch (imageError) {
                 console.warn(`Não foi possível carregar imagem para ${product.name}`);
               }
             }
             
-            // Textos do produto
-            const textX = margin + 45;
+            // Informações do produto
+            const textX = cardX + 80;
             
             // Nome do produto
-            doc.setTextColor(colors.primary);
+            doc.setTextColor(colors.orange);
             doc.setFontSize(12);
             doc.setFont('helvetica', 'bold');
-            doc.text(product.name, textX, yPosition + 15);
+            doc.text(product.name, textX, yPosition + 20);
             
             // Código do produto
             doc.setTextColor(colors.text);
             doc.setFontSize(10);
             doc.setFont('helvetica', 'normal');
-            doc.text(`Código: ${product.code}`, textX, yPosition + 25);
+            doc.text(`Código: ${product.code}`, textX, yPosition + 35);
             
             // Preço
-            doc.setTextColor(colors.primary);
+            doc.setTextColor(colors.orange);
+            doc.setFontSize(12);
+            doc.setFont('helvetica', 'bold');
             doc.text(
-              `Preço: ${product.price ? `R$ ${product.price.toFixed(2)}` : 'Sob consulta'}`,
+              `${product.price ? `R$ ${product.price.toFixed(2)}` : 'Sob consulta'}`,
               textX,
-              yPosition + 35
+              yPosition + 50
             );
             
           } catch (error) {
             console.error(`Erro ao processar produto ${product.code}:`, error);
           }
           
-          yPosition += 50;
           productsOnCurrentPage++;
+          if (productsOnCurrentPage % 2 === 0) {
+            yPosition += cardHeight + 10;
+          }
         }
         
-        // Adicionar rodapé em todas as páginas
+        // Adicionar rodapés em todas as páginas
         const totalPages = doc.internal.pages.length - 1;
         for (let i = 1; i <= totalPages; i++) {
           doc.setPage(i);
