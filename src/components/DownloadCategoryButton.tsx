@@ -45,32 +45,9 @@ export function DownloadCategoryButton({ products, categoryName }: DownloadCateg
   };
 
   return (
-    <div className="flex flex-col rounded-lg overflow-hidden bg-[#1E1E1E] border border-[#333333] hover:border-center-orange/40 transition-all duration-300">
-      {products[0]?.image && (
-        <div className="relative h-32 bg-gradient-to-br from-[#252525] to-[#202020] p-4">
-          <img 
-            src={products[0].image} 
-            alt={categoryName}
-            className="w-full h-full object-contain"
-          />
-        </div>
-      )}
-      <div className="p-4">
-        <Button
-          onClick={handleDownload}
-          className="w-full bg-center-orange hover:bg-center-orangeLight text-white gap-2 font-medium"
-        >
-          <Download className="h-4 w-4" />
-          Baixar Catálogo
-        </Button>
-      </div>
-    </div>
-  );
-
-  return (
     <Button
       onClick={handleDownload}
-      variant="default"  
+      variant="default"  // Changed from 'outline' to 'default' for better visibility
       className="w-full bg-[#252525] hover:bg-[#333333] text-white"
     >
       <Download className="mr-2 h-4 w-4" />
