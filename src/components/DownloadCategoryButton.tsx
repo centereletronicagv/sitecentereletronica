@@ -26,35 +26,40 @@ export function DownloadCategoryButton({ products, categoryName }: DownloadCateg
       try {
         // Criar novo documento PDF com otimizações
         const doc = new jsPDF({
-          compress: true, // Comprime o conteúdo do PDF
-          putOnlyUsedFonts: true, // Inclui apenas fontes utilizadas
+          compress: true,
+          putOnlyUsedFonts: true,
         });
-        
-        let yPosition = 20;
         
         // Configuração das cores do site
         const colors = {
-          background: '#1e1e1e',
           primary: '#FF7A00',
-          text: '#333333',
-          secondary: '#252525'
+          background: '#1e1e1e',
+          text: '#FFFFFF',
+          muted: '#A1A3A9',
+          border: '#333333'
         };
         
-        // Cabeçalho com título
+        // Header com fundo e título
         doc.setFillColor(colors.background);
-        doc.rect(0, 0, doc.internal.pageSize.width, 40, 'F');
+        doc.rect(0, 0, doc.internal.pageSize.width, 50, 'F');
         
-        doc.setTextColor('#FFFFFF');
-        doc.setFontSize(24);
-        doc.text(`Catálogo - ${categoryName}`, 20, 25);
+        // Logo e título
+        doc.setTextColor(colors.primary);
+        doc.setFontSize(28);
+        doc.setFont('helvetica', 'bold');
+        doc.text('CENTER ELETRÔNICA', doc.internal.pageSize.width / 2, 25, { align: 'center' });
         
-        yPosition = 50;
+        doc.setTextColor(colors.text);
+        doc.setFontSize(18);
+        doc.text(`Catálogo - ${categoryName}`, doc.internal.pageSize.width / 2, 40, { align: 'center' });
+        
+        let yPosition = 70;
         
         // Configurações para o conteúdo
         doc.setFontSize(12);
-        doc.setTextColor(colors.text);
+        doc.setTextColor('#333333');
         
-        // Processar produtos em lotes para melhor performance
+        // Processar produtos em lotes
         const batchSize = 10;
         const productBatches = [];
         
@@ -64,81 +69,89 @@ export function DownloadCategoryButton({ products, categoryName }: DownloadCateg
         
         let currentPage = 1;
         let productsPerPage = 0;
-        const maxProductsPerPage = 4; // Limitar produtos por página
+        const maxProductsPerPage = 3; // Reduzido para melhor espaçamento
         
         for (const batch of productBatches) {
           for (const product of batch) {
-            // Verificar se precisa de nova página baseado no número de produtos
+            // Nova página se necessário
             if (productsPerPage >= maxProductsPerPage) {
               doc.addPage();
-              yPosition = 50;
+              // Resetar posição Y e contador
+              yPosition = 70;
               productsPerPage = 0;
               currentPage++;
             }
             
-            // Fundo do card do produto
+            // Card do produto com sombra
             doc.setFillColor(250, 250, 250);
-            doc.roundedRect(15, yPosition, 180, 60, 3, 3, 'F');
+            doc.setDrawColor(colors.border);
+            doc.roundedRect(15, yPosition, 180, 80, 3, 3, 'FD');
             
             try {
-              // Adicionar informações do produto (imagem condicionalmente)
               if (product.image) {
-                try {
-                  // Remove o /public da URL da imagem
-                  const imagePath = product.image.replace('/public', '');
-                  // Adicionar a imagem como um quadrado de 50x50
-                  doc.addImage(imagePath, 'PNG', 20, yPosition + 5, 50, 50);
-                } catch (imageError) {
-                  // Silenciosamente ignorar erros de imagem e continuar sem a imagem
-                  console.warn(`Não foi possível carregar imagem para ${product.name}`);
-                }
+                const imagePath = product.image.replace('/public', '');
+                // Imagem do produto
+                doc.addImage(imagePath, 'PNG', 20, yPosition + 5, 70, 70);
               }
               
               // Informações do produto
-              // Nome do produto
+              doc.setFont('helvetica', 'bold');
               doc.setFontSize(14);
               doc.setTextColor(colors.primary);
-              doc.text(product.name, 80, yPosition + 15);
+              doc.text(product.name, 100, yPosition + 20);
               
-              // Código do produto
-              doc.setFontSize(10);
+              doc.setFont('helvetica', 'normal');
+              doc.setFontSize(12);
               doc.setTextColor(colors.text);
-              doc.text(`Código: ${product.code}`, 80, yPosition + 30);
+              doc.text(`Código: ${product.code}`, 100, yPosition + 35);
               
-              // Preço do produto
               doc.setFontSize(12);
               doc.setTextColor(colors.primary);
               doc.text(
                 `Preço: ${product.price ? `R$ ${product.price.toFixed(2)}` : 'Sob consulta'}`,
-                80, 
-                yPosition + 45
+                100,
+                yPosition + 50
               );
               
-              yPosition += 70; // Espaçamento entre produtos
+              yPosition += 100; // Aumentado o espaçamento entre produtos
               productsPerPage++;
               
             } catch (error) {
               console.error(`Erro ao processar produto ${product.code}:`, error);
-              // Continua para o próximo produto mesmo se houver erro
-              yPosition += 70;
+              yPosition += 100;
               productsPerPage++;
             }
           }
         }
         
-        // Rodapé em todas as páginas
+        // Adicionar rodapé em todas as páginas
         const pageCount = doc.internal.pages.length - 1;
         
         for (let i = 1; i <= pageCount; i++) {
           doc.setPage(i);
-          doc.setFillColor(colors.primary);
-          doc.rect(0, doc.internal.pageSize.height - 20, doc.internal.pageSize.width, 20, 'F');
-          doc.setTextColor('#FFFFFF');
-          doc.setFontSize(10);
+          
+          // Fundo do rodapé
+          doc.setFillColor(colors.background);
+          doc.rect(0, doc.internal.pageSize.height - 40, doc.internal.pageSize.width, 40, 'F');
+          
+          // Informações de contato no rodapé
+          doc.setTextColor(colors.text);
+          doc.setFontSize(8);
+          doc.text('Center Eletrônica', 15, doc.internal.pageSize.height - 30);
+          doc.text('Rua Jacob Gremmelmaier, 409 - Centro', 15, doc.internal.pageSize.height - 25);
+          doc.text('Getúlio Vargas - RS, 99900-000', 15, doc.internal.pageSize.height - 20);
+          
+          // Contatos à direita
+          doc.text('Telefones:', doc.internal.pageSize.width - 80, doc.internal.pageSize.height - 30);
+          doc.text('(54) 9927-0560 | (54) 9998-6916', doc.internal.pageSize.width - 80, doc.internal.pageSize.height - 25);
+          doc.text('center@centereletronica.com.br', doc.internal.pageSize.width - 80, doc.internal.pageSize.height - 20);
+          
+          // Número da página centralizado
+          doc.setTextColor(colors.primary);
           doc.text(
-            `Página ${i} de ${pageCount}`, 
-            doc.internal.pageSize.width / 2, 
-            doc.internal.pageSize.height - 10, 
+            `Página ${i} de ${pageCount}`,
+            doc.internal.pageSize.width / 2,
+            doc.internal.pageSize.height - 15,
             { align: 'center' }
           );
         }
@@ -146,7 +159,7 @@ export function DownloadCategoryButton({ products, categoryName }: DownloadCateg
         // Download do PDF
         doc.save(`catalogo-${categoryName.toLowerCase()}.pdf`);
         
-        // Mostrar toast de sucesso após o download
+        // Toast de sucesso
         toast({
           title: "Catálogo gerado!",
           description: "Seu catálogo foi baixado com sucesso.",
@@ -155,7 +168,6 @@ export function DownloadCategoryButton({ products, categoryName }: DownloadCateg
       } catch (error) {
         console.error("Erro ao gerar PDF:", error);
         
-        // Mostrar toast de erro
         toast({
           title: "Erro ao gerar catálogo",
           description: "Ocorreu um erro ao gerar seu catálogo. Por favor, tente novamente.",
@@ -163,7 +175,7 @@ export function DownloadCategoryButton({ products, categoryName }: DownloadCateg
           duration: 5000,
         });
       }
-    }, 100); // Curto delay para não bloquear a interface
+    }, 100);
   };
 
   return (
@@ -177,3 +189,4 @@ export function DownloadCategoryButton({ products, categoryName }: DownloadCateg
     </Button>
   );
 }
+
