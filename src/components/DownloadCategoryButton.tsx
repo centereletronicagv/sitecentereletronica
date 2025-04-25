@@ -87,7 +87,9 @@ export function DownloadCategoryButton({ products, categoryName }: DownloadCateg
     }
     
     // Rodapé em todas as páginas
-    const pageCount = doc.internal.getNumberOfPages();
+    // Usando o tamanho do array pages para obter o número de páginas
+    const pageCount = doc.internal.pages.length - 1;
+    
     for (let i = 1; i <= pageCount; i++) {
       doc.setPage(i);
       doc.setFillColor(colors.primary);
