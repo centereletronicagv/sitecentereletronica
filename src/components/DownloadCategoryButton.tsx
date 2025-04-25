@@ -29,13 +29,14 @@ export function DownloadCategoryButton({ products, categoryName }: DownloadCateg
         
         // Configurações de cores e estilo
         const colors = {
-          background: '#181818',
+          background: '#151515',
           primary: '#FF7A00',
-          text: '#FFFFFF'
+          text: '#FFFFFF',
+          cardBg: '#252525'
         };
 
         // Primeira página com título
-        doc.setFillColor(parseInt(colors.background.slice(1), 16));
+        doc.setFillColor(colors.background);
         doc.rect(0, 0, doc.internal.pageSize.width, doc.internal.pageSize.height, 'F');
         
         // Título principal
@@ -68,7 +69,7 @@ export function DownloadCategoryButton({ products, categoryName }: DownloadCateg
             doc.addPage();
             currentPage++;
             yPosition = 20;
-            doc.setFillColor(parseInt(colors.background.slice(1), 16));
+            doc.setFillColor(colors.background);
             doc.rect(0, 0, doc.internal.pageSize.width, doc.internal.pageSize.height, 'F');
           }
 
@@ -80,7 +81,7 @@ export function DownloadCategoryButton({ products, categoryName }: DownloadCateg
           }
 
           // Card do produto
-          doc.setFillColor(40, 40, 40);
+          doc.setFillColor(colors.cardBg);
           doc.roundedRect(xPosition, yPosition, cardWidth, cardHeight, 3, 3, 'F');
 
           try {
@@ -101,7 +102,7 @@ export function DownloadCategoryButton({ products, categoryName }: DownloadCateg
           });
 
           // Código do produto
-          doc.setFillColor(parseInt(colors.primary.slice(1), 16));
+          doc.setFillColor(colors.primary);
           doc.roundedRect(xPosition + 5, yPosition + 75, 40, 7, 2, 2, 'F');
           doc.setTextColor(colors.text);
           doc.setFontSize(8);
@@ -128,7 +129,7 @@ export function DownloadCategoryButton({ products, categoryName }: DownloadCateg
 
         // Adicionar última página com contatos
         doc.addPage();
-        doc.setFillColor(parseInt(colors.background.slice(1), 16));
+        doc.setFillColor(colors.background);
         doc.rect(0, 0, doc.internal.pageSize.width, doc.internal.pageSize.height, 'F');
 
         // Título dos contatos
