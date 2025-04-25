@@ -39,8 +39,8 @@ export function DownloadCategoryButton({ products, categoryName }: DownloadCateg
         const itemsPerRow = 3;
         const margin = 15;
         const cardWidth = 55;
-        const cardHeight = 75;
-        const spacing = 10;
+        const cardHeight = 80; // Increased card height to prevent cutoff
+        const spacing = 8; // Slightly reduced spacing to accommodate larger cards
         const pageWidth = doc.internal.pageSize.width;
         const pageHeight = doc.internal.pageSize.height;
         
@@ -90,9 +90,12 @@ export function DownloadCategoryButton({ products, categoryName }: DownloadCateg
           const col = itemCount % itemsPerRow;
           
           const xPosition = margin + col * (cardWidth + spacing);
-          yPosition = 80 + row * (cardHeight + spacing);
           
-          if (currentPage > 1) {
+          // Set vertical position with better spacing
+          if (currentPage === 1) {
+            // First page: move everything up a bit to allow more space for bottom row
+            yPosition = 75 + row * (cardHeight + spacing);
+          } else {
             yPosition = 20 + row * (cardHeight + spacing);
           }
 
@@ -100,11 +103,11 @@ export function DownloadCategoryButton({ products, categoryName }: DownloadCateg
           doc.setFillColor(colors.cardBg);
           doc.roundedRect(xPosition, yPosition, cardWidth, cardHeight, 3, 3, 'F');
 
-          // Add product image
+          // Add product image - slightly smaller to leave more space for text
           try {
             if (product.image) {
               const imagePath = product.image.replace('/public', '');
-              doc.addImage(imagePath, 'PNG', xPosition + 3, yPosition + 5, cardWidth - 6, 30);
+              doc.addImage(imagePath, 'PNG', xPosition + 3, yPosition + 5, cardWidth - 6, 28);
             }
           } catch (error) {
             console.error(`Erro ao carregar imagem do produto ${product.code}:`, error);
@@ -112,10 +115,10 @@ export function DownloadCategoryButton({ products, categoryName }: DownloadCateg
 
           // Add product name with reduced font size and better positioning
           doc.setTextColor(colors.text);
-          doc.setFontSize(7); // Reduced font size from 8 to 7
+          doc.setFontSize(7); 
           doc.setFont('helvetica', 'bold');
           
-          // Ensure product name fits by limiting to 2 lines max
+          // Ensure product name fits by limiting to 2 lines max with better positioning
           const name = product.name || "";
           const maxCharsPerLine = 25;
           
@@ -123,27 +126,27 @@ export function DownloadCategoryButton({ products, categoryName }: DownloadCateg
             // Split into two lines if too long
             const firstLine = name.substring(0, maxCharsPerLine);
             const secondLine = name.substring(maxCharsPerLine, maxCharsPerLine * 2);
-            doc.text(firstLine, xPosition + 3, yPosition + 43);
-            doc.text(secondLine + (name.length > maxCharsPerLine * 2 ? "..." : ""), xPosition + 3, yPosition + 49);
+            doc.text(firstLine, xPosition + 3, yPosition + 38);
+            doc.text(secondLine + (name.length > maxCharsPerLine * 2 ? "..." : ""), xPosition + 3, yPosition + 44);
           } else {
-            doc.text(name, xPosition + 3, yPosition + 46);
+            doc.text(name, xPosition + 3, yPosition + 41);
           }
 
           // Add product code with better positioning
           doc.setFillColor(colors.primary);
-          doc.roundedRect(xPosition + 3, yPosition + 55, 30, 6, 2, 2, 'F');
+          doc.roundedRect(xPosition + 3, yPosition + 50, 30, 6, 2, 2, 'F');
           doc.setTextColor(colors.text);
           doc.setFontSize(7);
-          doc.text(`COD: ${product.code}`, xPosition + 5, yPosition + 59);
+          doc.text(`COD: ${product.code}`, xPosition + 5, yPosition + 54);
 
           // Add product price with adjusted positioning
           doc.setTextColor(colors.primary);
-          doc.setFontSize(9); // Smaller font for price
+          doc.setFontSize(9);
           doc.setFont('helvetica', 'bold');
           doc.text(
             product.price ? `R$ ${product.price.toFixed(2)}` : 'Sob consulta',
             xPosition + cardWidth - 3,
-            yPosition + 70,
+            yPosition + 65,
             { align: 'right' }
           );
 
