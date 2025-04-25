@@ -1,4 +1,3 @@
-
 import { Download } from "lucide-react";
 import { Button } from "./ui/button";
 import { Product } from "@/types";
@@ -27,7 +26,6 @@ export function DownloadCategoryButton({ products, categoryName }: DownloadCateg
           putOnlyUsedFonts: true,
         });
         
-        // Configurações de cores e estilo
         const colors = {
           background: '#151515',
           primary: '#FF7A00',
@@ -35,28 +33,24 @@ export function DownloadCategoryButton({ products, categoryName }: DownloadCateg
           cardBg: '#252525'
         };
 
-        // Primeira página com título
         doc.setFillColor(colors.background);
         doc.rect(0, 0, doc.internal.pageSize.width, doc.internal.pageSize.height, 'F');
         
-        // Título principal
         doc.setTextColor(colors.text);
         doc.setFontSize(32);
         doc.setFont('helvetica', 'bold');
         doc.text('CATÁLOGO DIGITAL', doc.internal.pageSize.width / 2, 40, { align: 'center' });
         
-        // Subtítulo (categoria)
         doc.setTextColor(colors.primary);
         doc.setFontSize(24);
         doc.text(categoryName.toUpperCase(), doc.internal.pageSize.width / 2, 60, { align: 'center' });
 
-        // Configurações dos produtos
-        const itemsPerPage = 6;
-        const itemsPerRow = 2;
-        const margin = 20;
-        const cardWidth = 80;
-        const cardHeight = 100;
-        const spacing = 10;
+        const itemsPerPage = 9;
+        const itemsPerRow = 3;
+        const margin = 15;
+        const cardWidth = 55;
+        const cardHeight = 90;
+        const spacing = 8;
         
         let currentPage = 1;
         let yPosition = 80;
@@ -64,7 +58,6 @@ export function DownloadCategoryButton({ products, categoryName }: DownloadCateg
         let itemCount = 0;
 
         for (const product of products) {
-          // Nova página se necessário
           if (itemCount > 0 && itemCount % itemsPerPage === 0) {
             doc.addPage();
             currentPage++;
@@ -73,73 +66,60 @@ export function DownloadCategoryButton({ products, categoryName }: DownloadCateg
             doc.rect(0, 0, doc.internal.pageSize.width, doc.internal.pageSize.height, 'F');
           }
 
-          // Calcular posição do card
-          if (itemCount % itemsPerRow === 0) {
-            xPosition = margin;
-          } else {
-            xPosition = margin + cardWidth + spacing;
+          xPosition = margin + (itemCount % itemsPerRow) * (cardWidth + spacing);
+          
+          if (itemCount % itemsPerRow === 0 && itemCount !== 0) {
+            yPosition += cardHeight + spacing;
           }
 
-          // Card do produto
           doc.setFillColor(colors.cardBg);
           doc.roundedRect(xPosition, yPosition, cardWidth, cardHeight, 3, 3, 'F');
 
           try {
             if (product.image) {
               const imagePath = product.image.replace('/public', '');
-              doc.addImage(imagePath, 'PNG', xPosition + 5, yPosition + 5, 70, 50);
+              doc.addImage(imagePath, 'PNG', xPosition + 3, yPosition + 5, cardWidth - 6, 40);
             }
           } catch (error) {
             console.error(`Erro ao carregar imagem do produto ${product.code}:`, error);
           }
 
-          // Informações do produto
-          doc.setTextColor(colors.text);
-          doc.setFontSize(10);
-          doc.setFont('helvetica', 'bold');
-          doc.text(product.name, xPosition + 5, yPosition + 65, {
-            maxWidth: cardWidth - 10
-          });
-
-          // Código do produto
-          doc.setFillColor(colors.primary);
-          doc.roundedRect(xPosition + 5, yPosition + 75, 40, 7, 2, 2, 'F');
           doc.setTextColor(colors.text);
           doc.setFontSize(8);
-          doc.text(`COD: ${product.code}`, xPosition + 8, yPosition + 80);
+          doc.setFont('helvetica', 'bold');
+          doc.text(product.name, xPosition + 3, yPosition + 55, {
+            maxWidth: cardWidth - 6
+          });
 
-          // Preço do produto
+          doc.setFillColor(colors.primary);
+          doc.roundedRect(xPosition + 3, yPosition + 65, 30, 6, 2, 2, 'F');
+          doc.setTextColor(colors.text);
+          doc.setFontSize(7);
+          doc.text(`COD: ${product.code}`, xPosition + 5, yPosition + 69);
+
           doc.setTextColor(colors.primary);
-          doc.setFontSize(12);
+          doc.setFontSize(10);
           doc.setFont('helvetica', 'bold');
           doc.text(
             product.price ? `R$ ${product.price.toFixed(2)}` : 'Sob consulta',
-            xPosition + cardWidth - 5,
+            xPosition + cardWidth - 3,
             yPosition + 80,
             { align: 'right' }
           );
 
           itemCount++;
-          
-          // Ajustar posição Y para próxima linha após dois itens
-          if (itemCount % itemsPerRow === 0) {
-            yPosition += cardHeight + spacing;
-          }
         }
 
-        // Adicionar última página com contatos
         doc.addPage();
         doc.setFillColor(colors.background);
         doc.rect(0, 0, doc.internal.pageSize.width, doc.internal.pageSize.height, 'F');
 
-        // Título dos contatos
         doc.setTextColor(colors.text);
         doc.setFontSize(18);
         doc.setFont('helvetica', 'bold');
         doc.text('FAÇA SEU PEDIDO NOS MEIOS DE CONTATO ABAIXO:', 
           doc.internal.pageSize.width / 2, 40, { align: 'center' });
 
-        // Informações de contato
         doc.setFontSize(14);
         doc.text('R. JACOB GREMMELMAIER, 409 - CENTRO', 
           doc.internal.pageSize.width / 2, 70, { align: 'center' });
@@ -149,7 +129,6 @@ export function DownloadCategoryButton({ products, categoryName }: DownloadCateg
         doc.text('OU', doc.internal.pageSize.width / 2, 90, { align: 'center' });
         doc.text('54 9998-6916', doc.internal.pageSize.width / 2 + 50, 90, { align: 'center' });
 
-        // Download do PDF
         doc.save(`catalogo-${categoryName.toLowerCase()}.pdf`);
         
         toast({
