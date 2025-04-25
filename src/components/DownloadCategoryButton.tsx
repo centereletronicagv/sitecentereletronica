@@ -23,13 +23,19 @@ export function DownloadCategoryButton({ products, categoryName }: DownloadCateg
       secondary: '#252525'
     };
     
-    // Cabeçalho com título
+    // Cabeçalho com título (apenas na primeira página)
     doc.setFillColor(colors.background);
     doc.rect(0, 0, doc.internal.pageSize.width, 40, 'F');
     
-    doc.setTextColor('#FFFFFF');
+    // Título principal em laranja
+    doc.setTextColor(colors.primary);
     doc.setFontSize(24);
-    doc.text(`Catálogo - ${categoryName}`, 20, 25);
+    doc.text('Catálogo de Produtos', 20, 25);
+    
+    // Subtítulo com nome da categoria em preto
+    doc.setTextColor('#000000');
+    doc.setFontSize(16);
+    doc.text(categoryName, 20, 35);
     
     yPosition = 50;
     
@@ -39,7 +45,7 @@ export function DownloadCategoryButton({ products, categoryName }: DownloadCateg
     
     for (const product of products) {
       // Verificar se precisa de nova página
-      if (yPosition > 250) {
+      if (yPosition > 230) { // Reduzido para evitar sobreposição com o rodapé
         doc.addPage();
         yPosition = 20;
       }
@@ -51,13 +57,10 @@ export function DownloadCategoryButton({ products, categoryName }: DownloadCateg
       try {
         // Carregar e adicionar imagem do produto
         if (product.image) {
-          // Remove o /public da URL da imagem
           const imagePath = product.image.replace('/public', '');
-          // Adicionar a imagem como um quadrado de 50x50
           doc.addImage(imagePath, 'PNG', 20, yPosition + 5, 50, 50);
         }
         
-        // Informações do produto
         // Nome do produto
         doc.setFontSize(14);
         doc.setTextColor(colors.primary);
@@ -81,26 +84,46 @@ export function DownloadCategoryButton({ products, categoryName }: DownloadCateg
         
       } catch (error) {
         console.error(`Erro ao processar produto ${product.code}:`, error);
-        // Continua para o próximo produto mesmo se houver erro
         yPosition += 70;
       }
     }
     
     // Rodapé em todas as páginas
-    // Usando o tamanho do array pages para obter o número de páginas
     const pageCount = doc.internal.pages.length - 1;
     
     for (let i = 1; i <= pageCount; i++) {
       doc.setPage(i);
+      
+      // Fundo do rodapé
       doc.setFillColor(colors.primary);
-      doc.rect(0, doc.internal.pageSize.height - 20, doc.internal.pageSize.width, 20, 'F');
+      doc.rect(0, doc.internal.pageSize.height - 30, doc.internal.pageSize.width, 30, 'F');
+      
+      // Informações de contato no rodapé
       doc.setTextColor('#FFFFFF');
-      doc.setFontSize(10);
+      doc.setFontSize(8);
+      
+      // Primeira linha do rodapé
       doc.text(
-        `Página ${i} de ${pageCount}`, 
-        doc.internal.pageSize.width / 2, 
-        doc.internal.pageSize.height - 10, 
+        'Rua Antônio Escorsin, 1650 - Cidade Industrial, Curitiba - PR',
+        doc.internal.pageSize.width / 2,
+        doc.internal.pageSize.height - 20,
         { align: 'center' }
+      );
+      
+      // Segunda linha do rodapé com contatos
+      doc.text(
+        'Tel: (41) 3248-1058 | contato@centerrefrigeracao.com.br | www.centerrefrigeracao.com.br',
+        doc.internal.pageSize.width / 2,
+        doc.internal.pageSize.height - 12,
+        { align: 'center' }
+      );
+      
+      // Numeração das páginas
+      doc.text(
+        `Página ${i} de ${pageCount}`,
+        doc.internal.pageSize.width - 20,
+        doc.internal.pageSize.height - 20,
+        { align: 'right' }
       );
     }
     
