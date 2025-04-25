@@ -36,7 +36,7 @@ export function DownloadCategoryButton({ products, categoryName }: DownloadCateg
       doc.setFontSize(10);
       doc.text(`Código: ${product.code}`, 25, yPosition);
       yPosition += 5;
-      doc.text(`Preço: R$ ${product.price.toFixed(2)}`, 25, yPosition);
+      doc.text(`Preço: R$ ${product.price?.toFixed(2) || 'N/A'}`, 25, yPosition);
       doc.setFontSize(12);
     });
     
@@ -47,10 +47,10 @@ export function DownloadCategoryButton({ products, categoryName }: DownloadCateg
   return (
     <Button
       onClick={handleDownload}
-      variant="outline"
-      className="flex items-center gap-2 bg-[#252525] hover:bg-[#333333] text-white border-[#333333]"
+      variant="default"  // Changed from 'outline' to 'default' for better visibility
+      className="w-full bg-[#252525] hover:bg-[#333333] text-white"
     >
-      <Download className="h-4 w-4" />
+      <Download className="mr-2 h-4 w-4" />
       Baixar Catálogo
     </Button>
   );
