@@ -3,7 +3,6 @@ import { Download } from "lucide-react";
 import { Button } from "./ui/button";
 import { Product } from "@/types";
 import jsPDF from "jspdf";
-import { useToast } from "@/hooks/use-toast";
 
 interface DownloadCategoryButtonProps {
   products: Product[];
@@ -11,171 +10,102 @@ interface DownloadCategoryButtonProps {
 }
 
 export function DownloadCategoryButton({ products, categoryName }: DownloadCategoryButtonProps) {
-  const { toast } = useToast();
-
   const handleDownload = async () => {
-    // Mostrar toast para informar que o download está em andamento
-    toast({
-      title: "Gerando catálogo",
-      description: "Por favor, aguarde enquanto preparamos seu catálogo...",
-      duration: 3000,
-    });
+    // Criar novo documento PDF
+    const doc = new jsPDF();
+    let yPosition = 20;
     
-    // Usar setTimeout para não bloquear a interface do usuário
-    setTimeout(() => {
-      try {
-        // Criar novo documento PDF com otimizações
-        const doc = new jsPDF({
-          compress: true,
-          putOnlyUsedFonts: true,
-        });
-        
-        // Configuração das cores do site
-        const colors = {
-          primary: '#FF7A00',
-          background: '#1e1e1e',
-          text: '#FFFFFF',
-          muted: '#A1A3A9',
-          border: '#333333'
-        };
-        
-        // Header com fundo e título
-        doc.setFillColor(colors.background);
-        doc.rect(0, 0, doc.internal.pageSize.width, 50, 'F');
-        
-        // Logo e título
-        doc.setTextColor(colors.primary);
-        doc.setFontSize(28);
-        doc.setFont('helvetica', 'bold');
-        doc.text('CENTER ELETRÔNICA', doc.internal.pageSize.width / 2, 25, { align: 'center' });
-        
-        doc.setTextColor(colors.text);
-        doc.setFontSize(18);
-        doc.text(`Catálogo - ${categoryName}`, doc.internal.pageSize.width / 2, 40, { align: 'center' });
-        
-        let yPosition = 70;
-        
-        // Configurações para o conteúdo
-        doc.setFontSize(12);
-        doc.setTextColor('#333333');
-        
-        // Processar produtos em lotes
-        const batchSize = 10;
-        const productBatches = [];
-        
-        for (let i = 0; i < products.length; i += batchSize) {
-          productBatches.push(products.slice(i, i + batchSize));
-        }
-        
-        let currentPage = 1;
-        let productsPerPage = 0;
-        const maxProductsPerPage = 3; // Reduzido para melhor espaçamento
-        
-        for (const batch of productBatches) {
-          for (const product of batch) {
-            // Nova página se necessário
-            if (productsPerPage >= maxProductsPerPage) {
-              doc.addPage();
-              // Resetar posição Y e contador
-              yPosition = 70;
-              productsPerPage = 0;
-              currentPage++;
-            }
-            
-            // Card do produto com sombra
-            doc.setFillColor(250, 250, 250);
-            doc.setDrawColor(colors.border);
-            doc.roundedRect(15, yPosition, 180, 80, 3, 3, 'FD');
-            
-            try {
-              if (product.image) {
-                const imagePath = product.image.replace('/public', '');
-                // Imagem do produto
-                doc.addImage(imagePath, 'PNG', 20, yPosition + 5, 70, 70);
-              }
-              
-              // Informações do produto
-              doc.setFont('helvetica', 'bold');
-              doc.setFontSize(14);
-              doc.setTextColor(colors.primary);
-              doc.text(product.name, 100, yPosition + 20);
-              
-              doc.setFont('helvetica', 'normal');
-              doc.setFontSize(12);
-              doc.setTextColor(colors.text);
-              doc.text(`Código: ${product.code}`, 100, yPosition + 35);
-              
-              doc.setFontSize(12);
-              doc.setTextColor(colors.primary);
-              doc.text(
-                `Preço: ${product.price ? `R$ ${product.price.toFixed(2)}` : 'Sob consulta'}`,
-                100,
-                yPosition + 50
-              );
-              
-              yPosition += 100; // Aumentado o espaçamento entre produtos
-              productsPerPage++;
-              
-            } catch (error) {
-              console.error(`Erro ao processar produto ${product.code}:`, error);
-              yPosition += 100;
-              productsPerPage++;
-            }
-          }
-        }
-        
-        // Adicionar rodapé em todas as páginas
-        const pageCount = doc.internal.pages.length - 1;
-        
-        for (let i = 1; i <= pageCount; i++) {
-          doc.setPage(i);
-          
-          // Fundo do rodapé
-          doc.setFillColor(colors.background);
-          doc.rect(0, doc.internal.pageSize.height - 40, doc.internal.pageSize.width, 40, 'F');
-          
-          // Informações de contato no rodapé
-          doc.setTextColor(colors.text);
-          doc.setFontSize(8);
-          doc.text('Center Eletrônica', 15, doc.internal.pageSize.height - 30);
-          doc.text('Rua Jacob Gremmelmaier, 409 - Centro', 15, doc.internal.pageSize.height - 25);
-          doc.text('Getúlio Vargas - RS, 99900-000', 15, doc.internal.pageSize.height - 20);
-          
-          // Contatos à direita
-          doc.text('Telefones:', doc.internal.pageSize.width - 80, doc.internal.pageSize.height - 30);
-          doc.text('(54) 9927-0560 | (54) 9998-6916', doc.internal.pageSize.width - 80, doc.internal.pageSize.height - 25);
-          doc.text('center@centereletronica.com.br', doc.internal.pageSize.width - 80, doc.internal.pageSize.height - 20);
-          
-          // Número da página centralizado
-          doc.setTextColor(colors.primary);
-          doc.text(
-            `Página ${i} de ${pageCount}`,
-            doc.internal.pageSize.width / 2,
-            doc.internal.pageSize.height - 15,
-            { align: 'center' }
-          );
-        }
-        
-        // Download do PDF
-        doc.save(`catalogo-${categoryName.toLowerCase()}.pdf`);
-        
-        // Toast de sucesso
-        toast({
-          title: "Catálogo gerado!",
-          description: "Seu catálogo foi baixado com sucesso.",
-          duration: 3000,
-        });
-      } catch (error) {
-        console.error("Erro ao gerar PDF:", error);
-        
-        toast({
-          title: "Erro ao gerar catálogo",
-          description: "Ocorreu um erro ao gerar seu catálogo. Por favor, tente novamente.",
-          variant: "destructive",
-          duration: 5000,
-        });
+    // Configuração das cores do site
+    const colors = {
+      background: '#1e1e1e',
+      primary: '#FF7A00',
+      text: '#333333',
+      secondary: '#252525'
+    };
+    
+    // Cabeçalho com título
+    doc.setFillColor(colors.background);
+    doc.rect(0, 0, doc.internal.pageSize.width, 40, 'F');
+    
+    doc.setTextColor('#FFFFFF');
+    doc.setFontSize(24);
+    doc.text(`Catálogo - ${categoryName}`, 20, 25);
+    
+    yPosition = 50;
+    
+    // Configurações para o conteúdo
+    doc.setFontSize(12);
+    doc.setTextColor(colors.text);
+    
+    for (const product of products) {
+      // Verificar se precisa de nova página
+      if (yPosition > 250) {
+        doc.addPage();
+        yPosition = 20;
       }
-    }, 100);
+      
+      // Fundo do card do produto
+      doc.setFillColor(250, 250, 250);
+      doc.roundedRect(15, yPosition, 180, 60, 3, 3, 'F');
+      
+      try {
+        // Carregar e adicionar imagem do produto
+        if (product.image) {
+          // Remove o /public da URL da imagem
+          const imagePath = product.image.replace('/public', '');
+          // Adicionar a imagem como um quadrado de 50x50
+          doc.addImage(imagePath, 'PNG', 20, yPosition + 5, 50, 50);
+        }
+        
+        // Informações do produto
+        // Nome do produto
+        doc.setFontSize(14);
+        doc.setTextColor(colors.primary);
+        doc.text(product.name, 80, yPosition + 15);
+        
+        // Código do produto
+        doc.setFontSize(10);
+        doc.setTextColor(colors.text);
+        doc.text(`Código: ${product.code}`, 80, yPosition + 30);
+        
+        // Preço do produto
+        doc.setFontSize(12);
+        doc.setTextColor(colors.primary);
+        doc.text(
+          `Preço: ${product.price ? `R$ ${product.price.toFixed(2)}` : 'Sob consulta'}`,
+          80, 
+          yPosition + 45
+        );
+        
+        yPosition += 70; // Espaçamento entre produtos
+        
+      } catch (error) {
+        console.error(`Erro ao processar produto ${product.code}:`, error);
+        // Continua para o próximo produto mesmo se houver erro
+        yPosition += 70;
+      }
+    }
+    
+    // Rodapé em todas as páginas
+    // Usando o tamanho do array pages para obter o número de páginas
+    const pageCount = doc.internal.pages.length - 1;
+    
+    for (let i = 1; i <= pageCount; i++) {
+      doc.setPage(i);
+      doc.setFillColor(colors.primary);
+      doc.rect(0, doc.internal.pageSize.height - 20, doc.internal.pageSize.width, 20, 'F');
+      doc.setTextColor('#FFFFFF');
+      doc.setFontSize(10);
+      doc.text(
+        `Página ${i} de ${pageCount}`, 
+        doc.internal.pageSize.width / 2, 
+        doc.internal.pageSize.height - 10, 
+        { align: 'center' }
+      );
+    }
+    
+    // Download do PDF
+    doc.save(`catalogo-${categoryName.toLowerCase()}.pdf`);
   };
 
   return (
@@ -189,4 +119,3 @@ export function DownloadCategoryButton({ products, categoryName }: DownloadCateg
     </Button>
   );
 }
-
