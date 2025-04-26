@@ -14,143 +14,139 @@ export function DownloadCategoryButton({ products, categoryName }: DownloadCateg
   const { toast } = useToast();
 
   const handleDownload = async () => {
+    // Mostrar toast para informar que o download está em andamento
     toast({
       title: "Gerando catálogo",
       description: "Por favor, aguarde enquanto preparamos seu catálogo...",
       duration: 3000,
     });
     
+    // Usar setTimeout para não bloquear a interface do usuário
     setTimeout(() => {
       try {
+        // Criar novo documento PDF com otimizações
         const doc = new jsPDF({
-          compress: true,
-          putOnlyUsedFonts: true,
+          compress: true, // Comprime o conteúdo do PDF
+          putOnlyUsedFonts: true, // Inclui apenas fontes utilizadas
         });
         
-        // Configurações de cores e estilo
+        let yPosition = 20;
+        
+        // Configuração das cores do site
         const colors = {
-          background: '#181818',
+          background: '#1e1e1e',
           primary: '#FF7A00',
-          text: '#FFFFFF'
+          text: '#333333',
+          secondary: '#252525'
         };
-
-        // Primeira página com título
-        doc.setFillColor(parseInt(colors.background.slice(1), 16));
-        doc.rect(0, 0, doc.internal.pageSize.width, doc.internal.pageSize.height, 'F');
         
-        // Título principal
-        doc.setTextColor(colors.text);
-        doc.setFontSize(32);
-        doc.setFont('helvetica', 'bold');
-        doc.text('CATÁLOGO DIGITAL', doc.internal.pageSize.width / 2, 40, { align: 'center' });
+        // Cabeçalho com título
+        doc.setFillColor(colors.background);
+        doc.rect(0, 0, doc.internal.pageSize.width, 40, 'F');
         
-        // Subtítulo (categoria)
-        doc.setTextColor(colors.primary);
+        doc.setTextColor('#FFFFFF');
         doc.setFontSize(24);
-        doc.text(categoryName.toUpperCase(), doc.internal.pageSize.width / 2, 60, { align: 'center' });
-
-        // Configurações dos produtos
-        const itemsPerPage = 6;
-        const itemsPerRow = 2;
-        const margin = 20;
-        const cardWidth = 80;
-        const cardHeight = 100;
-        const spacing = 10;
+        doc.text(`Catálogo - ${categoryName}`, 20, 25);
+        
+        yPosition = 50;
+        
+        // Configurações para o conteúdo
+        doc.setFontSize(12);
+        doc.setTextColor(colors.text);
+        
+        // Processar produtos em lotes para melhor performance
+        const batchSize = 10;
+        const productBatches = [];
+        
+        for (let i = 0; i < products.length; i += batchSize) {
+          productBatches.push(products.slice(i, i + batchSize));
+        }
         
         let currentPage = 1;
-        let yPosition = 80;
-        let xPosition = margin;
-        let itemCount = 0;
-
-        for (const product of products) {
-          // Nova página se necessário
-          if (itemCount > 0 && itemCount % itemsPerPage === 0) {
-            doc.addPage();
-            currentPage++;
-            yPosition = 20;
-            doc.setFillColor(parseInt(colors.background.slice(1), 16));
-            doc.rect(0, 0, doc.internal.pageSize.width, doc.internal.pageSize.height, 'F');
-          }
-
-          // Calcular posição do card
-          if (itemCount % itemsPerRow === 0) {
-            xPosition = margin;
-          } else {
-            xPosition = margin + cardWidth + spacing;
-          }
-
-          // Card do produto
-          doc.setFillColor(40, 40, 40);
-          doc.roundedRect(xPosition, yPosition, cardWidth, cardHeight, 3, 3, 'F');
-
-          try {
-            if (product.image) {
-              const imagePath = product.image.replace('/public', '');
-              doc.addImage(imagePath, 'PNG', xPosition + 5, yPosition + 5, 70, 50);
+        let productsPerPage = 0;
+        const maxProductsPerPage = 4; // Limitar produtos por página
+        
+        for (const batch of productBatches) {
+          for (const product of batch) {
+            // Verificar se precisa de nova página baseado no número de produtos
+            if (productsPerPage >= maxProductsPerPage) {
+              doc.addPage();
+              yPosition = 50;
+              productsPerPage = 0;
+              currentPage++;
             }
-          } catch (error) {
-            console.error(`Erro ao carregar imagem do produto ${product.code}:`, error);
-          }
-
-          // Informações do produto
-          doc.setTextColor(colors.text);
-          doc.setFontSize(10);
-          doc.setFont('helvetica', 'bold');
-          doc.text(product.name, xPosition + 5, yPosition + 65, {
-            maxWidth: cardWidth - 10
-          });
-
-          // Código do produto
-          doc.setFillColor(parseInt(colors.primary.slice(1), 16));
-          doc.roundedRect(xPosition + 5, yPosition + 75, 40, 7, 2, 2, 'F');
-          doc.setTextColor(colors.text);
-          doc.setFontSize(8);
-          doc.text(`COD: ${product.code}`, xPosition + 8, yPosition + 80);
-
-          // Preço do produto
-          doc.setTextColor(colors.primary);
-          doc.setFontSize(12);
-          doc.setFont('helvetica', 'bold');
-          doc.text(
-            product.price ? `R$ ${product.price.toFixed(2)}` : 'Sob consulta',
-            xPosition + cardWidth - 5,
-            yPosition + 80,
-            { align: 'right' }
-          );
-
-          itemCount++;
-          
-          // Ajustar posição Y para próxima linha após dois itens
-          if (itemCount % itemsPerRow === 0) {
-            yPosition += cardHeight + spacing;
+            
+            // Fundo do card do produto
+            doc.setFillColor(250, 250, 250);
+            doc.roundedRect(15, yPosition, 180, 60, 3, 3, 'F');
+            
+            try {
+              // Adicionar informações do produto (imagem condicionalmente)
+              if (product.image) {
+                try {
+                  // Remove o /public da URL da imagem
+                  const imagePath = product.image.replace('/public', '');
+                  // Adicionar a imagem como um quadrado de 50x50
+                  doc.addImage(imagePath, 'PNG', 20, yPosition + 5, 50, 50);
+                } catch (imageError) {
+                  // Silenciosamente ignorar erros de imagem e continuar sem a imagem
+                  console.warn(`Não foi possível carregar imagem para ${product.name}`);
+                }
+              }
+              
+              // Informações do produto
+              // Nome do produto
+              doc.setFontSize(14);
+              doc.setTextColor(colors.primary);
+              doc.text(product.name, 80, yPosition + 15);
+              
+              // Código do produto
+              doc.setFontSize(10);
+              doc.setTextColor(colors.text);
+              doc.text(`Código: ${product.code}`, 80, yPosition + 30);
+              
+              // Preço do produto
+              doc.setFontSize(12);
+              doc.setTextColor(colors.primary);
+              doc.text(
+                `Preço: ${product.price ? `R$ ${product.price.toFixed(2)}` : 'Sob consulta'}`,
+                80, 
+                yPosition + 45
+              );
+              
+              yPosition += 70; // Espaçamento entre produtos
+              productsPerPage++;
+              
+            } catch (error) {
+              console.error(`Erro ao processar produto ${product.code}:`, error);
+              // Continua para o próximo produto mesmo se houver erro
+              yPosition += 70;
+              productsPerPage++;
+            }
           }
         }
-
-        // Adicionar última página com contatos
-        doc.addPage();
-        doc.setFillColor(parseInt(colors.background.slice(1), 16));
-        doc.rect(0, 0, doc.internal.pageSize.width, doc.internal.pageSize.height, 'F');
-
-        // Título dos contatos
-        doc.setTextColor(colors.text);
-        doc.setFontSize(18);
-        doc.setFont('helvetica', 'bold');
-        doc.text('FAÇA SEU PEDIDO NOS MEIOS DE CONTATO ABAIXO:', 
-          doc.internal.pageSize.width / 2, 40, { align: 'center' });
-
-        // Informações de contato
-        doc.setFontSize(14);
-        doc.text('R. JACOB GREMMELMAIER, 409 - CENTRO', 
-          doc.internal.pageSize.width / 2, 70, { align: 'center' });
         
-        doc.setTextColor(colors.primary);
-        doc.text('54 9927-0560', doc.internal.pageSize.width / 2 - 50, 90, { align: 'center' });
-        doc.text('OU', doc.internal.pageSize.width / 2, 90, { align: 'center' });
-        doc.text('54 9998-6916', doc.internal.pageSize.width / 2 + 50, 90, { align: 'center' });
-
+        // Rodapé em todas as páginas
+        const pageCount = doc.internal.pages.length - 1;
+        
+        for (let i = 1; i <= pageCount; i++) {
+          doc.setPage(i);
+          doc.setFillColor(colors.primary);
+          doc.rect(0, doc.internal.pageSize.height - 20, doc.internal.pageSize.width, 20, 'F');
+          doc.setTextColor('#FFFFFF');
+          doc.setFontSize(10);
+          doc.text(
+            `Página ${i} de ${pageCount}`, 
+            doc.internal.pageSize.width / 2, 
+            doc.internal.pageSize.height - 10, 
+            { align: 'center' }
+          );
+        }
+        
         // Download do PDF
         doc.save(`catalogo-${categoryName.toLowerCase()}.pdf`);
         
+        // Mostrar toast de sucesso após o download
         toast({
           title: "Catálogo gerado!",
           description: "Seu catálogo foi baixado com sucesso.",
@@ -158,6 +154,8 @@ export function DownloadCategoryButton({ products, categoryName }: DownloadCateg
         });
       } catch (error) {
         console.error("Erro ao gerar PDF:", error);
+        
+        // Mostrar toast de erro
         toast({
           title: "Erro ao gerar catálogo",
           description: "Ocorreu um erro ao gerar seu catálogo. Por favor, tente novamente.",
@@ -165,7 +163,7 @@ export function DownloadCategoryButton({ products, categoryName }: DownloadCateg
           duration: 5000,
         });
       }
-    }, 100);
+    }, 100); // Curto delay para não bloquear a interface
   };
 
   return (
