@@ -8,14 +8,25 @@ interface WorkerMessage {
   categoryName: string;
 }
 
-// Function to load image and convert to base64
+// Optimize image loading with caching
+const imageCache = new Map<string, string>();
+
 const loadImage = async (url: string): Promise<string> => {
+  // Check cache first
+  if (imageCache.has(url)) {
+    return imageCache.get(url)!;
+  }
+
   try {
     const response = await fetch(url);
     const blob = await response.blob();
     return new Promise((resolve, reject) => {
       const reader = new FileReader();
-      reader.onloadend = () => resolve(reader.result as string);
+      reader.onloadend = () => {
+        const base64data = reader.result as string;
+        imageCache.set(url, base64data); // Cache the result
+        resolve(base64data);
+      };
       reader.onerror = reject;
       reader.readAsDataURL(blob);
     });
@@ -25,7 +36,14 @@ const loadImage = async (url: string): Promise<string> => {
   }
 };
 
-// Function to generate the PDF
+// Pre-define colors to avoid object creation in loops
+const colors = {
+  background: '#1e1e1e',
+  primary: '#FF7A00',
+  text: '#333333',
+  secondary: '#252525'
+} as const;
+
 const generatePdf = async (products: Product[], categoryName: string) => {
   // Create new document PDF with optimizations
   const doc = new jsPDF({
@@ -33,122 +51,106 @@ const generatePdf = async (products: Product[], categoryName: string) => {
     putOnlyUsedFonts: true,
   });
   
-  let yPosition = 20;
+  // Pre-calculate page dimensions
+  const pageWidth = doc.internal.pageSize.width;
+  const pageHeight = doc.internal.pageSize.height;
+  const footerHeight = 20;
+  const safeAreaHeight = pageHeight - footerHeight - 15;
+  const productCardHeight = 35;
   
-  // Configuration of site colors
-  const colors = {
-    background: '#1e1e1e',
-    primary: '#FF7A00',
-    text: '#333333',
-    secondary: '#252525'
-  };
-  
-  // Header with title
+  // Header (only set these values once)
   doc.setFillColor(colors.background);
-  doc.rect(0, 0, doc.internal.pageSize.width, 40, 'F');
+  doc.rect(0, 0, pageWidth, 40, 'F');
   
   doc.setTextColor('#FFFFFF');
   doc.setFontSize(24);
   doc.text(`Catálogo - ${categoryName}`, 20, 25);
   
-  yPosition = 50;
-  
-  // Settings for content
-  doc.setFontSize(12);
-  doc.setTextColor(colors.text);
-  
-  // Process products in batches for better performance
-  const batchSize = 5;
-  const productBatches = [];
-  
-  for (let i = 0; i < products.length; i += batchSize) {
-    productBatches.push(products.slice(i, i + batchSize));
-  }
-  
+  let yPosition = 50;
   let currentPage = 1;
   let productsPerPage = 0;
-  const maxProductsPerPage = 5; // Changed back to 5 products per page
-  const footerHeight = 20; // Height of the footer
-  const pageHeight = doc.internal.pageSize.height;
-  const safeAreaHeight = pageHeight - footerHeight - 15; // Safe area for content (with 15pt margin)
-  const productCardHeight = 40; // Reduced height of product card with some margin
+  const maxProductsPerPage = 6;
   
-  for (const batch of productBatches) {
-    for (const product of batch) {
-      // Check if adding this product would exceed the safe area
-      if (yPosition + productCardHeight > safeAreaHeight || productsPerPage >= maxProductsPerPage) {
-        doc.addPage();
-        yPosition = 50;
-        productsPerPage = 0;
-        currentPage++;
-      }
-      
-      // Product card background - more compact layout
-      doc.setFillColor(250, 250, 250);
-      doc.roundedRect(15, yPosition, 180, 38, 3, 3, 'F');
-      
-      try {
-        // Load and add product image - reduced size
-        if (product.image) {
-          const imageData = await loadImage(product.image);
-          if (imageData) {
-            doc.addImage(
-              imageData,
-              'PNG',
-              20,
-              yPosition + 4,
-              30,
-              30,
-              undefined,
-              'MEDIUM' // compression
-            );
-          }
-        }
-      } catch (error) {
-        console.error('Error adding image to PDF:', error);
-      }
-      
-      // Product information next to image - adjusted positions
-      // Product name
-      doc.setFontSize(11);
-      doc.setTextColor(colors.primary);
-      doc.text(product.name, 55, yPosition + 12, { maxWidth: 90 });
-      
-      // Product code and price on the same line
-      doc.setFontSize(9);
-      doc.setTextColor(colors.text);
-      doc.text(`Código: ${product.code}`, 55, yPosition + 25);
-      
-      doc.setTextColor(colors.primary);
-      doc.text(
-        `Preço: ${product.price ? `R$ ${product.price.toFixed(2)}` : 'Sob consulta'}`,
-        140,
-        yPosition + 25
-      );
-      
-      yPosition += 42; // Reduced spacing between products
-      productsPerPage++;
+  // Process products in larger batches
+  const batchSize = 10;
+  
+  // Pre-load all images before starting PDF generation
+  const imagePromises = products.map(product => 
+    product.image ? loadImage(product.image) : Promise.resolve('')
+  );
+  
+  // Wait for all images to load
+  const imageResults = await Promise.all(imagePromises);
+  const imageMap = new Map(products.map((product, index) => [product.image, imageResults[index]]));
+  
+  for (let i = 0; i < products.length; i++) {
+    const product = products[i];
+    
+    if (yPosition + productCardHeight > safeAreaHeight || productsPerPage >= maxProductsPerPage) {
+      doc.addPage();
+      yPosition = 50;
+      productsPerPage = 0;
+      currentPage++;
     }
+    
+    // Product card background
+    doc.setFillColor(250, 250, 250);
+    doc.roundedRect(15, yPosition, 180, 33, 3, 3, 'F');
+    
+    // Add image if available
+    if (product.image) {
+      const imageData = imageMap.get(product.image);
+      if (imageData) {
+        doc.addImage(
+          imageData,
+          'PNG',
+          20,
+          yPosition + 2,
+          30,
+          30,
+          undefined,
+          'MEDIUM'
+        );
+      }
+    }
+    
+    // Product information
+    doc.setFontSize(11);
+    doc.setTextColor(colors.primary);
+    doc.text(product.name, 55, yPosition + 12, { maxWidth: 90 });
+    
+    doc.setFontSize(9);
+    doc.setTextColor(colors.text);
+    doc.text(`Código: ${product.code}`, 55, yPosition + 25);
+    
+    doc.setTextColor(colors.primary);
+    doc.text(
+      `Preço: ${product.price ? `R$ ${product.price.toFixed(2)}` : 'Sob consulta'}`,
+      140,
+      yPosition + 25
+    );
+    
+    yPosition += 37;
+    productsPerPage++;
   }
   
-  // Footer on all pages
+  // Add footer to all pages
   const pageCount = doc.internal.pages.length - 1;
   
   for (let i = 1; i <= pageCount; i++) {
     doc.setPage(i);
     doc.setFillColor(colors.primary);
-    doc.rect(0, doc.internal.pageSize.height - 20, doc.internal.pageSize.width, 20, 'F');
+    doc.rect(0, pageHeight - footerHeight, pageWidth, footerHeight, 'F');
     doc.setTextColor('#FFFFFF');
     doc.setFontSize(10);
     doc.text(
       `Página ${i} de ${pageCount}`,
-      doc.internal.pageSize.width / 2,
-      doc.internal.pageSize.height - 10,
+      pageWidth / 2,
+      pageHeight - 10,
       { align: 'center' }
     );
   }
   
-  // Return PDF as base64 string
   return doc.output('datauristring');
 };
 
@@ -158,17 +160,14 @@ self.addEventListener('message', async (e: MessageEvent<WorkerMessage>) => {
     const { products, categoryName } = e.data;
     
     try {
-      // Generate PDF
       const pdfBase64 = await generatePdf(products, categoryName);
       
-      // Send PDF back to main thread
       self.postMessage({
         type: 'success',
         pdf: pdfBase64,
         categoryName
       });
     } catch (error) {
-      // Send error back to main thread
       self.postMessage({
         type: 'error',
         error: `${error}`
@@ -176,3 +175,4 @@ self.addEventListener('message', async (e: MessageEvent<WorkerMessage>) => {
     }
   }
 });
+
