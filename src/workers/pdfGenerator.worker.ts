@@ -67,15 +67,14 @@ const generatePdf = async (products: Product[], categoryName: string) => {
   
   let currentPage = 1;
   let productsPerPage = 0;
-  const maxProductsPerPage = 4; // Changed from 5 to 4 products per page to prevent footer overlap
+  const maxProductsPerPage = 5; // Changed back to 5 products per page
   const footerHeight = 20; // Height of the footer
   const pageHeight = doc.internal.pageSize.height;
-  const safeAreaHeight = pageHeight - footerHeight - 10; // Safe area for content (with 10pt margin)
+  const safeAreaHeight = pageHeight - footerHeight - 15; // Safe area for content (with 15pt margin)
+  const productCardHeight = 40; // Reduced height of product card with some margin
   
   for (const batch of productBatches) {
     for (const product of batch) {
-      const productCardHeight = 50; // Height of product card with some margin
-      
       // Check if adding this product would exceed the safe area
       if (yPosition + productCardHeight > safeAreaHeight || productsPerPage >= maxProductsPerPage) {
         doc.addPage();
@@ -84,9 +83,9 @@ const generatePdf = async (products: Product[], categoryName: string) => {
         currentPage++;
       }
       
-      // Product card background - reduced height for more compact layout
+      // Product card background - more compact layout
       doc.setFillColor(250, 250, 250);
-      doc.roundedRect(15, yPosition, 180, 45, 3, 3, 'F');
+      doc.roundedRect(15, yPosition, 180, 38, 3, 3, 'F');
       
       try {
         // Load and add product image - reduced size
@@ -97,9 +96,9 @@ const generatePdf = async (products: Product[], categoryName: string) => {
               imageData,
               'PNG',
               20,
-              yPosition + 5,
-              35,
-              35,
+              yPosition + 4,
+              30,
+              30,
               undefined,
               'MEDIUM' // compression
             );
@@ -111,23 +110,23 @@ const generatePdf = async (products: Product[], categoryName: string) => {
       
       // Product information next to image - adjusted positions
       // Product name
-      doc.setFontSize(12);
+      doc.setFontSize(11);
       doc.setTextColor(colors.primary);
-      doc.text(product.name, 60, yPosition + 15, { maxWidth: 80 });
+      doc.text(product.name, 55, yPosition + 12, { maxWidth: 90 });
       
       // Product code and price on the same line
-      doc.setFontSize(10);
+      doc.setFontSize(9);
       doc.setTextColor(colors.text);
-      doc.text(`Código: ${product.code}`, 60, yPosition + 30);
+      doc.text(`Código: ${product.code}`, 55, yPosition + 25);
       
       doc.setTextColor(colors.primary);
       doc.text(
         `Preço: ${product.price ? `R$ ${product.price.toFixed(2)}` : 'Sob consulta'}`,
         140,
-        yPosition + 30
+        yPosition + 25
       );
       
-      yPosition += 50; // Spacing between products
+      yPosition += 42; // Reduced spacing between products
       productsPerPage++;
     }
   }
