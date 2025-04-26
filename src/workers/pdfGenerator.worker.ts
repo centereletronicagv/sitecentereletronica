@@ -1,4 +1,3 @@
-
 import { Product } from "../types";
 import { jsPDF } from 'jspdf';
 
@@ -58,7 +57,7 @@ const generatePdf = async (products: Product[], categoryName: string) => {
   doc.setTextColor(colors.text);
   
   // Process products in batches for better performance
-  const batchSize = 2; // Reduced batch size due to images
+  const batchSize = 5; // Changed from 2 to 5 products per batch
   const productBatches = [];
   
   for (let i = 0; i < products.length; i += batchSize) {
@@ -67,7 +66,7 @@ const generatePdf = async (products: Product[], categoryName: string) => {
   
   let currentPage = 1;
   let productsPerPage = 0;
-  const maxProductsPerPage = 2; // Reduced products per page to accommodate images
+  const maxProductsPerPage = 5; // Changed from 2 to 5 products per page
   
   for (const batch of productBatches) {
     for (const product of batch) {
@@ -79,12 +78,12 @@ const generatePdf = async (products: Product[], categoryName: string) => {
         currentPage++;
       }
       
-      // Product card background
+      // Product card background - reduced height for more compact layout
       doc.setFillColor(250, 250, 250);
-      doc.roundedRect(15, yPosition, 180, 100, 3, 3, 'F');
+      doc.roundedRect(15, yPosition, 180, 45, 3, 3, 'F');
       
       try {
-        // Load and add product image
+        // Load and add product image - reduced size
         if (product.image) {
           const imageData = await loadImage(product.image);
           if (imageData) {
@@ -92,9 +91,9 @@ const generatePdf = async (products: Product[], categoryName: string) => {
               imageData,
               'PNG',
               20,
-              yPosition + 10,
-              80,
-              80,
+              yPosition + 5,
+              35,
+              35,
               undefined,
               'MEDIUM' // compression
             );
@@ -104,27 +103,25 @@ const generatePdf = async (products: Product[], categoryName: string) => {
         console.error('Error adding image to PDF:', error);
       }
       
-      // Product information next to image
+      // Product information next to image - adjusted positions
       // Product name
-      doc.setFontSize(14);
+      doc.setFontSize(12);
       doc.setTextColor(colors.primary);
-      doc.text(product.name, 110, yPosition + 20, { maxWidth: 80 });
+      doc.text(product.name, 60, yPosition + 15, { maxWidth: 80 });
       
-      // Product code
+      // Product code and price on the same line
       doc.setFontSize(10);
       doc.setTextColor(colors.text);
-      doc.text(`Código: ${product.code}`, 110, yPosition + 40);
+      doc.text(`Código: ${product.code}`, 60, yPosition + 30);
       
-      // Product price
-      doc.setFontSize(12);
       doc.setTextColor(colors.primary);
       doc.text(
         `Preço: ${product.price ? `R$ ${product.price.toFixed(2)}` : 'Sob consulta'}`,
-        110,
-        yPosition + 60
+        140,
+        yPosition + 30
       );
       
-      yPosition += 110; // Increased spacing between products for images
+      yPosition += 50; // Reduced spacing between products
       productsPerPage++;
     }
   }
