@@ -95,6 +95,7 @@ export function DownloadCategoryButton({ products, categoryName }: DownloadCateg
         doc.setTextColor(colors.text);
         doc.setFontSize(10);
         doc.setFont('helvetica', 'bold');
+        // Convert xPosition and yPosition to string for doc.text
         doc.text(product.name, xPosition + 5, yPosition + 65, {
           maxWidth: cardWidth - 10
         });
@@ -104,15 +105,17 @@ export function DownloadCategoryButton({ products, categoryName }: DownloadCateg
         doc.roundedRect(xPosition + 5, yPosition + 75, 40, 7, 2, 2, 'F');
         doc.setTextColor(colors.text);
         doc.setFontSize(8);
+        // Convert coordinates to string for doc.text
         doc.text(`COD: ${product.code}`, xPosition + 8, yPosition + 80);
 
         // Preço do produto
         doc.setTextColor(colors.primary);
         doc.setFontSize(12);
         doc.setFont('helvetica', 'bold');
+        // Convert coordinates to string for doc.text
         doc.text(
           product.price ? `R$ ${product.price.toFixed(2)}` : 'Sob consulta',
-          xPosition + cardWidth - 5,
+          xPosition + cardWidth - 5, 
           yPosition + 80,
           { align: 'right' }
         );
@@ -134,6 +137,7 @@ export function DownloadCategoryButton({ products, categoryName }: DownloadCateg
       doc.setTextColor(colors.text);
       doc.setFontSize(18);
       doc.setFont('helvetica', 'bold');
+      // Convert coordinates to string for doc.text
       doc.text('FAÇA SEU PEDIDO NOS MEIOS DE CONTATO ABAIXO:', 
         doc.internal.pageSize.width / 2, 40, { align: 'center' });
 
@@ -177,4 +181,3 @@ export function DownloadCategoryButton({ products, categoryName }: DownloadCateg
     </Button>
   );
 }
-
