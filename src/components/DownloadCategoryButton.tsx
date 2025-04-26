@@ -41,12 +41,12 @@ export function DownloadCategoryButton({ products, categoryName }: DownloadCateg
       doc.setTextColor(colors.primary);
       doc.setFontSize(32);
       doc.setFont('helvetica', 'bold');
-      doc.text('CATÁLOGO DIGITAL', doc.internal.pageSize.width / 2, '40', { align: 'center' });
+      doc.text('CATÁLOGO DIGITAL', doc.internal.pageSize.width / 2, 40, { align: 'center' });
       
       // Subtítulo (categoria)
       doc.setTextColor('#000000');
       doc.setFontSize(24);
-      doc.text(categoryName.toUpperCase(), doc.internal.pageSize.width / 2, '60', { align: 'center' });
+      doc.text(categoryName.toUpperCase(), doc.internal.pageSize.width / 2, 60, { align: 'center' });
 
       // Configurações dos produtos
       const itemsPerPage = 6;
@@ -135,17 +135,17 @@ export function DownloadCategoryButton({ products, categoryName }: DownloadCateg
       doc.setFontSize(18);
       doc.setFont('helvetica', 'bold');
       doc.text('FAÇA SEU PEDIDO NOS MEIOS DE CONTATO ABAIXO:', 
-        doc.internal.pageSize.width / 2, '40', { align: 'center' });
+        doc.internal.pageSize.width / 2, 40, { align: 'center' });
 
       // Informações de contato
       doc.setFontSize(14);
       doc.text('R. JACOB GREMMELMAIER, 409 - CENTRO', 
-        doc.internal.pageSize.width / 2, '70', { align: 'center' });
+        doc.internal.pageSize.width / 2, 70, { align: 'center' });
       
       doc.setTextColor(colors.primary);
-      doc.text('54 9927-0560', doc.internal.pageSize.width / 2 - 50, '90', { align: 'center' });
-      doc.text('OU', doc.internal.pageSize.width / 2, '90', { align: 'center' });
-      doc.text('54 9998-6916', doc.internal.pageSize.width / 2 + 50, '90', { align: 'center' });
+      doc.text('54 9927-0560', doc.internal.pageSize.width / 2 - 50, 90, { align: 'center' });
+      doc.text('OU', doc.internal.pageSize.width / 2, 90, { align: 'center' });
+      doc.text('54 9998-6916', doc.internal.pageSize.width / 2 + 50, 90, { align: 'center' });
 
       // Download do PDF
       doc.save(`catalogo-${categoryName.toLowerCase()}.pdf`);
