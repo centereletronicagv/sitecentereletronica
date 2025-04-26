@@ -2,15 +2,31 @@
 import { Product } from "../types";
 import { jsPDF } from 'jspdf';
 
-// Interface for communication with the worker
 interface WorkerMessage {
   type: 'generate';
   products: Product[];
   categoryName: string;
 }
 
+// Function to load image and convert to base64
+const loadImage = async (url: string): Promise<string> => {
+  try {
+    const response = await fetch(url);
+    const blob = await response.blob();
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onloadend = () => resolve(reader.result as string);
+      reader.onerror = reject;
+      reader.readAsDataURL(blob);
+    });
+  } catch (error) {
+    console.error('Error loading image:', error);
+    return '';
+  }
+};
+
 // Function to generate the PDF
-const generatePdf = (products: Product[], categoryName: string) => {
+const generatePdf = async (products: Product[], categoryName: string) => {
   // Create new document PDF with optimizations
   const doc = new jsPDF({
     compress: true,
@@ -42,7 +58,7 @@ const generatePdf = (products: Product[], categoryName: string) => {
   doc.setTextColor(colors.text);
   
   // Process products in batches for better performance
-  const batchSize = 5;
+  const batchSize = 2; // Reduced batch size due to images
   const productBatches = [];
   
   for (let i = 0; i < products.length; i += batchSize) {
@@ -51,7 +67,7 @@ const generatePdf = (products: Product[], categoryName: string) => {
   
   let currentPage = 1;
   let productsPerPage = 0;
-  const maxProductsPerPage = 4; // Limit products per page
+  const maxProductsPerPage = 2; // Reduced products per page to accommodate images
   
   for (const batch of productBatches) {
     for (const product of batch) {
@@ -65,29 +81,50 @@ const generatePdf = (products: Product[], categoryName: string) => {
       
       // Product card background
       doc.setFillColor(250, 250, 250);
-      doc.roundedRect(15, yPosition, 180, 60, 3, 3, 'F');
+      doc.roundedRect(15, yPosition, 180, 100, 3, 3, 'F');
       
-      // Add product information (without images)
+      try {
+        // Load and add product image
+        if (product.image) {
+          const imageData = await loadImage(product.image);
+          if (imageData) {
+            doc.addImage(
+              imageData,
+              'PNG',
+              20,
+              yPosition + 10,
+              80,
+              80,
+              undefined,
+              'MEDIUM' // compression
+            );
+          }
+        }
+      } catch (error) {
+        console.error('Error adding image to PDF:', error);
+      }
+      
+      // Product information next to image
       // Product name
       doc.setFontSize(14);
       doc.setTextColor(colors.primary);
-      doc.text(product.name, 20, yPosition + 15);
+      doc.text(product.name, 110, yPosition + 20, { maxWidth: 80 });
       
       // Product code
       doc.setFontSize(10);
       doc.setTextColor(colors.text);
-      doc.text(`Código: ${product.code}`, 20, yPosition + 30);
+      doc.text(`Código: ${product.code}`, 110, yPosition + 40);
       
       // Product price
       doc.setFontSize(12);
       doc.setTextColor(colors.primary);
       doc.text(
         `Preço: ${product.price ? `R$ ${product.price.toFixed(2)}` : 'Sob consulta'}`,
-        20, 
-        yPosition + 45
+        110,
+        yPosition + 60
       );
       
-      yPosition += 70; // Spacing between products
+      yPosition += 110; // Increased spacing between products for images
       productsPerPage++;
     }
   }
@@ -102,9 +139,9 @@ const generatePdf = (products: Product[], categoryName: string) => {
     doc.setTextColor('#FFFFFF');
     doc.setFontSize(10);
     doc.text(
-      `Página ${i} de ${pageCount}`, 
-      doc.internal.pageSize.width / 2, 
-      doc.internal.pageSize.height - 10, 
+      `Página ${i} de ${pageCount}`,
+      doc.internal.pageSize.width / 2,
+      doc.internal.pageSize.height - 10,
       { align: 'center' }
     );
   }
@@ -120,18 +157,18 @@ self.addEventListener('message', async (e: MessageEvent<WorkerMessage>) => {
     
     try {
       // Generate PDF
-      const pdfBase64 = generatePdf(products, categoryName);
+      const pdfBase64 = await generatePdf(products, categoryName);
       
       // Send PDF back to main thread
-      self.postMessage({ 
-        type: 'success', 
+      self.postMessage({
+        type: 'success',
         pdf: pdfBase64,
         categoryName
       });
     } catch (error) {
       // Send error back to main thread
-      self.postMessage({ 
-        type: 'error', 
+      self.postMessage({
+        type: 'error',
         error: `${error}`
       });
     }
