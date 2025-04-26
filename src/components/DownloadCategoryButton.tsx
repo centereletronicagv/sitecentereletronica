@@ -1,3 +1,4 @@
+
 import { Download } from "lucide-react";
 import { Button } from "./ui/button";
 import { Product } from "@/types";
@@ -40,12 +41,12 @@ export function DownloadCategoryButton({ products, categoryName }: DownloadCateg
       doc.setTextColor(colors.primary);
       doc.setFontSize(32);
       doc.setFont('helvetica', 'bold');
-      doc.text('CATÁLOGO DIGITAL', doc.internal.pageSize.width / 2, 40, { align: 'center' });
+      doc.text('CATÁLOGO DIGITAL', doc.internal.pageSize.width / 2, '40', { align: 'center' });
       
       // Subtítulo (categoria)
       doc.setTextColor('#000000');
       doc.setFontSize(24);
-      doc.text(categoryName.toUpperCase(), doc.internal.pageSize.width / 2, 60, { align: 'center' });
+      doc.text(categoryName.toUpperCase(), doc.internal.pageSize.width / 2, '60', { align: 'center' });
 
       // Configurações dos produtos
       const itemsPerPage = 6;
@@ -94,7 +95,7 @@ export function DownloadCategoryButton({ products, categoryName }: DownloadCateg
         doc.setTextColor(colors.text);
         doc.setFontSize(10);
         doc.setFont('helvetica', 'bold');
-        doc.text(product.name, xPosition + 5, yPosition + 65, {
+        doc.text(product.name, xPosition + 5, (yPosition + 65).toString(), {
           maxWidth: cardWidth - 10
         });
 
@@ -103,7 +104,7 @@ export function DownloadCategoryButton({ products, categoryName }: DownloadCateg
         doc.roundedRect(xPosition + 5, yPosition + 75, 40, 7, 2, 2, 'F');
         doc.setTextColor(colors.text);
         doc.setFontSize(8);
-        doc.text(`COD: ${product.code}`, xPosition + 8, yPosition + 80);
+        doc.text(`COD: ${product.code}`, xPosition + 8, (yPosition + 80).toString());
 
         // Preço do produto
         doc.setTextColor(colors.primary);
@@ -112,7 +113,7 @@ export function DownloadCategoryButton({ products, categoryName }: DownloadCateg
         doc.text(
           product.price ? `R$ ${product.price.toFixed(2)}` : 'Sob consulta',
           xPosition + cardWidth - 5,
-          yPosition + 80,
+          (yPosition + 80).toString(),
           { align: 'right' }
         );
 
@@ -134,17 +135,17 @@ export function DownloadCategoryButton({ products, categoryName }: DownloadCateg
       doc.setFontSize(18);
       doc.setFont('helvetica', 'bold');
       doc.text('FAÇA SEU PEDIDO NOS MEIOS DE CONTATO ABAIXO:', 
-        doc.internal.pageSize.width / 2, 40, { align: 'center' });
+        doc.internal.pageSize.width / 2, '40', { align: 'center' });
 
       // Informações de contato
       doc.setFontSize(14);
       doc.text('R. JACOB GREMMELMAIER, 409 - CENTRO', 
-        doc.internal.pageSize.width / 2, 70, { align: 'center' });
+        doc.internal.pageSize.width / 2, '70', { align: 'center' });
       
       doc.setTextColor(colors.primary);
-      doc.text('54 9927-0560', doc.internal.pageSize.width / 2 - 50, 90, { align: 'center' });
-      doc.text('OU', doc.internal.pageSize.width / 2, 90, { align: 'center' });
-      doc.text('54 9998-6916', doc.internal.pageSize.width / 2 + 50, 90, { align: 'center' });
+      doc.text('54 9927-0560', doc.internal.pageSize.width / 2 - 50, '90', { align: 'center' });
+      doc.text('OU', doc.internal.pageSize.width / 2, '90', { align: 'center' });
+      doc.text('54 9998-6916', doc.internal.pageSize.width / 2 + 50, '90', { align: 'center' });
 
       // Download do PDF
       doc.save(`catalogo-${categoryName.toLowerCase()}.pdf`);
