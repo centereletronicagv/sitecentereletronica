@@ -1,21 +1,17 @@
 
 import { Product } from "../types";
+import { jsPDF } from 'jspdf';
 
-// Setup para usar jsPDF no Web Worker
-self.importScripts('https://cdnjs.cloudflare.com/ajax/libs/jspdf/3.0.1/jspdf.umd.min.js');
-
-// Interface para comunicação com o worker
+// Interface for communication with the worker
 interface WorkerMessage {
   type: 'generate';
   products: Product[];
   categoryName: string;
 }
 
-// Função para gerar o PDF
+// Function to generate the PDF
 const generatePdf = (products: Product[], categoryName: string) => {
-  const jsPDF = (self as any).jspdf.jsPDF;
-  
-  // Criar novo documento PDF com otimizações
+  // Create new document PDF with optimizations
   const doc = new jsPDF({
     compress: true,
     putOnlyUsedFonts: true,
@@ -23,7 +19,7 @@ const generatePdf = (products: Product[], categoryName: string) => {
   
   let yPosition = 20;
   
-  // Configuração das cores do site
+  // Configuration of site colors
   const colors = {
     background: '#1e1e1e',
     primary: '#FF7A00',
@@ -31,7 +27,7 @@ const generatePdf = (products: Product[], categoryName: string) => {
     secondary: '#252525'
   };
   
-  // Cabeçalho com título
+  // Header with title
   doc.setFillColor(colors.background);
   doc.rect(0, 0, doc.internal.pageSize.width, 40, 'F');
   
@@ -41,11 +37,11 @@ const generatePdf = (products: Product[], categoryName: string) => {
   
   yPosition = 50;
   
-  // Configurações para o conteúdo
+  // Settings for content
   doc.setFontSize(12);
   doc.setTextColor(colors.text);
   
-  // Processar produtos em lotes para melhor performance
+  // Process products in batches for better performance
   const batchSize = 5;
   const productBatches = [];
   
@@ -55,11 +51,11 @@ const generatePdf = (products: Product[], categoryName: string) => {
   
   let currentPage = 1;
   let productsPerPage = 0;
-  const maxProductsPerPage = 4; // Limitar produtos por página
+  const maxProductsPerPage = 4; // Limit products per page
   
   for (const batch of productBatches) {
     for (const product of batch) {
-      // Verificar se precisa de nova página baseado no número de produtos
+      // Check if a new page is needed based on number of products
       if (productsPerPage >= maxProductsPerPage) {
         doc.addPage();
         yPosition = 50;
@@ -67,22 +63,22 @@ const generatePdf = (products: Product[], categoryName: string) => {
         currentPage++;
       }
       
-      // Fundo do card do produto
+      // Product card background
       doc.setFillColor(250, 250, 250);
       doc.roundedRect(15, yPosition, 180, 60, 3, 3, 'F');
       
-      // Adicionar informações do produto (sem imagens)
-      // Nome do produto
+      // Add product information (without images)
+      // Product name
       doc.setFontSize(14);
       doc.setTextColor(colors.primary);
       doc.text(product.name, 20, yPosition + 15);
       
-      // Código do produto
+      // Product code
       doc.setFontSize(10);
       doc.setTextColor(colors.text);
       doc.text(`Código: ${product.code}`, 20, yPosition + 30);
       
-      // Preço do produto
+      // Product price
       doc.setFontSize(12);
       doc.setTextColor(colors.primary);
       doc.text(
@@ -91,12 +87,12 @@ const generatePdf = (products: Product[], categoryName: string) => {
         yPosition + 45
       );
       
-      yPosition += 70; // Espaçamento entre produtos
+      yPosition += 70; // Spacing between products
       productsPerPage++;
     }
   }
   
-  // Rodapé em todas as páginas
+  // Footer on all pages
   const pageCount = doc.internal.pages.length - 1;
   
   for (let i = 1; i <= pageCount; i++) {
@@ -113,27 +109,27 @@ const generatePdf = (products: Product[], categoryName: string) => {
     );
   }
   
-  // Retornar o PDF como string base64
+  // Return PDF as base64 string
   return doc.output('datauristring');
 };
 
-// Event listener para receber mensagens do thread principal
+// Event listener to receive messages from main thread
 self.addEventListener('message', async (e: MessageEvent<WorkerMessage>) => {
   if (e.data.type === 'generate') {
     const { products, categoryName } = e.data;
     
     try {
-      // Gerar PDF
+      // Generate PDF
       const pdfBase64 = generatePdf(products, categoryName);
       
-      // Enviar PDF de volta para o thread principal
+      // Send PDF back to main thread
       self.postMessage({ 
         type: 'success', 
         pdf: pdfBase64,
         categoryName
       });
     } catch (error) {
-      // Enviar erro de volta para o thread principal
+      // Send error back to main thread
       self.postMessage({ 
         type: 'error', 
         error: `${error}`

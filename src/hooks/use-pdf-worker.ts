@@ -13,9 +13,9 @@ export function usePdfWorker(): PdfWorkerResult {
   const workerRef = useRef<Worker | null>(null);
   const { toast } = useToast();
 
-  // Inicializar e limpar o worker
+  // Initialize and clean up the worker
   useEffect(() => {
-    // Criar Worker
+    // Create Worker
     const worker = new Worker(
       new URL('../workers/pdfGenerator.worker.ts', import.meta.url),
       { type: 'module' }
@@ -30,7 +30,7 @@ export function usePdfWorker(): PdfWorkerResult {
     };
   }, []);
 
-  // Função para gerar PDF usando o worker
+  // Function to generate PDF using the worker
   const generatePdf = async (products: Product[], categoryName: string): Promise<void> => {
     if (!workerRef.current) {
       toast({
@@ -52,10 +52,10 @@ export function usePdfWorker(): PdfWorkerResult {
         duration: 3000,
       });
 
-      // Configurar resposta do worker
+      // Configure worker response
       const handleMessage = (e: MessageEvent) => {
         if (e.data.type === 'success') {
-          // Download do PDF
+          // Download PDF
           const link = document.createElement('a');
           link.href = e.data.pdf;
           link.download = `catalogo-${e.data.categoryName.toLowerCase()}.pdf`;
@@ -85,14 +85,14 @@ export function usePdfWorker(): PdfWorkerResult {
           reject(e.data.error);
         }
         
-        // Remover o listener após receber resposta
+        // Remove listener after receiving response
         workerRef.current?.removeEventListener('message', handleMessage);
       };
 
-      // Adicionar listener para receber mensagens do worker
+      // Add listener to receive messages from worker
       workerRef.current.addEventListener('message', handleMessage);
       
-      // Enviar dados para o worker
+      // Send data to worker
       workerRef.current.postMessage({
         type: 'generate',
         products,
