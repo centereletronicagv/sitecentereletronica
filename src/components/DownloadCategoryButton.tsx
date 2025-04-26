@@ -22,172 +22,132 @@ export function DownloadCategoryButton({ products, categoryName }: DownloadCateg
     
     setTimeout(() => {
       try {
-        // Criar novo documento PDF com otimizações
         const doc = new jsPDF({
           compress: true,
           putOnlyUsedFonts: true,
         });
         
-        // Configuração das cores do site
+        // Configurações de cores e estilo
         const colors = {
           background: '#181818',
-          cardBackground: '#1E1E1E',
-          orange: '#FF7A00',
-          text: '#FFFFFF',
-          border: '#333333'
+          primary: '#FF7A00',
+          text: '#FFFFFF'
         };
+
+        // Primeira página com título
+        doc.setFillColor(parseInt(colors.background.slice(1), 16));
+        doc.rect(0, 0, doc.internal.pageSize.width, doc.internal.pageSize.height, 'F');
         
-        // Configurações de página
-        const pageWidth = doc.internal.pageSize.width;
-        const pageHeight = doc.internal.pageSize.height;
-        const margin = 15;
-        const productsPerPage = 6;
+        // Título principal
+        doc.setTextColor(colors.text);
+        doc.setFontSize(32);
+        doc.setFont('helvetica', 'bold');
+        doc.text('CATÁLOGO DIGITAL', doc.internal.pageSize.width / 2, 40, { align: 'center' });
         
-        // Função para adicionar cabeçalho (apenas na primeira página)
-        const addHeader = (isFirstPage: boolean) => {
-          if (!isFirstPage) return;
-          
-          // Fundo do cabeçalho
-          doc.setFillColor(colors.background);
-          doc.rect(0, 0, pageWidth, 45, 'F');
-          
-          // Título principal
-          doc.setTextColor(colors.orange);
-          doc.setFontSize(28);
-          doc.setFont('helvetica', 'bold');
-          doc.text('Center Eletrônica', pageWidth / 2, 25, { align: 'center' });
-          
-          // Subtítulo (categoria)
-          doc.setFontSize(16);
-          doc.setFont('helvetica', 'normal');
-          doc.setTextColor(colors.text);
-          doc.text(`Catálogo - ${categoryName}`, pageWidth / 2, 38, { align: 'center' });
-        };
+        // Subtítulo (categoria)
+        doc.setTextColor(colors.primary);
+        doc.setFontSize(24);
+        doc.text(categoryName.toUpperCase(), doc.internal.pageSize.width / 2, 60, { align: 'center' });
+
+        // Configurações dos produtos
+        const itemsPerPage = 6;
+        const itemsPerRow = 2;
+        const margin = 20;
+        const cardWidth = 80;
+        const cardHeight = 100;
+        const spacing = 10;
         
-        // Função para adicionar rodapé (apenas na última página)
-        const addFooter = (pageNumber: number, totalPages: number) => {
-          if (pageNumber !== totalPages) {
-            // Para páginas que não são a última, apenas número da página
-            doc.setTextColor(colors.text);
-            doc.setFontSize(8);
-            doc.text(`${pageNumber}/${totalPages}`, pageWidth / 2, pageHeight - 10, { align: 'center' });
-            return;
+        let currentPage = 1;
+        let yPosition = 80;
+        let xPosition = margin;
+        let itemCount = 0;
+
+        for (const product of products) {
+          // Nova página se necessário
+          if (itemCount > 0 && itemCount % itemsPerPage === 0) {
+            doc.addPage();
+            currentPage++;
+            yPosition = 20;
+            doc.setFillColor(parseInt(colors.background.slice(1), 16));
+            doc.rect(0, 0, doc.internal.pageSize.width, doc.internal.pageSize.height, 'F');
           }
-          
-          // Rodapé completo para a última página
-          const footerY = pageHeight - 40;
-          
-          // Faixa de fundo do rodapé
-          doc.setFillColor(colors.orange);
-          doc.rect(0, footerY - 5, pageWidth, 45, 'F');
-          
-          // Informações de contato
+
+          // Calcular posição do card
+          if (itemCount % itemsPerRow === 0) {
+            xPosition = margin;
+          } else {
+            xPosition = margin + cardWidth + spacing;
+          }
+
+          // Card do produto
+          doc.setFillColor(40, 40, 40);
+          doc.roundedRect(xPosition, yPosition, cardWidth, cardHeight, 3, 3, 'F');
+
+          try {
+            if (product.image) {
+              const imagePath = product.image.replace('/public', '');
+              doc.addImage(imagePath, 'PNG', xPosition + 5, yPosition + 5, 70, 50);
+            }
+          } catch (error) {
+            console.error(`Erro ao carregar imagem do produto ${product.code}:`, error);
+          }
+
+          // Informações do produto
           doc.setTextColor(colors.text);
           doc.setFontSize(10);
           doc.setFont('helvetica', 'bold');
-          doc.text('Entre em contato:', pageWidth / 2, footerY + 5, { align: 'center' });
+          doc.text(product.name, xPosition + 5, yPosition + 65, {
+            maxWidth: cardWidth - 10
+          });
+
+          // Código do produto
+          doc.setFillColor(parseInt(colors.primary.slice(1), 16));
+          doc.roundedRect(xPosition + 5, yPosition + 75, 40, 7, 2, 2, 'F');
+          doc.setTextColor(colors.text);
+          doc.setFontSize(8);
+          doc.text(`COD: ${product.code}`, xPosition + 8, yPosition + 80);
+
+          // Preço do produto
+          doc.setTextColor(colors.primary);
+          doc.setFontSize(12);
+          doc.setFont('helvetica', 'bold');
+          doc.text(
+            product.price ? `R$ ${product.price.toFixed(2)}` : 'Sob consulta',
+            xPosition + cardWidth - 5,
+            yPosition + 80,
+            { align: 'right' }
+          );
+
+          itemCount++;
           
-          doc.setFont('helvetica', 'normal');
-          doc.setFontSize(9);
-          doc.text('(54) 9927-0560 | (54) 9998-6916', pageWidth / 2, footerY + 15, { align: 'center' });
-          doc.text('center@centereletronica.com.br', pageWidth / 2, footerY + 23, { align: 'center' });
-          doc.text('Rua Jacob Gremmelmaier, 409 - Centro', pageWidth / 2, footerY + 31, { align: 'center' });
-          doc.text('Getúlio Vargas - RS, 99900-000', pageWidth / 2, footerY + 38, { align: 'center' });
-        };
-        
-        let currentPage = 1;
-        let yPosition = 60;
-        let productsOnCurrentPage = 0;
-        
-        // Configurar primeira página
-        doc.setFillColor(colors.background);
-        doc.rect(0, 0, pageWidth, pageHeight, 'F');
-        addHeader(true);
-        
-        // Processar produtos
-        for (let i = 0; i < products.length; i++) {
-          const product = products[i];
-          
-          // Nova página se necessário
-          if (productsOnCurrentPage >= productsPerPage) {
-            doc.addPage();
-            currentPage++;
-            // Fundo da nova página
-            doc.setFillColor(colors.background);
-            doc.rect(0, 0, pageWidth, pageHeight, 'F');
-            addHeader(false);
-            yPosition = 20;
-            productsOnCurrentPage = 0;
-          }
-          
-          // Card do produto
-          const cardX = margin + (productsOnCurrentPage % 2 * (pageWidth - margin * 2) / 2);
-          const cardWidth = (pageWidth - margin * 3) / 2;
-          const cardHeight = 80;
-          
-          // Fundo do card
-          doc.setFillColor(parseInt(colors.cardBackground.slice(1, 3), 16), 
-                          parseInt(colors.cardBackground.slice(3, 5), 16), 
-                          parseInt(colors.cardBackground.slice(5, 7), 16));
-          doc.roundedRect(cardX, yPosition, cardWidth, cardHeight, 3, 3, 'F');
-          
-          // Borda do card
-          doc.setDrawColor(colors.border);
-          doc.roundedRect(cardX, yPosition, cardWidth, cardHeight, 3, 3, 'S');
-          
-          try {
-            // Imagem do produto
-            if (product.image) {
-              const imagePath = product.image.replace('/public', '');
-              try {
-                doc.addImage(imagePath, 'PNG', cardX + 5, yPosition + 5, 70, 70);
-              } catch (imageError) {
-                console.warn(`Não foi possível carregar imagem para ${product.name}`);
-              }
-            }
-            
-            // Informações do produto
-            const textX = cardX + 80;
-            
-            // Nome do produto
-            doc.setTextColor(colors.orange);
-            doc.setFontSize(12);
-            doc.setFont('helvetica', 'bold');
-            doc.text(product.name, textX, yPosition + 20);
-            
-            // Código do produto
-            doc.setTextColor(colors.text);
-            doc.setFontSize(10);
-            doc.setFont('helvetica', 'normal');
-            doc.text(`Código: ${product.code}`, textX, yPosition + 35);
-            
-            // Preço
-            doc.setTextColor(colors.orange);
-            doc.setFontSize(12);
-            doc.setFont('helvetica', 'bold');
-            doc.text(
-              `${product.price ? `R$ ${product.price.toFixed(2)}` : 'Sob consulta'}`,
-              textX,
-              yPosition + 50
-            );
-            
-          } catch (error) {
-            console.error(`Erro ao processar produto ${product.code}:`, error);
-          }
-          
-          productsOnCurrentPage++;
-          if (productsOnCurrentPage % 2 === 0) {
-            yPosition += cardHeight + 10;
+          // Ajustar posição Y para próxima linha após dois itens
+          if (itemCount % itemsPerRow === 0) {
+            yPosition += cardHeight + spacing;
           }
         }
+
+        // Adicionar última página com contatos
+        doc.addPage();
+        doc.setFillColor(parseInt(colors.background.slice(1), 16));
+        doc.rect(0, 0, doc.internal.pageSize.width, doc.internal.pageSize.height, 'F');
+
+        // Título dos contatos
+        doc.setTextColor(colors.text);
+        doc.setFontSize(18);
+        doc.setFont('helvetica', 'bold');
+        doc.text('FAÇA SEU PEDIDO NOS MEIOS DE CONTATO ABAIXO:', 
+          doc.internal.pageSize.width / 2, 40, { align: 'center' });
+
+        // Informações de contato
+        doc.setFontSize(14);
+        doc.text('R. JACOB GREMMELMAIER, 409 - CENTRO', 
+          doc.internal.pageSize.width / 2, 70, { align: 'center' });
         
-        // Adicionar rodapés em todas as páginas
-        const totalPages = doc.internal.pages.length - 1;
-        for (let i = 1; i <= totalPages; i++) {
-          doc.setPage(i);
-          addFooter(i, totalPages);
-        }
-        
+        doc.setTextColor(colors.primary);
+        doc.text('54 9927-0560', doc.internal.pageSize.width / 2 - 50, 90, { align: 'center' });
+        doc.text('OU', doc.internal.pageSize.width / 2, 90, { align: 'center' });
+        doc.text('54 9998-6916', doc.internal.pageSize.width / 2 + 50, 90, { align: 'center' });
+
         // Download do PDF
         doc.save(`catalogo-${categoryName.toLowerCase()}.pdf`);
         
@@ -196,10 +156,8 @@ export function DownloadCategoryButton({ products, categoryName }: DownloadCateg
           description: "Seu catálogo foi baixado com sucesso.",
           duration: 3000,
         });
-        
       } catch (error) {
         console.error("Erro ao gerar PDF:", error);
-        
         toast({
           title: "Erro ao gerar catálogo",
           description: "Ocorreu um erro ao gerar seu catálogo. Por favor, tente novamente.",
