@@ -177,3 +177,4 @@ export function DownloadCategoryButton({ products, categoryName }: DownloadCateg
     </Button>
   );
 }
+
