@@ -1,3 +1,4 @@
+
 import { Product } from "../types";
 import { jsPDF } from 'jspdf';
 
@@ -57,7 +58,7 @@ const generatePdf = async (products: Product[], categoryName: string) => {
   doc.setTextColor(colors.text);
   
   // Process products in batches for better performance
-  const batchSize = 5; // Changed from 2 to 5 products per batch
+  const batchSize = 5;
   const productBatches = [];
   
   for (let i = 0; i < products.length; i += batchSize) {
@@ -66,12 +67,17 @@ const generatePdf = async (products: Product[], categoryName: string) => {
   
   let currentPage = 1;
   let productsPerPage = 0;
-  const maxProductsPerPage = 5; // Changed from 2 to 5 products per page
+  const maxProductsPerPage = 4; // Changed from 5 to 4 products per page to prevent footer overlap
+  const footerHeight = 20; // Height of the footer
+  const pageHeight = doc.internal.pageSize.height;
+  const safeAreaHeight = pageHeight - footerHeight - 10; // Safe area for content (with 10pt margin)
   
   for (const batch of productBatches) {
     for (const product of batch) {
-      // Check if a new page is needed based on number of products
-      if (productsPerPage >= maxProductsPerPage) {
+      const productCardHeight = 50; // Height of product card with some margin
+      
+      // Check if adding this product would exceed the safe area
+      if (yPosition + productCardHeight > safeAreaHeight || productsPerPage >= maxProductsPerPage) {
         doc.addPage();
         yPosition = 50;
         productsPerPage = 0;
@@ -121,7 +127,7 @@ const generatePdf = async (products: Product[], categoryName: string) => {
         yPosition + 30
       );
       
-      yPosition += 50; // Reduced spacing between products
+      yPosition += 50; // Spacing between products
       productsPerPage++;
     }
   }
