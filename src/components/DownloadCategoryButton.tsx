@@ -35,18 +35,24 @@ export function DownloadCategoryButton({ products, categoryName }: DownloadCateg
 
       // Primeira página com título
       doc.setFillColor(parseInt(colors.background.slice(1), 16));
+      // Convert coordinates to strings for rect method
       doc.rect(0, 0, doc.internal.pageSize.width, doc.internal.pageSize.height, 'F');
       
       // Título principal
       doc.setTextColor(colors.primary);
       doc.setFontSize(32);
       doc.setFont('helvetica', 'bold');
-      doc.text('CATÁLOGO DIGITAL', doc.internal.pageSize.width / 2, 40, { align: 'center' });
+      // Convert coordinates to strings for text method
+      const titleX = doc.internal.pageSize.width / 2;
+      const titleY = 40;
+      doc.text('CATÁLOGO DIGITAL', titleX.toString(), titleY.toString(), { align: 'center' });
       
       // Subtítulo (categoria)
       doc.setTextColor('#000000');
       doc.setFontSize(24);
-      doc.text(categoryName.toUpperCase(), doc.internal.pageSize.width / 2, 60, { align: 'center' });
+      const subtitleX = doc.internal.pageSize.width / 2;
+      const subtitleY = 60;
+      doc.text(categoryName.toUpperCase(), subtitleX.toString(), subtitleY.toString(), { align: 'center' });
 
       // Configurações dos produtos
       const itemsPerPage = 6;
@@ -80,7 +86,8 @@ export function DownloadCategoryButton({ products, categoryName }: DownloadCateg
 
         // Card do produto
         doc.setFillColor(40, 40, 40);
-        doc.roundedRect(xPosition, yPosition, cardWidth, cardHeight, 3, 3, 'F');
+        // Convert coordinates to strings for roundedRect method
+        doc.roundedRect(xPosition.toString(), yPosition.toString(), cardWidth.toString(), cardHeight.toString(), 3, 3, 'F');
 
         try {
           if (product.image) {
@@ -95,25 +102,37 @@ export function DownloadCategoryButton({ products, categoryName }: DownloadCateg
         doc.setTextColor(colors.text);
         doc.setFontSize(10);
         doc.setFont('helvetica', 'bold');
-        doc.text(product.name, xPosition + 5, yPosition + 65, {
+        // Convert coordinates to strings for text method
+        const nameX = xPosition + 5;
+        const nameY = yPosition + 65;
+        doc.text(product.name, nameX.toString(), nameY.toString(), {
           maxWidth: cardWidth - 10
         });
 
         // Código do produto
         doc.setFillColor(parseInt(colors.primary.slice(1), 16));
-        doc.roundedRect(xPosition + 5, yPosition + 75, 40, 7, 2, 2, 'F');
+        // Convert coordinates to strings for roundedRect method
+        const codeRectX = xPosition + 5;
+        const codeRectY = yPosition + 75;
+        doc.roundedRect(codeRectX.toString(), codeRectY.toString(), "40", "7", 2, 2, 'F');
         doc.setTextColor(colors.text);
         doc.setFontSize(8);
-        doc.text(`COD: ${product.code}`, xPosition + 8, yPosition + 80);
+        // Convert coordinates to strings for text method
+        const codeX = xPosition + 8;
+        const codeY = yPosition + 80;
+        doc.text(`COD: ${product.code}`, codeX.toString(), codeY.toString());
 
         // Preço do produto
         doc.setTextColor(colors.primary);
         doc.setFontSize(12);
         doc.setFont('helvetica', 'bold');
+        // Convert coordinates to strings for text method
+        const priceX = xPosition + cardWidth - 5;
+        const priceY = yPosition + 80;
         doc.text(
           product.price ? `R$ ${product.price.toFixed(2)}` : 'Sob consulta',
-          xPosition + cardWidth - 5, 
-          yPosition + 80,
+          priceX.toString(), 
+          priceY.toString(),
           { align: 'right' }
         );
 
@@ -134,18 +153,27 @@ export function DownloadCategoryButton({ products, categoryName }: DownloadCateg
       doc.setTextColor(colors.text);
       doc.setFontSize(18);
       doc.setFont('helvetica', 'bold');
+      // Convert coordinates to strings for text method
+      const contactTitleX = doc.internal.pageSize.width / 2;
+      const contactTitleY = 40;
       doc.text('FAÇA SEU PEDIDO NOS MEIOS DE CONTATO ABAIXO:', 
-        doc.internal.pageSize.width / 2, 40, { align: 'center' });
+        contactTitleX.toString(), contactTitleY.toString(), { align: 'center' });
 
       // Informações de contato
       doc.setFontSize(14);
+      const addressX = doc.internal.pageSize.width / 2;
+      const addressY = 70;
       doc.text('R. JACOB GREMMELMAIER, 409 - CENTRO', 
-        doc.internal.pageSize.width / 2, 70, { align: 'center' });
+        addressX.toString(), addressY.toString(), { align: 'center' });
       
       doc.setTextColor(colors.primary);
-      doc.text('54 9927-0560', doc.internal.pageSize.width / 2 - 50, 90, { align: 'center' });
-      doc.text('OU', doc.internal.pageSize.width / 2, 90, { align: 'center' });
-      doc.text('54 9998-6916', doc.internal.pageSize.width / 2 + 50, 90, { align: 'center' });
+      const phone1X = doc.internal.pageSize.width / 2 - 50;
+      const phone2X = doc.internal.pageSize.width / 2;
+      const phone3X = doc.internal.pageSize.width / 2 + 50;
+      const phoneY = 90;
+      doc.text('54 9927-0560', phone1X.toString(), phoneY.toString(), { align: 'center' });
+      doc.text('OU', phone2X.toString(), phoneY.toString(), { align: 'center' });
+      doc.text('54 9998-6916', phone3X.toString(), phoneY.toString(), { align: 'center' });
 
       // Download do PDF
       doc.save(`catalogo-${categoryName.toLowerCase()}.pdf`);
@@ -177,4 +205,3 @@ export function DownloadCategoryButton({ products, categoryName }: DownloadCateg
     </Button>
   );
 }
-
