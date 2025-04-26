@@ -1,5 +1,5 @@
 
-import { Download, FilePdf } from "lucide-react";
+import { Download, FileText } from "lucide-react";
 import { Button } from "./ui/button";
 import { Product } from "@/types";
 import jsPDF from "jspdf";
@@ -197,7 +197,7 @@ export function DownloadCategoryButton({ products, categoryName }: DownloadCateg
     >
       {isGenerating ? (
         <>
-          <FilePdf className="mr-2 h-4 w-4 animate-pulse" />
+          <FileText className="mr-2 h-4 w-4 animate-pulse" />
           Gerando...
         </>
       ) : (
