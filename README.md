@@ -1,6 +1,4 @@
-# Welcome to your Lovable project
-
-Site Center Eletrônica 
+# Projeto site Center Eletrônica
 
 centereletronica.netlify.com.br
 
@@ -13,6 +11,9 @@ centereletronica.netlify.com.br
 # Features
 
 -Produtos adicionados com lovable.dev
+
 -Hosteado na netlify
+
 -Usa supabase como database
+
 -Relatórios gerados no https://search.google.com/
