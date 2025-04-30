@@ -1,6 +1,6 @@
 # Site Center Eletrônica
 
-centereletronica.netlify.com.br
+centereletronica.netlify.app
 
 # Hex de cores do site
  background: '#1e1e1e',
