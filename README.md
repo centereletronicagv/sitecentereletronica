@@ -3,10 +3,10 @@
 centereletronica.netlify.app
 
 # Hex de cores do site
- background: '#1e1e1e',
- primary: '#FF7A00',
- text: '#333333',
- secondary: '#252525'
+background: '#1e1e1e',
+primary: '#FF7A00',
+text: '#333333',
+secondary: '#252525'
 
 # Features
 
@@ -24,3 +24,14 @@ centereletronica.netlify.app
 -Netlify (host)
 
 Todas as contas estão registradas no email celetronica834@gmail.com
+
+# Index
+
+https://www.prepostseo.com/ping-multiple-urls-online
+
+https://search.google.com/search-console
+
+https://www.bing.com/webmasters/
+
+
+
