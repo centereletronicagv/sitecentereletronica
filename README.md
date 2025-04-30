@@ -33,5 +33,21 @@ https://search.google.com/search-console
 
 https://www.bing.com/webmasters/
 
+# Futuras adições
 
-
+✅ Criação de pedido
+✅ Geração de catálogo
+✅ Remake da versão mobile
+✅ Carrinho
+✅ Melhoria nas notifys
+✅ Subcategorias
+✅ Filtros
+✅ NUIs mais interativas
+🕐 Melhorias visuais
+🕐 Melhorias de desemopenho da versão mobile
+🕐 Sitemaps
+🕐 Cadastro de produtos
+🕐 Reformulação da aba de contato
+🕐 Novas fotos da homepage
+🕐 Rodapé do site mais limpo
+🕐 Melhorias de acessibilidade
