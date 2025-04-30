@@ -17,3 +17,5 @@ centereletronica.netlify.com.br
 -Usa supabase como database
 
 -Relatórios gerados no https://search.google.com/
+
+-Usa Typescript e CSS
