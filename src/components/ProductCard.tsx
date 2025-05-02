@@ -51,9 +51,21 @@ export default function ProductCard({ product }: ProductCardProps) {
           handleAddToCart();
         }
       }}
+      style={{
+        contain: 'content', // Improves performance by isolating this component
+      }}
     >
-      <div className="relative pt-3 px-3 flex items-center justify-center h-28 sm:h-48 bg-gradient-to-br from-[#252525] to-[#202020]">
-        <div className={`absolute inset-0 bg-[#252525] ${isImageLoaded ? 'opacity-0' : 'opacity-100 animate-pulse'} transition-opacity`}></div>
+      <div 
+        className="relative pt-3 px-3 flex items-center justify-center h-28 sm:h-48 bg-gradient-to-br from-[#252525] to-[#202020]"
+        style={{
+          aspectRatio: '1/1',
+          contain: 'strict'
+        }}
+      >
+        <div 
+          className={`absolute inset-0 bg-[#252525] ${isImageLoaded ? 'opacity-0' : 'opacity-100 animate-pulse'} transition-opacity`}
+          style={{ contain: 'strict' }}
+        ></div>
         <img
           src={product.image} 
           alt={displayName}
@@ -64,6 +76,14 @@ export default function ProductCard({ product }: ProductCardProps) {
           height="120"
           decoding="async"
           fetchPriority="high"
+          style={{
+            aspectRatio: '1/1',
+            width: 'auto',
+            height: 'auto',
+            maxHeight: '100%',
+            maxWidth: '100%',
+            contain: 'strict'
+          }}
         />
         <div className="absolute top-2 left-2">
           <span className="bg-center-orange text-white text-[10px] sm:text-xs px-1.5 py-0.5 rounded-full font-medium">

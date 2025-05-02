@@ -7,9 +7,21 @@ import Footer from '../components/Footer';
 import ProductsSection from '../components/ProductsSection';
 import { useMediaQuery } from '@/hooks/use-mobile';
 
-// Lazy load non-critical components
+// Lazy load non-critical components with explicit loading states
 const ContactSection = lazy(() => import('../components/ContactSection'));
 const CategorySection = lazy(() => import('../components/CategorySection'));
+
+// Simple lightweight placeholder for lazy-loaded components
+const LazyLoadPlaceholder = ({ height }: { height: string }) => (
+  <div 
+    className="bg-[#181818]" 
+    style={{ 
+      height, 
+      width: '100%',
+      contain: 'strict'  // Improve CLS by preventing layout shifts
+    }}
+  />
+);
 
 const Index = () => {
   const [searchQuery, setSearchQuery] = useState('');
@@ -17,20 +29,48 @@ const Index = () => {
   const location = useLocation();
   const { isMobile } = useMediaQuery();
   const [isInitialLoad, setIsInitialLoad] = useState(true);
+  const [isContentReady, setIsContentReady] = useState(false);
 
   useEffect(() => {
+    // Register performance mark for LCP optimization
+    if ('performance' in window) {
+      performance.mark('app-ready');
+    }
+    
     // Mark that initial load is complete after a small delay
-    const timer = setTimeout(() => {
-      setIsInitialLoad(false);
-    }, 100);
-
-    return () => clearTimeout(timer);
+    // Use requestIdleCallback for better performance
+    if ('requestIdleCallback' in window) {
+      requestIdleCallback(() => {
+        setIsInitialLoad(false);
+        
+        // Give a bit more time before loading secondary content
+        setTimeout(() => {
+          setIsContentReady(true);
+        }, 300);
+      });
+    } else {
+      // Fallback for browsers that don't support requestIdleCallback
+      setTimeout(() => {
+        setIsInitialLoad(false);
+        
+        setTimeout(() => {
+          setIsContentReady(true);
+        }, 200);
+      }, 100);
+    }
+    
+    return () => {
+      if ('performance' in window) {
+        performance.clearMarks('app-ready');
+      }
+    };
   }, []);
 
   useEffect(() => {
     // Avoid unnecessary scroll that may cause CLS
     const hash = location.hash;
     if (hash) {
+      // Use requestAnimationFrame to ensure the DOM is ready
       requestAnimationFrame(() => {
         const element = document.querySelector(hash);
         if (element) {
@@ -80,7 +120,7 @@ const Index = () => {
           <>
             <Hero />
             {isMobile && (
-              <Suspense fallback={<div className="h-36 bg-[#181818]"></div>}>
+              <Suspense fallback={<LazyLoadPlaceholder height="36px" />}>
                 {!isInitialLoad && <CategorySection />}
               </Suspense>
             )}
@@ -89,9 +129,11 @@ const Index = () => {
         
         <ProductsSection searchQuery={searchQuery} category={category} />
         
-        <Suspense fallback={<div className="h-40 bg-[#181818]"></div>}>
-          {!isInitialLoad && <ContactSection />}
-        </Suspense>
+        {isContentReady && (
+          <Suspense fallback={<LazyLoadPlaceholder height="40px" />}>
+            <ContactSection />
+          </Suspense>
+        )}
       </main>
       <Footer />
     </div>
