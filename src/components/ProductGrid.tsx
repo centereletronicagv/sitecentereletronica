@@ -31,7 +31,7 @@ export default function ProductGrid({
   }
 
   return (
-    <div className="grid grid-cols-2 gap-2 sm:gap-6 md:grid-cols-3 lg:grid-cols-4">
+    <div className="grid grid-cols-2 gap-3 sm:gap-6 md:grid-cols-3 lg:grid-cols-4">
       {products.map((product) => (
         <ProductCard key={product.id} product={product} />
       ))}
@@ -42,10 +42,10 @@ export default function ProductGrid({
 function ProductGridSkeleton() {
   const isMobile = useIsMobile();
   // Fixed number of skeleton items for consistent rendering across device sizes
-  const skeletonCount = isMobile ? 2 : 4;
+  const skeletonCount = isMobile ? 4 : 8;
   
   return (
-    <div className="grid grid-cols-2 gap-2 sm:gap-6 md:grid-cols-3 lg:grid-cols-4 pt-10">
+    <div className="grid grid-cols-2 gap-3 sm:gap-6 md:grid-cols-3 lg:grid-cols-4 pt-10">
       {Array.from({ length: skeletonCount }).map((_, index) => (
         <div key={index} className="bg-[#1E1E1E] rounded-xl border border-[#333333] overflow-hidden shadow-sm">
           <div 
