@@ -12,24 +12,28 @@ const categories = [
     name: "Ar Condicionado",
     icon: <AirVent className="h-6 w-6" />,
     color: "bg-orange-600",
+    hoverColor: "group-hover:bg-orange-500",
   },
   {
     id: "instalacoes-eletricas",
     name: "Instalações Elétricas",
     icon: <Plug className="h-6 w-6" />,
     color: "bg-blue-600",
+    hoverColor: "group-hover:bg-blue-500",
   },
   {
     id: "terminais",
     name: "Terminais e Conectores",
     icon: <Cable className="h-6 w-6" />,
     color: "bg-green-600",
+    hoverColor: "group-hover:bg-green-500",
   },
   {
     id: "automacao",
     name: "Automação",
     icon: <Settings className="h-6 w-6" />,
     color: "bg-purple-600",
+    hoverColor: "group-hover:bg-purple-500",
   },
 ];
 
@@ -37,22 +41,22 @@ export default function CategorySection() {
   const { isMobile } = useMediaQuery();
 
   return (
-    <div className={`py-6 ${isMobile ? 'px-3' : 'px-4 sm:px-6 lg:px-8'} bg-[#1e1e1e]`}>
+    <div className={`py-8 ${isMobile ? 'px-3' : 'px-4 sm:px-6 lg:px-8'} bg-gradient-to-b from-[#1e1e1e] to-[#252525]`}>
       <div className="max-w-7xl mx-auto">
-        <h2 className="text-xl font-bold text-center mb-4 text-white">Categorias</h2>
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+        <h2 className="text-2xl font-bold text-center mb-6 text-white font-display">Categorias</h2>
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
           {categories.map((category) => (
-            <div key={category.id}>
+            <div key={category.id} className="aspect-square">
               <Link
                 to={`/?category=${category.id}`}
-                className="flex flex-col items-center justify-center p-3 rounded-lg bg-[#252525] border border-[#333333] hover:border-gray-300 transition-all duration-200 hover:shadow-md group h-full"
+                className="flex flex-col items-center justify-center p-4 rounded-xl bg-[#2A2A2A] border border-[#3d3d3d] hover:border-center-orange transition-all duration-300 hover:shadow-lg group h-full transform hover:-translate-y-1"
               >
                 <div
-                  className={`${category.color} p-2.5 rounded-full text-white mb-2 group-hover:scale-110 transition-transform duration-200`}
+                  className={`${category.color} ${category.hoverColor} p-3.5 rounded-full text-white mb-3 group-hover:scale-110 transition-transform duration-300 shadow-md`}
                 >
                   {category.icon}
                 </div>
-                <span className="text-sm font-medium text-gray-300 group-hover:text-white text-center">
+                <span className="text-sm font-medium text-gray-200 group-hover:text-white text-center transition-colors duration-300">
                   {category.name}
                 </span>
               </Link>

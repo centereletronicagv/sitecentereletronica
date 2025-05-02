@@ -54,8 +54,8 @@ const MobileCategoryDrawer = ({ open, onOpenChange }: MobileCategoryDrawerProps)
 
   return (
     <Drawer open={open} onOpenChange={onOpenChange}>
-      <DrawerContent className="bg-[#1E1E1E] border-t border-[#333333]">
-        <DrawerHeader className="border-b border-[#333333]">
+      <DrawerContent className="bg-gradient-to-b from-[#1E1E1E] to-[#252525] border-t border-[#3d3d3d]">
+        <DrawerHeader className="border-b border-[#3d3d3d]">
           <DrawerTitle className="text-white">Categorias</DrawerTitle>
           <DrawerClose className="absolute right-4 top-4 rounded-sm opacity-70 ring-offset-background transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:pointer-events-none data-[state=open]:bg-secondary">
             <X className="h-4 w-4" />
@@ -65,17 +65,17 @@ const MobileCategoryDrawer = ({ open, onOpenChange }: MobileCategoryDrawerProps)
         <div className="p-4">
           <div className="grid grid-cols-2 gap-4">
             {categories.map((category) => (
-              <div key={category.id} className="flex flex-col gap-2">
+              <div key={category.id} className="flex flex-col gap-2 aspect-square">
                 <button
                   onClick={() => handleCategorySelect(category.id)}
-                  className="flex flex-col items-center justify-center p-3 rounded-lg bg-[#252525] border border-[#333333] hover:border-[#444444] transition-all duration-200 h-full"
+                  className="flex flex-col items-center justify-center p-4 rounded-xl bg-[#2A2A2A] border border-[#3d3d3d] hover:border-[#4d4d4d] transition-all duration-300 h-full"
                 >
                   <div
-                    className={`${category.color} p-2.5 rounded-full text-white mb-2`}
+                    className={`${category.color} p-3 rounded-full text-white mb-3 shadow-md`}
                   >
                     {category.icon}
                   </div>
-                  <span className="text-sm font-medium text-gray-300">
+                  <span className="text-sm font-medium text-gray-200">
                     {category.name}
                   </span>
                 </button>
