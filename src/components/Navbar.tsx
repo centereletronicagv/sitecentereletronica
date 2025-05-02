@@ -60,7 +60,7 @@ const navLinks: NavLink[] = [
       { name: 'Controladores', href: '/categoria/automacao/controladores' },
     ]
   },
-  { name: 'Contato', href: '/contato' },
+  { name: 'Contato', href: '#contact' },  // Changed to use hash link for smooth scrolling
 ];
 
 export default function Navbar() {
@@ -125,12 +125,29 @@ export default function Navbar() {
 
   const handleCategoryClick = (link: NavLink) => {
     if (!link.subCategories || link.name === 'Início' || link.name === 'Contato') {
-      navigate(link.href);
+      if (link.name === 'Contato') {
+        // Handle contact link click - smooth scroll to contact section
+        scrollToContact();
+      } else {
+        navigate(link.href);
+      }
       setIsMenuOpen(false);
     }
     else {
       toggleCategory(link.name);
     }
+  };
+  
+  // Function to scroll to contact section
+  const scrollToContact = () => {
+    const contactSection = document.getElementById('contact');
+    if (contactSection) {
+      contactSection.scrollIntoView({ behavior: 'smooth' });
+    } else {
+      // If we're not on the home page, navigate to home with the contact hash
+      navigate('/#contact');
+    }
+    setIsMenuOpen(false);
   };
 
   return (
@@ -248,18 +265,28 @@ export default function Navbar() {
             <ul className="flex items-center gap-12">
               {navLinks.map((link) => (
                 <li key={link.name}>
-                  <Link
-                    to={link.href}
-                    className={`flex items-center gap-2 py-2 text-sm font-medium transition-colors ${
-                      location.pathname === link.href
-                        ? 'text-center-orange'
-                        : 'text-gray-300 hover:text-center-orange'
-                    }`}
-                  >
-                    {link.icon && link.icon}
-                    {link.name}
-                    {link.name !== 'Início' && link.name !== 'Contato' && <ChevronDown size={14} />}
-                  </Link>
+                  {link.name === 'Contato' ? (
+                    <button
+                      onClick={scrollToContact}
+                      className={`flex items-center gap-2 py-2 text-sm font-medium transition-colors text-gray-300 hover:text-center-orange`}
+                    >
+                      {link.icon && link.icon}
+                      {link.name}
+                    </button>
+                  ) : (
+                    <Link
+                      to={link.href}
+                      className={`flex items-center gap-2 py-2 text-sm font-medium transition-colors ${
+                        location.pathname === link.href
+                          ? 'text-center-orange'
+                          : 'text-gray-300 hover:text-center-orange'
+                      }`}
+                    >
+                      {link.icon && link.icon}
+                      {link.name}
+                      {link.name !== 'Início' && link.name !== 'Contato' && <ChevronDown size={14} />}
+                    </Link>
+                  )}
                 </li>
               ))}
             </ul>
@@ -298,18 +325,28 @@ export default function Navbar() {
             <div className="flex flex-col">
               {navLinks.map((link) => (
                 <div key={link.name} className="border-b border-[#333333]">
-                  <Link
-                    to={link.href}
-                    onClick={() => setIsMenuOpen(false)}
-                    className={`flex items-center gap-2 px-4 py-3 text-base font-medium rounded-md transition-colors ${
-                      location.pathname === link.href
-                        ? 'bg-center-orange/10 text-center-orange'
-                        : 'text-gray-300 hover:bg-[#333333]'
-                    }`}
-                  >
-                    {link.icon && link.icon}
-                    {link.name}
-                  </Link>
+                  {link.name === 'Contato' ? (
+                    <button
+                      onClick={scrollToContact}
+                      className="flex items-center gap-2 px-4 py-3 text-base font-medium rounded-md transition-colors text-gray-300 hover:bg-[#333333] w-full text-left"
+                    >
+                      {link.icon && link.icon}
+                      {link.name}
+                    </button>
+                  ) : (
+                    <Link
+                      to={link.href}
+                      onClick={() => setIsMenuOpen(false)}
+                      className={`flex items-center gap-2 px-4 py-3 text-base font-medium rounded-md transition-colors ${
+                        location.pathname === link.href
+                          ? 'bg-center-orange/10 text-center-orange'
+                          : 'text-gray-300 hover:bg-[#333333]'
+                      }`}
+                    >
+                      {link.icon && link.icon}
+                      {link.name}
+                    </Link>
+                  )}
                 </div>
               ))}
             </div>

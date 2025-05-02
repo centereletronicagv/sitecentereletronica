@@ -1,4 +1,3 @@
-
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { AirVent, Plug, Cable, Settings, X } from "lucide-react";
@@ -12,6 +11,7 @@ import {
 import { DownloadCategoryButton } from "./DownloadCategoryButton";
 import { products as allProducts } from "@/data/products";
 
+// Keep the same categories as in CategorySection for consistency
 const categories = [
   {
     id: "ar-condicionado",
