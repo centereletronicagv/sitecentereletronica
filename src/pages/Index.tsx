@@ -73,14 +73,14 @@ const Index = () => {
   }, []);
 
   return (
-    <div className="flex flex-col min-h-screen">
+    <div className="flex flex-col min-h-screen bg-[#333333]">
       <Navbar />
-      <main className={`flex-grow ${isMobile ? 'pt-14' : 'pt-16 md:pt-20'}`}>
+      <main className={`flex-grow ${isMobile ? 'pt-14' : 'pt-16 md:pt-20'} bg-[#333333]`}>
         {!searchQuery && !category && (
           <>
             <Hero />
             {isMobile && (
-              <Suspense fallback={<div className="h-36 bg-[#181818]"></div>}>
+              <Suspense fallback={<div className="h-36 bg-[#333333]"></div>}>
                 {!isInitialLoad && <CategorySection />}
               </Suspense>
             )}
@@ -89,7 +89,7 @@ const Index = () => {
         
         <ProductsSection searchQuery={searchQuery} category={category} />
         
-        <Suspense fallback={<div className="h-40 bg-[#181818]"></div>}>
+        <Suspense fallback={<div className="h-40 bg-[#333333]"></div>}>
           {!isInitialLoad && <ContactSection />}
         </Suspense>
       </main>
