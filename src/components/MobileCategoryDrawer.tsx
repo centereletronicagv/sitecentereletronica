@@ -11,6 +11,7 @@ import {
 } from "@/components/ui/drawer";
 import { DownloadCategoryButton } from "./DownloadCategoryButton";
 import { products as allProducts } from "@/data/products";
+import { motion } from "framer-motion";
 
 const categories = [
   {
@@ -68,7 +69,7 @@ const MobileCategoryDrawer = ({ open, onOpenChange }: MobileCategoryDrawerProps)
               <div key={category.id} className="flex flex-col gap-2 aspect-square">
                 <button
                   onClick={() => handleCategorySelect(category.id)}
-                  className="flex flex-col items-center justify-center p-4 rounded-xl bg-[#2A2A2A] border border-[#3d3d3d] hover:border-[#4d4d4d] transition-all duration-300 h-full"
+                  className="flex flex-col items-center justify-center p-4 rounded-xl bg-[#2A2A2A] border border-[#3d3d3d] hover:border-center-orange transition-all duration-300 h-full"
                 >
                   <div
                     className={`${category.color} p-3 rounded-full text-white mb-3 shadow-md`}
