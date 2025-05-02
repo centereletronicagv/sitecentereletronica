@@ -1,30 +1,42 @@
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, lazy, Suspense } from 'react';
 import { useLocation } from 'react-router-dom';
 import Navbar from '../components/Navbar';
 import Hero from '../components/Hero';
-import ContactSection from '../components/ContactSection';
 import Footer from '../components/Footer';
 import ProductsSection from '../components/ProductsSection';
-import CategorySection from '../components/CategorySection';
 import { useMediaQuery } from '@/hooks/use-mobile';
+
+// Lazy load non-critical components
+const ContactSection = lazy(() => import('../components/ContactSection'));
+const CategorySection = lazy(() => import('../components/CategorySection'));
 
 const Index = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const [category, setCategory] = useState<string | undefined>(undefined);
   const location = useLocation();
   const { isMobile } = useMediaQuery();
+  const [isInitialLoad, setIsInitialLoad] = useState(true);
 
   useEffect(() => {
-    // Evita o scroll desnecessário que pode causar CLS
+    // Mark that initial load is complete after a small delay
+    const timer = setTimeout(() => {
+      setIsInitialLoad(false);
+    }, 100);
+
+    return () => clearTimeout(timer);
+  }, []);
+
+  useEffect(() => {
+    // Avoid unnecessary scroll that may cause CLS
     const hash = location.hash;
     if (hash) {
-      setTimeout(() => {
+      requestAnimationFrame(() => {
         const element = document.querySelector(hash);
         if (element) {
           element.scrollIntoView({ behavior: 'smooth' });
         }
-      }, 100);
+      });
     } else {
       window.scrollTo(0, 0);
     }
@@ -67,13 +79,19 @@ const Index = () => {
         {!searchQuery && !category && (
           <>
             <Hero />
-            {isMobile && <CategorySection />}
+            {isMobile && (
+              <Suspense fallback={<div className="h-36 bg-[#181818]"></div>}>
+                {!isInitialLoad && <CategorySection />}
+              </Suspense>
+            )}
           </>
         )}
         
         <ProductsSection searchQuery={searchQuery} category={category} />
         
-        <ContactSection />
+        <Suspense fallback={<div className="h-40 bg-[#181818]"></div>}>
+          {!isInitialLoad && <ContactSection />}
+        </Suspense>
       </main>
       <Footer />
     </div>

@@ -19,9 +19,9 @@ export default function ProductGrid({
 
   if (products.length === 0) {
     return (
-      <div className="pt-14 pb-10 text-center">
-        <h3 className="text-xl font-medium text-white">Nenhum produto encontrado</h3>
-        <p className="mt-2 text-gray-400">Tente mudar seus filtros ou busque por outra categoria.</p>
+      <div className="pt-10 pb-8 text-center">
+        <h3 className="text-lg font-medium text-white">Nenhum produto encontrado</h3>
+        <p className="mt-2 text-sm text-gray-400">Tente mudar seus filtros ou busque por outra categoria.</p>
       </div>
     );
   }
@@ -36,18 +36,21 @@ export default function ProductGrid({
 }
 
 function ProductGridSkeleton() {
+  // Reduced number of skeleton items for faster mobile rendering
+  const skeletonCount = window.innerWidth < 768 ? 2 : 4;
+  
   return (
-    <div className="grid grid-cols-2 gap-2 sm:gap-6 md:grid-cols-3 lg:grid-cols-4 pt-14">
-      {Array.from({ length: 4 }).map((_, index) => (
+    <div className="grid grid-cols-2 gap-2 sm:gap-6 md:grid-cols-3 lg:grid-cols-4 pt-10">
+      {Array.from({ length: skeletonCount }).map((_, index) => (
         <div key={index} className="bg-[#1E1E1E] rounded-xl border border-[#333333] overflow-hidden shadow-sm">
-          <div className="h-28 sm:h-48 bg-[#252525] animate-pulse" style={{width: '100%', height: '112px'}}></div>
+          <div className="h-24 sm:h-48 bg-[#252525] animate-pulse" style={{aspectRatio: '1/1', width: '100%'}}></div>
           <div className="p-2 sm:p-4">
-            <div className="w-12 h-4 bg-[#252525] animate-pulse rounded-md mb-2"></div>
-            <div className="w-full h-3 bg-[#252525] animate-pulse rounded mb-1.5"></div>
-            <div className="w-3/4 h-3 bg-[#252525] animate-pulse rounded mb-2"></div>
+            <div className="w-12 h-3 bg-[#252525] animate-pulse rounded-md mb-2"></div>
+            <div className="w-full h-2 bg-[#252525] animate-pulse rounded mb-1"></div>
+            <div className="w-3/4 h-2 bg-[#252525] animate-pulse rounded mb-2"></div>
             <div className="flex justify-between items-center">
-              <div className="w-14 h-5 bg-[#252525] animate-pulse rounded"></div>
-              <div className="w-6 h-6 bg-[#252525] animate-pulse rounded-full"></div>
+              <div className="w-12 h-4 bg-[#252525] animate-pulse rounded"></div>
+              <div className="w-5 h-5 bg-[#252525] animate-pulse rounded-full"></div>
             </div>
           </div>
         </div>
