@@ -1,6 +1,8 @@
 
+import { useEffect, useState } from 'react';
 import ProductCard from './ProductCard';
 import { Product } from '../types';
+import { useIsMobile } from '@/hooks/use-mobile';
 
 interface ProductGridProps {
   products: Product[];
@@ -13,6 +15,8 @@ export default function ProductGrid({
   products, 
   isLoading = false
 }: ProductGridProps) {
+  const isMobile = useIsMobile();
+  
   if (isLoading) {
     return <ProductGridSkeleton />;
   }
@@ -36,14 +40,22 @@ export default function ProductGrid({
 }
 
 function ProductGridSkeleton() {
-  // Reduced number of skeleton items for faster mobile rendering
-  const skeletonCount = window.innerWidth < 768 ? 2 : 4;
+  const isMobile = useIsMobile();
+  // Fixed number of skeleton items for consistent rendering across device sizes
+  const skeletonCount = isMobile ? 2 : 4;
   
   return (
     <div className="grid grid-cols-2 gap-2 sm:gap-6 md:grid-cols-3 lg:grid-cols-4 pt-10">
       {Array.from({ length: skeletonCount }).map((_, index) => (
         <div key={index} className="bg-[#1E1E1E] rounded-xl border border-[#333333] overflow-hidden shadow-sm">
-          <div className="h-24 sm:h-48 bg-[#252525] animate-pulse" style={{aspectRatio: '1/1', width: '100%'}}></div>
+          <div 
+            className="bg-[#252525] animate-pulse" 
+            style={{
+              aspectRatio: '1/1', 
+              width: '100%', 
+              height: isMobile ? '120px' : '200px'
+            }}
+          ></div>
           <div className="p-2 sm:p-4">
             <div className="w-12 h-3 bg-[#252525] animate-pulse rounded-md mb-2"></div>
             <div className="w-full h-2 bg-[#252525] animate-pulse rounded mb-1"></div>

@@ -1,6 +1,7 @@
+
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import { AirVent, Plug, Cable, Settings, X } from "lucide-react";
+import { AirVent, Plug, Cable, Settings, X, Download } from "lucide-react";
 import {
   Drawer,
   DrawerContent,
@@ -8,6 +9,9 @@ import {
   DrawerTitle,
   DrawerClose,
 } from "@/components/ui/drawer";
+import { DownloadCategoryButton } from "./DownloadCategoryButton";
+import { products as allProducts } from "@/data/products";
+import { Button } from "./ui/button";
 
 const categories = [
   {
@@ -59,22 +63,29 @@ const MobileCategoryDrawer = ({ open, onOpenChange }: MobileCategoryDrawerProps)
             <span className="sr-only">Fechar</span>
           </DrawerClose>
         </DrawerHeader>
-        <div className="p-4 grid grid-cols-2 gap-3">
+        <div className="p-4 grid grid-cols-1 gap-4">
           {categories.map((category) => (
-            <button
-              key={category.id}
-              onClick={() => handleCategorySelect(category.id)}
-              className="flex flex-col items-center justify-center p-3 rounded-lg bg-[#252525] border border-[#333333] hover:border-[#444444] transition-all duration-200"
-            >
-              <div
-                className={`${category.color} p-2.5 rounded-full text-white mb-2`}
+            <div key={category.id} className="flex flex-col gap-2">
+              <button
+                onClick={() => handleCategorySelect(category.id)}
+                className="flex flex-col items-center justify-center p-3 rounded-lg bg-[#252525] border border-[#333333] hover:border-[#444444] transition-all duration-200"
               >
-                {category.icon}
-              </div>
-              <span className="text-sm font-medium text-gray-300">
-                {category.name}
-              </span>
-            </button>
+                <div
+                  className={`${category.color} p-2.5 rounded-full text-white mb-2`}
+                >
+                  {category.icon}
+                </div>
+                <span className="text-sm font-medium text-gray-300">
+                  {category.name}
+                </span>
+              </button>
+              
+              {/* Add download button for each category */}
+              <DownloadCategoryButton 
+                products={allProducts.filter(product => product.category === category.id)}
+                categoryName={category.name}
+              />
+            </div>
           ))}
         </div>
       </DrawerContent>

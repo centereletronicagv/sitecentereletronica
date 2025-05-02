@@ -56,10 +56,13 @@ export default function CategorySection() {
                   {category.name}
                 </span>
               </Link>
-              <DownloadCategoryButton 
-                products={allProducts.filter(product => product.category === category.id)}
-                categoryName={category.name}
-              />
+              {/* Only show download button on desktop */}
+              {!isMobile && (
+                <DownloadCategoryButton 
+                  products={allProducts.filter(product => product.category === category.id)}
+                  categoryName={category.name}
+                />
+              )}
             </div>
           ))}
         </div>
