@@ -12,16 +12,7 @@ import {
   Collapsible,
   CollapsibleContent,
   CollapsibleTrigger,
-} from "@/components/ui/collapsible";
-import { 
-  NavigationMenu,
-  NavigationMenuContent,
-  NavigationMenuItem,
-  NavigationMenuLink,
-  NavigationMenuList,
-  NavigationMenuTrigger
-} from "@/components/ui/navigation-menu";
-import { cn } from '@/lib/utils';
+} from "@/components/ui/collapsible"
 
 interface NavLink {
   name: string;
@@ -69,7 +60,7 @@ const navLinks: NavLink[] = [
       { name: 'Controladores', href: '/categoria/automacao/controladores' },
     ]
   },
-  { name: 'Contato', href: '#contato' },
+  { name: 'Contato', href: '/contato' },
 ];
 
 export default function Navbar() {
@@ -134,18 +125,7 @@ export default function Navbar() {
 
   const handleCategoryClick = (link: NavLink) => {
     if (!link.subCategories || link.name === 'Início' || link.name === 'Contato') {
-      if (link.name === 'Contato') {
-        // Scroll to contact section
-        const contactSection = document.getElementById('contato');
-        if (contactSection) {
-          contactSection.scrollIntoView({ behavior: 'smooth' });
-        } else {
-          // If we're not on the homepage that has the contact section
-          navigate('/#contato');
-        }
-      } else {
-        navigate(link.href);
-      }
+      navigate(link.href);
       setIsMenuOpen(false);
     }
     else {
@@ -265,68 +245,24 @@ export default function Navbar() {
           </div>
 
           <nav className="hidden md:block mt-4 border-t border-[#333333] pt-4">
-            <NavigationMenu className="mx-auto flex justify-center">
-              <NavigationMenuList>
-                {navLinks.map((link) => 
-                  link.subCategories ? (
-                    <NavigationMenuItem key={link.name}>
-                      <NavigationMenuTrigger 
-                        className={`${
-                          location.pathname === link.href
-                            ? 'text-center-orange'
-                            : 'text-gray-300 hover:text-center-orange'
-                        } flex items-center gap-2 py-2 text-sm font-medium transition-colors bg-transparent`}
-                      >
-                        {link.icon && link.icon}
-                        {link.name}
-                      </NavigationMenuTrigger>
-                      <NavigationMenuContent>
-                        <div className="grid w-[200px] p-4 gap-2">
-                          <NavigationMenuLink asChild className="text-center-orange hover:text-center-orange font-medium text-sm pb-2 border-b border-[#333]">
-                            <Link to={link.href}>Todos os {link.name}</Link>
-                          </NavigationMenuLink>
-                          
-                          {link.subCategories.map((subCategory) => (
-                            <NavigationMenuLink
-                              key={subCategory.name}
-                              asChild
-                              className="block select-none rounded-md p-2 text-xs text-gray-300 hover:bg-[#333] hover:text-white"
-                            >
-                              <Link to={subCategory.href}>
-                                {subCategory.name}
-                              </Link>
-                            </NavigationMenuLink>
-                          ))}
-                        </div>
-                      </NavigationMenuContent>
-                    </NavigationMenuItem>
-                  ) : (
-                    <NavigationMenuItem key={link.name}>
-                      <Link
-                        to={link.href === '#contato' ? '/#contato' : link.href}
-                        onClick={(e) => {
-                          if (link.href === '#contato') {
-                            e.preventDefault();
-                            const contactSection = document.getElementById('contato');
-                            if (contactSection) {
-                              contactSection.scrollIntoView({ behavior: 'smooth' });
-                            }
-                          }
-                        }}
-                        className={`flex items-center gap-2 py-2 px-4 text-sm font-medium transition-colors ${
-                          location.pathname === link.href
-                            ? 'text-center-orange'
-                            : 'text-gray-300 hover:text-center-orange'
-                        }`}
-                      >
-                        {link.icon && link.icon}
-                        {link.name}
-                      </Link>
-                    </NavigationMenuItem>
-                  )
-                )}
-              </NavigationMenuList>
-            </NavigationMenu>
+            <ul className="flex items-center gap-12">
+              {navLinks.map((link) => (
+                <li key={link.name}>
+                  <Link
+                    to={link.href}
+                    className={`flex items-center gap-2 py-2 text-sm font-medium transition-colors ${
+                      location.pathname === link.href
+                        ? 'text-center-orange'
+                        : 'text-gray-300 hover:text-center-orange'
+                    }`}
+                  >
+                    {link.icon && link.icon}
+                    {link.name}
+                    {link.name !== 'Início' && link.name !== 'Contato' && <ChevronDown size={14} />}
+                  </Link>
+                </li>
+              ))}
+            </ul>
           </nav>
         </div>
       </div>
@@ -362,62 +298,18 @@ export default function Navbar() {
             <div className="flex flex-col">
               {navLinks.map((link) => (
                 <div key={link.name} className="border-b border-[#333333]">
-                  {link.subCategories ? (
-                    <Collapsible>
-                      <CollapsibleTrigger className="w-full flex items-center justify-between px-4 py-3 text-base font-medium rounded-md transition-colors text-gray-300 hover:bg-[#333333]">
-                        <div className="flex items-center gap-2">
-                          {link.icon && link.icon}
-                          {link.name}
-                        </div>
-                        <ChevronDown size={16} className="transition-transform" />
-                      </CollapsibleTrigger>
-                      <CollapsibleContent className="pl-8 pr-4 py-2 space-y-2">
-                        <Link
-                          to={link.href}
-                          onClick={() => setIsMenuOpen(false)}
-                          className="block px-4 py-2 text-sm text-center-orange hover:underline"
-                        >
-                          Ver todos
-                        </Link>
-                        {link.subCategories.map((sub) => (
-                          <Link
-                            key={sub.name}
-                            to={sub.href}
-                            onClick={() => setIsMenuOpen(false)}
-                            className="block px-4 py-2 text-sm text-gray-400 hover:text-white"
-                          >
-                            {sub.name}
-                          </Link>
-                        ))}
-                      </CollapsibleContent>
-                    </Collapsible>
-                  ) : (
-                    <Link
-                      to={link.href === '#contato' ? '/#contato' : link.href}
-                      onClick={(e) => {
-                        if (link.href === '#contato') {
-                          e.preventDefault();
-                          setIsMenuOpen(false);
-                          setTimeout(() => {
-                            const contactSection = document.getElementById('contato');
-                            if (contactSection) {
-                              contactSection.scrollIntoView({ behavior: 'smooth' });
-                            }
-                          }, 300);
-                        } else {
-                          setIsMenuOpen(false);
-                        }
-                      }}
-                      className={`flex items-center gap-2 px-4 py-3 text-base font-medium rounded-md transition-colors ${
-                        location.pathname === link.href
-                          ? 'bg-center-orange/10 text-center-orange'
-                          : 'text-gray-300 hover:bg-[#333333]'
-                      }`}
-                    >
-                      {link.icon && link.icon}
-                      {link.name}
-                    </Link>
-                  )}
+                  <Link
+                    to={link.href}
+                    onClick={() => setIsMenuOpen(false)}
+                    className={`flex items-center gap-2 px-4 py-3 text-base font-medium rounded-md transition-colors ${
+                      location.pathname === link.href
+                        ? 'bg-center-orange/10 text-center-orange'
+                        : 'text-gray-300 hover:bg-[#333333]'
+                    }`}
+                  >
+                    {link.icon && link.icon}
+                    {link.name}
+                  </Link>
                 </div>
               ))}
             </div>

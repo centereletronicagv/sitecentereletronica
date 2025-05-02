@@ -3,7 +3,7 @@ import { Phone, Mail, MapPin, MessageSquare } from 'lucide-react';
 
 export default function ContactSection() {
   return (
-    <section id="contato" className="py-16 bg-center-lightGray">
+    <section className="py-16 bg-center-lightGray">
       <div className="container-custom">
         <div className="max-w-xl mx-auto text-center mb-12">
           <h2 className="section-title mb-4">Entre em Contato</h2>
@@ -17,7 +17,7 @@ export default function ContactSection() {
           {/* Contact Cards */}
           <div className="space-y-4">
             {/* Phone Card */}
-            <div className="bg-[#222222] rounded-xl p-6 border border-[#333333] hover:border-center-orange transition-all duration-300 hover:shadow-lg">
+            <div className="bg-[#222222] rounded-xl p-6 border border-[#333333]">
               <div className="flex items-start gap-4">
                 <div className="p-3 bg-[#F97316]/10 rounded-xl">
                   <Phone size={24} className="text-center-orange" />
@@ -37,7 +37,7 @@ export default function ContactSection() {
             </div>
 
             {/* Email Card */}
-            <div className="bg-[#222222] rounded-xl p-6 border border-[#333333] hover:border-center-orange transition-all duration-300 hover:shadow-lg">
+            <div className="bg-[#222222] rounded-xl p-6 border border-[#333333]">
               <div className="flex items-start gap-4">
                 <div className="p-3 bg-[#F97316]/10 rounded-xl">
                   <Mail size={24} className="text-center-orange" />
@@ -55,7 +55,7 @@ export default function ContactSection() {
             </div>
 
             {/* Address Card */}
-            <div className="bg-[#222222] rounded-xl p-6 border border-[#333333] hover:border-center-orange transition-all duration-300 hover:shadow-lg">
+            <div className="bg-[#222222] rounded-xl p-6 border border-[#333333]">
               <div className="flex items-start gap-4">
                 <div className="p-3 bg-[#F97316]/10 rounded-xl">
                   <MapPin size={24} className="text-center-orange" />
@@ -71,7 +71,7 @@ export default function ContactSection() {
             </div>
 
             {/* WhatsApp Card */}
-            <div className="bg-[#222222] rounded-xl p-6 border border-[#333333] hover:border-center-orange transition-all duration-300 hover:shadow-lg">
+            <div className="bg-[#222222] rounded-xl p-6 border border-[#333333]">
               <div className="flex items-start gap-4">
                 <div className="p-3 bg-[#F97316]/10 rounded-xl">
                   <MessageSquare size={24} className="text-center-orange" />

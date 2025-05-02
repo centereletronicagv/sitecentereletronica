@@ -5,7 +5,6 @@ import { AirVent, Plug, Cable, Settings } from "lucide-react";
 import { useMediaQuery } from "@/hooks/use-mobile";
 import { DownloadCategoryButton } from "./DownloadCategoryButton";
 import { products as allProducts } from "@/data/products";
-import { motion } from "framer-motion";
 
 const categories = [
   {
@@ -38,21 +37,6 @@ const categories = [
   },
 ];
 
-const container = {
-  hidden: { opacity: 0 },
-  show: {
-    opacity: 1,
-    transition: {
-      staggerChildren: 0.1
-    }
-  }
-};
-
-const item = {
-  hidden: { y: 20, opacity: 0 },
-  show: { y: 0, opacity: 1 }
-};
-
 export default function CategorySection() {
   const { isMobile } = useMediaQuery();
 
@@ -60,18 +44,13 @@ export default function CategorySection() {
     <div className={`py-8 ${isMobile ? 'px-3' : 'px-4 sm:px-6 lg:px-8'} bg-gradient-to-b from-[#1e1e1e] to-[#252525]`}>
       <div className="max-w-7xl mx-auto">
         <h2 className="text-2xl font-bold text-center mb-6 text-white font-display">Categorias</h2>
-        <motion.div 
-          variants={container}
-          initial="hidden"
-          whileInView="show"
-          viewport={{ once: true }}
-          className="grid grid-cols-2 md:grid-cols-4 gap-4"
-        >
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
           {categories.map((category) => (
-            <motion.div key={category.id} variants={item} className="aspect-square">
+            <div key={category.id} className="aspect-square h-full">
               <Link
                 to={`/?category=${category.id}`}
-                className="flex flex-col items-center justify-center p-4 rounded-xl bg-[#2A2A2A] border border-[#3d3d3d] hover:border-center-orange transition-all duration-300 hover:shadow-lg hover:shadow-center-orange/20 group h-full transform hover:-translate-y-1"
+                className="flex flex-col items-center justify-center p-4 rounded-xl bg-[#2A2A2A] border border-[#3d3d3d] hover:border-center-orange transition-all duration-300 hover:shadow-lg group h-full transform hover:-translate-y-1"
+                style={{ height: "100%" }}
               >
                 <div
                   className={`${category.color} ${category.hoverColor} p-3.5 rounded-full text-white mb-3 group-hover:scale-110 transition-transform duration-300 shadow-md`}
@@ -91,9 +70,9 @@ export default function CategorySection() {
                   />
                 </div>
               )}
-            </motion.div>
+            </div>
           ))}
-        </motion.div>
+        </div>
       </div>
     </div>
   );

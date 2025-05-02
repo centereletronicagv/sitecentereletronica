@@ -11,7 +11,6 @@ import {
 } from "@/components/ui/drawer";
 import { DownloadCategoryButton } from "./DownloadCategoryButton";
 import { products as allProducts } from "@/data/products";
-import { motion } from "framer-motion";
 
 const categories = [
   {
@@ -19,24 +18,28 @@ const categories = [
     name: "Ar Condicionado",
     icon: <AirVent className="h-5 w-5" />,
     color: "bg-orange-600",
+    hoverColor: "group-hover:bg-orange-500",
   },
   {
     id: "instalacoes-eletricas",
     name: "Instalações Elétricas",
     icon: <Plug className="h-5 w-5" />,
     color: "bg-blue-600",
+    hoverColor: "group-hover:bg-blue-500",
   },
   {
     id: "terminais",
     name: "Terminais e Conectores",
     icon: <Cable className="h-5 w-5" />,
     color: "bg-green-600",
+    hoverColor: "group-hover:bg-green-500",
   },
   {
     id: "automacao",
     name: "Automação",
     icon: <Settings className="h-5 w-5" />,
     color: "bg-purple-600",
+    hoverColor: "group-hover:bg-purple-500",
   },
 ];
 
@@ -66,17 +69,18 @@ const MobileCategoryDrawer = ({ open, onOpenChange }: MobileCategoryDrawerProps)
         <div className="p-4">
           <div className="grid grid-cols-2 gap-4">
             {categories.map((category) => (
-              <div key={category.id} className="flex flex-col gap-2 aspect-square">
+              <div key={category.id} className="flex flex-col gap-2 h-full">
                 <button
                   onClick={() => handleCategorySelect(category.id)}
-                  className="flex flex-col items-center justify-center p-4 rounded-xl bg-[#2A2A2A] border border-[#3d3d3d] hover:border-center-orange transition-all duration-300 h-full"
+                  className="flex flex-col items-center justify-center p-4 rounded-xl bg-[#2A2A2A] border border-[#3d3d3d] hover:border-center-orange transition-all duration-300 h-full group"
+                  style={{ minHeight: "120px" }}
                 >
                   <div
-                    className={`${category.color} p-3 rounded-full text-white mb-3 shadow-md`}
+                    className={`${category.color} ${category.hoverColor} p-3 rounded-full text-white mb-3 shadow-md group-hover:scale-110 transition-transform duration-300`}
                   >
                     {category.icon}
                   </div>
-                  <span className="text-sm font-medium text-gray-200">
+                  <span className="text-sm font-medium text-gray-200 group-hover:text-white">
                     {category.name}
                   </span>
                 </button>
