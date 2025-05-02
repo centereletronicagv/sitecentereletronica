@@ -1,4 +1,3 @@
-
 import React from "react";
 import { Link } from "react-router-dom";
 import { AirVent, Plug, Cable, Settings } from "lucide-react";
@@ -42,7 +41,7 @@ export default function CategorySection() {
   const { isMobile } = useMediaQuery();
 
   return (
-    <div className={`py-8 ${isMobile ? 'px-3' : 'px-4 sm:px-6 lg:px-8'} bg-[#333333]`}>
+    <div className={`py-8 ${isMobile ? 'px-3' : 'px-4 sm:px-6 lg:px-8'} bg-gradient-to-b from-[#1e1e1e] to-[#252525]`}>
       <div className="max-w-7xl mx-auto">
         <h2 className="text-2xl font-bold text-center mb-6 text-white font-display">Categorias</h2>
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
