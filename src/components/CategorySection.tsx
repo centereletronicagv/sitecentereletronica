@@ -42,10 +42,10 @@ export default function CategorySection() {
         <h2 className="text-xl font-bold text-center mb-4 text-white">Categorias</h2>
         <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
           {categories.map((category) => (
-            <div key={category.id} className="flex flex-col">
+            <div key={category.id}>
               <Link
                 to={`/?category=${category.id}`}
-                className="flex flex-col items-center justify-center p-3 rounded-lg bg-[#252525] border border-[#333333] hover:border-gray-300 transition-all duration-200 hover:shadow-md group"
+                className="flex flex-col items-center justify-center p-3 rounded-lg bg-[#252525] border border-[#333333] hover:border-gray-300 transition-all duration-200 hover:shadow-md group h-full"
               >
                 <div
                   className={`${category.color} p-2.5 rounded-full text-white mb-2 group-hover:scale-110 transition-transform duration-200`}

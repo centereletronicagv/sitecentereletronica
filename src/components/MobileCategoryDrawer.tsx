@@ -68,7 +68,7 @@ const MobileCategoryDrawer = ({ open, onOpenChange }: MobileCategoryDrawerProps)
               <div key={category.id} className="flex flex-col gap-2">
                 <button
                   onClick={() => handleCategorySelect(category.id)}
-                  className="flex flex-col items-center justify-center p-3 rounded-lg bg-[#252525] border border-[#333333] hover:border-[#444444] transition-all duration-200"
+                  className="flex flex-col items-center justify-center p-3 rounded-lg bg-[#252525] border border-[#333333] hover:border-[#444444] transition-all duration-200 h-full"
                 >
                   <div
                     className={`${category.color} p-2.5 rounded-full text-white mb-2`}
