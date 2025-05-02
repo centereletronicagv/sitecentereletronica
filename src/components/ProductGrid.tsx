@@ -1,8 +1,6 @@
 
 import ProductCard from './ProductCard';
 import { Product } from '../types';
-import { useIsMobile } from '@/hooks/use-mobile';
-import { useEffect, useState } from 'react';
 
 interface ProductGridProps {
   products: Product[];
@@ -15,26 +13,6 @@ export default function ProductGrid({
   products, 
   isLoading = false
 }: ProductGridProps) {
-  const isMobile = useIsMobile();
-  const [isInitialRender, setIsInitialRender] = useState(true);
-  
-  // Effect to mark the end of initial render for performance optimization
-  useEffect(() => {
-    if (isInitialRender) {
-      // Use requestIdleCallback to defer non-critical work
-      if ('requestIdleCallback' in window) {
-        requestIdleCallback(() => {
-          setIsInitialRender(false);
-        });
-      } else {
-        // Fallback for browsers that don't support requestIdleCallback
-        setTimeout(() => {
-          setIsInitialRender(false);
-        }, 200);
-      }
-    }
-  }, [isInitialRender]);
-
   if (isLoading) {
     return <ProductGridSkeleton />;
   }
@@ -48,12 +26,9 @@ export default function ProductGrid({
     );
   }
 
-  // For mobile, show only the first batch of products initially to improve first paint
-  const visibleProducts = isInitialRender && isMobile ? products.slice(0, 4) : products;
-
   return (
     <div className="grid grid-cols-2 gap-2 sm:gap-6 md:grid-cols-3 lg:grid-cols-4">
-      {visibleProducts.map((product) => (
+      {products.map((product) => (
         <ProductCard key={product.id} product={product} />
       ))}
     </div>
@@ -61,31 +36,14 @@ export default function ProductGrid({
 }
 
 function ProductGridSkeleton() {
-  const isMobile = useIsMobile();
   // Reduced number of skeleton items for faster mobile rendering
-  const skeletonCount = isMobile ? 2 : 4;
+  const skeletonCount = window.innerWidth < 768 ? 2 : 4;
   
   return (
     <div className="grid grid-cols-2 gap-2 sm:gap-6 md:grid-cols-3 lg:grid-cols-4 pt-10">
       {Array.from({ length: skeletonCount }).map((_, index) => (
-        <div 
-          key={index} 
-          className="bg-[#1E1E1E] rounded-xl border border-[#333333] overflow-hidden shadow-sm"
-          style={{
-            // Set explicit height to prevent layout shift
-            height: isMobile ? '250px' : '360px',
-            contain: 'layout'
-          }}
-        >
-          <div 
-            className="bg-[#252525] animate-pulse" 
-            style={{
-              aspectRatio: '1/1', 
-              width: '100%',
-              height: isMobile ? '140px' : '220px',
-              contain: 'layout'
-            }}
-          ></div>
+        <div key={index} className="bg-[#1E1E1E] rounded-xl border border-[#333333] overflow-hidden shadow-sm">
+          <div className="h-24 sm:h-48 bg-[#252525] animate-pulse" style={{aspectRatio: '1/1', width: '100%'}}></div>
           <div className="p-2 sm:p-4">
             <div className="w-12 h-3 bg-[#252525] animate-pulse rounded-md mb-2"></div>
             <div className="w-full h-2 bg-[#252525] animate-pulse rounded mb-1"></div>
