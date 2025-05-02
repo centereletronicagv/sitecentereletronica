@@ -16,7 +16,19 @@ const Index = () => {
   const { isMobile } = useMediaQuery();
 
   useEffect(() => {
-    window.scrollTo(0, 0);
+    // Evita o scroll desnecessário que pode causar CLS
+    const hash = location.hash;
+    if (hash) {
+      setTimeout(() => {
+        const element = document.querySelector(hash);
+        if (element) {
+          element.scrollIntoView({ behavior: 'smooth' });
+        }
+      }, 100);
+    } else {
+      window.scrollTo(0, 0);
+    }
+    
     document.title = "Center Eletrônica - Materiais Elétricos e Eletrônicos";
     
     // Extract search query from URL if present
@@ -47,11 +59,6 @@ const Index = () => {
       window.removeEventListener('product-search', handleSearch as EventListener);
     };
   }, []);
-
-  // Para debug, vamos ver os produtos de automação no console
-  useEffect(() => {
-    console.log("Produtos e categoria atual:", { searchQuery, category });
-  }, [searchQuery, category]);
 
   return (
     <div className="flex flex-col min-h-screen">

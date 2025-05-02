@@ -13,6 +13,35 @@
     <meta property="og:description" content="Center Eletrônica - Especializada em Materiais Elétricos, Eletrônicos, Ar Condicionado, Instalações Elétricas, Terminais, Conectores e Automação." />
     <meta property="og:type" content="website" />
     <link rel="canonical" href="https://centereletronica.netlify.app/" />
+    <link rel="dns-prefetch" href="//fonts.googleapis.com">
+    <link rel="dns-prefetch" href="//fonts.gstatic.com">
+    <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    
+    <!-- Preload de fontes críticas -->
+    <link rel="preload" as="font" href="https://fonts.gstatic.com/s/inter/v13/UcCO3FwrK3iLTeHuS_fvQtMwCp50KnMw2boKoduKmMEVuLyfAZ9hiJ-Ek-_EeA.woff2" type="font/woff2" crossorigin>
+    <link rel="preload" as="font" href="https://fonts.gstatic.com/s/sora/v12/xMQOuFFYT72X5wkB_18qmnndmSdSnk-DKQRDA8i1P4xdMw.woff2" type="font/woff2" crossorigin>
+    
+    <!-- Preload da imagem do hero -->
+    <link rel="preload" as="image" href="/lovable-uploads/00b83df6-8857-4892-a9a5-37085b5cf813.png" fetchpriority="high">
+    
+    <!-- Injetar estilos críticos para evitar FOUC -->
+    <style>
+      body {
+        background-color: #181818;
+        color: #fff;
+        font-family: 'Inter', sans-serif;
+        margin: 0;
+        opacity: 1;
+        transition: opacity 0.5s;
+      }
+      
+      @media (max-width: 768px) {
+        body {
+          font-size: 14px;
+        }
+      }
+    </style>
   </head>
 
   <body>

@@ -38,9 +38,9 @@ export default function ProductGrid({
 function ProductGridSkeleton() {
   return (
     <div className="grid grid-cols-2 gap-2 sm:gap-6 md:grid-cols-3 lg:grid-cols-4 pt-14">
-      {Array.from({ length: 6 }).map((_, index) => (
+      {Array.from({ length: 4 }).map((_, index) => (
         <div key={index} className="bg-[#1E1E1E] rounded-xl border border-[#333333] overflow-hidden shadow-sm">
-          <div className="h-28 sm:h-48 bg-[#252525] animate-pulse"></div>
+          <div className="h-28 sm:h-48 bg-[#252525] animate-pulse" style={{width: '100%', height: '112px'}}></div>
           <div className="p-2 sm:p-4">
             <div className="w-12 h-4 bg-[#252525] animate-pulse rounded-md mb-2"></div>
             <div className="w-full h-3 bg-[#252525] animate-pulse rounded mb-1.5"></div>
