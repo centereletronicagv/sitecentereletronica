@@ -1,3 +1,4 @@
+
 /* Preload de fontes para evitar layout shifts */
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Sora:wght@400;500;600;700&display=swap');
 
@@ -126,7 +127,7 @@
   .btn-primary {
     @apply bg-center-orange text-white py-2.5 px-5 rounded-md font-medium 
            shadow-md transition-all duration-300 ease-in-out 
-           hover:bg-center-orangeLight hover:shadow-lg 
+           hover:bg-center-orangeLight hover:shadow-lg hover:scale-[1.02]
            active:scale-[0.98] active:bg-center-orangeDark;
   }
   
@@ -163,6 +164,23 @@
   .category-icon {
     @apply p-3.5 rounded-full text-white mb-3 group-hover:scale-110 transition-transform 
            duration-300 shadow-md;
+  }
+
+  /* New styles for better visual elements */
+  .glow-effect {
+    @apply relative overflow-hidden;
+  }
+  
+  .glow-effect::before {
+    content: '';
+    @apply absolute -inset-0.5 bg-gradient-to-r from-center-orange to-center-orangeLight 
+           opacity-75 blur-sm group-hover:opacity-100 transition 
+           duration-1000 group-hover:duration-200 animate-pulse;
+  }
+  
+  .glow-effect::after {
+    content: '';
+    @apply absolute inset-0 bg-[#252525] rounded-lg;
   }
 }
 

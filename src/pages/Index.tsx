@@ -75,7 +75,7 @@ const Index = () => {
   return (
     <div className="flex flex-col min-h-screen">
       <Navbar />
-      <main className={`flex-grow ${isMobile ? 'pt-14' : 'pt-16 md:pt-20'}`}>
+      <main className={`flex-grow ${isMobile ? 'pt-14' : 'pt-16 md:pt-20'} bg-[#181818]`}>
         {!searchQuery && !category && (
           <>
             <Hero />
