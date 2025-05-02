@@ -14,7 +14,7 @@ export default function Hero() {
   }, []);
 
   return (
-    <section className="w-full bg-[#181818] pt-16 pb-8 md:pt-24 md:pb-14">
+    <section className="w-full bg-[#333333] pt-16 pb-8 md:pt-24 md:pb-14">
       <div className="container-custom">
         <div className="flex flex-col md:flex-row gap-4 md:gap-8 items-center">
           <div className="flex flex-col gap-2 md:gap-4 md:max-w-2xl">
