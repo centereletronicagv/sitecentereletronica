@@ -46,11 +46,10 @@ export default function CategorySection() {
         <h2 className="text-2xl font-bold text-center mb-6 text-white font-display">Categorias</h2>
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
           {categories.map((category) => (
-            <div key={category.id} className="aspect-square h-full">
+            <div key={category.id} className="aspect-square">
               <Link
                 to={`/?category=${category.id}`}
                 className="flex flex-col items-center justify-center p-4 rounded-xl bg-[#2A2A2A] border border-[#3d3d3d] hover:border-center-orange transition-all duration-300 hover:shadow-lg group h-full transform hover:-translate-y-1"
-                style={{ height: "100%" }}
               >
                 <div
                   className={`${category.color} ${category.hoverColor} p-3.5 rounded-full text-white mb-3 group-hover:scale-110 transition-transform duration-300 shadow-md`}
