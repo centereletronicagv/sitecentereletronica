@@ -25,7 +25,7 @@ export default function Hero() {
             {/* Removed the orange line and "Center Eletrônica" text that was here */}
             
             <h1 className="text-3xl md:text-5xl font-display font-bold tracking-tight">
-              Produtos <span className="text-center-orange">Eletrônicos</span> 
+              Center <span className="text-center-orange">Eletrônica</span> 
               <span className="relative inline-block">
                 <span className="absolute -bottom-1 left-0 w-full h-1 bg-center-orange opacity-30 rounded-full"></span>
               </span>
@@ -55,8 +55,6 @@ export default function Hero() {
                 <ArrowRight size={14} className="md:w-4 md:h-4 transition-transform duration-300 group-hover:translate-x-1" />
               </Link>
             </div>
-            
-            {/* Removed the three feature boxes that were here */}
           </div>
           
           <div className="md:w-2/5 rounded-lg overflow-hidden shadow-2xl mt-2 md:mt-0 h-auto relative group" style={{minHeight: '200px'}}>
@@ -73,7 +71,6 @@ export default function Hero() {
                 className={`w-full h-auto object-cover rounded-lg transition-all duration-500 group-hover:scale-105 ${isImageLoaded ? 'opacity-100' : 'opacity-0'}`}
                 width="500"
                 height="350"
-                fetchPriority="high"
                 style={{
                   aspectRatio: '500/350',
                   objectFit: 'cover'
