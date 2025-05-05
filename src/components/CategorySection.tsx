@@ -1,3 +1,4 @@
+
 import React from "react";
 import { Link } from "react-router-dom";
 import { AirVent, Plug, Cable, Settings } from "lucide-react";
@@ -5,7 +6,7 @@ import { useMediaQuery } from "@/hooks/use-mobile";
 import { DownloadCategoryButton } from "./DownloadCategoryButton";
 import { products as allProducts } from "@/data/products";
 
-// Main categories - keeping the original main categories
+// Main categories - updating the icon for "Terminais e Conectores" to use Cable
 const categories = [
   {
     id: "ar-condicionado",
