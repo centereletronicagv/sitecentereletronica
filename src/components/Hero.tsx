@@ -32,7 +32,7 @@ export default function Hero() {
             </h1>
             
             <p className="text-sm md:text-lg text-gray-300 max-w-2xl">
-              Loja de produtos Elétricos, Eletrônicos, Automação, Informática e mais, com qualidade e preços competitivos.
+              Aqui você encontra uma ampla linha de produtos Elétricos, Eletrônicos, de Automação e Informática, selecionados com rigor para garantir qualidade, inovação e desempenho. Trabalhamos com as melhores marcas do mercado, oferecendo soluções completas com preços acessíveis.
             </p>
             
             <div className="flex flex-wrap gap-2 md:gap-3 mt-1 md:mt-2">
