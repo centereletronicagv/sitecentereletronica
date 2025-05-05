@@ -1,3 +1,4 @@
+
 import { useEffect, useState } from 'react';
 import { ArrowRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
@@ -43,7 +44,6 @@ const categoryLabels: Record<string, string> = {
   'porca': 'Porca',
   'capacitor': 'Capacitor',
   'acabamento': 'Acabamento',
-  'ferramentas': 'Ferramentas',
 };
 
 interface ProductsSectionProps {
