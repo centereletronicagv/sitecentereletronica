@@ -22,10 +22,7 @@ export default function Hero() {
       <div className="container-custom relative z-10">
         <div className="flex flex-col md:flex-row gap-4 md:gap-8 items-center">
           <div className="flex flex-col gap-2 md:gap-4 md:max-w-2xl">
-            <div className="inline-flex gap-2 items-center">
-              <div className="h-1 w-8 bg-center-orange rounded-full"></div>
-              <span className="text-center-orange text-sm md:text-base font-medium">Center Eletrônica</span>
-            </div>
+            {/* Removed the orange line and "Center Eletrônica" text that was here */}
             
             <h1 className="text-3xl md:text-5xl font-display font-bold tracking-tight">
               Produtos <span className="text-center-orange">Eletrônicos</span> 
