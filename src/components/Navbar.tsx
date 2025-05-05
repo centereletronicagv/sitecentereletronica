@@ -1,4 +1,3 @@
-
 import { useState, useEffect, FormEvent } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { Menu, X, Search, Wind, Plug, Terminal, Router, ChevronDown, ChevronRight, ShoppingCart, Grid2X2 } from 'lucide-react';
@@ -171,7 +170,7 @@ export default function Navbar() {
                   alt="Center Eletrônica Logo" 
                   className="h-18 w-auto md:h-24"
                 />
-                <span className="ml-1.5 text-xl md:text-2xl font-display font-semibold tracking-tight text-white">
+                <span className="ml-1.5 text-base md:text-xl font-display font-semibold tracking-tight text-white">
                   Center <span className="text-center-orange">Eletrônica</span>
                 </span>
               </div>
@@ -200,7 +199,7 @@ export default function Navbar() {
                 href="tel:5499270560" 
                 className="flex items-center gap-1.5 text-gray-300 hover:text-center-orange transition-colors"
               >
-                <span className="text-base font-medium">54 9927-0560</span>
+                <span className="text-sm font-medium">54 9927-0560</span>
               </a>
               
               <div className="flex items-center gap-5">
@@ -209,7 +208,7 @@ export default function Navbar() {
                   className="flex items-center gap-1.5 text-gray-300 hover:text-center-orange transition-colors relative"
                 >
                   <ShoppingCart size={20} />
-                  <span className="text-base font-medium">Carrinho</span>
+                  <span className="text-sm font-medium">Carrinho</span>
                   {getTotalItems() > 0 && (
                     <span className="absolute -top-2 -right-2 bg-center-orange text-white text-xs w-5 h-5 flex items-center justify-center rounded-full">
                       {getTotalItems()}
@@ -266,7 +265,7 @@ export default function Navbar() {
                   {link.name === 'Contato' ? (
                     <button
                       onClick={scrollToContact}
-                      className={`flex items-center gap-2 py-2 text-base font-medium transition-colors text-gray-300 hover:text-center-orange`}
+                      className={`flex items-center gap-2 py-2 text-sm font-medium transition-colors text-gray-300 hover:text-center-orange`}
                     >
                       {link.icon && link.icon}
                       {link.name}
@@ -274,7 +273,7 @@ export default function Navbar() {
                   ) : (
                     <Link
                       to={link.href}
-                      className={`flex items-center gap-2 py-2 text-base font-medium transition-colors ${
+                      className={`flex items-center gap-2 py-2 text-sm font-medium transition-colors ${
                         location.pathname === link.href
                           ? 'text-center-orange'
                           : 'text-gray-300 hover:text-center-orange'
@@ -326,7 +325,7 @@ export default function Navbar() {
                   {link.name === 'Contato' ? (
                     <button
                       onClick={scrollToContact}
-                      className="flex items-center gap-2 px-4 py-3 text-lg font-medium rounded-md transition-colors text-gray-300 hover:bg-[#333333] w-full text-left"
+                      className="flex items-center gap-2 px-4 py-3 text-base font-medium rounded-md transition-colors text-gray-300 hover:bg-[#333333] w-full text-left"
                     >
                       {link.icon && link.icon}
                       {link.name}
@@ -335,7 +334,7 @@ export default function Navbar() {
                     <Link
                       to={link.href}
                       onClick={() => setIsMenuOpen(false)}
-                      className={`flex items-center gap-2 px-4 py-3 text-lg font-medium rounded-md transition-colors ${
+                      className={`flex items-center gap-2 px-4 py-3 text-base font-medium rounded-md transition-colors ${
                         location.pathname === link.href
                           ? 'bg-center-orange/10 text-center-orange'
                           : 'text-gray-300 hover:bg-[#333333]'
@@ -355,7 +354,7 @@ export default function Navbar() {
                   setIsCartOpen(true);
                   setIsMenuOpen(false);
                 }}
-                className="flex items-center gap-2 px-4 py-3 text-lg font-medium text-gray-300 hover:bg-[#333333] rounded-md w-full text-left"
+                className="flex items-center gap-2 px-4 py-3 text-base font-medium text-gray-300 hover:bg-[#333333] rounded-md w-full text-left"
               >
                 <ShoppingCart size={18} />
                 <span>Carrinho</span>
@@ -369,7 +368,7 @@ export default function Navbar() {
             
             <a 
               href="tel:5499270560" 
-              className="mt-2 flex items-center gap-2 px-4 py-3 text-lg font-medium text-white bg-center-orange rounded-md"
+              className="mt-2 flex items-center gap-2 px-4 py-3 text-base font-medium text-white bg-center-orange rounded-md"
             >
               <span>Ligar: 54 9927-0560</span>
             </a>
