@@ -24,21 +24,21 @@ export default function Hero() {
           <div className="flex flex-col gap-2 md:gap-4 md:max-w-2xl">
             {/* Removed the orange line and "Center Eletrônica" text that was here */}
             
-            <h1 className="text-3xl md:text-5xl font-display font-bold tracking-tight">
+            <h1 className="text-4xl md:text-5xl font-display font-bold tracking-tight">
               Center <span className="text-center-orange">Eletrônica</span> 
               <span className="relative inline-block">
                 <span className="absolute -bottom-1 left-0 w-full h-1 bg-center-orange opacity-30 rounded-full"></span>
               </span>
             </h1>
             
-            <p className="text-sm md:text-lg text-gray-300 max-w-2xl">
+            <p className="text-base md:text-xl text-gray-300 max-w-2xl">
               Aqui você encontra uma ampla linha de produtos Elétricos, Eletrônicos, de Automação e Informática, selecionados com rigor para garantir qualidade, inovação e desempenho. Trabalhamos com as melhores marcas do mercado, oferecendo soluções completas com preços acessíveis.
             </p>
             
             <div className="flex flex-wrap gap-2 md:gap-3 mt-1 md:mt-2">
               <Link 
                 to="/categoria/ar-condicionado" 
-                className="btn-primary flex items-center gap-1 text-xs md:text-base py-1.5 md:py-2.5 px-3 md:px-5 group"
+                className="btn-primary flex items-center gap-1 text-sm md:text-base py-1.5 md:py-2.5 px-3 md:px-5 group"
               >
                 Ver Produtos
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="transition-transform duration-300 group-hover:translate-x-1">
@@ -49,7 +49,7 @@ export default function Hero() {
               
               <Link 
                 to="/categoria/ar-condicionado" 
-                className="inline-flex items-center gap-1 px-3 md:px-5 py-1.5 md:py-2.5 text-white bg-[#252525] hover:bg-[#333333] rounded-md transition-colors text-xs md:text-base group"
+                className="inline-flex items-center gap-1 px-3 md:px-5 py-1.5 md:py-2.5 text-white bg-[#252525] hover:bg-[#333333] rounded-md transition-colors text-sm md:text-base group"
               >
                 Faça seu pedido
                 <ArrowRight size={14} className="md:w-4 md:h-4 transition-transform duration-300 group-hover:translate-x-1" />
@@ -80,7 +80,7 @@ export default function Hero() {
               <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
               
               <div className="absolute bottom-0 left-0 p-3 md:p-4">
-                <span className="text-xs md:text-sm text-gray-300 bg-black/50 backdrop-blur-sm px-2 py-1 rounded-md">
+                <span className="text-sm md:text-base text-gray-300 bg-black/50 backdrop-blur-sm px-2 py-1 rounded-md">
                   Nossa Loja Física
                 </span>
               </div>
