@@ -1,4 +1,3 @@
-
 import { useState, useEffect, FormEvent } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { Menu, X, Search, Wind, Plug, Terminal, Router, ChevronDown, ChevronRight, ShoppingCart, Grid2X2 } from 'lucide-react';
@@ -166,13 +165,11 @@ export default function Navbar() {
               className="flex items-center transition-transform duration-300 hover:-translate-y-0.5"
             >
               <div className="flex items-center">
-                <svg 
-                  className="h-6 w-6 md:h-8 md:w-8 text-center-orange" 
-                  viewBox="0 0 24 24" 
-                  fill="currentColor"
-                >
-                  <path d="M12 2L2 12h3v8h14v-8h3L12 2z" />
-                </svg>
+                <img 
+                  src="/lovable-uploads/logotransparente.png" 
+                  alt="Center Eletrônica Logo" 
+                  className="h-6 w-auto md:h-8"
+                />
                 <span className="ml-1.5 text-base md:text-xl font-display font-semibold tracking-tight text-white">
                   Center <span className="text-center-orange">Eletrônica</span>
                 </span>
