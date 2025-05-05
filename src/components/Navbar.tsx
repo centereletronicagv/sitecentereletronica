@@ -1,4 +1,3 @@
-
 import { useState, useEffect, FormEvent } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { Menu, X, Search, Wind, Plug, Terminal, Router, ChevronDown, ChevronRight, ShoppingCart, Grid2X2 } from 'lucide-react';
@@ -171,7 +170,7 @@ export default function Navbar() {
                   alt="Center Eletrônica Logo" 
                   className="h-18 w-auto md:h-24"
                 />
-                <span className="ml-3 text-2xl md:text-3xl font-display font-semibold tracking-tight text-white">
+                <span className="ml-1.5 text-base md:text-xl font-display font-semibold tracking-tight text-white">
                   Center <span className="text-center-orange">Eletrônica</span>
                 </span>
               </div>
@@ -198,18 +197,18 @@ export default function Navbar() {
             <div className="hidden md:flex items-center gap-6">
               <a 
                 href="tel:5499270560" 
-                className="flex items-center gap-1.5 text-lg font-medium text-gray-300 hover:text-center-orange transition-colors"
+                className="flex items-center gap-1.5 text-gray-300 hover:text-center-orange transition-colors"
               >
-                <span>54 9927-0560</span>
+                <span className="text-sm font-medium">54 9927-0560</span>
               </a>
               
               <div className="flex items-center gap-5">
                 <button
                   onClick={() => setIsCartOpen(true)}
-                  className="flex items-center gap-1.5 text-lg font-medium text-gray-300 hover:text-center-orange transition-colors relative"
+                  className="flex items-center gap-1.5 text-gray-300 hover:text-center-orange transition-colors relative"
                 >
-                  <ShoppingCart size={22} />
-                  <span>Carrinho</span>
+                  <ShoppingCart size={20} />
+                  <span className="text-sm font-medium">Carrinho</span>
                   {getTotalItems() > 0 && (
                     <span className="absolute -top-2 -right-2 bg-center-orange text-white text-xs w-5 h-5 flex items-center justify-center rounded-full">
                       {getTotalItems()}
@@ -266,7 +265,7 @@ export default function Navbar() {
                   {link.name === 'Contato' ? (
                     <button
                       onClick={scrollToContact}
-                      className={`flex items-center gap-2 py-2 text-base font-medium transition-colors text-gray-300 hover:text-center-orange`}
+                      className={`flex items-center gap-2 py-2 text-sm font-medium transition-colors text-gray-300 hover:text-center-orange`}
                     >
                       {link.icon && link.icon}
                       {link.name}
@@ -274,7 +273,7 @@ export default function Navbar() {
                   ) : (
                     <Link
                       to={link.href}
-                      className={`flex items-center gap-2 py-2 text-base font-medium transition-colors ${
+                      className={`flex items-center gap-2 py-2 text-sm font-medium transition-colors ${
                         location.pathname === link.href
                           ? 'text-center-orange'
                           : 'text-gray-300 hover:text-center-orange'
@@ -282,7 +281,7 @@ export default function Navbar() {
                     >
                       {link.icon && link.icon}
                       {link.name}
-                      {link.name !== 'Início' && link.name !== 'Contato' && <ChevronDown size={16} />}
+                      {link.name !== 'Início' && link.name !== 'Contato' && <ChevronDown size={14} />}
                     </Link>
                   )}
                 </li>
