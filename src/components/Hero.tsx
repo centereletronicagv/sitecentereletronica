@@ -59,39 +59,7 @@ export default function Hero() {
               </Link>
             </div>
             
-            <div className="flex flex-wrap gap-3 md:gap-8 mt-4 md:mt-6">
-              <div className="flex items-center gap-1.5">
-                <div className="w-6 h-6 md:w-8 md:h-8 flex items-center justify-center bg-center-orange/20 text-center-orange rounded">
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                    <path d="M21 8V7a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-1" />
-                    <path d="M9 12h6" />
-                    <path d="M13 8L9 12l4 4" />
-                  </svg>
-                </div>
-                <span className="text-xs md:text-base text-gray-300">Suportes</span>
-              </div>
-              
-              <div className="flex items-center gap-1.5">
-                <div className="w-6 h-6 md:w-8 md:h-8 flex items-center justify-center bg-center-orange/20 text-center-orange rounded">
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                    <rect width="6" height="14" x="4" y="5" rx="2" />
-                    <rect width="6" height="10" x="14" y="9" rx="2" />
-                    <path d="M4 15h16" />
-                  </svg>
-                </div>
-                <span className="text-xs md:text-base text-gray-300">Tubulação</span>
-              </div>
-              
-              <div className="flex items-center gap-1.5">
-                <div className="w-6 h-6 md:w-8 md:h-8 flex items-center justify-center bg-center-orange/20 text-center-orange rounded">
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                    <path d="M20 10c0-4.4-3.6-8-8-8s-8 3.6-8 8 3.6 8 8 8 8-3.6 8-8Z" />
-                    <path d="M20 10c0 4.4-3.6 8-8 8s-8-3.6-8-8" />
-                  </svg>
-                </div>
-                <span className="text-xs md:text-base text-gray-300">Fluídos</span>
-              </div>
-            </div>
+            {/* Removed the three feature boxes that were here */}
           </div>
           
           <div className="md:w-2/5 rounded-lg overflow-hidden shadow-2xl mt-2 md:mt-0 h-auto relative group" style={{minHeight: '200px'}}>
