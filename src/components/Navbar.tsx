@@ -168,7 +168,7 @@ export default function Navbar() {
                 <img 
                   src="/lovable-uploads/logonova.png" 
                   alt="Center Eletrônica Logo" 
-                  className="h-7 w-auto md:h-8"
+                  className="h-8 w-auto md:h-8"
                 />
                 <span className="ml-1.5 text-base md:text-xl font-display font-semibold tracking-tight text-white">
                   Center <span className="text-center-orange">Eletrônica</span>
