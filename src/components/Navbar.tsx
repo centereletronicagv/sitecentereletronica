@@ -166,7 +166,7 @@ export default function Navbar() {
             >
               <div className="flex items-center">
                 <img 
-                  src="/lovable-uploads/logotransparente.png" 
+                  src="/lovable-uploads/logonova.png" 
                   alt="Center Eletrônica Logo" 
                   className="h-6 w-auto md:h-8"
                 />
