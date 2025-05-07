@@ -9,7 +9,7 @@ export default function Hero() {
   useEffect(() => {
     // Pré-carrega a imagem do hero
     const img = new Image();
-    img.src = "/lovable-uploads/00b83df6-8857-4892-a9a5-37085b5cf813.png";
+    img.src = "/lovable-uploads/loja.png";
     img.onload = () => setIsImageLoaded(true);
   }, []);
 
