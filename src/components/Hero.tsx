@@ -66,7 +66,7 @@ export default function Hero() {
             
             <div className="relative rounded-lg overflow-hidden border border-gray-700/50">
               <img 
-                src="/lovable-uploads/00b83df6-8857-4892-a9a5-37085b5cf813.png" 
+                src="/lovable-uploads/loja.png" 
                 alt="Loja Center Eletrônica" 
                 className={`w-full h-auto object-cover rounded-lg transition-all duration-500 group-hover:scale-105 ${isImageLoaded ? 'opacity-100' : 'opacity-0'}`}
                 width="500"
