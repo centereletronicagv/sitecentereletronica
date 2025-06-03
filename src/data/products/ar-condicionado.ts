@@ -1,3 +1,4 @@
+
 import { Product } from "../../types";
 
 export const arCondicionadoProducts: Product[] = [
@@ -5,7 +6,7 @@ export const arCondicionadoProducts: Product[] = [
   {
     id: "ac-suporte-400",
     name: "SUPORTE 400MM",
-    price: 43.0,
+    price: 0,
     code: "13160",
     image: "/lovable-uploads/suporte.png",
     category: "ar-condicionado",
@@ -16,7 +17,7 @@ export const arCondicionadoProducts: Product[] = [
   {
     id: "ac-suporte-450",
     name: "SUPORTE 450MM",
-    price: 48.0,
+    price: 0,
     code: "12602",
     image: "/lovable-uploads/suporte.png",
     category: "ar-condicionado",
@@ -27,7 +28,7 @@ export const arCondicionadoProducts: Product[] = [
   {
     id: "ac-suporte-500",
     name: "SUPORTE 500MM",
-    price: 75.0,
+    price: 0,
     code: "7204",
     image: "/lovable-uploads/suporte.png",
     category: "ar-condicionado",
@@ -38,7 +39,7 @@ export const arCondicionadoProducts: Product[] = [
   {
     id: "ac-suporte-550",
     name: "SUPORTE 550MM",
-    price: 156.0,
+    price: 0,
     code: "13309",
     image: "/lovable-uploads/suporte.png",
     category: "ar-condicionado",
@@ -49,7 +50,7 @@ export const arCondicionadoProducts: Product[] = [
   {
     id: "ac-suporte-900",
     name: "SUPORTE 900MM",
-    price: 255.0,
+    price: 0,
     code: "13310",
     image: "/lovable-uploads/suporte.png",
     category: "ar-condicionado",
@@ -61,7 +62,7 @@ export const arCondicionadoProducts: Product[] = [
   {
     id: "ac-tubulacao-1-4",
     name: "TUBULAÇÃO 1/4",
-    price: 19.0,
+    price: 0,
     code: "12710",
     image: "/lovable-uploads/tubulacao.png",
     category: "ar-condicionado",
@@ -73,7 +74,7 @@ export const arCondicionadoProducts: Product[] = [
   {
     id: "ac-tubulacao-3-8",
     name: "TUBULAÇÃO 3/8",
-    price: 28.0,
+    price: 0,
     code: "12711",
     image: "/lovable-uploads/tubulacao.png",
     category: "ar-condicionado",
@@ -84,7 +85,7 @@ export const arCondicionadoProducts: Product[] = [
   {
     id: "ac-tubulacao-1-2",
     name: "TUBULAÇÃO 1/2",
-    price: 37.0,
+    price: 0,
     code: "12709",
     image: "/lovable-uploads/tubulacao.png",
     category: "ar-condicionado",
@@ -95,7 +96,7 @@ export const arCondicionadoProducts: Product[] = [
   {
     id: "ac-tubulacao-5-8",
     name: "TUBULAÇÃO 5/8",
-    price: 49.0,
+    price: 0,
     code: "12712",
     image: "/lovable-uploads/tubulacao.png",
     category: "ar-condicionado",
@@ -106,7 +107,7 @@ export const arCondicionadoProducts: Product[] = [
   {
     id: "ac-tubulacao-3-4",
     name: "TUBULAÇÃO 3/4",
-    price: 59.0,
+    price: 0,
     code: "12713",
     image: "/lovable-uploads/tubulacao.png",
     category: "ar-condicionado",
@@ -118,7 +119,7 @@ export const arCondicionadoProducts: Product[] = [
   {
     id: "ac-tubex-1-4",
     name: "TUBEX 1/4 2m",
-    price: 6.5,
+    price: 0,
     code: "7199",
     image: "/lovable-uploads/tubex.png",
     category: "ar-condicionado",
@@ -128,7 +129,7 @@ export const arCondicionadoProducts: Product[] = [
   {
     id: "ac-tubex-3-8",
     name: "TUBEX 3/8 2m",
-    price: 6.5,
+    price: 0,
     code: "7200",
     image: "/lovable-uploads/tubex.png",
     category: "ar-condicionado",
@@ -138,7 +139,7 @@ export const arCondicionadoProducts: Product[] = [
   {
     id: "ac-tubex-1-2",
     name: "TUBEX 1/2 2m",
-    price: 6.5,
+    price: 0,
     code: "7201",
     image: "/lovable-uploads/tubex.png",
     category: "ar-condicionado",
@@ -148,7 +149,7 @@ export const arCondicionadoProducts: Product[] = [
   {
     id: "ac-tubex-5-8",
     name: "TUBEX 5/8 2m",
-    price: 8.0,
+    price: 0,
     code: "10504",
     image: "/lovable-uploads/tubex.png",
     category: "ar-condicionado",
@@ -158,7 +159,7 @@ export const arCondicionadoProducts: Product[] = [
   {
     id: "ac-tubex-3-4",
     name: "TUBEX 3/4 2m",
-    price: 10.0,
+    price: 0,
     code: "100232514",
     image: "/lovable-uploads/tubex.png",
     category: "ar-condicionado",
@@ -169,7 +170,7 @@ export const arCondicionadoProducts: Product[] = [
   {
     id: "ac-fita-pvc",
     name: "FITA PVC 10M",
-    price: 8.0,
+    price: 0,
     code: "7202",
     image: "/lovable-uploads/fitapvc.png",
     category: "ar-condicionado",
@@ -179,7 +180,7 @@ export const arCondicionadoProducts: Product[] = [
   {
     id: "ac-fita-aluminizada",
     name: "FITA ALUMINIZADA 45M",
-    price: 9.0,
+    price: 0,
     code: "7195",
     image: "/lovable-uploads/fitaalum.png",
     category: "ar-condicionado",
@@ -190,7 +191,7 @@ export const arCondicionadoProducts: Product[] = [
   {
     id: "ac-mangueira-dreno",
     name: "MANGUEIRA P/ DRENO",
-    price: 5.8,
+    price: 0,
     code: "11407",
     image: "/lovable-uploads/dreno.png",
     category: "ar-condicionado",
@@ -201,7 +202,7 @@ export const arCondicionadoProducts: Product[] = [
   {
     id: "ac-mangueira-dreno-cristal",
     name: "MANGUEIRA P/ DRENO CRISTAL",
-    price: 6.5,
+    price: 0,
     code: "11993",
     image: "/lovable-uploads/drenocristal.png",
     category: "ar-condicionado",
@@ -212,7 +213,7 @@ export const arCondicionadoProducts: Product[] = [
   {
     id: "ac-bico-dreno",
     name: "BICO P/ DRENO",
-    price: 15.0,
+    price: 0,
     code: "12644",
     image: "/lovable-uploads/bicodreno.png",
     category: "ar-condicionado",
@@ -223,7 +224,7 @@ export const arCondicionadoProducts: Product[] = [
   {
     id: "ac-fluido-r32-650g",
     name: "FLUÍDO R32 650g",
-    price: 130.0,
+    price: 0,
     code: "7899733823641",
     image: "/lovable-uploads/r32650g.png",
     category: "ar-condicionado",
@@ -233,7 +234,7 @@ export const arCondicionadoProducts: Product[] = [
   {
     id: "ac-fluido-r32-3kg",
     name: "FLUÍDO R32 3Kg",
-    price: 290.0,
+    price: 0,
     code: "7899733819095",
     image: "/lovable-uploads/r323kg.png",
     category: "ar-condicionado",
@@ -243,7 +244,7 @@ export const arCondicionadoProducts: Product[] = [
   {
     id: "ac-fluido-r410a",
     name: "FLUÍDO R410A 750g",
-    price: 129.0,
+    price: 0,
     code: "7899733805227",
     image: "/lovable-uploads/r410a750g.png",
     category: "ar-condicionado",
@@ -253,7 +254,7 @@ export const arCondicionadoProducts: Product[] = [
   {
     id: "ac-fluido-r22",
     name: "FLUÍDO R22 900g",
-    price: 132.0,
+    price: 0,
     code: "7899733805180",
     image: "/lovable-uploads/r22.png",
     category: "ar-condicionado",
@@ -263,7 +264,7 @@ export const arCondicionadoProducts: Product[] = [
   {
     id: "ac-valvula-gas",
     name: "VÁLVULA P/ GÁS 1/2",
-    price: 42.0,
+    price: 0,
     code: "13255",
     image: "/lovable-uploads/valve.png",
     category: "ar-condicionado",
@@ -274,7 +275,7 @@ export const arCondicionadoProducts: Product[] = [
   {
     id: "ac-cabo-pp4",
     name: "CABO PP 4 X 1,5mm",
-    price: 9.5,
+    price: 0,
     code: "9947",
     image: "/lovable-uploads/pp4.png",
     category: "ar-condicionado",
@@ -285,7 +286,7 @@ export const arCondicionadoProducts: Product[] = [
   {
     id: "ac-cabo-paralelo",
     name: "CABO PARALELO 2x2,5MM",
-    price: 6.5,
+    price: 0,
     code: "03856",
     image: "/lovable-uploads/paralelo2x25mm.png",
     category: "ar-condicionado",
@@ -296,7 +297,7 @@ export const arCondicionadoProducts: Product[] = [
   {
     id: "ac-cabo-paralelo-preto",
     name: "CABO PARALELO PRETO 2x2,5MM",
-    price: 7.5,
+    price: 0,
     code: "13320",
     image: "/lovable-uploads/paralelopreto2x25mm.png",
     category: "ar-condicionado",
@@ -307,7 +308,7 @@ export const arCondicionadoProducts: Product[] = [
   {
     id: "ac-cabo-pp5",
     name: "CABO PP 5 X 1,5mm",
-    price: 10.2,
+    price: 0,
     code: "8492",
     image: "/lovable-uploads/pp5.png",
     category: "ar-condicionado",
@@ -319,7 +320,7 @@ export const arCondicionadoProducts: Product[] = [
   {
     id: "ac-disjuntor-weg",
     name: "DISJUTNOR 10A C WEG",
-    price: 14.0,
+    price: 0,
     code: "7909522567677",
     image: "/lovable-uploads/weg.png",
     category: "ar-condicionado",
@@ -329,7 +330,7 @@ export const arCondicionadoProducts: Product[] = [
   {
     id: "ac-disjuntor-schneider",
     name: "DISJUTNOR 10A B SCHNEIDER",
-    price: 24.0,
+    price: 0,
     code: "7891341466906",
     image: "/lovable-uploads/schneider.png",
     category: "ar-condicionado",
@@ -339,7 +340,7 @@ export const arCondicionadoProducts: Product[] = [
   {
     id: "ac-disjuntor-lukma",
     name: "DISJUNTOR 10A C LUKMA",
-    price: 24.0,
+    price: 0,
     code: "5418",
     image: "/lovable-uploads/lukma.png",
     category: "ar-condicionado",
@@ -350,7 +351,7 @@ export const arCondicionadoProducts: Product[] = [
   {
     id: "ac-uniao-1-4",
     name: "UNIÃO REGULAR 1/4",
-    price: 9.8,
+    price: 0,
     code: "10062",
     image: "/lovable-uploads/uniao.png",
     category: "ar-condicionado",
@@ -360,7 +361,7 @@ export const arCondicionadoProducts: Product[] = [
   {
     id: "ac-uniao-3-8",
     name: "UNIÃO REGULAR 3/8",
-    price: 20.0,
+    price: 0,
     code: "10059",
     image: "/lovable-uploads/uniao.png",
     category: "ar-condicionado",
@@ -370,7 +371,7 @@ export const arCondicionadoProducts: Product[] = [
   {
     id: "ac-uniao-1-2",
     name: "UNIÃO REGULAR 1/2",
-    price: 27.0,
+    price: 0,
     code: "10061",
     image: "/lovable-uploads/uniao.png",
     category: "ar-condicionado",
@@ -380,7 +381,7 @@ export const arCondicionadoProducts: Product[] = [
   {
     id: "ac-uniao-5-8",
     name: "UNIÃO REGULAR 5/8",
-    price: 38.0,
+    price: 0,
     code: "10060",
     image: "/lovable-uploads/uniao.png",
     category: "ar-condicionado",
@@ -390,7 +391,7 @@ export const arCondicionadoProducts: Product[] = [
   {
     id: "ac-uniao-3-4",
     name: "UNIÃO REGULAR 3/4",
-    price: 55.0,
+    price: 0,
     code: "10058",
     image: "/lovable-uploads/uniao.png",
     category: "ar-condicionado",
@@ -401,7 +402,7 @@ export const arCondicionadoProducts: Product[] = [
   {
     id: "ac-redutor-3-8-1-4",
     name: "REDUTOR 3/8 P/ 1/4",
-    price: 20.0,
+    price: 0,
     code: "12717",
     image: "/lovable-uploads/redutor.png",
     category: "ar-condicionado",
@@ -411,7 +412,7 @@ export const arCondicionadoProducts: Product[] = [
   {
     id: "ac-redutor-1-2-3-8",
     name: "REDUTOR 1/2 P/ 3/8",
-    price: 25.0,
+    price: 0,
     code: "12716",
     image: "/lovable-uploads/redutor.png",
     category: "ar-condicionado",
@@ -421,7 +422,7 @@ export const arCondicionadoProducts: Product[] = [
   {
     id: "ac-redutor-1-2-1-4",
     name: "REDUTOR 1/2 P/ 1/4",
-    price: 28.0,
+    price: 0,
     code: "12715",
     image: "/lovable-uploads/redutor.png",
     category: "ar-condicionado",
@@ -432,7 +433,7 @@ export const arCondicionadoProducts: Product[] = [
   {
     id: "ac-porca-1-4",
     name: "PORCA 1/4",
-    price: 9.5,
+    price: 0,
     code: "10054",
     image: "/lovable-uploads/porca.png",
     category: "ar-condicionado",
@@ -442,7 +443,7 @@ export const arCondicionadoProducts: Product[] = [
   {
     id: "ac-porca-3-8",
     name: "PORCA 3/8",
-    price: 9.8,
+    price: 0,
     code: "10055",
     image: "/lovable-uploads/porca.png",
     category: "ar-condicionado",
@@ -452,7 +453,7 @@ export const arCondicionadoProducts: Product[] = [
   {
     id: "ac-porca-1-2",
     name: "PORCA 1/2",
-    price: 12.0,
+    price: 0,
     code: "10051",
     image: "/lovable-uploads/porca.png",
     category: "ar-condicionado",
@@ -462,7 +463,7 @@ export const arCondicionadoProducts: Product[] = [
   {
     id: "ac-porca-5-8",
     name: "PORCA 5/8",
-    price: 29.0,
+    price: 0,
     code: "10053",
     image: "/lovable-uploads/porca.png",
     category: "ar-condicionado",
@@ -472,7 +473,7 @@ export const arCondicionadoProducts: Product[] = [
   {
     id: "ac-porca-3-4",
     name: "PORCA 3/4",
-    price: 32.0,
+    price: 0,
     code: "10052",
     image: "/lovable-uploads/porca.png",
     category: "ar-condicionado",
@@ -483,7 +484,7 @@ export const arCondicionadoProducts: Product[] = [
   {
     id: "ac-capacitor-09uf",
     name: "CAPACITOR 0,9UF 400VAC",
-    price: 20.0,
+    price: 0,
     code: "11305",
     image: "/lovable-uploads/capacitorpreto.png",
     category: "ar-condicionado",
@@ -493,7 +494,7 @@ export const arCondicionadoProducts: Product[] = [
   {
     id: "ac-capacitor-1uf",
     name: "CAPACITOR 1UF 400VAC",
-    price: 20.0,
+    price: 0,
     code: "11306",
     image: "/lovable-uploads/capacitorpreto.png",
     category: "ar-condicionado",
@@ -503,7 +504,7 @@ export const arCondicionadoProducts: Product[] = [
   {
     id: "ac-capacitor-15uf",
     name: "CAPACITOR 1,5UF 400VAC",
-    price: 20.0,
+    price: 0,
     code: "11307",
     image: "/lovable-uploads/capacitorpreto.png",
     category: "ar-condicionado",
@@ -513,7 +514,7 @@ export const arCondicionadoProducts: Product[] = [
   {
     id: "ac-capacitor-2uf",
     name: "CAPACITOR 2UF 400VAC",
-    price: 20.0,
+    price: 0,
     code: "11308",
     image: "/lovable-uploads/capacitorpreto.png",
     category: "ar-condicionado",
@@ -523,7 +524,7 @@ export const arCondicionadoProducts: Product[] = [
   {
     id: "ac-capacitor-25uf",
     name: "CAPACITOR 2,5UF 400VAC",
-    price: 20.0,
+    price: 0,
     code: "11309",
     image: "/lovable-uploads/capacitorpreto.png",
     category: "ar-condicionado",
@@ -533,7 +534,7 @@ export const arCondicionadoProducts: Product[] = [
   {
     id: "ac-capacitor-3uf",
     name: "CAPACITOR 3UF 380V",
-    price: 30.0,
+    price: 0,
     code: "12642",
     image: "/lovable-uploads/capacitor.png",
     category: "ar-condicionado",
@@ -543,7 +544,7 @@ export const arCondicionadoProducts: Product[] = [
   {
     id: "ac-capacitor-15uf-440v",
     name: "CAPACITOR 15UF 440V",
-    price: 25.0,
+    price: 0,
     code: "7899733814250",
     image: "/lovable-uploads/capacitor.png",
     category: "ar-condicionado",
@@ -553,7 +554,7 @@ export const arCondicionadoProducts: Product[] = [
   {
     id: "ac-capacitor-20uf",
     name: "CAPACITOR 20UF 380VAC",
-    price: 35.0,
+    price: 0,
     code: "11997",
     image: "/lovable-uploads/capacitor.png",
     category: "ar-condicionado",
@@ -563,7 +564,7 @@ export const arCondicionadoProducts: Product[] = [
   {
     id: "ac-capacitor-25uf-380",
     name: "CAPACITOR 25UF 380VAC",
-    price: 43.0,
+    price: 0,
     code: "11327",
     image: "/lovable-uploads/capacitor.png",
     category: "ar-condicionado",
@@ -573,7 +574,7 @@ export const arCondicionadoProducts: Product[] = [
   {
     id: "ac-capacitor-25uf-440",
     name: "CAPACITOR 25UF 440VAC",
-    price: 48.0,
+    price: 0,
     code: "11325",
     image: "/lovable-uploads/capacitor.png",
     category: "ar-condicionado",
@@ -583,7 +584,7 @@ export const arCondicionadoProducts: Product[] = [
   {
     id: "ac-capacitor-30uf-380",
     name: "CAPACITOR 30UF 380VAC",
-    price: 48.0,
+    price: 0,
     code: "11311",
     image: "/lovable-uploads/capacitor.png",
     category: "ar-condicionado",
@@ -593,7 +594,7 @@ export const arCondicionadoProducts: Product[] = [
   {
     id: "ac-capacitor-30uf-440",
     name: "CAPACITOR 30UF 440VAC",
-    price: 53.0,
+    price: 0,
     code: "11326",
     image: "/lovable-uploads/capacitor.png",
     category: "ar-condicionado",
@@ -603,7 +604,7 @@ export const arCondicionadoProducts: Product[] = [
   {
     id: "ac-capacitor-35uf",
     name: "CAPACITOR 35UF 450/380VAC",
-    price: 35.0,
+    price: 0,
     code: "11312",
     image: "/lovable-uploads/capacitor.png",
     category: "ar-condicionado",
@@ -613,7 +614,7 @@ export const arCondicionadoProducts: Product[] = [
   {
     id: "ac-capacitor-40uf",
     name: "CAPACITOR 40UF 380VAC",
-    price: 52.0,
+    price: 0,
     code: "12643",
     image: "/lovable-uploads/capacitor.png",
     category: "ar-condicionado",
@@ -623,7 +624,7 @@ export const arCondicionadoProducts: Product[] = [
   {
     id: "ac-capacitor-55uf",
     name: "CAPACITOR 55UF 380VAC",
-    price: 65.0,
+    price: 0,
     code: "11998",
     image: "/lovable-uploads/capacitor.png",
     category: "ar-condicionado",
@@ -633,7 +634,7 @@ export const arCondicionadoProducts: Product[] = [
   {
     id: "ac-capacitor-60uf",
     name: "CAPACITOR 60UF 380VAC",
-    price: 45.0,
+    price: 0,
     code: "11999",
     image: "/lovable-uploads/capacitor.png",
     category: "ar-condicionado",
@@ -643,7 +644,7 @@ export const arCondicionadoProducts: Product[] = [
   {
     id: "ac-capacitor-65uf",
     name: "CAPACITOR 65UF 380VAC",
-    price: 27.0,
+    price: 0,
     code: "12000",
     image: "/lovable-uploads/capacitor.png",
     category: "ar-condicionado",
@@ -653,7 +654,7 @@ export const arCondicionadoProducts: Product[] = [
   {
     id: "ac-capacitor-duplo-15-25",
     name: "CAPACITOR DUPLO 15 + 2,5UF 440VAC",
-    price: 39.0,
+    price: 0,
     code: "12799",
     image: "/lovable-uploads/duplo.png",
     category: "ar-condicionado",
@@ -663,7 +664,7 @@ export const arCondicionadoProducts: Product[] = [
   {
     id: "ac-capacitor-duplo-15-25-450",
     name: "CAPACITOR DUPLO 15 + 2,5UF 450VAC",
-    price: 45.0,
+    price: 0,
     code: "12485",
     image: "/lovable-uploads/duplo.png",
     category: "ar-condicionado",
@@ -673,7 +674,7 @@ export const arCondicionadoProducts: Product[] = [
   {
     id: "ac-capacitor-duplo-25-25",
     name: "CAPACITOR DUPLO 25+ 2,5UF 450V",
-    price: 45.0,
+    price: 0,
     code: "13163",
     image: "/lovable-uploads/duplo.png",
     category: "ar-condicionado",
@@ -684,7 +685,7 @@ export const arCondicionadoProducts: Product[] = [
   {
     id: "ac-canaleta-cb30",
     name: "CANALETA CB30 2M",
-    price: 0, // Price not provided in the data
+    price: 0,
     code: "12651",
     image: "/lovable-uploads/canaleta.png",
     category: "ar-condicionado",
@@ -694,7 +695,7 @@ export const arCondicionadoProducts: Product[] = [
   {
     id: "ac-canaleta-cb60",
     name: "CANALETA CB60 2M",
-    price: 0, // Price not provided in the data
+    price: 0,
     code: "12652",
     image: "/lovable-uploads/canaleta.png",
     category: "ar-condicionado",
@@ -704,7 +705,7 @@ export const arCondicionadoProducts: Product[] = [
   {
     id: "ac-terminal-cb30",
     name: "TERMINAL ACABAMENTO CB30",
-    price: 38.0,
+    price: 0,
     code: "12645",
     image: "/lovable-uploads/terminalacabamento.png",
     category: "ar-condicionado",
@@ -714,7 +715,7 @@ export const arCondicionadoProducts: Product[] = [
   {
     id: "ac-terminal-cb60",
     name: "TERMINAL ACABAMENTO CB60",
-    price: 55.0,
+    price: 0,
     code: "12649",
     image: "/lovable-uploads/terminalacabamento.png",
     category: "ar-condicionado",
@@ -724,7 +725,7 @@ export const arCondicionadoProducts: Product[] = [
   {
     id: "ac-curva-interna-cb60",
     name: "CURVA ANG. INTERNO CB60",
-    price: 13.0,
+    price: 0,
     code: "12647",
     image: "/lovable-uploads/curvainterna.png",
     category: "ar-condicionado",
@@ -734,7 +735,7 @@ export const arCondicionadoProducts: Product[] = [
   {
     id: "ac-passagem-parede-cb60",
     name: "PASSAGEM DE PAREDE CB60",
-    price: 15.0,
+    price: 0,
     code: "12649",
     image: "/lovable-uploads/passagemparede.png",
     category: "ar-condicionado",
@@ -744,7 +745,7 @@ export const arCondicionadoProducts: Product[] = [
   {
     id: "ac-curva-regulavel-cb60",
     name: "CURVA PLANA REGULÁVEL CB60",
-    price: 21.0,
+    price: 0,
     code: "12646",
     image: "/lovable-uploads/curvaregulavel.png",
     category: "ar-condicionado",
@@ -754,7 +755,7 @@ export const arCondicionadoProducts: Product[] = [
   {
     id: "ac-caixa-passagem-dreno-1",
     name: "CAIXA DE PASSAGEM PARA DRENO",
-    price: 23.0,
+    price: 0,
     code: "7899611800016",
     image: "/lovable-uploads/passagemdreno.png",
     category: "ar-condicionado",
@@ -764,7 +765,7 @@ export const arCondicionadoProducts: Product[] = [
   {
     id: "ac-caixa-passagem-dreno-2",
     name: "CAIXA DE PASSAGEM PARA DRENO",
-    price: 25.0,
+    price: 0,
     code: "789961180047",
     image: "/lovable-uploads/passagemdreno.png",
     category: "ar-condicionado",
@@ -775,7 +776,7 @@ export const arCondicionadoProducts: Product[] = [
   {
     id: "ac-serra-copo-32mm",
     name: "SERRA COPO AÇO RÁPIDO 32MM 1.1/4",
-    price: 20.0,
+    price: 0,
     code: "6883",
     image: "/lovable-uploads/serracopo32mm.png",
     category: "ar-condicionado",
@@ -785,7 +786,7 @@ export const arCondicionadoProducts: Product[] = [
   {
     id: "ac-serra-copo-40mm",
     name: "SERRA COPO DIAMANTADA 40MM ASTE 175MM",
-    price: 100.0,
+    price: 0,
     code: "7899807214153",
     image: "/lovable-uploads/serracopo40mm.png",
     category: "ar-condicionado",
@@ -795,7 +796,7 @@ export const arCondicionadoProducts: Product[] = [
   {
     id: "ac-serra-copo-53mm",
     name: "SERRA COPO DIAMANTADA 53MM",
-    price: 268.0,
+    price: 0,
     code: "7897143401442",
     image: "/lovable-uploads/serracopo53mm.png",
     category: "ar-condicionado",
@@ -805,7 +806,7 @@ export const arCondicionadoProducts: Product[] = [
   {
     id: "ac-flangeador",
     name: "FLANGEADOR PARA TUBO DE COBRE",
-    price: 132.0,
+    price: 0,
     code: "7895315001131",
     image: "/lovable-uploads/flangeador.png",
     category: "ar-condicionado",
