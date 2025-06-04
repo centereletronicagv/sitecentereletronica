@@ -57,18 +57,15 @@ export default function Hero() {
             </div>
           </div>
           
-          <div className="md:w-2/5 rounded-lg overflow-hidden shadow-2xl mt-2 md:mt-0 h-auto relative group" style={{minHeight: '200px'}}>
+          <div className="md:w-2/5 rounded-lg overflow-hidden shadow-2xl mt-2 md:mt-0 h-auto relative" style={{minHeight: '200px'}}>
             {/* Placeholder/skeleton */}
             <div className={`absolute inset-0 bg-[#252525] animate-pulse ${isImageLoaded ? 'opacity-0' : 'opacity-100'} transition-opacity`}></div>
-            
-            {/* Orange glow effect */}
-            <div className="absolute -inset-0.5 bg-gradient-to-r from-center-orange to-center-orangeLight opacity-75 blur-sm group-hover:opacity-100 group-hover:blur transition duration-1000 group-hover:duration-200 animate-pulse"></div>
             
             <div className="relative rounded-lg overflow-hidden border border-gray-700/50">
               <img 
                 src="/lovable-uploads/00b83df6-8857-4892-a9a5-37085b5cf813.png" 
                 alt="Loja Center Eletrônica" 
-                className={`w-full h-auto object-cover rounded-lg transition-all duration-500 group-hover:scale-105 ${isImageLoaded ? 'opacity-100' : 'opacity-0'}`}
+                className={`w-full h-auto object-cover rounded-lg transition-all duration-500 hover:scale-105 ${isImageLoaded ? 'opacity-100' : 'opacity-0'}`}
                 width="500"
                 height="350"
                 style={{
@@ -78,12 +75,6 @@ export default function Hero() {
               />
               
               <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
-              
-              <div className="absolute bottom-0 left-0 p-3 md:p-4">
-                <span className="text-xs md:text-sm text-gray-300 bg-black/50 backdrop-blur-sm px-2 py-1 rounded-md">
-                  Nossa Loja Física
-                </span>
-              </div>
             </div>
           </div>
         </div>
