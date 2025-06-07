@@ -20,28 +20,26 @@ export default function Hero() {
       <div className="absolute inset-0 bg-[#181818] bg-opacity-20 z-0"></div>
       
       <div className="container-custom relative z-10">
-        <div className="flex flex-col md:flex-row gap-4 md:gap-8 items-center">
-          <div className="flex flex-col gap-2 md:gap-4 md:max-w-2xl">
-            {/* Removed the orange line and "Center Eletrônica" text that was here */}
-            
-            <h1 className="text-3xl md:text-5xl font-display font-bold tracking-tight">
+        <div className="flex flex-col md:flex-row gap-6 md:gap-12 items-center min-h-[400px]">
+          <div className="flex flex-col gap-4 md:gap-6 md:max-w-2xl flex-1">
+            <h1 className="text-3xl md:text-5xl lg:text-6xl font-display font-bold tracking-tight leading-tight">
               Center <span className="text-center-orange">Eletrônica</span> 
               <span className="relative inline-block">
-                <span className="absolute -bottom-1 left-0 w-full h-1 bg-center-orange opacity-30 rounded-full"></span>
+                <span className="absolute -bottom-2 left-0 w-full h-1 bg-center-orange opacity-30 rounded-full"></span>
               </span>
             </h1>
             
-            <p className="text-sm md:text-lg text-gray-300 max-w-2xl">
+            <p className="text-base md:text-lg lg:text-xl text-gray-300 max-w-2xl leading-relaxed">
               Aqui você encontra uma ampla linha de produtos Elétricos, Eletrônicos, de Automação e Informática, selecionados com rigor para garantir qualidade, inovação e desempenho. Trabalhamos com as melhores marcas do mercado, oferecendo soluções completas com preços acessíveis.
             </p>
             
-            <div className="flex flex-wrap gap-2 md:gap-3 mt-1 md:mt-2">
+            <div className="flex flex-wrap gap-3 md:gap-4 mt-4 md:mt-6">
               <Link 
                 to="/categoria/ar-condicionado" 
-                className="btn-primary flex items-center gap-1 text-xs md:text-base py-1.5 md:py-2.5 px-3 md:px-5 group"
+                className="btn-primary flex items-center gap-2 text-sm md:text-base py-3 md:py-3 px-6 md:px-8 group font-medium"
               >
                 Ver Produtos
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="transition-transform duration-300 group-hover:translate-x-1">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="transition-transform duration-300 group-hover:translate-x-1">
                   <path d="M5 12h14" />
                   <path d="m12 5 7 7-7 7" />
                 </svg>
@@ -49,19 +47,19 @@ export default function Hero() {
               
               <Link 
                 to="/categoria/ar-condicionado" 
-                className="inline-flex items-center gap-1 px-3 md:px-5 py-1.5 md:py-2.5 text-white bg-[#252525] hover:bg-[#333333] rounded-md transition-colors text-xs md:text-base group"
+                className="inline-flex items-center gap-2 px-6 md:px-8 py-3 md:py-3 text-white bg-[#252525] hover:bg-[#333333] rounded-md transition-colors text-sm md:text-base group font-medium border border-[#333333] hover:border-[#404040]"
               >
                 Faça seu pedido
-                <ArrowRight size={14} className="md:w-4 md:h-4 transition-transform duration-300 group-hover:translate-x-1" />
+                <ArrowRight size={16} className="transition-transform duration-300 group-hover:translate-x-1" />
               </Link>
             </div>
           </div>
           
-          <div className="md:w-2/5 rounded-lg overflow-hidden shadow-2xl mt-2 md:mt-0 h-auto relative" style={{minHeight: '200px'}}>
+          <div className="md:w-2/5 lg:w-1/3 rounded-lg overflow-hidden shadow-2xl mt-4 md:mt-0 h-auto relative flex-shrink-0" style={{minHeight: '250px'}}>
             {/* Placeholder/skeleton */}
             <div className={`absolute inset-0 bg-[#252525] animate-pulse ${isImageLoaded ? 'opacity-0' : 'opacity-100'} transition-opacity`}></div>
             
-            <div className="relative rounded-lg overflow-hidden border border-gray-700/50">
+            <div className="relative rounded-lg overflow-hidden border border-gray-700/50 hover:border-gray-600/60 transition-colors">
               <img 
                 src="/lovable-uploads/00b83df6-8857-4892-a9a5-37085b5cf813.png" 
                 alt="Loja Center Eletrônica" 
@@ -74,7 +72,7 @@ export default function Hero() {
                 }}
               />
               
-              <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
+              <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent"></div>
             </div>
           </div>
         </div>

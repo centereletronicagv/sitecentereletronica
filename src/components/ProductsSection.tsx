@@ -1,3 +1,4 @@
+
 import { useEffect, useState } from 'react';
 import { ArrowRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
@@ -82,13 +83,29 @@ const ProductsSection = ({ searchQuery = '', category }: ProductsSectionProps) =
     'Produtos Destacados';
 
   return (
-    <div className="py-12 md:py-16">
-      <div className="container">
-        <div className="flex justify-between items-center mb-8">
-          <h2 className="text-2xl md:text-3xl font-bold">{sectionTitle}</h2>
-          {!searchQuery && !category && (
-            <Link to="/produtos" className="flex items-center text-primary hover:underline">
-              Ver todos <ArrowRight className="ml-2 h-4 w-4" />
+    <section className="py-12 md:py-20">
+      <div className="container-custom">
+        <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 md:mb-12 gap-4">
+          <div>
+            <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold font-display text-white mb-2">
+              {sectionTitle}
+            </h2>
+            <p className="text-gray-400 text-sm md:text-base">
+              {searchQuery 
+                ? `${filteredProducts.length} produto(s) encontrado(s)` 
+                : category 
+                  ? `Explore nossa seleção de ${categoryLabels[category]?.toLowerCase() || category}`
+                  : 'Confira nossa seleção especial de produtos'
+              }
+            </p>
+          </div>
+          {!searchQuery && !category && filteredProducts.length > 0 && (
+            <Link 
+              to="/produtos" 
+              className="flex items-center gap-2 text-center-orange hover:text-center-orangeLight transition-colors text-sm md:text-base font-medium group"
+            >
+              Ver todos 
+              <ArrowRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" />
             </Link>
           )}
         </div>
@@ -96,13 +113,26 @@ const ProductsSection = ({ searchQuery = '', category }: ProductsSectionProps) =
         <ProductGrid products={filteredProducts} />
         
         {filteredProducts.length === 0 && (
-          <div className="text-center py-12">
-            <p className="text-lg text-gray-500">Nenhum produto encontrado.</p>
-            <p className="mt-2">Tente uma nova pesquisa ou navegue por nossas categorias.</p>
+          <div className="text-center py-16 md:py-20">
+            <div className="max-w-md mx-auto">
+              <h3 className="text-xl md:text-2xl font-medium text-white mb-4">
+                Nenhum produto encontrado
+              </h3>
+              <p className="text-gray-400 mb-8 text-sm md:text-base leading-relaxed">
+                Tente uma nova pesquisa ou navegue por nossas categorias para encontrar o que você precisa.
+              </p>
+              <Link 
+                to="/" 
+                className="btn-primary inline-flex items-center gap-2"
+              >
+                Voltar ao início
+                <ArrowRight className="w-4 h-4" />
+              </Link>
+            </div>
           </div>
         )}
       </div>
-    </div>
+    </section>
   );
 };
 
