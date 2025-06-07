@@ -83,7 +83,7 @@ const ProductsSection = ({ searchQuery = '', category }: ProductsSectionProps) =
     'Produtos Destacados';
 
   return (
-    <section className="py-12 md:py-20">
+    <section className="py-6 md:py-12">
       <div className="container-custom">
         <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 md:mb-12 gap-4">
           <div>
