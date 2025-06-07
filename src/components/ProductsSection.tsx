@@ -83,9 +83,9 @@ const ProductsSection = ({ searchQuery = '', category }: ProductsSectionProps) =
     'Produtos Destacados';
 
   return (
-    <section className="py-6 md:py-12">
+    <section className="py-2 md:py-6">
       <div className="container-custom">
-        <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 md:mb-12 gap-4">
+        <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-6 md:mb-8 gap-4">
           <div>
             <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold font-display text-white mb-2">
               {sectionTitle}
