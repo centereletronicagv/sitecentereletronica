@@ -8,7 +8,6 @@ import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
 import { ThemeProvider } from "./hooks/useTheme";
 import CategoryPage from "./pages/CategoryPage";
-import { CartProvider } from "./context/CartContext";
 import FavoritesPage from "./pages/FavoritesPage";
 
 // Create a custom scrollToTop function
