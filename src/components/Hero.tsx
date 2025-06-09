@@ -33,13 +33,13 @@ export default function Hero() {
               Aqui você encontra uma ampla linha de produtos Elétricos, Eletrônicos, de Automação e Informática, selecionados com rigor para garantir qualidade, inovação e desempenho. Trabalhamos com as melhores marcas do mercado, oferecendo soluções completas com preços acessíveis.
             </p>
             
-            <div className="flex flex-wrap gap-3 md:gap-4 mt-4 md:mt-6">
+            <div className="flex flex-col sm:flex-row gap-2 sm:gap-3 md:gap-4 mt-4 md:mt-6">
               <Link 
                 to="/categoria/ar-condicionado" 
-                className="btn-primary flex items-center gap-2 text-sm md:text-base py-3 md:py-3 px-6 md:px-8 group font-medium"
+                className="btn-primary flex items-center justify-center gap-2 text-xs sm:text-sm md:text-base py-2.5 sm:py-3 md:py-3 px-4 sm:px-6 md:px-8 group font-medium"
               >
                 Ver Produtos
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="transition-transform duration-300 group-hover:translate-x-1">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="transition-transform duration-300 group-hover:translate-x-1">
                   <path d="M5 12h14" />
                   <path d="m12 5 7 7-7 7" />
                 </svg>
@@ -47,10 +47,10 @@ export default function Hero() {
               
               <Link 
                 to="/categoria/ar-condicionado" 
-                className="inline-flex items-center gap-2 px-6 md:px-8 py-3 md:py-3 text-white bg-[#252525] hover:bg-[#333333] rounded-md transition-colors text-sm md:text-base group font-medium border border-[#333333] hover:border-[#404040]"
+                className="inline-flex items-center justify-center gap-2 px-4 sm:px-6 md:px-8 py-2.5 sm:py-3 md:py-3 text-white bg-[#252525] hover:bg-[#333333] rounded-md transition-colors text-xs sm:text-sm md:text-base group font-medium border border-[#333333] hover:border-[#404040]"
               >
                 Faça seu pedido
-                <ArrowRight size={16} className="transition-transform duration-300 group-hover:translate-x-1" />
+                <ArrowRight size={14} className="transition-transform duration-300 group-hover:translate-x-1" />
               </Link>
             </div>
           </div>
