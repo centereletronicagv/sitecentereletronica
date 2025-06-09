@@ -54,11 +54,10 @@ export default function CategorySection() {
         
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
           {categories.map((category) => (
-            <div key={category.id} className="aspect-square h-full">
+            <div key={category.id} className="flex flex-col gap-3">
               <Link
                 to={`/?category=${category.id}`}
-                className="flex flex-col items-center justify-center p-4 rounded-xl bg-[#1e1e1e] border border-[#3d3d3d] hover:border-center-orange transition-all duration-300 hover:shadow-lg group h-full transform hover:-translate-y-1 relative overflow-hidden"
-                style={{ height: "100%" }}
+                className="flex flex-col items-center justify-center p-4 rounded-xl bg-[#1e1e1e] border border-[#3d3d3d] hover:border-center-orange transition-all duration-300 hover:shadow-lg group transform hover:-translate-y-1 relative overflow-hidden aspect-square"
               >
                 {/* Subtle gradient background */}
                 <div className="absolute inset-0 bg-gradient-to-br from-[#1e1e1e] to-[#252525] opacity-80"></div>
@@ -77,9 +76,10 @@ export default function CategorySection() {
                   </span>
                 </div>
               </Link>
-              {/* Only show download button on desktop */}
+              
+              {/* Show download button on desktop with improved styling */}
               {!isMobile && (
-                <div className="mt-3">
+                <div className="px-1">
                   <DownloadCategoryButton 
                     products={allProducts.filter(product => product.category === category.id)}
                     categoryName={category.name}

@@ -67,16 +67,15 @@ const MobileCategoryDrawer = ({ open, onOpenChange }: MobileCategoryDrawerProps)
           </DrawerClose>
         </DrawerHeader>
         <div className="p-4">
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 gap-4">
             {categories.map((category) => (
-              <div key={category.id} className="flex flex-col gap-2 h-full">
+              <div key={category.id} className="flex gap-3 items-center">
                 <button
                   onClick={() => handleCategorySelect(category.id)}
-                  className="flex flex-col items-center justify-center p-4 rounded-xl bg-[#2A2A2A] border border-[#3d3d3d] hover:border-center-orange transition-all duration-300 h-full group"
-                  style={{ minHeight: "120px" }}
+                  className="flex items-center gap-3 p-4 rounded-xl bg-[#2A2A2A] border border-[#3d3d3d] hover:border-center-orange transition-all duration-300 flex-1 group"
                 >
                   <div
-                    className={`${category.color} ${category.hoverColor} p-3 rounded-full text-white mb-3 shadow-md group-hover:scale-110 transition-transform duration-300`}
+                    className={`${category.color} ${category.hoverColor} p-2.5 rounded-full text-white shadow-md group-hover:scale-110 transition-transform duration-300`}
                   >
                     {category.icon}
                   </div>
@@ -85,10 +84,12 @@ const MobileCategoryDrawer = ({ open, onOpenChange }: MobileCategoryDrawerProps)
                   </span>
                 </button>
                 
-                <DownloadCategoryButton 
-                  products={allProducts.filter(product => product.category === category.id)}
-                  categoryName={category.name}
-                />
+                <div className="w-[120px]">
+                  <DownloadCategoryButton 
+                    products={allProducts.filter(product => product.category === category.id)}
+                    categoryName={category.name}
+                  />
+                </div>
               </div>
             ))}
           </div>
