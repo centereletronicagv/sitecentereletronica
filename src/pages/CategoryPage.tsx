@@ -183,17 +183,15 @@ export default function CategoryPage() {
           <motion.div 
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
-            className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4 mb-8"
+            className="flex flex-col gap-2 mb-8"
           >
-            <div className="flex flex-col gap-2">
-              <h1 className="text-3xl md:text-4xl font-bold text-white tracking-tight">
-                {slug && slug in categoryLabels ? categoryLabels[slug] : 'Todos os Produtos'}
-              </h1>
-              <p className="text-gray-400">Encontre os melhores produtos para seu projeto</p>
-            </div>
+            <h1 className="text-3xl md:text-4xl font-bold text-white tracking-tight">
+              {slug && slug in categoryLabels ? categoryLabels[slug] : 'Todos os Produtos'}
+            </h1>
+            <p className="text-gray-400">Encontre os melhores produtos para seu projeto</p>
             
             {slug && (
-              <div className="lg:flex-shrink-0">
+              <div className="mt-4 max-w-xs">
                 <DownloadCategoryButton 
                   products={products} 
                   categoryName={slug && slug in categoryLabels ? categoryLabels[slug] : 'Todos'}
