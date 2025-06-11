@@ -380,40 +380,52 @@ export default function Navbar() {
       <MobileCategoryDrawer open={isCategoryDrawerOpen} onOpenChange={setIsCategoryDrawerOpen} />
 
       <Dialog open={isMobileSearchOpen} onOpenChange={setIsMobileSearchOpen}>
-        <DialogContent className="sm:max-w-md border-[#333333] bg-[#1E1E1E] p-0 overflow-hidden">
-          <div className="p-4">
-            <form onSubmit={handleSearch} className="relative">
-              <Input
-                type="search"
-                placeholder="O que você procura hoje?"
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                className="pr-12 w-full bg-[#252525] border-[#3a3a3a] text-white focus-visible:ring-center-orange placeholder:text-gray-400"
-                autoFocus
-              />
-              <button 
-                type="submit"
-                className="absolute right-0 top-0 h-full px-3 flex items-center justify-center text-gray-400 hover:text-center-orange"
-              >
-                <Search size={20} />
-              </button>
-            </form>
+        <DialogContent className="sm:max-w-md border-[#333333] bg-[#1E1E1E] p-0 overflow-hidden m-4 max-h-[90vh]">
+          <div className="relative">
+            <button
+              onClick={() => setIsMobileSearchOpen(false)}
+              className="absolute top-3 right-3 z-10 p-2 rounded-full bg-[#333333] text-gray-300 hover:text-white transition-colors"
+              aria-label="Fechar busca"
+            >
+              <X size={18} />
+            </button>
+            
+            <div className="p-6 pr-16">
+              <h3 className="text-lg font-semibold text-white mb-4">O que você procura hoje?</h3>
+              
+              <form onSubmit={handleSearch} className="relative mb-6">
+                <Input
+                  type="search"
+                  placeholder="Digite aqui para buscar..."
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  className="pl-4 pr-12 py-3 w-full bg-[#252525] border-[#3a3a3a] border-2 text-white focus-visible:ring-center-orange focus-visible:border-center-orange placeholder:text-gray-400 rounded-lg"
+                  autoFocus
+                />
+                <button 
+                  type="submit"
+                  className="absolute right-2 top-1/2 -translate-y-1/2 p-2 flex items-center justify-center text-gray-400 hover:text-center-orange transition-colors bg-[#333333] rounded-md"
+                >
+                  <Search size={18} />
+                </button>
+              </form>
 
-            <div className="mt-6">
-              <h4 className="text-sm font-medium text-gray-300 mb-2">Pesquisas populares:</h4>
-              <div className="flex flex-wrap gap-2">
-                {['Capacitor', 'Tubulação', 'Disjuntor', 'Suporte', 'Fita'].map((term) => (
-                  <button
-                    key={term}
-                    onClick={() => {
-                      setSearchQuery(term);
-                      handleSearch(new Event('submit') as unknown as FormEvent);
-                    }}
-                    className="px-3 py-1 bg-[#252525] hover:bg-[#333333] text-gray-300 text-xs rounded-full transition-colors"
-                  >
-                    {term}
-                  </button>
-                ))}
+              <div>
+                <h4 className="text-sm font-medium text-gray-300 mb-3">Pesquisas populares:</h4>
+                <div className="flex flex-wrap gap-2">
+                  {['Capacitor', 'Tubulação', 'Disjuntor', 'Suporte', 'Fita'].map((term) => (
+                    <button
+                      key={term}
+                      onClick={() => {
+                        setSearchQuery(term);
+                        handleSearch(new Event('submit') as unknown as FormEvent);
+                      }}
+                      className="px-4 py-2 bg-[#252525] hover:bg-center-orange hover:text-white text-gray-300 text-sm rounded-full transition-all duration-200 border border-[#3a3a3a] hover:border-center-orange"
+                    >
+                      {term}
+                    </button>
+                  ))}
+                </div>
               </div>
             </div>
           </div>
