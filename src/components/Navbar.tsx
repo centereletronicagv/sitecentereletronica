@@ -1,3 +1,4 @@
+
 import { useState, useEffect, FormEvent } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { Menu, X, Search, Wind, Plug, Terminal, Router, ChevronDown, ChevronRight, ShoppingCart, Grid2X2 } from 'lucide-react';
@@ -380,7 +381,7 @@ export default function Navbar() {
       <MobileCategoryDrawer open={isCategoryDrawerOpen} onOpenChange={setIsCategoryDrawerOpen} />
 
       <Dialog open={isMobileSearchOpen} onOpenChange={setIsMobileSearchOpen}>
-        <DialogContent className="sm:max-w-md border-[#333333] bg-[#1E1E1E] p-0 overflow-hidden m-4 max-h-[90vh]">
+        <DialogContent className="sm:max-w-md border-[#333333] bg-[#1E1E1E] p-0 overflow-hidden mx-auto my-auto max-h-[90vh] top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%]">
           <div className="relative">
             <button
               onClick={() => setIsMobileSearchOpen(false)}
