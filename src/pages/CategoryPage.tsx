@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from 'react';
 import { useParams, useSearchParams } from 'react-router-dom';
 import Navbar from '../components/Navbar';
@@ -178,7 +179,7 @@ export default function CategoryPage() {
     <div className="flex flex-col min-h-screen bg-[#151515]">
       <Navbar />
       <main className="flex-grow">
-        <div className="container py-6">
+        <div className="container py-8">
           <motion.div 
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
