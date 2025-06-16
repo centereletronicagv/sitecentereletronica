@@ -1,4 +1,3 @@
-
 import { useState, useEffect, FormEvent } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { Menu, X, Search, Wind, Plug, Terminal, Router, ChevronDown, ChevronRight, ShoppingCart, Grid2X2 } from 'lucide-react';
@@ -6,8 +5,10 @@ import { Input } from './ui/input';
 import { useCart } from '@/context/CartContext';
 import CartModal from './CartModal';
 import MobileCategoryDrawer from './MobileCategoryDrawer';
+import { DownloadCategoryButton } from './DownloadCategoryButton';
 import { Dialog, DialogContent } from '@/components/ui/dialog';
 import { useIsMobile } from '@/hooks/use-mobile';
+import { products as allProducts } from '@/data/products';
 import { 
   Collapsible,
   CollapsibleContent,
@@ -63,6 +64,13 @@ const navLinks: NavLink[] = [
   { name: 'Contato', href: '#contact' },  // Changed to use hash link for smooth scrolling
 ];
 
+const categoryLabels: Record<string, string> = {
+  'instalacoes-eletricas': 'Instalações Elétricas',
+  'terminais': 'Terminais e Conectores',
+  'automacao': 'Automação',
+  'ar-condicionado': 'Ar Condicionado',
+};
+
 export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
@@ -75,6 +83,16 @@ export default function Navbar() {
   const navigate = useNavigate();
   const { getTotalItems } = useCart();
   const isMobile = useIsMobile();
+
+  // Check if we're on a category page to show download button
+  const getCurrentCategory = () => {
+    const pathMatch = location.pathname.match(/^\/categoria\/([^/]+)/);
+    return pathMatch ? pathMatch[1] : null;
+  };
+
+  const currentCategory = getCurrentCategory();
+  const categoryProducts = currentCategory ? allProducts.filter(product => product.category === currentCategory) : [];
+  const categoryDisplayName = currentCategory && currentCategory in categoryLabels ? categoryLabels[currentCategory] : currentCategory;
 
   useEffect(() => {
     const handleScroll = () => {
@@ -196,6 +214,16 @@ export default function Navbar() {
             </div>
 
             <div className="hidden md:flex items-center gap-6">
+              {currentCategory && categoryProducts.length > 0 && (
+                <div className="hidden lg:block">
+                  <DownloadCategoryButton 
+                    products={categoryProducts}
+                    categoryName={categoryDisplayName || currentCategory}
+                    variant="compact"
+                  />
+                </div>
+              )}
+              
               <a 
                 href="tel:5499270560" 
                 className="flex items-center gap-1.5 text-gray-300 hover:text-center-orange transition-colors"
@@ -220,6 +248,16 @@ export default function Navbar() {
             </div>
 
             <div className="flex items-center gap-2 md:hidden">
+              {currentCategory && categoryProducts.length > 0 && (
+                <div className="mr-1">
+                  <DownloadCategoryButton 
+                    products={categoryProducts}
+                    categoryName={categoryDisplayName || currentCategory}
+                    variant="compact"
+                  />
+                </div>
+              )}
+              
               <button 
                 className="p-1.5 text-gray-300 bg-[#333333] rounded-full"
                 onClick={() => setIsCategoryDrawerOpen(true)}

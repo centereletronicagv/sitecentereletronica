@@ -11,7 +11,6 @@ import { useIsMobile } from '@/hooks/use-mobile';
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger, DropdownMenuCheckboxItem } from "@/components/ui/dropdown-menu";
 import { Product } from '../types';
 import { products as allProducts } from '../data/products';
-import { DownloadCategoryButton } from '@/components/DownloadCategoryButton';
 
 const categoryLabels: Record<string, string> = {
   'instalacoes-eletricas': 'Instalações Elétricas',
