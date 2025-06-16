@@ -11,7 +11,6 @@ import { useIsMobile } from '@/hooks/use-mobile';
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger, DropdownMenuCheckboxItem } from "@/components/ui/dropdown-menu";
 import { Product } from '../types';
 import { products as allProducts } from '../data/products';
-import { DownloadCategoryButton } from '@/components/DownloadCategoryButton';
 
 const categoryLabels: Record<string, string> = {
   'instalacoes-eletricas': 'Instalações Elétricas',
@@ -179,29 +178,20 @@ export default function CategoryPage() {
     <div className="flex flex-col min-h-screen bg-[#151515]">
       <Navbar />
       <main className="flex-grow">
-        <div className="container py-12">
+        <div className="container py-6">
           <motion.div 
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
-            className="flex flex-col gap-2 mb-8"
+            className="flex flex-col gap-2 mb-6"
           >
             <h1 className="text-3xl md:text-4xl font-bold text-white tracking-tight">
               {slug && slug in categoryLabels ? categoryLabels[slug] : 'Todos os Produtos'}
             </h1>
             <p className="text-gray-400">Encontre os melhores produtos para seu projeto</p>
-            
-            {slug && (
-              <div className="mt-4 max-w-xs">
-                <DownloadCategoryButton 
-                  products={products} 
-                  categoryName={slug && slug in categoryLabels ? categoryLabels[slug] : 'Todos'}
-                />
-              </div>
-            )}
           </motion.div>
           
           {subcategories.length > 0 && (
-            <div className="mb-6">
+            <div className="mb-4">
               <div className="flex items-center justify-between flex-wrap gap-2 mb-3">
                 <h2 className="text-lg text-white font-medium flex items-center gap-2">
                   <Tag size={16} className="text-center-orange" />
@@ -239,7 +229,7 @@ export default function CategoryPage() {
             </div>
           )}
           
-          <div className="lg:hidden flex justify-between items-center mb-6">
+          <div className="lg:hidden flex justify-between items-center mb-4">
             <div className="text-gray-400 text-sm flex items-center">
               <span>Mostrando</span>
               <span className="font-semibold text-white mx-1">{products.length}</span>
@@ -255,11 +245,11 @@ export default function CategoryPage() {
             </button>
           </div>
           
-          <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
+          <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
             <motion.div 
               initial={{ opacity: 0, x: -20 }}
               animate={{ opacity: 1, x: 0 }}
-              className={`lg:col-span-1 space-y-8 ${showFilters ? 'block' : 'hidden lg:block'}`}
+              className={`lg:col-span-1 space-y-6 ${showFilters ? 'block' : 'hidden lg:block'}`}
             >
               <div className="bg-gradient-to-b from-[#1E1E1E] to-[#232323] p-6 rounded-xl border border-[#333333] shadow-lg">
                 <div className="flex items-center gap-2 mb-4">
@@ -335,7 +325,7 @@ export default function CategoryPage() {
               animate={{ opacity: 1, y: 0 }}
               className="lg:col-span-3"
             >
-              <div className="flex items-center justify-between mb-6 bg-[#1E1E1E] p-4 rounded-xl border border-[#333333]">
+              <div className="flex items-center justify-between mb-4 bg-[#1E1E1E] p-4 rounded-xl border border-[#333333]">
                 <p className="text-gray-400 text-sm hidden md:block">
                   Mostrando <span className="font-medium text-white">{products.length}</span> produto(s)
                 </p>
