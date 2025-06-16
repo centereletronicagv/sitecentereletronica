@@ -1,4 +1,3 @@
-
 import { useState, useEffect, FormEvent } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { Menu, X, Search, Wind, Plug, Terminal, Router, ChevronDown, ChevronRight, ShoppingCart, Grid2X2 } from 'lucide-react';
@@ -8,6 +7,8 @@ import CartModal from './CartModal';
 import MobileCategoryDrawer from './MobileCategoryDrawer';
 import { Dialog, DialogContent } from '@/components/ui/dialog';
 import { useIsMobile } from '@/hooks/use-mobile';
+import { DownloadCategoryButton } from './DownloadCategoryButton';
+import { products as allProducts } from '@/data/products';
 import { 
   Collapsible,
   CollapsibleContent,
@@ -60,8 +61,27 @@ const navLinks: NavLink[] = [
       { name: 'Controladores', href: '/categoria/automacao/controladores' },
     ]
   },
-  { name: 'Contato', href: '#contact' },  // Changed to use hash link for smooth scrolling
+  { name: 'Contato', href: '#contact' },
 ];
+
+// Helper function to get category info from URL
+const getCategoryInfo = (pathname: string) => {
+  const categoryMatch = pathname.match(/\/categoria\/([^/]+)/);
+  if (!categoryMatch) return null;
+  
+  const categoryId = categoryMatch[1];
+  const categoryMap: { [key: string]: string } = {
+    'ar-condicionado': 'Ar Condicionado',
+    'instalacoes-eletricas': 'Instalações Elétricas',
+    'terminais': 'Terminais e Conectores',
+    'automacao': 'Automação'
+  };
+  
+  return {
+    id: categoryId,
+    name: categoryMap[categoryId] || categoryId
+  };
+};
 
 export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -75,6 +95,9 @@ export default function Navbar() {
   const navigate = useNavigate();
   const { getTotalItems } = useCart();
   const isMobile = useIsMobile();
+
+  // Get current category info
+  const currentCategory = getCategoryInfo(location.pathname);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -126,7 +149,6 @@ export default function Navbar() {
   const handleCategoryClick = (link: NavLink) => {
     if (!link.subCategories || link.name === 'Início' || link.name === 'Contato') {
       if (link.name === 'Contato') {
-        // Handle contact link click - smooth scroll to contact section
         scrollToContact();
       } else {
         navigate(link.href);
@@ -138,13 +160,11 @@ export default function Navbar() {
     }
   };
   
-  // Function to scroll to contact section
   const scrollToContact = () => {
     const contactSection = document.getElementById('contact');
     if (contactSection) {
       contactSection.scrollIntoView({ behavior: 'smooth' });
     } else {
-      // If we're not on the home page, navigate to home with the contact hash
       navigate('/#contact');
     }
     setIsMenuOpen(false);
@@ -196,12 +216,21 @@ export default function Navbar() {
             </div>
 
             <div className="hidden md:flex items-center gap-6">
-              <a 
-                href="tel:5499270560" 
-                className="flex items-center gap-1.5 text-gray-300 hover:text-center-orange transition-colors"
-              >
-                <span className="text-sm font-medium">54 9927-0560</span>
-              </a>
+              <div className="flex items-center gap-4">
+                <a 
+                  href="tel:5499270560" 
+                  className="flex items-center gap-1.5 text-gray-300 hover:text-center-orange transition-colors"
+                >
+                  <span className="text-sm font-medium">54 9927-0560</span>
+                </a>
+                
+                {currentCategory && (
+                  <DownloadCategoryButton 
+                    products={allProducts.filter(product => product.category === currentCategory.id)}
+                    categoryName={currentCategory.name}
+                  />
+                )}
+              </div>
               
               <div className="flex items-center gap-5">
                 <button
@@ -348,6 +377,17 @@ export default function Navbar() {
                 </div>
               ))}
             </div>
+            
+            {currentCategory && (
+              <div className="mt-4 pt-4 border-t border-[#333333]">
+                <div className="px-4">
+                  <DownloadCategoryButton 
+                    products={allProducts.filter(product => product.category === currentCategory.id)}
+                    categoryName={currentCategory.name}
+                  />
+                </div>
+              </div>
+            )}
             
             <div className="mt-4 pt-4 border-t border-[#333333]">
               <button

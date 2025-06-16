@@ -27,7 +27,8 @@ export function DownloadCategoryButton({ products, categoryName }: DownloadCateg
       onClick={handleDownload}
       variant="default"
       disabled={loading}
-      className={`w-full ${loading ? 'opacity-70' : 'bg-[#252525] hover:bg-[#333333]'} text-white`}
+      size="sm"
+      className={`${loading ? 'opacity-70' : 'bg-center-orange hover:bg-center-orangeDark'} text-white transition-all duration-200`}
     >
       {loading ? (
         <>
