@@ -52,7 +52,7 @@ const MobileCategoryDrawer = ({ open, onOpenChange }: MobileCategoryDrawerProps)
   const navigate = useNavigate();
 
   const handleCategorySelect = (categoryId: string) => {
-    navigate(`/categoria/${categoryId}`);
+    navigate(`/?category=${categoryId}`);
     onOpenChange(false);
   };
 
