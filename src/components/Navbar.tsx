@@ -217,19 +217,19 @@ export default function Navbar() {
 
             <div className="hidden md:flex items-center gap-6">
               <div className="flex items-center gap-4">
-                <a 
-                  href="tel:5499270560" 
-                  className="flex items-center gap-1.5 text-gray-300 hover:text-center-orange transition-colors"
-                >
-                  <span className="text-sm font-medium">54 9927-0560</span>
-                </a>
-                
                 {currentCategory && (
                   <DownloadCategoryButton 
                     products={allProducts.filter(product => product.category === currentCategory.id)}
                     categoryName={currentCategory.name}
                   />
                 )}
+                
+                <a 
+                  href="tel:5499270560" 
+                  className="flex items-center gap-1.5 text-gray-300 hover:text-center-orange transition-colors"
+                >
+                  <span className="text-sm font-medium">54 9927-0560</span>
+                </a>
               </div>
               
               <div className="flex items-center gap-5">
