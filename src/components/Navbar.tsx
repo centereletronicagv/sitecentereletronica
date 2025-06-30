@@ -1,6 +1,6 @@
 import { useState, useEffect, FormEvent } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { Menu, X, Search, Wind, Plug, Terminal, Router, ChevronDown, ChevronRight, ShoppingCart, Grid2X2, MessageCircle, Monitor } from 'lucide-react';
+import { Menu, X, Search, Wind, Plug, Terminal, Router, ChevronDown, ChevronRight, ShoppingCart, Grid2X2, MessageCircle, Monitor, Eye } from 'lucide-react';
 import { Input } from './ui/input';
 import { useCart } from '@/context/CartContext';
 import CartModal from './CartModal';
@@ -70,6 +70,15 @@ const navLinks: NavLink[] = [
       { name: 'Conectores', href: '/categoria/informatica/conectores' },
     ]
   },
+  { 
+    name: 'Monitoramento', 
+    href: '/categoria/monitoramento', 
+    icon: <Eye size={16} />,
+    subCategories: [
+      { name: 'Câmeras', href: '/categoria/monitoramento/cameras' },
+      { name: 'DVRs', href: '/categoria/monitoramento/dvrs' },
+    ]
+  },
 ];
 
 // Helper function to get category info from URL
@@ -83,7 +92,8 @@ const getCategoryInfo = (pathname: string) => {
     'instalacoes-eletricas': 'Instalações Elétricas',
     'terminais': 'Terminais e Conectores',
     'automacao': 'Automação',
-    'informatica': 'Informática'
+    'informatica': 'Informática',
+    'monitoramento': 'Monitoramento'
   };
   
   return {
