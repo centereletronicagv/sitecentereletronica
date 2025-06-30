@@ -1,6 +1,6 @@
 import { useState, useEffect, FormEvent } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { Menu, X, Search, Wind, Plug, Terminal, Router, ChevronDown, ChevronRight, ShoppingCart, Grid2X2, MessageCircle } from 'lucide-react';
+import { Menu, X, Search, Wind, Plug, Terminal, Router, ChevronDown, ChevronRight, ShoppingCart, Grid2X2, MessageCircle, Monitor } from 'lucide-react';
 import { Input } from './ui/input';
 import { useCart } from '@/context/CartContext';
 import CartModal from './CartModal';
@@ -61,6 +61,15 @@ const navLinks: NavLink[] = [
       { name: 'Controladores', href: '/categoria/automacao/controladores' },
     ]
   },
+  { 
+    name: 'Informática', 
+    href: '/categoria/informatica', 
+    icon: <Monitor size={16} />,
+    subCategories: [
+      { name: 'Cabos', href: '/categoria/informatica/cabos' },
+      { name: 'Conectores', href: '/categoria/informatica/conectores' },
+    ]
+  },
 ];
 
 // Helper function to get category info from URL
@@ -73,7 +82,8 @@ const getCategoryInfo = (pathname: string) => {
     'ar-condicionado': 'Ar Condicionado',
     'instalacoes-eletricas': 'Instalações Elétricas',
     'terminais': 'Terminais e Conectores',
-    'automacao': 'Automação'
+    'automacao': 'Automação',
+    'informatica': 'Informática'
   };
   
   return {
