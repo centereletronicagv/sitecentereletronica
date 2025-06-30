@@ -61,7 +61,6 @@ const navLinks: NavLink[] = [
       { name: 'Controladores', href: '/categoria/automacao/controladores' },
     ]
   },
-  { name: 'Contato', href: '#contact' },
 ];
 
 // Helper function to get category info from URL
@@ -147,12 +146,8 @@ export default function Navbar() {
   };
 
   const handleCategoryClick = (link: NavLink) => {
-    if (!link.subCategories || link.name === 'Início' || link.name === 'Contato') {
-      if (link.name === 'Contato') {
-        scrollToContact();
-      } else {
-        navigate(link.href);
-      }
+    if (!link.subCategories || link.name === 'Início') {
+      navigate(link.href);
       setIsMenuOpen(false);
     }
     else {
@@ -160,16 +155,6 @@ export default function Navbar() {
     }
   };
   
-  const scrollToContact = () => {
-    const contactSection = document.getElementById('contact');
-    if (contactSection) {
-      contactSection.scrollIntoView({ behavior: 'smooth' });
-    } else {
-      navigate('/#contact');
-    }
-    setIsMenuOpen(false);
-  };
-
   const handleWhatsAppClick = () => {
     const phoneNumber = '5499270560';
     const message = 'Olá! Gostaria de mais informações sobre os produtos da Center Eletrônica.';
@@ -300,28 +285,18 @@ export default function Navbar() {
             <ul className="flex items-center gap-12">
               {navLinks.map((link) => (
                 <li key={link.name}>
-                  {link.name === 'Contato' ? (
-                    <button
-                      onClick={scrollToContact}
-                      className={`flex items-center gap-2 py-2 text-sm font-medium transition-colors text-gray-300 hover:text-center-orange`}
-                    >
-                      {link.icon && link.icon}
-                      {link.name}
-                    </button>
-                  ) : (
-                    <Link
-                      to={link.href}
-                      className={`flex items-center gap-2 py-2 text-sm font-medium transition-colors ${
-                        location.pathname === link.href
-                          ? 'text-center-orange'
-                          : 'text-gray-300 hover:text-center-orange'
-                      }`}
-                    >
-                      {link.icon && link.icon}
-                      {link.name}
-                      {link.name !== 'Início' && link.name !== 'Contato' && <ChevronDown size={14} />}
-                    </Link>
-                  )}
+                  <Link
+                    to={link.href}
+                    className={`flex items-center gap-2 py-2 text-sm font-medium transition-colors ${
+                      location.pathname === link.href
+                        ? 'text-center-orange'
+                        : 'text-gray-300 hover:text-center-orange'
+                    }`}
+                  >
+                    {link.icon && link.icon}
+                    {link.name}
+                    {link.name !== 'Início' && <ChevronDown size={14} />}
+                  </Link>
                 </li>
               ))}
             </ul>
@@ -360,28 +335,18 @@ export default function Navbar() {
             <div className="flex flex-col">
               {navLinks.map((link) => (
                 <div key={link.name} className="border-b border-[#333333]">
-                  {link.name === 'Contato' ? (
-                    <button
-                      onClick={scrollToContact}
-                      className="flex items-center gap-2 px-4 py-3 text-base font-medium rounded-md transition-colors text-gray-300 hover:bg-[#333333] w-full text-left"
-                    >
-                      {link.icon && link.icon}
-                      {link.name}
-                    </button>
-                  ) : (
-                    <Link
-                      to={link.href}
-                      onClick={() => setIsMenuOpen(false)}
-                      className={`flex items-center gap-2 px-4 py-3 text-base font-medium rounded-md transition-colors ${
-                        location.pathname === link.href
-                          ? 'bg-center-orange/10 text-center-orange'
-                          : 'text-gray-300 hover:bg-[#333333]'
-                      }`}
-                    >
-                      {link.icon && link.icon}
-                      {link.name}
-                    </Link>
-                  )}
+                  <Link
+                    to={link.href}
+                    onClick={() => setIsMenuOpen(false)}
+                    className={`flex items-center gap-2 px-4 py-3 text-base font-medium rounded-md transition-colors ${
+                      location.pathname === link.href
+                        ? 'bg-center-orange/10 text-center-orange'
+                        : 'text-gray-300 hover:bg-[#333333]'
+                    }`}
+                  >
+                    {link.icon && link.icon}
+                    {link.name}
+                  </Link>
                 </div>
               ))}
             </div>
