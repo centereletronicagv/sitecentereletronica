@@ -86,7 +86,7 @@ export default function Footer() {
           {/* Business Hours */}
           <div className="md:col-span-4">
             <h3 className="text-base font-medium mb-4">Horário de Funcionamento</h3>
-            <div className="bg-gray-800/50 rounded-lg p-4 space-y-3">
+            <div className="space-y-3">
               <div className="flex items-start gap-3">
                 <Clock size={18} className="text-center-orange mt-0.5 min-w-[18px]" />
                 <div className="space-y-2">
