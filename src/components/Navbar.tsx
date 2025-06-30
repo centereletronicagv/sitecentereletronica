@@ -1,6 +1,6 @@
 import { useState, useEffect, FormEvent } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { Menu, X, Search, Wind, Plug, Terminal, Router, ChevronDown, ChevronRight, ShoppingCart, Grid2X2 } from 'lucide-react';
+import { Menu, X, Search, Wind, Plug, Terminal, Router, ChevronDown, ChevronRight, ShoppingCart, Grid2X2, MessageCircle } from 'lucide-react';
 import { Input } from './ui/input';
 import { useCart } from '@/context/CartContext';
 import CartModal from './CartModal';
@@ -170,6 +170,13 @@ export default function Navbar() {
     setIsMenuOpen(false);
   };
 
+  const handleWhatsAppClick = () => {
+    const phoneNumber = '5499270560';
+    const message = 'Olá! Gostaria de mais informações sobre os produtos da Center Eletrônica.';
+    const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
+    window.open(whatsappUrl, '_blank');
+  };
+
   return (
     <header className="w-full">
       <div 
@@ -224,12 +231,13 @@ export default function Navbar() {
                   />
                 )}
                 
-                <a 
-                  href="tel:5499270560" 
+                <button
+                  onClick={handleWhatsAppClick}
                   className="flex items-center gap-1.5 text-gray-300 hover:text-center-orange transition-colors"
                 >
-                  <span className="text-sm font-medium">54 9927-0560</span>
-                </a>
+                  <MessageCircle size={16} />
+                  <span className="text-sm font-medium">Contato</span>
+                </button>
               </div>
               
               <div className="flex items-center gap-5">
@@ -407,12 +415,13 @@ export default function Navbar() {
               </button>
             </div>
             
-            <a 
-              href="tel:5499270560" 
+            <button
+              onClick={handleWhatsAppClick}
               className="mt-2 flex items-center gap-2 px-4 py-3 text-base font-medium text-white bg-center-orange rounded-md"
             >
-              <span>Ligar: 54 9927-0560</span>
-            </a>
+              <MessageCircle size={18} />
+              <span>Contato WhatsApp</span>
+            </button>
           </nav>
         </div>
       </div>
