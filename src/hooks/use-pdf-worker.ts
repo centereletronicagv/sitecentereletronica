@@ -46,6 +46,17 @@ export function usePdfWorker(): PdfWorkerResult {
 
       setLoading(true);
       
+      // Log products for debugging
+      console.log(`Generating PDF for category: ${categoryName}`);
+      console.log(`Number of products: ${products.length}`);
+      console.log('Products data:', products.map(p => ({
+        id: p.id,
+        name: p.name,
+        code: p.code,
+        price: p.price,
+        image: p.image
+      })));
+      
       toast({
         title: "Gerando catálogo",
         description: "Preparando seu catálogo para download...",
@@ -54,11 +65,13 @@ export function usePdfWorker(): PdfWorkerResult {
 
       // Configure worker response
       const handleMessage = (e: MessageEvent) => {
+        console.log('Received message from worker:', e.data);
+        
         if (e.data.type === 'success') {
           // Download PDF
           const link = document.createElement('a');
           link.href = e.data.pdf;
-          link.download = `catalogo-${e.data.categoryName.toLowerCase()}.pdf`;
+          link.download = `catalogo-${e.data.categoryName.toLowerCase().replace(/\s+/g, '-')}.pdf`;
           document.body.appendChild(link);
           link.click();
           document.body.removeChild(link);
@@ -73,11 +86,12 @@ export function usePdfWorker(): PdfWorkerResult {
           
           resolve();
         } else if (e.data.type === 'error') {
+          console.error('PDF generation error:', e.data.error);
           setLoading(false);
           
           toast({
             title: "Erro ao gerar catálogo",
-            description: "Ocorreu um erro ao gerar seu catálogo. Por favor, tente novamente.",
+            description: `Ocorreu um erro ao gerar seu catálogo: ${e.data.error}. Por favor, tente novamente.`,
             variant: "destructive",
             duration: 5000,
           });
@@ -89,15 +103,53 @@ export function usePdfWorker(): PdfWorkerResult {
         workerRef.current?.removeEventListener('message', handleMessage);
       };
 
-      // Add listener to receive messages from worker
+      // Add error handling for the worker
+      const handleError = (error: any) => {
+        console.error('Worker error:', error);
+        setLoading(false);
+        
+        toast({
+          title: "Erro ao gerar catálogo",
+          description: "Erro interno do gerador de PDF. Por favor, tente novamente.",
+          variant: "destructive",
+          duration: 5000,
+        });
+        
+        reject(error);
+      };
+
+      // Add listeners
       workerRef.current.addEventListener('message', handleMessage);
+      workerRef.current.addEventListener('error', handleError);
       
-      // Send data to worker
-      workerRef.current.postMessage({
-        type: 'generate',
-        products,
-        categoryName
-      });
+      // Send data to worker with error handling
+      try {
+        workerRef.current.postMessage({
+          type: 'generate',
+          products: products.map(product => ({
+            ...product,
+            // Ensure all required fields are present and valid
+            name: product.name || 'Produto sem nome',
+            code: product.code || 'Sem código',
+            price: typeof product.price === 'number' ? product.price : 0,
+            image: product.image || '',
+            description: product.description || ''
+          })),
+          categoryName
+        });
+      } catch (error) {
+        console.error('Error sending data to worker:', error);
+        setLoading(false);
+        
+        toast({
+          title: "Erro ao processar dados",
+          description: "Erro ao preparar os dados para o catálogo.",
+          variant: "destructive",
+          duration: 5000,
+        });
+        
+        reject(error);
+      }
     });
   };
 

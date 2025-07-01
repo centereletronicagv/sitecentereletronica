@@ -4,6 +4,7 @@ import { useParams, useSearchParams } from 'react-router-dom';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import ProductGrid from '../components/ProductGrid';
+import { DownloadCategoryButton } from '../components/DownloadCategoryButton';
 import { Slider } from "@/components/ui/slider";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { ArrowDownNarrowWide, ArrowUpNarrowWide, ThumbsUp, Filter, Tag, Check } from "lucide-react";
@@ -177,6 +178,8 @@ export default function CategoryPage() {
     return categoryLabels[name] || name.charAt(0).toUpperCase() + name.slice(1);
   };
 
+  const categoryName = slug && slug in categoryLabels ? categoryLabels[slug] : 'Todos os Produtos';
+
   return (
     <div className="flex flex-col min-h-screen bg-[#151515]">
       <Navbar />
@@ -187,10 +190,20 @@ export default function CategoryPage() {
             animate={{ opacity: 1, y: 0 }}
             className="flex flex-col gap-2 mb-6"
           >
-            <h1 className="text-3xl md:text-4xl font-bold text-white tracking-tight">
-              {slug && slug in categoryLabels ? categoryLabels[slug] : 'Todos os Produtos'}
-            </h1>
-            <p className="text-gray-400">Encontre os melhores produtos para seu projeto</p>
+            <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+              <div>
+                <h1 className="text-3xl md:text-4xl font-bold text-white tracking-tight">
+                  {categoryName}
+                </h1>
+                <p className="text-gray-400">Encontre os melhores produtos para seu projeto</p>
+              </div>
+              {products.length > 0 && (
+                <DownloadCategoryButton 
+                  products={products} 
+                  categoryName={categoryName}
+                />
+              )}
+            </div>
           </motion.div>
           
           {subcategories.length > 0 && (
