@@ -9,8 +9,6 @@ import {
   DrawerTitle,
   DrawerClose,
 } from "@/components/ui/drawer";
-import { DownloadCategoryButton } from "./DownloadCategoryButton";
-import { products as allProducts } from "@/data/products";
 
 // Updated categories including Informática and Monitoramento
 const categories = [
@@ -84,27 +82,21 @@ const MobileCategoryDrawer = ({ open, onOpenChange }: MobileCategoryDrawerProps)
         <div className="p-4">
           <div className="grid grid-cols-2 gap-4">
             {categories.map((category) => (
-              <div key={category.id} className="flex flex-col gap-2 h-full">
-                <button
-                  onClick={() => handleCategorySelect(category.id)}
-                  className="flex flex-col items-center justify-center p-4 rounded-xl bg-[#2A2A2A] border border-[#3d3d3d] hover:border-center-orange transition-all duration-300 h-full group"
-                  style={{ minHeight: "120px" }}
+              <button
+                key={category.id}
+                onClick={() => handleCategorySelect(category.id)}
+                className="flex flex-col items-center justify-center p-4 rounded-xl bg-[#2A2A2A] border border-[#3d3d3d] hover:border-center-orange transition-all duration-300 h-full group"
+                style={{ minHeight: "120px" }}
+              >
+                <div
+                  className={`${category.color} ${category.hoverColor} p-3 rounded-full text-white mb-3 shadow-md group-hover:scale-110 transition-transform duration-300`}
                 >
-                  <div
-                    className={`${category.color} ${category.hoverColor} p-3 rounded-full text-white mb-3 shadow-md group-hover:scale-110 transition-transform duration-300`}
-                  >
-                    {category.icon}
-                  </div>
-                  <span className="text-sm font-medium text-gray-200 group-hover:text-white">
-                    {category.name}
-                  </span>
-                </button>
-                
-                <DownloadCategoryButton 
-                  products={allProducts.filter(product => product.category === category.id)}
-                  categoryName={category.name}
-                />
-              </div>
+                  {category.icon}
+                </div>
+                <span className="text-sm font-medium text-gray-200 group-hover:text-white">
+                  {category.name}
+                </span>
+              </button>
             ))}
           </div>
         </div>

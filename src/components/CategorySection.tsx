@@ -3,8 +3,6 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { AirVent, Plug, Cable, Settings, Monitor, Eye } from "lucide-react";
 import { useMediaQuery } from "@/hooks/use-mobile";
-import { DownloadCategoryButton } from "./DownloadCategoryButton";
-import { products as allProducts } from "@/data/products";
 
 // Main categories - adding Informática and Monitoramento
 const categories = [
@@ -91,15 +89,6 @@ export default function CategorySection() {
                   </span>
                 </div>
               </Link>
-              {/* Only show download button on desktop */}
-              {!isMobile && (
-                <div className="mt-3">
-                  <DownloadCategoryButton 
-                    products={allProducts.filter(product => product.category === category.id)}
-                    categoryName={category.name}
-                  />
-                </div>
-              )}
             </div>
           ))}
         </div>
