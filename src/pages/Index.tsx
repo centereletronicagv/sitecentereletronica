@@ -5,7 +5,6 @@ import Navbar from '../components/Navbar';
 import Hero from '../components/Hero';
 import Footer from '../components/Footer';
 import ProductsSection from '../components/ProductsSection';
-import CategoryButtons from '../components/CategoryButtons';
 import { useMediaQuery } from '@/hooks/use-mobile';
 
 // Lazy load non-critical components
@@ -80,7 +79,6 @@ const Index = () => {
         {!searchQuery && !category && (
           <>
             <Hero />
-            <CategoryButtons />
             {isMobile && (
               <Suspense fallback={<div className="h-36 bg-[#181818]"></div>}>
                 {!isInitialLoad && <CategorySection />}
