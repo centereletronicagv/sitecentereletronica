@@ -1,12 +1,12 @@
 
 import React from "react";
 import { Link } from "react-router-dom";
-import { AirVent, Plug, Cable, Settings } from "lucide-react";
+import { AirVent, Plug, Cable, Settings, Monitor, Eye } from "lucide-react";
 import { useMediaQuery } from "@/hooks/use-mobile";
 import { DownloadCategoryButton } from "./DownloadCategoryButton";
 import { products as allProducts } from "@/data/products";
 
-// Main categories - updating the icon for "Terminais e Conectores" to use Cable
+// Main categories - adding Informática and Monitoramento
 const categories = [
   {
     id: "ar-condicionado",
@@ -36,6 +36,20 @@ const categories = [
     color: "bg-purple-600",
     hoverColor: "group-hover:bg-purple-500",
   },
+  {
+    id: "informatica",
+    name: "Informática",
+    icon: <Monitor className="h-6 w-6" />,
+    color: "bg-cyan-600",
+    hoverColor: "group-hover:bg-cyan-500",
+  },
+  {
+    id: "monitoramento",
+    name: "Monitoramento",
+    icon: <Eye className="h-6 w-6" />,
+    color: "bg-indigo-600",
+    hoverColor: "group-hover:bg-indigo-500",
+  },
 ];
 
 export default function CategorySection() {
@@ -52,7 +66,7 @@ export default function CategorySection() {
           <div className="h-px flex-grow bg-gradient-to-r from-transparent via-center-orange/20 to-transparent mx-4"></div>
         </div>
         
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
           {categories.map((category) => (
             <div key={category.id} className="aspect-square h-full">
               <Link

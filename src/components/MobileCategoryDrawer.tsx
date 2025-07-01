@@ -1,6 +1,7 @@
+
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import { AirVent, Plug, Cable, Settings, X } from "lucide-react";
+import { AirVent, Plug, Cable, Settings, Monitor, Eye, X } from "lucide-react";
 import {
   Drawer,
   DrawerContent,
@@ -11,7 +12,7 @@ import {
 import { DownloadCategoryButton } from "./DownloadCategoryButton";
 import { products as allProducts } from "@/data/products";
 
-// Keep the same categories as in CategorySection for consistency
+// Updated categories including Informática and Monitoramento
 const categories = [
   {
     id: "ar-condicionado",
@@ -40,6 +41,20 @@ const categories = [
     icon: <Settings className="h-5 w-5" />,
     color: "bg-purple-600",
     hoverColor: "group-hover:bg-purple-500",
+  },
+  {
+    id: "informatica",
+    name: "Informática",
+    icon: <Monitor className="h-5 w-5" />,
+    color: "bg-cyan-600",
+    hoverColor: "group-hover:bg-cyan-500",
+  },
+  {
+    id: "monitoramento",
+    name: "Monitoramento",
+    icon: <Eye className="h-5 w-5" />,
+    color: "bg-indigo-600",
+    hoverColor: "group-hover:bg-indigo-500",
   },
 ];
 
