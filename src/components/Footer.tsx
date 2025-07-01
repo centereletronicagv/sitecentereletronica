@@ -1,6 +1,7 @@
 
+
 import { Link } from 'react-router-dom';
-import { Phone, Mail, MapPin, Clock, Instagram, Facebook, ArrowRight, Wind, Plug, Terminal, Router, Grid3X3 } from 'lucide-react';
+import { Phone, Mail, MapPin, Clock, Instagram, Facebook, ArrowRight, Wind, Plug, Terminal, Router, Grid3X3, Share2 } from 'lucide-react';
 import { Separator } from "@/components/ui/separator";
 
 const categories = [
@@ -113,7 +114,10 @@ export default function Footer() {
 
             {/* Social Media */}
             <div className="mt-6">
-              <h3 className="text-base font-medium mb-3">Redes Sociais</h3>
+              <div className="flex items-center gap-2 mb-3">
+                <Share2 size={18} className="text-center-orange" />
+                <h3 className="text-base font-medium">Redes Sociais</h3>
+              </div>
               <div className="flex gap-3">
                 <a 
                   href="https://www.instagram.com/centereletronicagv/" 
@@ -154,3 +158,4 @@ export default function Footer() {
     </footer>
   );
 }
+
