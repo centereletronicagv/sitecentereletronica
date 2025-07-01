@@ -264,14 +264,6 @@ export default function Navbar() {
             <div className="flex items-center gap-2 md:hidden">
               <button 
                 className="p-1.5 text-gray-300 bg-[#333333] rounded-full"
-                onClick={() => setIsCategoryDrawerOpen(true)}
-                aria-label="Categorias"
-              >
-                <Grid2X2 size={16} />
-              </button>
-              
-              <button 
-                className="p-1.5 text-gray-300 bg-[#333333] rounded-full"
                 onClick={handleMobileSearchOpen}
                 aria-label="Buscar"
               >
