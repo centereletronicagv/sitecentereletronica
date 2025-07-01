@@ -70,7 +70,7 @@ export default function CategorySection() {
           {categories.map((category) => (
             <div key={category.id} className="aspect-square h-full">
               <Link
-                to={`/?category=${category.id}`}
+                to={`/categoria/${category.id}`}
                 className="flex flex-col items-center justify-center p-4 rounded-xl bg-[#1e1e1e] border border-[#3d3d3d] hover:border-center-orange transition-all duration-300 hover:shadow-lg group h-full transform hover:-translate-y-1 relative overflow-hidden"
                 style={{ height: "100%" }}
               >
