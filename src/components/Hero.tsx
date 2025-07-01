@@ -30,7 +30,7 @@ export default function Hero() {
             </h1>
             
             <p className="text-base md:text-lg lg:text-xl text-gray-300 max-w-2xl leading-relaxed">
-              Aqui você encontra uma ampla linha de produtos Elétricos, Eletrônicos, de Automação e Informática, selecionados com rigor para garantir qualidade, inovação e desempenho. Trabalhamos com as melhores marcas do mercado, oferecendo soluções completas com preços acessíveis.
+              Aqui você encontra uma ampla linha de produtos Elétricos, Eletrônicos, de Automação e Informática, selecionados com rigor para garantir qualidade, inovação e desempenho.
             </p>
             
             <div className="flex flex-row gap-2 sm:gap-3 md:gap-4 mt-4 md:mt-6">
