@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from 'react';
 import { useParams, useSearchParams } from 'react-router-dom';
 import Navbar from '../components/Navbar';
@@ -30,6 +31,8 @@ const categoryLabels: Record<string, string> = {
   'capacitor': 'Capacitor',
   'acabamento': 'Acabamento',
   'ar-condicionado': 'Ar Condicionado',
+  'informatica': 'Informática',
+  'monitoramento': 'Monitoramento',
 };
 
 type SortOption = 'recommended' | 'price-low' | 'price-high';
@@ -177,7 +180,7 @@ export default function CategoryPage() {
   return (
     <div className="flex flex-col min-h-screen bg-[#151515]">
       <Navbar />
-      <main className="flex-grow">
+      <main className={`flex-grow ${isMobile ? 'pt-16' : 'pt-20'}`}>
         <div className="container-custom py-8">
           <motion.div 
             initial={{ opacity: 0, y: -20 }}
