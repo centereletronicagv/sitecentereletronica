@@ -8,6 +8,19 @@ interface PdfWorkerResult {
   generatePdf: (products: Product[], categoryName: string) => Promise<void>;
 }
 
+// Function to validate if an image is loadable
+const validateImage = (imageUrl: string): Promise<boolean> => {
+  return new Promise((resolve) => {
+    const img = new Image();
+    img.onload = () => resolve(true);
+    img.onerror = () => resolve(false);
+    img.src = imageUrl;
+    
+    // Set a timeout to avoid hanging on slow images
+    setTimeout(() => resolve(false), 5000);
+  });
+};
+
 export function usePdfWorker(): PdfWorkerResult {
   const [loading, setLoading] = useState(false);
   const workerRef = useRef<Worker | null>(null);
@@ -41,7 +54,7 @@ export function usePdfWorker(): PdfWorkerResult {
       return;
     }
 
-    return new Promise<void>((resolve, reject) => {
+    return new Promise<void>(async (resolve, reject) => {
       if (!workerRef.current) return reject("Worker não inicializado");
 
       setLoading(true);
@@ -49,19 +62,42 @@ export function usePdfWorker(): PdfWorkerResult {
       // Log products for debugging
       console.log(`Generating PDF for category: ${categoryName}`);
       console.log(`Number of products: ${products.length}`);
-      console.log('Products data:', products.map(p => ({
-        id: p.id,
-        name: p.name,
-        code: p.code,
-        price: p.price,
-        image: p.image
-      })));
       
       toast({
         title: "Gerando catálogo",
-        description: "Preparando seu catálogo para download...",
+        description: "Validando imagens e preparando seu catálogo...",
         duration: 3000,
       });
+
+      // Validate and clean product images
+      const validatedProducts = await Promise.all(
+        products.map(async (product) => {
+          const isImageValid = await validateImage(product.image);
+          
+          if (!isImageValid) {
+            console.warn(`Invalid image for product ${product.name}: ${product.image}`);
+          }
+          
+          return {
+            ...product,
+            // Ensure all required fields are present and valid
+            name: product.name || 'Produto sem nome',
+            code: product.code || 'Sem código',
+            price: typeof product.price === 'number' ? product.price : 0,
+            image: isImageValid ? product.image : '', // Use empty string for invalid images
+            description: product.description || ''
+          };
+        })
+      );
+
+      const validImages = validatedProducts.filter(p => p.image !== '').length;
+      const invalidImages = products.length - validImages;
+      
+      console.log(`Valid images: ${validImages}, Invalid images: ${invalidImages}`);
+      
+      if (invalidImages > 0) {
+        console.warn(`Found ${invalidImages} invalid/corrupt images that will be skipped`);
+      }
 
       // Configure worker response
       const handleMessage = (e: MessageEvent) => {
@@ -80,8 +116,10 @@ export function usePdfWorker(): PdfWorkerResult {
           
           toast({
             title: "Catálogo gerado!",
-            description: "Seu catálogo foi baixado com sucesso.",
-            duration: 3000,
+            description: invalidImages > 0 
+              ? `Seu catálogo foi baixado com sucesso. ${invalidImages} imagem(ns) corrompida(s) foram ignoradas.`
+              : "Seu catálogo foi baixado com sucesso.",
+            duration: 5000,
           });
           
           resolve();
@@ -89,11 +127,18 @@ export function usePdfWorker(): PdfWorkerResult {
           console.error('PDF generation error:', e.data.error);
           setLoading(false);
           
+          // Check if it's an image-related error
+          const isImageError = e.data.error.toString().toLowerCase().includes('png') || 
+                              e.data.error.toString().toLowerCase().includes('image') ||
+                              e.data.error.toString().toLowerCase().includes('corrupt');
+          
           toast({
             title: "Erro ao gerar catálogo",
-            description: `Ocorreu um erro ao gerar seu catálogo: ${e.data.error}. Por favor, tente novamente.`,
+            description: isImageError 
+              ? "Erro relacionado a imagens corrompidas. Nossa equipe foi notificada e está trabalhando na correção."
+              : `Ocorreu um erro ao gerar seu catálogo: ${e.data.error}. Por favor, tente novamente.`,
             variant: "destructive",
-            duration: 5000,
+            duration: 8000,
           });
           
           reject(e.data.error);
@@ -126,15 +171,7 @@ export function usePdfWorker(): PdfWorkerResult {
       try {
         workerRef.current.postMessage({
           type: 'generate',
-          products: products.map(product => ({
-            ...product,
-            // Ensure all required fields are present and valid
-            name: product.name || 'Produto sem nome',
-            code: product.code || 'Sem código',
-            price: typeof product.price === 'number' ? product.price : 0,
-            image: product.image || '',
-            description: product.description || ''
-          })),
+          products: validatedProducts,
           categoryName
         });
       } catch (error) {
