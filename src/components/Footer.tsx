@@ -1,6 +1,6 @@
 
 import { Link } from 'react-router-dom';
-import { Phone, Mail, MapPin, Clock, Instagram, Facebook, ArrowRight, Wind, Plug, Terminal, Router } from 'lucide-react';
+import { Phone, Mail, MapPin, Clock, Instagram, Facebook, ArrowRight, Wind, Plug, Terminal, Router, Grid3X3 } from 'lucide-react';
 import { Separator } from "@/components/ui/separator";
 
 const categories = [
@@ -65,7 +65,10 @@ export default function Footer() {
 
           {/* Categories */}
           <div className="md:col-span-3">
-            <h3 className="text-base font-medium mb-4">Categorias</h3>
+            <div className="flex items-center gap-2 mb-4">
+              <Grid3X3 size={18} className="text-center-orange" />
+              <h3 className="text-base font-medium">Categorias</h3>
+            </div>
             <ul className="space-y-2.5">
               {categories.map((category) => (
                 <li key={category.name}>
@@ -85,25 +88,25 @@ export default function Footer() {
 
           {/* Business Hours */}
           <div className="md:col-span-4">
-            <h3 className="text-base font-medium mb-4">Horário de Funcionamento</h3>
+            <div className="flex items-center gap-2 mb-4">
+              <Clock size={18} className="text-center-orange" />
+              <h3 className="text-base font-medium">Horário de Funcionamento</h3>
+            </div>
             <div className="space-y-3">
-              <div className="flex items-start gap-3">
-                <Clock size={18} className="text-center-orange mt-0.5 min-w-[18px]" />
-                <div className="space-y-2">
-                  <div>
-                    <p className="text-white text-sm font-medium">Segunda a Sexta</p>
-                    <p className="text-gray-400 text-sm">08:00 - 18:00</p>
-                  </div>
-                  
-                  <div>
-                    <p className="text-white text-sm font-medium">Sábado</p>
-                    <p className="text-gray-400 text-sm">08:00 - 12:00</p>
-                  </div>
-                  
-                  <div>
-                    <p className="text-white text-sm font-medium">Domingo</p>
-                    <p className="text-gray-400 text-sm">Fechado</p>
-                  </div>
+              <div className="space-y-2">
+                <div>
+                  <p className="text-white text-sm font-medium">Segunda a Sexta</p>
+                  <p className="text-gray-400 text-sm">08:00 - 18:00</p>
+                </div>
+                
+                <div>
+                  <p className="text-white text-sm font-medium">Sábado</p>
+                  <p className="text-gray-400 text-sm">08:00 - 12:00</p>
+                </div>
+                
+                <div>
+                  <p className="text-white text-sm font-medium">Domingo</p>
+                  <p className="text-gray-400 text-sm">Fechado</p>
                 </div>
               </div>
             </div>
