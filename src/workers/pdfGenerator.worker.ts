@@ -1,3 +1,4 @@
+
 import { Product } from "../types";
 import { jsPDF } from 'jspdf';
 
@@ -55,9 +56,8 @@ const generatePdf = async (products: Product[], categoryName: string) => {
   const pageHeight = doc.internal.pageSize.height;
   const footerHeight = 20;
   const headerHeight = 60;
-  const simpleHeaderHeight = 30;
   const safeAreaHeight = pageHeight - footerHeight - headerHeight - 15;
-  const safeAreaHeightOtherPages = pageHeight - footerHeight - simpleHeaderHeight - 15;
+  const safeAreaHeightOtherPages = pageHeight - footerHeight - 15; // No header on other pages
   const productCardHeight = 35;
   
   // Header with company information (first page only)
@@ -84,7 +84,8 @@ const generatePdf = async (products: Product[], categoryName: string) => {
   let yPosition = headerHeight + 10;
   let currentPage = 1;
   let productsPerPage = 0;
-  const maxProductsPerPage = 7; // Changed from 6 to 7
+  const maxProductsFirstPage = 9; // Increased from 7 to 9 for first page
+  const maxProductsPerPage = 7; // Keep 7 for other pages
   
   // Process products in larger batches
   const batchSize = 10;
@@ -102,11 +103,12 @@ const generatePdf = async (products: Product[], categoryName: string) => {
     const product = products[i];
     
     const currentSafeAreaHeight = currentPage === 1 ? safeAreaHeight : safeAreaHeightOtherPages;
+    const currentMaxProducts = currentPage === 1 ? maxProductsFirstPage : maxProductsPerPage;
     
-    if (yPosition + productCardHeight > currentSafeAreaHeight || productsPerPage >= maxProductsPerPage) {
+    if (yPosition + productCardHeight > currentSafeAreaHeight || productsPerPage >= currentMaxProducts) {
       doc.addPage();
       currentPage++;
-      yPosition = simpleHeaderHeight + 10;
+      yPosition = 10; // Start from top on subsequent pages (no header)
       productsPerPage = 0;
     }
     
@@ -151,22 +153,11 @@ const generatePdf = async (products: Product[], categoryName: string) => {
     productsPerPage++;
   }
   
-  // Add header and footer to all pages
+  // Add footer to all pages
   const pageCount = doc.internal.pages.length - 1;
   
   for (let i = 1; i <= pageCount; i++) {
     doc.setPage(i);
-    
-    // Add simplified header to pages 2 and beyond
-    if (i > 1) {
-      doc.setFillColor(colors.background);
-      doc.rect(0, 0, pageWidth, simpleHeaderHeight, 'F');
-      
-      // Category title and item count
-      doc.setFontSize(14);
-      doc.setTextColor(colors.primary);
-      doc.text(`${categoryName} - ${products.length} itens`, 20, 20);
-    }
     
     // Add footer
     doc.setFillColor(colors.primary);
