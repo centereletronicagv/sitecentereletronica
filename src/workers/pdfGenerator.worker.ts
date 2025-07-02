@@ -1,4 +1,3 @@
-
 import { Product } from "../types";
 import { jsPDF } from 'jspdf';
 
@@ -85,7 +84,7 @@ const generatePdf = async (products: Product[], categoryName: string) => {
   let yPosition = headerHeight + 10;
   let currentPage = 1;
   let productsPerPage = 0;
-  const maxProductsPerPage = 6;
+  const maxProductsPerPage = 7; // Changed from 6 to 7
   
   // Process products in larger batches
   const batchSize = 10;
