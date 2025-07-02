@@ -56,10 +56,12 @@ const generatePdf = async (products: Product[], categoryName: string) => {
   const pageHeight = doc.internal.pageSize.height;
   const footerHeight = 20;
   const headerHeight = 60;
+  const simpleHeaderHeight = 30;
   const safeAreaHeight = pageHeight - footerHeight - headerHeight - 15;
+  const safeAreaHeightOtherPages = pageHeight - footerHeight - simpleHeaderHeight - 15;
   const productCardHeight = 35;
   
-  // Header with company information
+  // Header with company information (first page only)
   doc.setFillColor(colors.background);
   doc.rect(0, 0, pageWidth, headerHeight, 'F');
   
@@ -95,16 +97,18 @@ const generatePdf = async (products: Product[], categoryName: string) => {
   
   // Wait for all images to load
   const imageResults = await Promise.all(imagePromises);
-  const imageMap = new Map(products.map((product, index) => [product.image, imageResults[index]]));
+  const imageMap = new Map(products.map((product, i) => [product.image, imageResults[i]]));
   
   for (let i = 0; i < products.length; i++) {
     const product = products[i];
     
-    if (yPosition + productCardHeight > safeAreaHeight || productsPerPage >= maxProductsPerPage) {
+    const currentSafeAreaHeight = currentPage === 1 ? safeAreaHeight : safeAreaHeightOtherPages;
+    
+    if (yPosition + productCardHeight > currentSafeAreaHeight || productsPerPage >= maxProductsPerPage) {
       doc.addPage();
-      yPosition = headerHeight + 10;
-      productsPerPage = 0;
       currentPage++;
+      yPosition = simpleHeaderHeight + 10;
+      productsPerPage = 0;
     }
     
     // Product card background
@@ -154,27 +158,15 @@ const generatePdf = async (products: Product[], categoryName: string) => {
   for (let i = 1; i <= pageCount; i++) {
     doc.setPage(i);
     
-    // Add header to each page (except first page which already has it)
+    // Add simplified header to pages 2 and beyond
     if (i > 1) {
       doc.setFillColor(colors.background);
-      doc.rect(0, 0, pageWidth, headerHeight, 'F');
+      doc.rect(0, 0, pageWidth, simpleHeaderHeight, 'F');
       
-      // Company name
-      doc.setTextColor('#FFFFFF');
-      doc.setFontSize(22);
-      doc.text('Center Eletrônica', 20, 20);
-      
-      // Category title
-      doc.setFontSize(16);
+      // Category title and item count
+      doc.setFontSize(14);
       doc.setTextColor(colors.primary);
-      doc.text(`Catálogo - ${categoryName}`, 20, 35);
-      
-      // Company contact information
-      doc.setFontSize(8);
-      doc.setTextColor('#CCCCCC');
-      doc.text('Rua Jacob Gremmelmaier, 409 - Centro, Getúlio Vargas - RS, 99900-000', 20, 45);
-      doc.text('Tel: (54) 9927-0560 | (54) 9998-6916', 20, 52);
-      doc.text('Email: center@centereletronica.com.br | Site: centereletronica.com.br', 20, 59);
+      doc.text(`${categoryName} - ${products.length} itens`, 20, 20);
     }
     
     // Add footer
