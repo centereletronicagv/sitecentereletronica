@@ -1,14 +1,13 @@
+
 import { useState, useEffect } from 'react';
 import { useParams, useSearchParams } from 'react-router-dom';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import ProductGrid from '../components/ProductGrid';
-import { Slider } from "@/components/ui/slider";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { ArrowDownNarrowWide, ArrowUpNarrowWide, ThumbsUp, Filter, Tag, Check } from "lucide-react";
+import { ArrowDownNarrowWide, ArrowUpNarrowWide, ThumbsUp, Tag, Check } from "lucide-react";
 import { motion } from "framer-motion";
 import { useIsMobile } from '@/hooks/use-mobile';
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger, DropdownMenuCheckboxItem } from "@/components/ui/dropdown-menu";
 import { Product } from '../types';
 import { products as allProducts } from '../data/products';
 
@@ -40,22 +39,15 @@ export default function CategoryPage() {
   const { slug } = useParams<{ slug: string }>();
   const [searchParams, setSearchParams] = useSearchParams();
   const [products, setProducts] = useState<Product[]>([]);
-  const [priceRange, setPriceRange] = useState<[number, number]>([0, 300]);
   const [sortBy, setSortBy] = useState<SortOption>('recommended');
-  const [allCategories, setAllCategories] = useState<string[]>([]);
-  const [showFilters, setShowFilters] = useState(false);
-  const isMobile = useIsMobile();
-  
   const [subcategories, setSubcategories] = useState<string[]>([]);
   const [selectedSubcategories, setSelectedSubcategories] = useState<string[]>([]);
   const [isLoading, setIsLoading] = useState(true);
+  const isMobile = useIsMobile();
 
   useEffect(() => {
     console.log("Current slug:", slug);
     console.log("Product categories available:", Array.from(new Set(allProducts.map(p => p.category))));
-    
-    const categories = Array.from(new Set(allProducts.map(product => product.category)));
-    setAllCategories(categories);
     
     setIsLoading(true);
     
@@ -93,7 +85,7 @@ export default function CategoryPage() {
 
   useEffect(() => {
     filterProducts();
-  }, [priceRange, sortBy, selectedSubcategories]);
+  }, [sortBy, selectedSubcategories]);
 
   const filterProducts = () => {
     console.log("Filtering products with slug:", slug);
@@ -103,12 +95,6 @@ export default function CategoryPage() {
       : allProducts;
     
     console.log(`After category filter: ${filteredProducts.length} products`);
-    
-    filteredProducts = filteredProducts.filter(
-      product => product.price >= priceRange[0] && product.price <= priceRange[1]
-    );
-    
-    console.log(`After price filter: ${filteredProducts.length} products`);
     
     if (selectedSubcategories.length > 0) {
       filteredProducts = filteredProducts.filter(
@@ -164,12 +150,6 @@ export default function CategoryPage() {
     setSelectedSubcategories([]);
     searchParams.delete('subcategoria');
     setSearchParams(searchParams);
-  };
-
-  const maxPrice = Math.max(...allProducts.map(product => product.price));
-  
-  const formatCurrency = (value: number) => {
-    return new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(value);
   };
 
   const formatSubcategoryName = (name: string) => {
@@ -237,134 +217,42 @@ export default function CategoryPage() {
             </div>
           )}
           
-          <div className="lg:hidden flex justify-between items-center mb-4">
-            <div className="text-gray-400 text-sm flex items-center">
-              <span>Mostrando</span>
-              <span className="font-semibold text-white mx-1">{products.length}</span>
-              <span>produto(s)</span>
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="w-full"
+          >
+            <div className="flex items-center justify-between mb-4 bg-[#1E1E1E] p-4 rounded-xl border border-[#333333]">
+              <p className="text-gray-400 text-sm">
+                Mostrando <span className="font-medium text-white">{products.length}</span> produto(s)
+              </p>
+              
+              <div className={`flex items-center gap-2 ${isMobile ? 'w-full max-w-48' : ''}`}>
+                <span className="text-gray-400 text-xs md:text-sm whitespace-nowrap">Ordenar por:</span>
+                <Select
+                  value={sortBy}
+                  onValueChange={(value) => setSortBy(value as SortOption)}
+                >
+                  <SelectTrigger className={`bg-[#252525] border-[#333333] text-white ${isMobile ? 'text-xs h-8 flex-1' : 'w-[180px]'}`}>
+                    <SelectValue placeholder="Recomendado" />
+                  </SelectTrigger>
+                  <SelectContent className="bg-[#1E1E1E] border-[#333333] text-white">
+                    <SelectItem value="recommended" className="flex items-center gap-2">
+                      <ThumbsUp className="w-4 h-4 text-center-orange" /> Recomendado
+                    </SelectItem>
+                    <SelectItem value="price-low" className="flex items-center gap-2">
+                      <ArrowUpNarrowWide className="w-4 h-4" /> Menor preço
+                    </SelectItem>
+                    <SelectItem value="price-high" className="flex items-center gap-2">
+                      <ArrowDownNarrowWide className="w-4 h-4" /> Maior preço
+                    </SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
             </div>
             
-            <button 
-              onClick={() => setShowFilters(!showFilters)}
-              className="flex items-center gap-1.5 bg-[#252525] border border-[#333] px-2.5 py-1.5 rounded-lg text-gray-300 text-sm"
-            >
-              <Filter size={14} />
-              <span>Filtros</span>
-            </button>
-          </div>
-          
-          <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
-            <motion.div 
-              initial={{ opacity: 0, x: -20 }}
-              animate={{ opacity: 1, x: 0 }}
-              className={`lg:col-span-1 space-y-6 ${showFilters ? 'block' : 'hidden lg:block'}`}
-            >
-              <div className="bg-gradient-to-b from-[#1E1E1E] to-[#232323] p-6 rounded-xl border border-[#333333] shadow-lg">
-                <div className="flex items-center gap-2 mb-4">
-                  <Tag size={18} className="text-center-orange" />
-                  <h2 className="text-white font-semibold text-xl">Categorias</h2>
-                </div>
-                <nav className="space-y-2">
-                  {allCategories.map(cat => (
-                    <a 
-                      key={cat}
-                      href={`/categoria/${cat}`}
-                      className={`block py-2.5 px-4 rounded-md text-sm transition-all duration-200 ${
-                        slug === cat 
-                          ? 'bg-center-orange text-white font-medium shadow-md shadow-center-orange/20' 
-                          : 'text-gray-300 hover:bg-[#333333] hover:text-white'
-                      }`}
-                    >
-                      {categoryLabels[cat] || cat}
-                    </a>
-                  ))}
-                </nav>
-              </div>
-              
-              {subcategories.length > 0 && (
-                <div className="bg-gradient-to-b from-[#1E1E1E] to-[#232323] p-6 rounded-xl border border-[#333333] shadow-lg">
-                  <div className="flex items-center gap-2 mb-4">
-                    <Tag size={18} className="text-center-orange" />
-                    <h2 className="text-white font-semibold text-xl">Subcategorias</h2>
-                  </div>
-                  
-                  <div className="space-y-2">
-                    {subcategories.map(subcategory => (
-                      <label 
-                        key={subcategory}
-                        className="flex items-center gap-3 py-2 px-4 rounded-md text-sm cursor-pointer hover:bg-[#333333]"
-                      >
-                        <input 
-                          type="checkbox"
-                          checked={selectedSubcategories.includes(subcategory)}
-                          onChange={() => toggleSubcategory(subcategory)}
-                          className="rounded border-gray-500 text-center-orange focus:ring-center-orange"
-                        />
-                        <span className="text-gray-300">{formatSubcategoryName(subcategory)}</span>
-                      </label>
-                    ))}
-                  </div>
-                </div>
-              )}
-              
-              <div className="bg-gradient-to-b from-[#1E1E1E] to-[#232323] p-6 rounded-xl border border-[#333333] shadow-lg">
-                <div className="flex items-center gap-2 mb-6">
-                  <ArrowUpNarrowWide size={18} className="text-center-orange" />
-                  <h2 className="text-white font-semibold text-xl">Filtrar por Preço</h2>
-                </div>
-                <div className="px-2">
-                  <Slider 
-                    defaultValue={priceRange} 
-                    max={300} 
-                    step={1}
-                    onValueChange={(value) => setPriceRange(value as [number, number])}
-                    className="mb-6"
-                  />
-                  <div className="flex justify-between text-white text-sm bg-[#252525] p-3 rounded-lg">
-                    <span>{formatCurrency(priceRange[0])}</span>
-                    <span>{formatCurrency(priceRange[1])}</span>
-                  </div>
-                </div>
-              </div>
-            </motion.div>
-            
-            <motion.div 
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              className="lg:col-span-3"
-            >
-              <div className="flex items-center justify-between mb-4 bg-[#1E1E1E] p-4 rounded-xl border border-[#333333]">
-                <p className="text-gray-400 text-sm hidden md:block">
-                  Mostrando <span className="font-medium text-white">{products.length}</span> produto(s)
-                </p>
-                
-                <div className={`flex items-center gap-2 ${isMobile ? 'w-full' : ''}`}>
-                  <span className="text-gray-400 text-xs md:text-sm whitespace-nowrap">Ordenar por:</span>
-                  <Select
-                    value={sortBy}
-                    onValueChange={(value) => setSortBy(value as SortOption)}
-                  >
-                    <SelectTrigger className={`bg-[#252525] border-[#333333] text-white ${isMobile ? 'text-xs h-8 flex-1' : 'w-[180px]'}`}>
-                      <SelectValue placeholder="Recomendado" />
-                    </SelectTrigger>
-                    <SelectContent className="bg-[#1E1E1E] border-[#333333] text-white">
-                      <SelectItem value="recommended" className="flex items-center gap-2">
-                        <ThumbsUp className="w-4 h-4 text-center-orange" /> Recomendado
-                      </SelectItem>
-                      <SelectItem value="price-low" className="flex items-center gap-2">
-                        <ArrowUpNarrowWide className="w-4 h-4" /> Menor preço
-                      </SelectItem>
-                      <SelectItem value="price-high" className="flex items-center gap-2">
-                        <ArrowDownNarrowWide className="w-4 h-4" /> Maior preço
-                      </SelectItem>
-                    </SelectContent>
-                  </Select>
-                </div>
-              </div>
-              
-              <ProductGrid products={products} isLoading={isLoading} />
-            </motion.div>
-          </div>
+            <ProductGrid products={products} isLoading={isLoading} />
+          </motion.div>
         </div>
       </main>
       <Footer />
