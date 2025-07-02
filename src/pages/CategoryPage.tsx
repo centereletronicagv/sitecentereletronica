@@ -31,6 +31,10 @@ const categoryLabels: Record<string, string> = {
   'ar-condicionado': 'Ar Condicionado',
   'informatica': 'Informática',
   'monitoramento': 'Monitoramento',
+  'ferramentas': 'Ferramentas',
+  'controles': 'Controles',
+  'sensores': 'Sensores',
+  'solda': 'Solda',
 };
 
 type SortOption = 'recommended' | 'price-low' | 'price-high';
