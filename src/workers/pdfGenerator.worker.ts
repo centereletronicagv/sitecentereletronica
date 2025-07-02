@@ -55,18 +55,32 @@ const generatePdf = async (products: Product[], categoryName: string) => {
   const pageWidth = doc.internal.pageSize.width;
   const pageHeight = doc.internal.pageSize.height;
   const footerHeight = 20;
-  const safeAreaHeight = pageHeight - footerHeight - 15;
+  const headerHeight = 60;
+  const safeAreaHeight = pageHeight - footerHeight - headerHeight - 15;
   const productCardHeight = 35;
   
-  // Header (only set these values once)
+  // Header with company information
   doc.setFillColor(colors.background);
-  doc.rect(0, 0, pageWidth, 40, 'F');
+  doc.rect(0, 0, pageWidth, headerHeight, 'F');
   
+  // Company name
   doc.setTextColor('#FFFFFF');
-  doc.setFontSize(24);
-  doc.text(`Catálogo - ${categoryName}`, 20, 25);
+  doc.setFontSize(22);
+  doc.text('Center Eletrônica', 20, 20);
   
-  let yPosition = 50;
+  // Category title
+  doc.setFontSize(16);
+  doc.setTextColor(colors.primary);
+  doc.text(`Catálogo - ${categoryName}`, 20, 35);
+  
+  // Company contact information
+  doc.setFontSize(8);
+  doc.setTextColor('#CCCCCC');
+  doc.text('Rua Jacob Gremmelmaier, 409 - Centro, Getúlio Vargas - RS, 99900-000', 20, 45);
+  doc.text('Tel: (54) 9927-0560 | (54) 9998-6916', 20, 52);
+  doc.text('Email: center@centereletronica.com.br | Site: centereletronica.com.br', 20, 59);
+  
+  let yPosition = headerHeight + 10;
   let currentPage = 1;
   let productsPerPage = 0;
   const maxProductsPerPage = 6;
@@ -88,7 +102,7 @@ const generatePdf = async (products: Product[], categoryName: string) => {
     
     if (yPosition + productCardHeight > safeAreaHeight || productsPerPage >= maxProductsPerPage) {
       doc.addPage();
-      yPosition = 50;
+      yPosition = headerHeight + 10;
       productsPerPage = 0;
       currentPage++;
     }
@@ -134,11 +148,36 @@ const generatePdf = async (products: Product[], categoryName: string) => {
     productsPerPage++;
   }
   
-  // Add footer to all pages
+  // Add header and footer to all pages
   const pageCount = doc.internal.pages.length - 1;
   
   for (let i = 1; i <= pageCount; i++) {
     doc.setPage(i);
+    
+    // Add header to each page (except first page which already has it)
+    if (i > 1) {
+      doc.setFillColor(colors.background);
+      doc.rect(0, 0, pageWidth, headerHeight, 'F');
+      
+      // Company name
+      doc.setTextColor('#FFFFFF');
+      doc.setFontSize(22);
+      doc.text('Center Eletrônica', 20, 20);
+      
+      // Category title
+      doc.setFontSize(16);
+      doc.setTextColor(colors.primary);
+      doc.text(`Catálogo - ${categoryName}`, 20, 35);
+      
+      // Company contact information
+      doc.setFontSize(8);
+      doc.setTextColor('#CCCCCC');
+      doc.text('Rua Jacob Gremmelmaier, 409 - Centro, Getúlio Vargas - RS, 99900-000', 20, 45);
+      doc.text('Tel: (54) 9927-0560 | (54) 9998-6916', 20, 52);
+      doc.text('Email: center@centereletronica.com.br | Site: centereletronica.com.br', 20, 59);
+    }
+    
+    // Add footer
     doc.setFillColor(colors.primary);
     doc.rect(0, pageHeight - footerHeight, pageWidth, footerHeight, 'F');
     doc.setTextColor('#FFFFFF');
@@ -175,4 +214,3 @@ self.addEventListener('message', async (e: MessageEvent<WorkerMessage>) => {
     }
   }
 });
-
