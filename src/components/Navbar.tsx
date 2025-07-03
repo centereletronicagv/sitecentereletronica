@@ -194,7 +194,7 @@ export default function Navbar() {
             : 'bg-[#181818]'
         }`}
       >
-        {/* Main Top Bar */}
+        {/* Top Bar */}
         <div className="container-custom py-3 border-b border-[#2a2a2a]">
           <div className="flex items-center justify-between gap-4">
             {/* Logo */}
@@ -208,32 +208,11 @@ export default function Navbar() {
                   alt="Center Eletrônica Logo" 
                   className="h-8 w-auto md:h-9"
                 />
+                <span className="ml-2 text-lg md:text-xl font-display font-bold tracking-tight text-white">
+                  Center <span className="text-center-orange">Eletrônica</span>
+                </span>
               </div>
             </Link>
-
-            {/* Departments Dropdown */}
-            <div className="hidden lg:block">
-              <DropdownMenu>
-                <DropdownMenuTrigger className="flex items-center gap-2 px-4 py-2 bg-center-orange text-white font-medium rounded-md hover:bg-center-orange/90 transition-colors">
-                  <Grid2X2 size={16} />
-                  Departamentos
-                  <ChevronDown size={14} />
-                </DropdownMenuTrigger>
-                <DropdownMenuContent className="w-64 bg-[#1a1a1a] border-[#333333] shadow-xl">
-                  {navLinks.slice(1).map((link) => (
-                    <DropdownMenuItem key={link.name} asChild>
-                      <Link
-                        to={link.href}
-                        className="flex items-center gap-3 px-4 py-3 text-gray-300 hover:text-white hover:bg-[#333333] transition-colors"
-                      >
-                        {link.icon}
-                        <span className="font-medium">{link.name}</span>
-                      </Link>
-                    </DropdownMenuItem>
-                  ))}
-                </DropdownMenuContent>
-              </DropdownMenu>
-            </div>
 
             {/* Search Bar */}
             <div className="flex-1 max-w-2xl hidden sm:block">
@@ -255,66 +234,87 @@ export default function Navbar() {
             </div>
 
             {/* Top Actions */}
-            <div className="hidden lg:flex items-center gap-4">
-              {/* User Account Dropdown */}
-              <DropdownMenu>
-                <DropdownMenuTrigger asChild>
-                  <button className="flex items-center gap-2 text-gray-300 hover:text-center-orange transition-colors">
-                    <User size={18} />
-                    <span className="text-sm font-medium">
-                      {isAuthenticated ? user?.name?.split(' ')[0] : 'Minha Conta'}
-                    </span>
-                    <ChevronDown size={14} />
-                  </button>
-                </DropdownMenuTrigger>
-                <DropdownMenuContent className="w-48 bg-[#1a1a1a] border-[#333333] shadow-xl">
-                  {isAuthenticated ? (
-                    <>
-                      <div className="px-3 py-2 border-b border-[#333333]">
-                        <p className="text-sm text-white font-medium">{user?.name}</p>
-                        <p className="text-xs text-gray-400">{user?.email}</p>
-                      </div>
-                      <DropdownMenuItem className="text-gray-300 hover:text-white hover:bg-[#333333] focus:bg-[#333333] focus:text-white">
-                        <User size={16} className="mr-2" />
-                        Meu Perfil
-                      </DropdownMenuItem>
-                      <DropdownMenuItem className="text-gray-300 hover:text-white hover:bg-[#333333] focus:bg-[#333333] focus:text-white">
-                        <ShoppingCart size={16} className="mr-2" />
-                        Meus Pedidos
-                      </DropdownMenuItem>
-                      <DropdownMenuSeparator className="bg-[#333333]" />
-                      <DropdownMenuItem 
-                        onClick={handleLogout}
-                        className="text-red-400 hover:text-red-300 hover:bg-[#333333] focus:bg-[#333333] focus:text-red-300"
-                      >
-                        <LogOut size={16} className="mr-2" />
-                        Sair
-                      </DropdownMenuItem>
-                    </>
-                  ) : (
-                    <DropdownMenuItem 
-                      onClick={() => setIsAuthModalOpen(true)}
-                      className="text-gray-300 hover:text-white hover:bg-[#333333] focus:bg-[#333333] focus:text-white"
-                    >
-                      <User size={16} className="mr-2" />
-                      Entrar / Criar Conta
-                    </DropdownMenuItem>
-                  )}
-                </DropdownMenuContent>
-              </DropdownMenu>
-
-              <button
-                onClick={() => setIsCartOpen(true)}
-                className="flex items-center gap-2 text-gray-300 hover:text-center-orange transition-colors relative"
-              >
-                <ShoppingCart size={20} />
-                <span className="text-sm font-medium">Meu Carrinho</span>
-                {getTotalItems() > 0 && (
-                  <span className="absolute -top-2 -right-2 bg-center-orange text-white text-xs w-5 h-5 flex items-center justify-center rounded-full font-bold">
-                    {getTotalItems()}
-                  </span>
+            <div className="hidden lg:flex items-center gap-6">
+              <div className="flex items-center gap-4">
+                {currentCategory && (
+                  <DownloadCategoryButton 
+                    products={allProducts.filter(product => product.category === currentCategory.id)}
+                    categoryName={currentCategory.name}
+                  />
                 )}
-              </button>
+                
+                <button
+                  onClick={handleWhatsAppClick}
+                  className="flex items-center gap-2 text-gray-300 hover:text-center-orange transition-colors"
+                >
+                  <MessageCircle size={18} />
+                  <span className="text-sm font-medium">Contato</span>
+                </button>
+
+                {/* User Account Dropdown */}
+                <DropdownMenu>
+                  <DropdownMenuTrigger asChild>
+                    <button className="flex items-center gap-2 text-gray-300 hover:text-center-orange transition-colors">
+                      <User size={18} />
+                      <span className="text-sm font-medium">
+                        {isAuthenticated ? user?.name?.split(' ')[0] : 'Minha Conta'}
+                      </span>
+                      <ChevronDown size={14} />
+                    </button>
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent className="w-48 bg-[#1a1a1a] border-[#333333] shadow-xl">
+                    {isAuthenticated ? (
+                      <>
+                        <div className="px-3 py-2 border-b border-[#333333]">
+                          <p className="text-sm text-white font-medium">{user?.name}</p>
+                          <p className="text-xs text-gray-400">{user?.email}</p>
+                        </div>
+                        <DropdownMenuItem className="text-gray-300 hover:text-white hover:bg-[#333333] focus:bg-[#333333] focus:text-white">
+                          <User size={16} className="mr-2" />
+                          Meu Perfil
+                        </DropdownMenuItem>
+                        <DropdownMenuItem className="text-gray-300 hover:text-white hover:bg-[#333333] focus:bg-[#333333] focus:text-white">
+                          <ShoppingCart size={16} className="mr-2" />
+                          Meus Pedidos
+                        </DropdownMenuItem>
+                        <DropdownMenuSeparator className="bg-[#333333]" />
+                        <DropdownMenuItem 
+                          onClick={handleLogout}
+                          className="text-red-400 hover:text-red-300 hover:bg-[#333333] focus:bg-[#333333] focus:text-red-300"
+                        >
+                          <LogOut size={16} className="mr-2" />
+                          Sair
+                        </DropdownMenuItem>
+                      </>
+                    ) : (
+                      <DropdownMenuItem 
+                        onClick={() => setIsAuthModalOpen(true)}
+                        className="text-gray-300 hover:text-white hover:bg-[#333333] focus:bg-[#333333] focus:text-white"
+                      >
+                        <User size={16} className="mr-2" />
+                        Entrar / Criar Conta
+                      </DropdownMenuItem>
+                    )}
+                  </DropdownMenuContent>
+                </DropdownMenu>
+              </div>
+              
+              <div className="flex items-center gap-4">
+                <FavoritesLink />
+
+                <button
+                  onClick={() => setIsCartOpen(true)}
+                  className="flex items-center gap-2 text-gray-300 hover:text-center-orange transition-colors relative"
+                >
+                  <ShoppingCart size={20} />
+                  <span className="text-sm font-medium">Meu Carrinho</span>
+                  {getTotalItems() > 0 && (
+                    <span className="absolute -top-2 -right-2 bg-center-orange text-white text-xs w-5 h-5 flex items-center justify-center rounded-full font-bold">
+                      {getTotalItems()}
+                    </span>
+                  )}
+                </button>
+              </div>
             </div>
 
             {/* Mobile Actions */}
@@ -351,12 +351,34 @@ export default function Navbar() {
           </div>
         </div>
 
-        {/* Second Navigation Bar */}
+        {/* Navigation Bar */}
         <div className="container-custom">
           <nav className="hidden lg:block py-3">
-            <div className="flex items-center justify-between">
+            <div className="flex items-center gap-2">
+              {/* Departments Dropdown */}
+              <DropdownMenu>
+                <DropdownMenuTrigger className="flex items-center gap-2 px-4 py-2 bg-center-orange text-white font-medium rounded-md hover:bg-center-orange/90 transition-colors">
+                  <Grid2X2 size={16} />
+                  Departamentos
+                  <ChevronDown size={14} />
+                </DropdownMenuTrigger>
+                <DropdownMenuContent className="w-64 bg-[#1a1a1a] border-[#333333] shadow-xl">
+                  {navLinks.slice(1).map((link) => (
+                    <DropdownMenuItem key={link.name} asChild>
+                      <Link
+                        to={link.href}
+                        className="flex items-center gap-3 px-4 py-3 text-gray-300 hover:text-white hover:bg-[#333333] transition-colors"
+                      >
+                        {link.icon}
+                        <span className="font-medium">{link.name}</span>
+                      </Link>
+                    </DropdownMenuItem>
+                  ))}
+                </DropdownMenuContent>
+              </DropdownMenu>
+
               {/* Main Navigation Links */}
-              <div className="flex items-center gap-6">
+              <div className="flex items-center ml-4">
                 {navLinks.slice(0, 4).map((link) => (
                   <div key={link.name} className="relative group">
                     <Link
@@ -389,24 +411,11 @@ export default function Navbar() {
                 ))}
               </div>
 
-              {/* Right Side Actions */}
-              <div className="flex items-center gap-6">
-                <button
-                  onClick={handleWhatsAppClick}
-                  className="flex items-center gap-2 text-gray-300 hover:text-center-orange transition-colors"
-                >
-                  <MessageCircle size={18} />
-                  <span className="text-sm font-medium">Contato</span>
-                </button>
-
-                <FavoritesLink />
-
-                {currentCategory && (
-                  <DownloadCategoryButton 
-                    products={allProducts.filter(product => product.category === currentCategory.id)}
-                    categoryName={currentCategory.name}
-                  />
-                )}
+              {/* Special Offers */}
+              <div className="ml-auto">
+                <span className="text-center-orange text-sm font-bold">
+                  🔥 5% OFF para você
+                </span>
               </div>
             </div>
           </nav>
