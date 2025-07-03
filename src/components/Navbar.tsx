@@ -194,284 +194,231 @@ export default function Navbar() {
             : 'bg-[#181818]'
         }`}
       >
-        {/* Mobile Header */}
-        <div className="lg:hidden">
-          {/* Top Bar - Mobile */}
-          <div className="container-custom py-3 border-b border-[#2a2a2a]">
-            <div className="flex items-center justify-between">
-              {/* Left Side - Menu and Account */}
-              <div className="flex items-center gap-3">
-                <button
-                  onClick={() => setIsMenuOpen(!isMenuOpen)}
-                  className="p-2 text-gray-300 hover:bg-[#333333] rounded-full transition-colors"
-                  aria-label="Menu"
-                >
-                  {isMenuOpen ? <X size={20} /> : <Menu size={20} />}
-                </button>
-                
-                <button
-                  onClick={() => setIsAuthModalOpen(true)}
-                  className="p-2 text-gray-300 hover:bg-[#333333] rounded-full transition-colors"
-                  aria-label="Conta"
-                >
-                  <User size={20} />
-                </button>
-              </div>
-
-              {/* Center - Logo Only */}
-              <Link 
-                to="/" 
-                className="flex items-center transition-transform duration-300 hover:-translate-y-0.5"
-              >
+        {/* Top Bar */}
+        <div className="container-custom py-3 border-b border-[#2a2a2a]">
+          <div className="flex items-center justify-between gap-4">
+            {/* Logo */}
+            <Link 
+              to="/" 
+              className="flex items-center transition-transform duration-300 hover:-translate-y-0.5"
+            >
+              <div className="flex items-center">
                 <img 
                   src="/lovable-uploads/logonova.png" 
                   alt="Center Eletrônica Logo" 
-                  className="h-8 w-auto"
+                  className="h-8 w-auto md:h-9"
                 />
-              </Link>
+                <span className="ml-2 text-lg md:text-xl font-display font-bold tracking-tight text-white">
+                  Center <span className="text-center-orange">Eletrônica</span>
+                </span>
+              </div>
+            </Link>
 
-              {/* Right Side - Favorites and Cart */}
-              <div className="flex items-center gap-3">
-                <Link 
-                  to="/favoritos" 
-                  className="p-2 text-gray-300 hover:bg-[#333333] rounded-full transition-colors relative"
-                  aria-label="Favoritos"
+            {/* Search Bar */}
+            <div className="flex-1 max-w-2xl hidden sm:block">
+              <form onSubmit={handleSearch} className="relative">
+                <Input
+                  type="search"
+                  placeholder="Olá, o que você procura hoje?"
+                  className="pl-4 pr-12 py-3 w-full bg-[#252525] border-[#3a3a3a] border-2 rounded-full text-white focus-visible:ring-center-orange focus-visible:border-center-orange placeholder:text-gray-400 transition-all duration-200"
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                />
+                <button 
+                  type="submit"
+                  className="absolute right-1 top-1/2 -translate-y-1/2 h-8 w-8 flex items-center justify-center text-gray-400 hover:text-center-orange hover:bg-center-orange/10 rounded-full transition-all duration-200"
                 >
-                  <Heart size={20} />
-                </Link>
+                  <Search size={18} />
+                </button>
+              </form>
+            </div>
+
+            {/* Top Actions */}
+            <div className="hidden lg:flex items-center gap-6">
+              <div className="flex items-center gap-4">
+                {currentCategory && (
+                  <DownloadCategoryButton 
+                    products={allProducts.filter(product => product.category === currentCategory.id)}
+                    categoryName={currentCategory.name}
+                  />
+                )}
                 
                 <button
+                  onClick={handleWhatsAppClick}
+                  className="flex items-center gap-2 text-gray-300 hover:text-center-orange transition-colors"
+                >
+                  <MessageCircle size={18} />
+                  <span className="text-sm font-medium">Contato</span>
+                </button>
+
+                {/* User Account Dropdown */}
+                <DropdownMenu>
+                  <DropdownMenuTrigger asChild>
+                    <button className="flex items-center gap-2 text-gray-300 hover:text-center-orange transition-colors">
+                      <User size={18} />
+                      <span className="text-sm font-medium">
+                        {isAuthenticated ? user?.name?.split(' ')[0] : 'Minha Conta'}
+                      </span>
+                      <ChevronDown size={14} />
+                    </button>
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent className="w-48 bg-[#1a1a1a] border-[#333333] shadow-xl">
+                    {isAuthenticated ? (
+                      <>
+                        <div className="px-3 py-2 border-b border-[#333333]">
+                          <p className="text-sm text-white font-medium">{user?.name}</p>
+                          <p className="text-xs text-gray-400">{user?.email}</p>
+                        </div>
+                        <DropdownMenuItem className="text-gray-300 hover:text-white hover:bg-[#333333] focus:bg-[#333333] focus:text-white">
+                          <User size={16} className="mr-2" />
+                          Meu Perfil
+                        </DropdownMenuItem>
+                        <DropdownMenuItem className="text-gray-300 hover:text-white hover:bg-[#333333] focus:bg-[#333333] focus:text-white">
+                          <ShoppingCart size={16} className="mr-2" />
+                          Meus Pedidos
+                        </DropdownMenuItem>
+                        <DropdownMenuSeparator className="bg-[#333333]" />
+                        <DropdownMenuItem 
+                          onClick={handleLogout}
+                          className="text-red-400 hover:text-red-300 hover:bg-[#333333] focus:bg-[#333333] focus:text-red-300"
+                        >
+                          <LogOut size={16} className="mr-2" />
+                          Sair
+                        </DropdownMenuItem>
+                      </>
+                    ) : (
+                      <DropdownMenuItem 
+                        onClick={() => setIsAuthModalOpen(true)}
+                        className="text-gray-300 hover:text-white hover:bg-[#333333] focus:bg-[#333333] focus:text-white"
+                      >
+                        <User size={16} className="mr-2" />
+                        Entrar / Criar Conta
+                      </DropdownMenuItem>
+                    )}
+                  </DropdownMenuContent>
+                </DropdownMenu>
+              </div>
+              
+              <div className="flex items-center gap-4">
+                <FavoritesLink />
+
+                <button
                   onClick={() => setIsCartOpen(true)}
-                  className="p-2 text-gray-300 hover:bg-[#333333] rounded-full relative transition-colors"
-                  aria-label="Carrinho"
+                  className="flex items-center gap-2 text-gray-300 hover:text-center-orange transition-colors relative"
                 >
                   <ShoppingCart size={20} />
+                  <span className="text-sm font-medium">Meu Carrinho</span>
                   {getTotalItems() > 0 && (
-                    <span className="absolute -top-1 -right-1 bg-center-orange text-white text-xs w-4 h-4 flex items-center justify-center rounded-full text-[10px] font-bold">
+                    <span className="absolute -top-2 -right-2 bg-center-orange text-white text-xs w-5 h-5 flex items-center justify-center rounded-full font-bold">
                       {getTotalItems()}
                     </span>
                   )}
                 </button>
               </div>
             </div>
-          </div>
 
-          {/* Search Bar - Mobile */}
-          <div className="container-custom py-3">
-            <form onSubmit={handleSearch} className="relative">
-              <Input
-                type="search"
-                placeholder="Olá, o que você procura hoje?"
-                className="pl-4 pr-12 py-3 w-full bg-[#252525] border-[#3a3a3a] border-2 rounded-full text-white focus-visible:ring-center-orange focus-visible:border-center-orange placeholder:text-gray-400 transition-all duration-200"
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-              />
+            {/* Mobile Actions */}
+            <div className="flex items-center gap-2 lg:hidden">
               <button 
-                type="submit"
-                className="absolute right-1 top-1/2 -translate-y-1/2 h-8 w-8 flex items-center justify-center text-gray-400 hover:text-center-orange hover:bg-center-orange/10 rounded-full transition-all duration-200"
+                className="p-2 text-gray-300 hover:bg-[#333333] rounded-full transition-colors"
+                onClick={handleMobileSearchOpen}
+                aria-label="Buscar"
               >
                 <Search size={18} />
               </button>
-            </form>
+              
+              <button
+                onClick={() => setIsCartOpen(true)}
+                className="p-2 text-gray-300 hover:bg-[#333333] rounded-full relative transition-colors"
+                aria-label="Carrinho"
+              >
+                <ShoppingCart size={18} />
+                {getTotalItems() > 0 && (
+                  <span className="absolute -top-1 -right-1 bg-center-orange text-white text-xs w-4 h-4 flex items-center justify-center rounded-full text-[10px] font-bold">
+                    {getTotalItems()}
+                  </span>
+                )}
+              </button>
+              
+              <button
+                onClick={() => setIsMenuOpen(!isMenuOpen)}
+                className="p-2 text-gray-300 hover:bg-[#333333] rounded-full transition-colors"
+                aria-label="Menu"
+              >
+                {isMenuOpen ? <X size={18} /> : <Menu size={18} />}
+              </button>
+            </div>
           </div>
         </div>
 
-        {/* Desktop Header */}
-        <div className="hidden lg:block">
-          {/* Top Bar - Desktop */}
-          <div className="container-custom py-3 border-b border-[#2a2a2a]">
-            <div className="flex items-center justify-between gap-8">
-              {/* Logo */}
-              <Link 
-                to="/" 
-                className="flex items-center transition-transform duration-300 hover:-translate-y-0.5"
-              >
-                <div className="flex items-center">
-                  <img 
-                    src="/lovable-uploads/logonova.png" 
-                    alt="Center Eletrônica Logo" 
-                    className="h-8 w-auto md:h-9"
-                  />
-                  <span className="ml-3 text-lg md:text-xl font-display font-bold tracking-tight text-white">
-                    Center <span className="text-center-orange">Eletrônica</span>
-                  </span>
-                </div>
-              </Link>
-
-              {/* Search Bar */}
-              <div className="flex-1 max-w-2xl">
-                <form onSubmit={handleSearch} className="relative">
-                  <Input
-                    type="search"
-                    placeholder="Olá, o que você procura hoje?"
-                    className="pl-4 pr-12 py-3 w-full bg-[#252525] border-[#3a3a3a] border-2 rounded-full text-white focus-visible:ring-center-orange focus-visible:border-center-orange placeholder:text-gray-400 transition-all duration-200"
-                    value={searchQuery}
-                    onChange={(e) => setSearchQuery(e.target.value)}
-                  />
-                  <button 
-                    type="submit"
-                    className="absolute right-1 top-1/2 -translate-y-1/2 h-8 w-8 flex items-center justify-center text-gray-400 hover:text-center-orange hover:bg-center-orange/10 rounded-full transition-all duration-200"
-                  >
-                    <Search size={18} />
-                  </button>
-                </form>
-              </div>
-
-              {/* Top Actions */}
-              <div className="flex items-center gap-6">
-                <div className="flex items-center gap-4">
-                  {currentCategory && (
-                    <DownloadCategoryButton 
-                      products={allProducts.filter(product => product.category === currentCategory.id)}
-                      categoryName={currentCategory.name}
-                    />
-                  )}
-                  
-                  <button
-                    onClick={handleWhatsAppClick}
-                    className="flex items-center gap-2 text-gray-300 hover:text-center-orange transition-colors"
-                  >
-                    <MessageCircle size={18} />
-                    <span className="text-sm font-medium">Contato</span>
-                  </button>
-
-                  {/* User Account Dropdown */}
-                  <DropdownMenu>
-                    <DropdownMenuTrigger asChild>
-                      <button className="flex items-center gap-2 text-gray-300 hover:text-center-orange transition-colors">
-                        <User size={18} />
-                        <span className="text-sm font-medium">
-                          {isAuthenticated ? user?.name?.split(' ')[0] : 'Minha Conta'}
-                        </span>
-                        <ChevronDown size={14} />
-                      </button>
-                    </DropdownMenuTrigger>
-                    <DropdownMenuContent className="w-48 bg-[#1a1a1a] border-[#333333] shadow-xl">
-                      {isAuthenticated ? (
-                        <>
-                          <div className="px-3 py-2 border-b border-[#333333]">
-                            <p className="text-sm text-white font-medium">{user?.name}</p>
-                            <p className="text-xs text-gray-400">{user?.email}</p>
-                          </div>
-                          <DropdownMenuItem className="text-gray-300 hover:text-white hover:bg-[#333333] focus:bg-[#333333] focus:text-white">
-                            <User size={16} className="mr-2" />
-                            Meu Perfil
-                          </DropdownMenuItem>
-                          <DropdownMenuItem className="text-gray-300 hover:text-white hover:bg-[#333333] focus:bg-[#333333] focus:text-white">
-                            <ShoppingCart size={16} className="mr-2" />
-                            Meus Pedidos
-                          </DropdownMenuItem>
-                          <DropdownMenuSeparator className="bg-[#333333]" />
-                          <DropdownMenuItem 
-                            onClick={handleLogout}
-                            className="text-red-400 hover:text-red-300 hover:bg-[#333333] focus:bg-[#333333] focus:text-red-300"
-                          >
-                            <LogOut size={16} className="mr-2" />
-                            Sair
-                          </DropdownMenuItem>
-                        </>
-                      ) : (
-                        <DropdownMenuItem 
-                          onClick={() => setIsAuthModalOpen(true)}
-                          className="text-gray-300 hover:text-white hover:bg-[#333333] focus:bg-[#333333] focus:text-white"
-                        >
-                          <User size={16} className="mr-2" />
-                          Entrar / Criar Conta
-                        </DropdownMenuItem>
-                      )}
-                    </DropdownMenuContent>
-                  </DropdownMenu>
-                </div>
-                
-                <div className="flex items-center gap-4">
-                  <FavoritesLink />
-
-                  <button
-                    onClick={() => setIsCartOpen(true)}
-                    className="flex items-center gap-2 text-gray-300 hover:text-center-orange transition-colors relative"
-                  >
-                    <ShoppingCart size={20} />
-                    <span className="text-sm font-medium">Meu Carrinho</span>
-                    {getTotalItems() > 0 && (
-                      <span className="absolute -top-2 -right-2 bg-center-orange text-white text-xs w-5 h-5 flex items-center justify-center rounded-full font-bold">
-                        {getTotalItems()}
-                      </span>
-                    )}
-                  </button>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* Navigation Bar - Desktop */}
-          <div className="container-custom">
-            <nav className="py-3">
-              <div className="flex items-center gap-2">
-                {/* Departments Dropdown */}
-                <DropdownMenu>
-                  <DropdownMenuTrigger className="flex items-center gap-2 px-4 py-2 bg-center-orange text-white font-medium rounded-md hover:bg-center-orange/90 transition-colors">
-                    <Grid2X2 size={16} />
-                    Departamentos
-                    <ChevronDown size={14} />
-                  </DropdownMenuTrigger>
-                  <DropdownMenuContent className="w-64 bg-[#1a1a1a] border-[#333333] shadow-xl">
-                    {navLinks.slice(1).map((link) => (
-                      <DropdownMenuItem key={link.name} asChild>
-                        <Link
-                          to={link.href}
-                          className="flex items-center gap-3 px-4 py-3 text-gray-300 hover:text-white hover:bg-[#333333] transition-colors"
-                        >
-                          {link.icon}
-                          <span className="font-medium">{link.name}</span>
-                        </Link>
-                      </DropdownMenuItem>
-                    ))}
-                  </DropdownMenuContent>
-                </DropdownMenu>
-
-                {/* Main Navigation Links */}
-                <div className="flex items-center ml-4">
-                  {navLinks.slice(0, 4).map((link) => (
-                    <div key={link.name} className="relative group">
+        {/* Navigation Bar */}
+        <div className="container-custom">
+          <nav className="hidden lg:block py-3">
+            <div className="flex items-center gap-2">
+              {/* Departments Dropdown */}
+              <DropdownMenu>
+                <DropdownMenuTrigger className="flex items-center gap-2 px-4 py-2 bg-center-orange text-white font-medium rounded-md hover:bg-center-orange/90 transition-colors">
+                  <Grid2X2 size={16} />
+                  Departamentos
+                  <ChevronDown size={14} />
+                </DropdownMenuTrigger>
+                <DropdownMenuContent className="w-64 bg-[#1a1a1a] border-[#333333] shadow-xl">
+                  {navLinks.slice(1).map((link) => (
+                    <DropdownMenuItem key={link.name} asChild>
                       <Link
                         to={link.href}
-                        className={`flex items-center gap-2 px-4 py-2 text-sm font-medium transition-colors ${
-                          location.pathname === link.href
-                            ? 'text-center-orange'
-                            : 'text-gray-300 hover:text-center-orange'
-                        }`}
+                        className="flex items-center gap-3 px-4 py-3 text-gray-300 hover:text-white hover:bg-[#333333] transition-colors"
                       >
-                        {link.name}
-                        {link.subCategories && <ChevronDown size={12} />}
+                        {link.icon}
+                        <span className="font-medium">{link.name}</span>
                       </Link>
-                      
-                      {/* Dropdown for subcategories */}
-                      {link.subCategories && (
-                        <div className="absolute top-full left-0 w-48 bg-[#1a1a1a] border border-[#333333] rounded-md shadow-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
-                          {link.subCategories.map((subCategory) => (
-                            <Link
-                              key={subCategory.name}
-                              to={subCategory.href}
-                              className="block px-4 py-2 text-sm text-gray-300 hover:text-white hover:bg-[#333333] transition-colors"
-                            >
-                              {subCategory.name}
-                            </Link>
-                          ))}
-                        </div>
-                      )}
-                    </div>
+                    </DropdownMenuItem>
                   ))}
-                </div>
+                </DropdownMenuContent>
+              </DropdownMenu>
 
-                {/* Special Offers */}
-                <div className="ml-auto">
-                  <span className="text-center-orange text-sm font-bold">
-                    🔥 5% OFF para você
-                  </span>
-                </div>
+              {/* Main Navigation Links */}
+              <div className="flex items-center ml-4">
+                {navLinks.slice(0, 4).map((link) => (
+                  <div key={link.name} className="relative group">
+                    <Link
+                      to={link.href}
+                      className={`flex items-center gap-2 px-4 py-2 text-sm font-medium transition-colors ${
+                        location.pathname === link.href
+                          ? 'text-center-orange'
+                          : 'text-gray-300 hover:text-center-orange'
+                      }`}
+                    >
+                      {link.name}
+                      {link.subCategories && <ChevronDown size={12} />}
+                    </Link>
+                    
+                    {/* Dropdown for subcategories */}
+                    {link.subCategories && (
+                      <div className="absolute top-full left-0 w-48 bg-[#1a1a1a] border border-[#333333] rounded-md shadow-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
+                        {link.subCategories.map((subCategory) => (
+                          <Link
+                            key={subCategory.name}
+                            to={subCategory.href}
+                            className="block px-4 py-2 text-sm text-gray-300 hover:text-white hover:bg-[#333333] transition-colors"
+                          >
+                            {subCategory.name}
+                          </Link>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                ))}
               </div>
-            </nav>
-          </div>
+
+              {/* Special Offers */}
+              <div className="ml-auto">
+                <span className="text-center-orange text-sm font-bold">
+                  🔥 5% OFF para você
+                </span>
+              </div>
+            </div>
+          </nav>
         </div>
       </div>
 
@@ -605,6 +552,60 @@ export default function Navbar() {
       <CartModal open={isCartOpen} onOpenChange={setIsCartOpen} />
       <MobileCategoryDrawer open={isCategoryDrawerOpen} onOpenChange={setIsCategoryDrawerOpen} />
       <AuthModal open={isAuthModalOpen} onOpenChange={setIsAuthModalOpen} />
+
+      {/* Mobile Search Dialog */}
+      <Dialog open={isMobileSearchOpen} onOpenChange={setIsMobileSearchOpen}>
+        <DialogContent className="sm:max-w-md border-[#333333] bg-[#1E1E1E] p-0 overflow-hidden mx-auto my-auto max-h-[90vh] top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%]">
+          <div className="relative">
+            <button
+              onClick={() => setIsMobileSearchOpen(false)}
+              className="absolute top-3 right-3 z-10 p-2 rounded-full bg-[#333333] text-gray-300 hover:text-white transition-colors"
+              aria-label="Fechar busca"
+            >
+              <X size={18} />
+            </button>
+            
+            <div className="p-6 pr-16">
+              <h3 className="text-lg font-semibold text-white mb-4">O que você procura hoje?</h3>
+              
+              <form onSubmit={handleSearch} className="relative mb-6">
+                <Input
+                  type="search"
+                  placeholder="Digite aqui para buscar..."
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  className="pl-4 pr-12 py-3 w-full bg-[#252525] border-[#3a3a3a] border-2 text-white focus-visible:ring-center-orange focus-visible:border-center-orange placeholder:text-gray-400 rounded-lg"
+                  autoFocus
+                />
+                <button 
+                  type="submit"
+                  className="absolute right-2 top-1/2 -translate-y-1/2 p-2 flex items-center justify-center text-gray-400 hover:text-center-orange transition-colors bg-[#333333] rounded-md"
+                >
+                  <Search size={18} />
+                </button>
+              </form>
+
+              <div>
+                <h4 className="text-sm font-medium text-gray-300 mb-3">Pesquisas populares:</h4>
+                <div className="flex flex-wrap gap-2">
+                  {['Capacitor', 'Tubulação', 'Disjuntor', 'Suporte', 'Fita'].map((term) => (
+                    <button
+                      key={term}
+                      onClick={() => {
+                        setSearchQuery(term);
+                        handleSearch(new Event('submit') as unknown as FormEvent);
+                      }}
+                      className="px-4 py-2 bg-[#252525] hover:bg-center-orange hover:text-white text-gray-300 text-sm rounded-full transition-all duration-200 border border-[#3a3a3a] hover:border-center-orange"
+                    >
+                      {term}
+                    </button>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+        </DialogContent>
+      </Dialog>
     </header>
   );
 }
