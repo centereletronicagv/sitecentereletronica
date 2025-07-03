@@ -1,6 +1,7 @@
+
 import { useState, useEffect, FormEvent } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { Menu, X, Search, Wind, Plug, Terminal, Router, ChevronDown, ChevronRight, ShoppingCart, Grid2X2, MessageCircle, Monitor, Eye } from 'lucide-react';
+import { Menu, X, Search, Wind, Plug, Terminal, Router, MessageCircle, Monitor, Eye, ShoppingCart } from 'lucide-react';
 import { Input } from './ui/input';
 import { useCart } from '@/context/CartContext';
 import CartModal from './CartModal';
@@ -9,11 +10,15 @@ import { Dialog, DialogContent } from '@/components/ui/dialog';
 import { useIsMobile } from '@/hooks/use-mobile';
 import { DownloadCategoryButton } from './DownloadCategoryButton';
 import { products as allProducts } from '@/data/products';
-import { 
-  Collapsible,
-  CollapsibleContent,
-  CollapsibleTrigger,
-} from "@/components/ui/collapsible"
+import {
+  NavigationMenu,
+  NavigationMenuContent,
+  NavigationMenuItem,
+  NavigationMenuLink,
+  NavigationMenuList,
+  NavigationMenuTrigger,
+} from "@/components/ui/navigation-menu"
+import { cn } from "@/lib/utils"
 
 interface NavLink {
   name: string;
@@ -102,6 +107,33 @@ const getCategoryInfo = (pathname: string) => {
   };
 };
 
+const ListItem = ({ className, title, children, href, ...props }: {
+  className?: string;
+  title: string;
+  children: React.ReactNode;
+  href: string;
+}) => {
+  return (
+    <li>
+      <NavigationMenuLink asChild>
+        <Link
+          to={href}
+          className={cn(
+            "block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground",
+            className
+          )}
+          {...props}
+        >
+          <div className="text-sm font-medium leading-none">{title}</div>
+          <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
+            {children}
+          </p>
+        </Link>
+      </NavigationMenuLink>
+    </li>
+  )
+}
+
 export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
@@ -109,7 +141,6 @@ export default function Navbar() {
   const [isCartOpen, setIsCartOpen] = useState(false);
   const [isMobileSearchOpen, setIsMobileSearchOpen] = useState(false);
   const [isCategoryDrawerOpen, setIsCategoryDrawerOpen] = useState(false);
-  const [openCategories, setOpenCategories] = useState<{[key: string]: boolean}>({});
   const location = useLocation();
   const navigate = useNavigate();
   const { getTotalItems } = useCart();
@@ -120,11 +151,7 @@ export default function Navbar() {
 
   useEffect(() => {
     const handleScroll = () => {
-      if (window.scrollY > 10) {
-        setScrolled(true);
-      } else {
-        setScrolled(false);
-      }
+      setScrolled(window.scrollY > 10);
     };
 
     window.addEventListener('scroll', handleScroll);
@@ -149,30 +176,11 @@ export default function Navbar() {
       detail: { query: searchQuery } 
     }));
     
-    console.log('Searching for:', searchQuery);
     setIsMobileSearchOpen(false);
   };
 
   const handleMobileSearchOpen = () => {
-    console.log('Open mobile search');
     setIsMobileSearchOpen(true);
-  };
-
-  const toggleCategory = (name: string) => {
-    setOpenCategories(prev => ({
-      ...prev,
-      [name]: !prev[name]
-    }));
-  };
-
-  const handleCategoryClick = (link: NavLink) => {
-    if (!link.subCategories || link.name === 'Início') {
-      navigate(link.href);
-      setIsMenuOpen(false);
-    }
-    else {
-      toggleCategory(link.name);
-    }
   };
   
   const handleWhatsAppClick = () => {
@@ -185,23 +193,24 @@ export default function Navbar() {
   return (
     <header className="w-full">
       <div 
-        className={`w-full fixed top-0 left-0 right-0 z-30 transition-all duration-300 ${
+        className={cn(
+          "w-full fixed top-0 left-0 right-0 z-30 transition-all duration-500 ease-in-out",
           scrolled 
-            ? 'bg-[#181818] shadow-md border-b border-[#333333]' 
+            ? 'bg-[#181818]/95 backdrop-blur-md shadow-lg border-b border-[#333333]/50' 
             : 'bg-[#181818]'
-        }`}
+        )}
       >
         <div className="container-custom py-3">
           <div className="flex items-center justify-between gap-2">
             <Link 
               to="/" 
-              className="flex items-center transition-transform duration-300 hover:-translate-y-0.5"
+              className="flex items-center transition-all duration-300 hover:scale-105 hover:-translate-y-0.5"
             >
               <div className="flex items-center">
                 <img 
                   src="/lovable-uploads/logonova.png" 
                   alt="Center Eletrônica Logo" 
-                  className="h-7 w-auto md:h-8"
+                  className="h-7 w-auto md:h-8 transition-transform duration-300"
                 />
                 <span className="ml-1.5 text-base md:text-xl font-display font-semibold tracking-tight text-white">
                   Center <span className="text-center-orange">Eletrônica</span>
@@ -210,17 +219,17 @@ export default function Navbar() {
             </Link>
 
             <div className="flex-1 max-w-xl hidden sm:block">
-              <form onSubmit={handleSearch} className="relative">
+              <form onSubmit={handleSearch} className="relative group">
                 <Input
                   type="search"
                   placeholder="Olá, o que você procura hoje?"
-                  className="pl-4 pr-12 py-2.5 w-full bg-[#252525] border-[#3a3a3a] border-[1px] rounded-full text-white focus-visible:ring-center-orange placeholder:text-gray-400"
+                  className="pl-4 pr-12 py-2.5 w-full bg-[#252525]/80 backdrop-blur-sm border-[#3a3a3a] border-[1px] rounded-full text-white focus-visible:ring-center-orange focus-visible:ring-2 focus-visible:border-center-orange placeholder:text-gray-400 transition-all duration-300 group-hover:bg-[#252525] focus:bg-[#252525]"
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
                 />
                 <button 
                   type="submit"
-                  className="absolute right-0 top-0 h-full px-3 flex items-center justify-center text-gray-400 hover:text-center-orange"
+                  className="absolute right-0 top-0 h-full px-3 flex items-center justify-center text-gray-400 hover:text-center-orange transition-colors duration-200"
                 >
                   <Search size={20} />
                 </button>
@@ -238,7 +247,7 @@ export default function Navbar() {
                 
                 <button
                   onClick={handleWhatsAppClick}
-                  className="flex items-center gap-1.5 text-gray-300 hover:text-center-orange transition-colors"
+                  className="flex items-center gap-1.5 text-gray-300 hover:text-center-orange transition-all duration-200 hover:scale-105"
                 >
                   <MessageCircle size={16} />
                   <span className="text-sm font-medium">Contato</span>
@@ -248,12 +257,12 @@ export default function Navbar() {
               <div className="flex items-center gap-5">
                 <button
                   onClick={() => setIsCartOpen(true)}
-                  className="flex items-center gap-1.5 text-gray-300 hover:text-center-orange transition-colors relative"
+                  className="flex items-center gap-1.5 text-gray-300 hover:text-center-orange transition-all duration-200 hover:scale-105 relative"
                 >
                   <ShoppingCart size={20} />
                   <span className="text-sm font-medium">Carrinho</span>
                   {getTotalItems() > 0 && (
-                    <span className="absolute -top-2 -right-2 bg-center-orange text-white text-xs w-5 h-5 flex items-center justify-center rounded-full">
+                    <span className="absolute -top-2 -right-2 bg-center-orange text-white text-xs w-5 h-5 flex items-center justify-center rounded-full animate-pulse">
                       {getTotalItems()}
                     </span>
                   )}
@@ -263,7 +272,7 @@ export default function Navbar() {
 
             <div className="flex items-center gap-2 md:hidden">
               <button 
-                className="p-1.5 text-gray-300 bg-[#333333] rounded-full"
+                className="p-1.5 text-gray-300 bg-[#333333]/80 backdrop-blur-sm rounded-full hover:bg-[#333333] transition-all duration-200 hover:scale-110"
                 onClick={handleMobileSearchOpen}
                 aria-label="Buscar"
               >
@@ -272,12 +281,12 @@ export default function Navbar() {
               
               <button
                 onClick={() => setIsCartOpen(true)}
-                className="p-1.5 text-gray-300 bg-[#333333] rounded-full relative"
+                className="p-1.5 text-gray-300 bg-[#333333]/80 backdrop-blur-sm rounded-full hover:bg-[#333333] transition-all duration-200 hover:scale-110 relative"
                 aria-label="Carrinho"
               >
                 <ShoppingCart size={16} />
                 {getTotalItems() > 0 && (
-                  <span className="absolute -top-1 -right-1 bg-center-orange text-white text-xs w-4 h-4 flex items-center justify-center rounded-full text-[10px]">
+                  <span className="absolute -top-1 -right-1 bg-center-orange text-white text-xs w-4 h-4 flex items-center justify-center rounded-full text-[10px] animate-pulse">
                     {getTotalItems()}
                   </span>
                 )}
@@ -285,57 +294,107 @@ export default function Navbar() {
               
               <button
                 onClick={() => setIsMenuOpen(!isMenuOpen)}
-                className="p-1.5 text-gray-300 bg-[#333333] rounded-full"
+                className="p-1.5 text-gray-300 bg-[#333333]/80 backdrop-blur-sm rounded-full hover:bg-[#333333] transition-all duration-200 hover:scale-110"
                 aria-label="Menu"
               >
-                {isMenuOpen ? <X size={16} /> : <Menu size={16} />}
+                <div className="relative w-4 h-4">
+                  <span className={cn(
+                    "absolute h-0.5 w-4 bg-current transition-all duration-300",
+                    isMenuOpen ? "top-1.5 rotate-45" : "top-0"
+                  )} />
+                  <span className={cn(
+                    "absolute top-1.5 h-0.5 w-4 bg-current transition-all duration-300",
+                    isMenuOpen ? "opacity-0" : "opacity-100"
+                  )} />
+                  <span className={cn(
+                    "absolute h-0.5 w-4 bg-current transition-all duration-300",
+                    isMenuOpen ? "top-1.5 -rotate-45" : "top-3"
+                  )} />
+                </div>
               </button>
             </div>
           </div>
 
-          <nav className="hidden md:block mt-4 border-t border-[#333333] pt-4">
-            <ul className="flex items-center gap-12">
-              {navLinks.map((link) => (
-                <li key={link.name}>
+          <nav className="hidden md:block mt-4 border-t border-[#333333]/50 pt-4">
+            <NavigationMenu>
+              <NavigationMenuList className="gap-8">
+                <NavigationMenuItem>
                   <Link
-                    to={link.href}
-                    className={`flex items-center gap-2 py-2 text-sm font-medium transition-colors ${
-                      location.pathname === link.href
-                        ? 'text-center-orange'
-                        : 'text-gray-300 hover:text-center-orange'
-                    }`}
+                    to="/"
+                    className={cn(
+                      "flex items-center gap-2 py-2 px-3 text-sm font-medium rounded-md transition-all duration-200",
+                      location.pathname === '/'
+                        ? 'text-center-orange bg-center-orange/10'
+                        : 'text-gray-300 hover:text-center-orange hover:bg-[#333333]/50'
+                    )}
                   >
-                    {link.icon && link.icon}
-                    {link.name}
-                    {link.name !== 'Início' && <ChevronDown size={14} />}
+                    Início
                   </Link>
-                </li>
-              ))}
-            </ul>
+                </NavigationMenuItem>
+                
+                {navLinks.slice(1).map((link) => (
+                  <NavigationMenuItem key={link.name}>
+                    <NavigationMenuTrigger 
+                      className={cn(
+                        "flex items-center gap-2 py-2 px-3 text-sm font-medium rounded-md transition-all duration-200 bg-transparent hover:bg-[#333333]/50 data-[active]:bg-center-orange/10 data-[state=open]:bg-[#333333]/50",
+                        location.pathname === link.href
+                          ? 'text-center-orange'
+                          : 'text-gray-300 hover:text-center-orange'
+                      )}
+                    >
+                      {link.icon && link.icon}
+                      {link.name}
+                    </NavigationMenuTrigger>
+                    <NavigationMenuContent>
+                      <div className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px] bg-[#1E1E1E] border-[#333333]">
+                        <div className="row-span-3">
+                          <NavigationMenuLink asChild>
+                            <Link
+                              to={link.href}
+                              className="flex h-full w-full select-none flex-col justify-end rounded-md bg-gradient-to-b from-center-orange/20 to-center-orange/10 p-6 no-underline outline-none focus:shadow-md hover:from-center-orange/30 hover:to-center-orange/20 transition-all duration-200"
+                            >
+                              <div className="mb-2 mt-4 text-lg font-medium text-white">
+                                {link.name}
+                              </div>
+                              <p className="text-sm leading-tight text-gray-300">
+                                Explore nossa linha completa de produtos para {link.name.toLowerCase()}
+                              </p>
+                            </Link>
+                          </NavigationMenuLink>
+                        </div>
+                        {link.subCategories?.map((subCategory) => (
+                          <ListItem
+                            key={subCategory.name}
+                            href={subCategory.href}
+                            title={subCategory.name}
+                          >
+                            Produtos especializados em {subCategory.name.toLowerCase()}
+                          </ListItem>
+                        ))}
+                      </div>
+                    </NavigationMenuContent>
+                  </NavigationMenuItem>
+                ))}
+              </NavigationMenuList>
+            </NavigationMenu>
           </nav>
         </div>
       </div>
 
+      {/* Mobile Menu */}
       <div 
-        className={`fixed inset-0 z-40 bg-[#222222] transform transition-transform duration-300 ease-in-out pt-16 ${
-          isMenuOpen ? 'translate-x-0' : 'translate-x-full'
-        }`}
+        className={cn(
+          "fixed inset-0 z-40 bg-[#222222]/95 backdrop-blur-md transform transition-all duration-500 ease-in-out pt-16",
+          isMenuOpen ? 'translate-x-0 opacity-100' : 'translate-x-full opacity-0'
+        )}
       >
-        <button
-          onClick={() => setIsMenuOpen(false)}
-          className="absolute top-4 right-4 p-2 rounded-full bg-[#333333] text-gray-300 hover:text-white"
-          aria-label="Fechar menu"
-        >
-          <X size={20} />
-        </button>
-        
         <div className="container-custom py-4">
           <div className="mb-6">
             <form onSubmit={handleSearch} className="relative">
               <Input
                 type="search"
                 placeholder="Buscar produtos..."
-                className="pl-10 pr-4 py-2 w-full bg-[#333333] border-0 text-white"
+                className="pl-10 pr-4 py-2 w-full bg-[#333333]/80 backdrop-blur-sm border-0 text-white rounded-lg focus-visible:ring-center-orange"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
               />
@@ -346,15 +405,16 @@ export default function Navbar() {
           <nav className="flex flex-col gap-2">
             <div className="flex flex-col">
               {navLinks.map((link) => (
-                <div key={link.name} className="border-b border-[#333333]">
+                <div key={link.name} className="border-b border-[#333333]/50">
                   <Link
                     to={link.href}
                     onClick={() => setIsMenuOpen(false)}
-                    className={`flex items-center gap-2 px-4 py-3 text-base font-medium rounded-md transition-colors ${
+                    className={cn(
+                      "flex items-center gap-2 px-4 py-3 text-base font-medium rounded-md transition-all duration-200",
                       location.pathname === link.href
                         ? 'bg-center-orange/10 text-center-orange'
-                        : 'text-gray-300 hover:bg-[#333333]'
-                    }`}
+                        : 'text-gray-300 hover:bg-[#333333]/50 hover:text-white'
+                    )}
                   >
                     {link.icon && link.icon}
                     {link.name}
@@ -364,7 +424,7 @@ export default function Navbar() {
             </div>
             
             {currentCategory && (
-              <div className="mt-4 pt-4 border-t border-[#333333]">
+              <div className="mt-4 pt-4 border-t border-[#333333]/50">
                 <div className="px-4">
                   <DownloadCategoryButton 
                     products={allProducts.filter(product => product.category === currentCategory.id)}
@@ -374,13 +434,13 @@ export default function Navbar() {
               </div>
             )}
             
-            <div className="mt-4 pt-4 border-t border-[#333333]">
+            <div className="mt-4 pt-4 border-t border-[#333333]/50">
               <button
                 onClick={() => {
                   setIsCartOpen(true);
                   setIsMenuOpen(false);
                 }}
-                className="flex items-center gap-2 px-4 py-3 text-base font-medium text-gray-300 hover:bg-[#333333] rounded-md w-full text-left"
+                className="flex items-center gap-2 px-4 py-3 text-base font-medium text-gray-300 hover:bg-[#333333]/50 hover:text-white rounded-md w-full text-left transition-all duration-200"
               >
                 <ShoppingCart size={18} />
                 <span>Carrinho</span>
@@ -394,7 +454,7 @@ export default function Navbar() {
             
             <button
               onClick={handleWhatsAppClick}
-              className="mt-2 flex items-center gap-2 px-4 py-3 text-base font-medium text-white bg-center-orange rounded-md"
+              className="mt-2 flex items-center gap-2 px-4 py-3 text-base font-medium text-white bg-center-orange rounded-md hover:bg-center-orange/90 transition-all duration-200 hover:scale-105"
             >
               <MessageCircle size={18} />
               <span>Contato WhatsApp</span>
@@ -447,7 +507,7 @@ export default function Navbar() {
                         setSearchQuery(term);
                         handleSearch(new Event('submit') as unknown as FormEvent);
                       }}
-                      className="px-4 py-2 bg-[#252525] hover:bg-center-orange hover:text-white text-gray-300 text-sm rounded-full transition-all duration-200 border border-[#3a3a3a] hover:border-center-orange"
+                      className="px-4 py-2 bg-[#252525] hover:bg-center-orange hover:text-white text-gray-300 text-sm rounded-full transition-all duration-200 border border-[#3a3a3a] hover:border-center-orange hover:scale-105"
                     >
                       {term}
                     </button>
