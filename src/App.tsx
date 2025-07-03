@@ -9,6 +9,7 @@ import NotFound from "./pages/NotFound";
 import { ThemeProvider } from "./hooks/useTheme";
 import CategoryPage from "./pages/CategoryPage";
 import { CartProvider } from "./context/CartContext";
+import { AuthProvider } from "./context/AuthContext";
 import FavoritesPage from "./pages/FavoritesPage";
 
 // Create a custom scrollToTop function
@@ -32,17 +33,21 @@ const queryClient = new QueryClient({
 const App = () => (
   <QueryClientProvider client={queryClient}>
     <ThemeProvider>
-      <TooltipProvider>
-        <Toaster />
-        <Sonner />
-        <Routes>
-          <Route path="/" element={<Index />} />
-          <Route path="/categoria/:slug" element={<CategoryPage />} />
-          <Route path="/favoritos" element={<FavoritesPage />} />
-          {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
-          <Route path="*" element={<NotFound />} />
-        </Routes>
-      </TooltipProvider>
+      <AuthProvider>
+        <CartProvider>
+          <TooltipProvider>
+            <Toaster />
+            <Sonner />
+            <Routes>
+              <Route path="/" element={<Index />} />
+              <Route path="/categoria/:slug" element={<CategoryPage />} />
+              <Route path="/favoritos" element={<FavoritesPage />} />
+              {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
+              <Route path="*" element={<NotFound />} />
+            </Routes>
+          </TooltipProvider>
+        </CartProvider>
+      </AuthProvider>
     </ThemeProvider>
   </QueryClientProvider>
 );

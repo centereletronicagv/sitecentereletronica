@@ -1,7 +1,6 @@
-
 import { useState, useEffect, FormEvent } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { Menu, X, Search, Wind, Plug, Terminal, Router, ChevronDown, ChevronRight, ShoppingCart, Grid2X2, MessageCircle, Monitor, Eye, User, Heart } from 'lucide-react';
+import { Menu, X, Search, Wind, Plug, Terminal, Router, ChevronDown, ChevronRight, ShoppingCart, Grid2X2, MessageCircle, Monitor, Eye, User, Heart, LogOut } from 'lucide-react';
 import { Input } from './ui/input';
 import { useCart } from '@/context/CartContext';
 import CartModal from './CartModal';
@@ -15,7 +14,10 @@ import {
   DropdownMenuContent,
   DropdownMenuTrigger,
   DropdownMenuItem,
+  DropdownMenuSeparator,
 } from "@/components/ui/dropdown-menu";
+import { useAuth } from '@/context/AuthContext';
+import AuthModal from './AuthModal';
 
 interface NavLink {
   name: string;
@@ -111,10 +113,12 @@ export default function Navbar() {
   const [isCartOpen, setIsCartOpen] = useState(false);
   const [isMobileSearchOpen, setIsMobileSearchOpen] = useState(false);
   const [isCategoryDrawerOpen, setIsCategoryDrawerOpen] = useState(false);
+  const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
   const location = useLocation();
   const navigate = useNavigate();
   const { getTotalItems } = useCart();
   const isMobile = useIsMobile();
+  const { user, isAuthenticated, logout } = useAuth();
 
   // Get current category info
   const currentCategory = getCategoryInfo(location.pathname);
@@ -164,6 +168,20 @@ export default function Navbar() {
     const message = 'Olá! Gostaria de mais informações sobre os produtos da Center Eletrônica.';
     const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
     window.open(whatsappUrl, '_blank');
+  };
+
+  const handleUserMenuClick = () => {
+    if (isAuthenticated) {
+      // User is logged in, show user menu (handled by dropdown)
+      return;
+    } else {
+      // User is not logged in, show auth modal
+      setIsAuthModalOpen(true);
+    }
+  };
+
+  const handleLogout = () => {
+    logout();
   };
 
   return (
@@ -232,10 +250,52 @@ export default function Navbar() {
                   <span className="text-sm font-medium">Contato</span>
                 </button>
 
-                <button className="flex items-center gap-2 text-gray-300 hover:text-center-orange transition-colors">
-                  <User size={18} />
-                  <span className="text-sm font-medium">Minha Conta</span>
-                </button>
+                {/* User Account Dropdown */}
+                <DropdownMenu>
+                  <DropdownMenuTrigger asChild>
+                    <button className="flex items-center gap-2 text-gray-300 hover:text-center-orange transition-colors">
+                      <User size={18} />
+                      <span className="text-sm font-medium">
+                        {isAuthenticated ? user?.name?.split(' ')[0] : 'Minha Conta'}
+                      </span>
+                      <ChevronDown size={14} />
+                    </button>
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent className="w-48 bg-[#1a1a1a] border-[#333333] shadow-xl">
+                    {isAuthenticated ? (
+                      <>
+                        <div className="px-3 py-2 border-b border-[#333333]">
+                          <p className="text-sm text-white font-medium">{user?.name}</p>
+                          <p className="text-xs text-gray-400">{user?.email}</p>
+                        </div>
+                        <DropdownMenuItem className="text-gray-300 hover:text-white hover:bg-[#333333] focus:bg-[#333333] focus:text-white">
+                          <User size={16} className="mr-2" />
+                          Meu Perfil
+                        </DropdownMenuItem>
+                        <DropdownMenuItem className="text-gray-300 hover:text-white hover:bg-[#333333] focus:bg-[#333333] focus:text-white">
+                          <ShoppingCart size={16} className="mr-2" />
+                          Meus Pedidos
+                        </DropdownMenuItem>
+                        <DropdownMenuSeparator className="bg-[#333333]" />
+                        <DropdownMenuItem 
+                          onClick={handleLogout}
+                          className="text-red-400 hover:text-red-300 hover:bg-[#333333] focus:bg-[#333333] focus:text-red-300"
+                        >
+                          <LogOut size={16} className="mr-2" />
+                          Sair
+                        </DropdownMenuItem>
+                      </>
+                    ) : (
+                      <DropdownMenuItem 
+                        onClick={() => setIsAuthModalOpen(true)}
+                        className="text-gray-300 hover:text-white hover:bg-[#333333] focus:bg-[#333333] focus:text-white"
+                      >
+                        <User size={16} className="mr-2" />
+                        Entrar / Criar Conta
+                      </DropdownMenuItem>
+                    )}
+                  </DropdownMenuContent>
+                </DropdownMenu>
               </div>
               
               <div className="flex items-center gap-4">
@@ -424,6 +484,36 @@ export default function Navbar() {
             )}
             
             <div className="mt-4 pt-4 border-t border-[#333333] space-y-2">
+              {/* User Account Button */}
+              <button
+                onClick={() => {
+                  if (isAuthenticated) {
+                    // Show user menu or profile - for now just close menu
+                    setIsMenuOpen(false);
+                  } else {
+                    setIsAuthModalOpen(true);
+                    setIsMenuOpen(false);
+                  }
+                }}
+                className="flex items-center gap-3 px-4 py-3 text-base font-medium text-gray-300 hover:bg-[#333333] rounded-md w-full text-left"
+              >
+                <User size={18} />
+                <span>{isAuthenticated ? user?.name : 'Minha Conta'}</span>
+              </button>
+
+              {isAuthenticated && (
+                <button
+                  onClick={() => {
+                    handleLogout();
+                    setIsMenuOpen(false);
+                  }}
+                  className="flex items-center gap-3 px-4 py-3 text-base font-medium text-red-400 hover:bg-[#333333] rounded-md w-full text-left"
+                >
+                  <LogOut size={18} />
+                  <span>Sair</span>
+                </button>
+              )}
+
               <button
                 onClick={() => {
                   setIsCartOpen(true);
@@ -459,7 +549,9 @@ export default function Navbar() {
 
       <CartModal open={isCartOpen} onOpenChange={setIsCartOpen} />
       <MobileCategoryDrawer open={isCategoryDrawerOpen} onOpenChange={setIsCategoryDrawerOpen} />
+      <AuthModal open={isAuthModalOpen} onOpenChange={setIsAuthModalOpen} />
 
+      {/* Mobile Search Dialog */}
       <Dialog open={isMobileSearchOpen} onOpenChange={setIsMobileSearchOpen}>
         <DialogContent className="sm:max-w-md border-[#333333] bg-[#1E1E1E] p-0 overflow-hidden mx-auto my-auto max-h-[90vh] top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%]">
           <div className="relative">
