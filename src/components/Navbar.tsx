@@ -1,6 +1,7 @@
+
 import { useState, useEffect, FormEvent } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { Menu, X, Search, Wind, Plug, Terminal, Router, ChevronDown, ChevronRight, ShoppingCart, Grid2X2, MessageCircle, Monitor, Eye } from 'lucide-react';
+import { Menu, X, Search, Wind, Plug, Terminal, Router, ChevronDown, ChevronRight, ShoppingCart, Grid2X2, MessageCircle, Monitor, Eye, User, Heart } from 'lucide-react';
 import { Input } from './ui/input';
 import { useCart } from '@/context/CartContext';
 import CartModal from './CartModal';
@@ -10,10 +11,11 @@ import { useIsMobile } from '@/hooks/use-mobile';
 import { DownloadCategoryButton } from './DownloadCategoryButton';
 import { products as allProducts } from '@/data/products';
 import { 
-  Collapsible,
-  CollapsibleContent,
-  CollapsibleTrigger,
-} from "@/components/ui/collapsible"
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuTrigger,
+  DropdownMenuItem,
+} from "@/components/ui/dropdown-menu";
 
 interface NavLink {
   name: string;
@@ -109,7 +111,6 @@ export default function Navbar() {
   const [isCartOpen, setIsCartOpen] = useState(false);
   const [isMobileSearchOpen, setIsMobileSearchOpen] = useState(false);
   const [isCategoryDrawerOpen, setIsCategoryDrawerOpen] = useState(false);
-  const [openCategories, setOpenCategories] = useState<{[key: string]: boolean}>({});
   const location = useLocation();
   const navigate = useNavigate();
   const { getTotalItems } = useCart();
@@ -157,23 +158,6 @@ export default function Navbar() {
     console.log('Open mobile search');
     setIsMobileSearchOpen(true);
   };
-
-  const toggleCategory = (name: string) => {
-    setOpenCategories(prev => ({
-      ...prev,
-      [name]: !prev[name]
-    }));
-  };
-
-  const handleCategoryClick = (link: NavLink) => {
-    if (!link.subCategories || link.name === 'Início') {
-      navigate(link.href);
-      setIsMenuOpen(false);
-    }
-    else {
-      toggleCategory(link.name);
-    }
-  };
   
   const handleWhatsAppClick = () => {
     const phoneNumber = '5499270560';
@@ -187,12 +171,14 @@ export default function Navbar() {
       <div 
         className={`w-full fixed top-0 left-0 right-0 z-30 transition-all duration-300 ${
           scrolled 
-            ? 'bg-[#181818] shadow-md border-b border-[#333333]' 
+            ? 'bg-[#181818] shadow-lg border-b border-[#333333]' 
             : 'bg-[#181818]'
         }`}
       >
-        <div className="container-custom py-3">
-          <div className="flex items-center justify-between gap-2">
+        {/* Top Bar */}
+        <div className="container-custom py-3 border-b border-[#2a2a2a]">
+          <div className="flex items-center justify-between gap-4">
+            {/* Logo */}
             <Link 
               to="/" 
               className="flex items-center transition-transform duration-300 hover:-translate-y-0.5"
@@ -201,33 +187,35 @@ export default function Navbar() {
                 <img 
                   src="/lovable-uploads/logonova.png" 
                   alt="Center Eletrônica Logo" 
-                  className="h-7 w-auto md:h-8"
+                  className="h-8 w-auto md:h-9"
                 />
-                <span className="ml-1.5 text-base md:text-xl font-display font-semibold tracking-tight text-white">
+                <span className="ml-2 text-lg md:text-xl font-display font-bold tracking-tight text-white">
                   Center <span className="text-center-orange">Eletrônica</span>
                 </span>
               </div>
             </Link>
 
-            <div className="flex-1 max-w-xl hidden sm:block">
+            {/* Search Bar */}
+            <div className="flex-1 max-w-2xl hidden sm:block">
               <form onSubmit={handleSearch} className="relative">
                 <Input
                   type="search"
                   placeholder="Olá, o que você procura hoje?"
-                  className="pl-4 pr-12 py-2.5 w-full bg-[#252525] border-[#3a3a3a] border-[1px] rounded-full text-white focus-visible:ring-center-orange placeholder:text-gray-400"
+                  className="pl-4 pr-12 py-3 w-full bg-[#252525] border-[#3a3a3a] border-2 rounded-full text-white focus-visible:ring-center-orange focus-visible:border-center-orange placeholder:text-gray-400 transition-all duration-200"
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
                 />
                 <button 
                   type="submit"
-                  className="absolute right-0 top-0 h-full px-3 flex items-center justify-center text-gray-400 hover:text-center-orange"
+                  className="absolute right-1 top-1/2 -translate-y-1/2 h-8 w-8 flex items-center justify-center text-gray-400 hover:text-center-orange hover:bg-center-orange/10 rounded-full transition-all duration-200"
                 >
-                  <Search size={20} />
+                  <Search size={18} />
                 </button>
               </form>
             </div>
 
-            <div className="hidden md:flex items-center gap-6">
+            {/* Top Actions */}
+            <div className="hidden lg:flex items-center gap-6">
               <div className="flex items-center gap-4">
                 {currentCategory && (
                   <DownloadCategoryButton 
@@ -238,22 +226,32 @@ export default function Navbar() {
                 
                 <button
                   onClick={handleWhatsAppClick}
-                  className="flex items-center gap-1.5 text-gray-300 hover:text-center-orange transition-colors"
+                  className="flex items-center gap-2 text-gray-300 hover:text-center-orange transition-colors"
                 >
-                  <MessageCircle size={16} />
+                  <MessageCircle size={18} />
                   <span className="text-sm font-medium">Contato</span>
+                </button>
+
+                <button className="flex items-center gap-2 text-gray-300 hover:text-center-orange transition-colors">
+                  <User size={18} />
+                  <span className="text-sm font-medium">Minha Conta</span>
                 </button>
               </div>
               
-              <div className="flex items-center gap-5">
+              <div className="flex items-center gap-4">
+                <button className="flex items-center gap-2 text-gray-300 hover:text-center-orange transition-colors">
+                  <Heart size={18} />
+                  <span className="text-sm font-medium">Favoritos</span>
+                </button>
+
                 <button
                   onClick={() => setIsCartOpen(true)}
-                  className="flex items-center gap-1.5 text-gray-300 hover:text-center-orange transition-colors relative"
+                  className="flex items-center gap-2 text-gray-300 hover:text-center-orange transition-colors relative"
                 >
                   <ShoppingCart size={20} />
-                  <span className="text-sm font-medium">Carrinho</span>
+                  <span className="text-sm font-medium">Meu Carrinho</span>
                   {getTotalItems() > 0 && (
-                    <span className="absolute -top-2 -right-2 bg-center-orange text-white text-xs w-5 h-5 flex items-center justify-center rounded-full">
+                    <span className="absolute -top-2 -right-2 bg-center-orange text-white text-xs w-5 h-5 flex items-center justify-center rounded-full font-bold">
                       {getTotalItems()}
                     </span>
                   )}
@@ -261,23 +259,24 @@ export default function Navbar() {
               </div>
             </div>
 
-            <div className="flex items-center gap-2 md:hidden">
+            {/* Mobile Actions */}
+            <div className="flex items-center gap-2 lg:hidden">
               <button 
-                className="p-1.5 text-gray-300 bg-[#333333] rounded-full"
+                className="p-2 text-gray-300 hover:bg-[#333333] rounded-full transition-colors"
                 onClick={handleMobileSearchOpen}
                 aria-label="Buscar"
               >
-                <Search size={16} />
+                <Search size={18} />
               </button>
               
               <button
                 onClick={() => setIsCartOpen(true)}
-                className="p-1.5 text-gray-300 bg-[#333333] rounded-full relative"
+                className="p-2 text-gray-300 hover:bg-[#333333] rounded-full relative transition-colors"
                 aria-label="Carrinho"
               >
-                <ShoppingCart size={16} />
+                <ShoppingCart size={18} />
                 {getTotalItems() > 0 && (
-                  <span className="absolute -top-1 -right-1 bg-center-orange text-white text-xs w-4 h-4 flex items-center justify-center rounded-full text-[10px]">
+                  <span className="absolute -top-1 -right-1 bg-center-orange text-white text-xs w-4 h-4 flex items-center justify-center rounded-full text-[10px] font-bold">
                     {getTotalItems()}
                   </span>
                 )}
@@ -285,39 +284,89 @@ export default function Navbar() {
               
               <button
                 onClick={() => setIsMenuOpen(!isMenuOpen)}
-                className="p-1.5 text-gray-300 bg-[#333333] rounded-full"
+                className="p-2 text-gray-300 hover:bg-[#333333] rounded-full transition-colors"
                 aria-label="Menu"
               >
-                {isMenuOpen ? <X size={16} /> : <Menu size={16} />}
+                {isMenuOpen ? <X size={18} /> : <Menu size={18} />}
               </button>
             </div>
           </div>
+        </div>
 
-          <nav className="hidden md:block mt-4 border-t border-[#333333] pt-4">
-            <ul className="flex items-center gap-12">
-              {navLinks.map((link) => (
-                <li key={link.name}>
-                  <Link
-                    to={link.href}
-                    className={`flex items-center gap-2 py-2 text-sm font-medium transition-colors ${
-                      location.pathname === link.href
-                        ? 'text-center-orange'
-                        : 'text-gray-300 hover:text-center-orange'
-                    }`}
-                  >
-                    {link.icon && link.icon}
-                    {link.name}
-                    {link.name !== 'Início' && <ChevronDown size={14} />}
-                  </Link>
-                </li>
-              ))}
-            </ul>
+        {/* Navigation Bar */}
+        <div className="container-custom">
+          <nav className="hidden lg:block py-3">
+            <div className="flex items-center gap-2">
+              {/* Departments Dropdown */}
+              <DropdownMenu>
+                <DropdownMenuTrigger className="flex items-center gap-2 px-4 py-2 bg-center-orange text-white font-medium rounded-md hover:bg-center-orange/90 transition-colors">
+                  <Grid2X2 size={16} />
+                  Departamentos
+                  <ChevronDown size={14} />
+                </DropdownMenuTrigger>
+                <DropdownMenuContent className="w-64 bg-[#1a1a1a] border-[#333333] shadow-xl">
+                  {navLinks.slice(1).map((link) => (
+                    <DropdownMenuItem key={link.name} asChild>
+                      <Link
+                        to={link.href}
+                        className="flex items-center gap-3 px-4 py-3 text-gray-300 hover:text-white hover:bg-[#333333] transition-colors"
+                      >
+                        {link.icon}
+                        <span className="font-medium">{link.name}</span>
+                      </Link>
+                    </DropdownMenuItem>
+                  ))}
+                </DropdownMenuContent>
+              </DropdownMenu>
+
+              {/* Main Navigation Links */}
+              <div className="flex items-center ml-4">
+                {navLinks.slice(0, 4).map((link) => (
+                  <div key={link.name} className="relative group">
+                    <Link
+                      to={link.href}
+                      className={`flex items-center gap-2 px-4 py-2 text-sm font-medium transition-colors ${
+                        location.pathname === link.href
+                          ? 'text-center-orange'
+                          : 'text-gray-300 hover:text-center-orange'
+                      }`}
+                    >
+                      {link.name}
+                      {link.subCategories && <ChevronDown size={12} />}
+                    </Link>
+                    
+                    {/* Dropdown for subcategories */}
+                    {link.subCategories && (
+                      <div className="absolute top-full left-0 w-48 bg-[#1a1a1a] border border-[#333333] rounded-md shadow-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
+                        {link.subCategories.map((subCategory) => (
+                          <Link
+                            key={subCategory.name}
+                            to={subCategory.href}
+                            className="block px-4 py-2 text-sm text-gray-300 hover:text-white hover:bg-[#333333] transition-colors"
+                          >
+                            {subCategory.name}
+                          </Link>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                ))}
+              </div>
+
+              {/* Special Offers */}
+              <div className="ml-auto">
+                <span className="text-center-orange text-sm font-bold">
+                  🔥 5% OFF para você
+                </span>
+              </div>
+            </div>
           </nav>
         </div>
       </div>
 
+      {/* Mobile Menu */}
       <div 
-        className={`fixed inset-0 z-40 bg-[#222222] transform transition-transform duration-300 ease-in-out pt-16 ${
+        className={`fixed inset-0 z-40 bg-[#222222] transform transition-transform duration-300 ease-in-out pt-20 ${
           isMenuOpen ? 'translate-x-0' : 'translate-x-full'
         }`}
       >
@@ -335,7 +384,7 @@ export default function Navbar() {
               <Input
                 type="search"
                 placeholder="Buscar produtos..."
-                className="pl-10 pr-4 py-2 w-full bg-[#333333] border-0 text-white"
+                className="pl-10 pr-4 py-3 w-full bg-[#333333] border-0 text-white rounded-full"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
               />
@@ -350,7 +399,7 @@ export default function Navbar() {
                   <Link
                     to={link.href}
                     onClick={() => setIsMenuOpen(false)}
-                    className={`flex items-center gap-2 px-4 py-3 text-base font-medium rounded-md transition-colors ${
+                    className={`flex items-center gap-3 px-4 py-4 text-base font-medium rounded-md transition-colors ${
                       location.pathname === link.href
                         ? 'bg-center-orange/10 text-center-orange'
                         : 'text-gray-300 hover:bg-[#333333]'
@@ -374,27 +423,32 @@ export default function Navbar() {
               </div>
             )}
             
-            <div className="mt-4 pt-4 border-t border-[#333333]">
+            <div className="mt-4 pt-4 border-t border-[#333333] space-y-2">
               <button
                 onClick={() => {
                   setIsCartOpen(true);
                   setIsMenuOpen(false);
                 }}
-                className="flex items-center gap-2 px-4 py-3 text-base font-medium text-gray-300 hover:bg-[#333333] rounded-md w-full text-left"
+                className="flex items-center gap-3 px-4 py-3 text-base font-medium text-gray-300 hover:bg-[#333333] rounded-md w-full text-left"
               >
                 <ShoppingCart size={18} />
-                <span>Carrinho</span>
+                <span>Meu Carrinho</span>
                 {getTotalItems() > 0 && (
                   <span className="ml-auto bg-center-orange text-white text-xs w-5 h-5 flex items-center justify-center rounded-full">
                     {getTotalItems()}
                   </span>
                 )}
               </button>
+
+              <button className="flex items-center gap-3 px-4 py-3 text-base font-medium text-gray-300 hover:bg-[#333333] rounded-md w-full text-left">
+                <Heart size={18} />
+                <span>Favoritos</span>
+              </button>
             </div>
             
             <button
               onClick={handleWhatsAppClick}
-              className="mt-2 flex items-center gap-2 px-4 py-3 text-base font-medium text-white bg-center-orange rounded-md"
+              className="mt-2 flex items-center gap-3 px-4 py-3 text-base font-medium text-white bg-center-orange rounded-md hover:bg-center-orange/90 transition-colors"
             >
               <MessageCircle size={18} />
               <span>Contato WhatsApp</span>
