@@ -1,3 +1,4 @@
+
 import { useState } from 'react';
 import { ShoppingCart, Heart } from 'lucide-react';
 import { useCart } from '@/context/CartContext';
@@ -31,14 +32,18 @@ export default function ProductCard({ product }: ProductCardProps) {
 
   const handleToggleFavorite = (e: React.MouseEvent) => {
     e.stopPropagation();
+    console.log('Clicou no favorito para produto:', product.name);
     if (isFavorite(product.id)) {
+      console.log('Removendo dos favoritos:', product.id);
       removeFromFavorites(product.id);
     } else {
+      console.log('Adicionando aos favoritos:', product.id);
       addToFavorites(product);
     }
   };
 
   const isProductFavorite = isFavorite(product.id);
+  console.log('Produto', product.name, 'é favorito?', isProductFavorite);
 
   // Check if the product is sold by meter
   const isSoldByMeter = 
@@ -75,7 +80,6 @@ export default function ProductCard({ product }: ProductCardProps) {
           width="120"
           height="120"
           decoding="async"
-          fetchPriority="high"
         />
         <div className="absolute top-2 left-2">
           <span className="bg-center-orange text-white text-[10px] sm:text-xs px-1.5 py-0.5 rounded-full font-medium">
