@@ -64,18 +64,18 @@ const generatePdf = async (products: Product[], categoryName: string) => {
   doc.setFillColor(colors.background);
   doc.rect(0, 0, pageWidth, headerHeight, 'F');
   
-  // Company name
+  // Company name - increased from 22 to 24
   doc.setTextColor('#FFFFFF');
-  doc.setFontSize(22);
+  doc.setFontSize(24);
   doc.text('Center Eletrônica', 20, 20);
   
-  // Category title
-  doc.setFontSize(16);
+  // Category title - increased from 16 to 18
+  doc.setFontSize(18);
   doc.setTextColor(colors.primary);
   doc.text(`Catálogo - ${categoryName}`, 20, 35);
   
-  // Company contact information
-  doc.setFontSize(8);
+  // Company contact information - increased from 8 to 10
+  doc.setFontSize(10);
   doc.setTextColor('#CCCCCC');
   doc.text('Rua Jacob Gremmelmaier, 409 - Centro, Getúlio Vargas - RS, 99900-000', 20, 45);
   doc.text('Tel: (54) 9927-0560 | (54) 9998-6916', 20, 52);
@@ -133,12 +133,13 @@ const generatePdf = async (products: Product[], categoryName: string) => {
       }
     }
     
-    // Product information
-    doc.setFontSize(11);
+    // Product information - increased from 11 to 13
+    doc.setFontSize(13);
     doc.setTextColor(colors.primary);
     doc.text(product.name, 55, yPosition + 12, { maxWidth: 90 });
     
-    doc.setFontSize(9);
+    // Product details - increased from 9 to 11
+    doc.setFontSize(11);
     doc.setTextColor(colors.text);
     doc.text(`Código: ${product.code}`, 55, yPosition + 25);
     
@@ -163,7 +164,8 @@ const generatePdf = async (products: Product[], categoryName: string) => {
     doc.setFillColor(colors.primary);
     doc.rect(0, pageHeight - footerHeight, pageWidth, footerHeight, 'F');
     doc.setTextColor('#FFFFFF');
-    doc.setFontSize(10);
+    // Footer text - increased from 10 to 12
+    doc.setFontSize(12);
     doc.text(
       `Página ${i} de ${pageCount}`,
       pageWidth / 2,
