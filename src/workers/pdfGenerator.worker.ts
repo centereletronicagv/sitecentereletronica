@@ -64,18 +64,18 @@ const generatePdf = async (products: Product[], categoryName: string) => {
   doc.setFillColor(colors.background);
   doc.rect(0, 0, pageWidth, headerHeight, 'F');
   
-  // Company name - increased from 22 to 24
+  // Company name - increased from 24 to 26
   doc.setTextColor('#FFFFFF');
-  doc.setFontSize(24);
+  doc.setFontSize(26);
   doc.text('Center Eletrônica', 20, 20);
   
-  // Category title - increased from 16 to 18
-  doc.setFontSize(18);
+  // Category title - increased from 18 to 20
+  doc.setFontSize(20);
   doc.setTextColor(colors.primary);
   doc.text(`Catálogo - ${categoryName}`, 20, 35);
   
-  // Company contact information - increased from 8 to 10
-  doc.setFontSize(10);
+  // Company contact information - increased from 10 to 12
+  doc.setFontSize(12);
   doc.setTextColor('#CCCCCC');
   doc.text('Rua Jacob Gremmelmaier, 409 - Centro, Getúlio Vargas - RS, 99900-000', 20, 45);
   doc.text('Tel: (54) 9927-0560 | (54) 9998-6916', 20, 52);
@@ -133,13 +133,13 @@ const generatePdf = async (products: Product[], categoryName: string) => {
       }
     }
     
-    // Product information - increased from 11 to 13
-    doc.setFontSize(13);
+    // Product information - increased from 13 to 15
+    doc.setFontSize(15);
     doc.setTextColor(colors.primary);
     doc.text(product.name, 55, yPosition + 12, { maxWidth: 90 });
     
-    // Product details - increased from 9 to 11
-    doc.setFontSize(11);
+    // Product details - increased from 11 to 13
+    doc.setFontSize(13);
     doc.setTextColor(colors.text);
     doc.text(`Código: ${product.code}`, 55, yPosition + 25);
     
@@ -164,8 +164,8 @@ const generatePdf = async (products: Product[], categoryName: string) => {
     doc.setFillColor(colors.primary);
     doc.rect(0, pageHeight - footerHeight, pageWidth, footerHeight, 'F');
     doc.setTextColor('#FFFFFF');
-    // Footer text - increased from 10 to 12
-    doc.setFontSize(12);
+    // Footer text - increased from 12 to 14
+    doc.setFontSize(14);
     doc.text(
       `Página ${i} de ${pageCount}`,
       pageWidth / 2,
