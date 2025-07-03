@@ -34,9 +34,9 @@ const navLinks: NavLink[] = [
     href: '/categoria/ar-condicionado', 
     icon: <Wind size={16} />,
     subCategories: [
-      { name: 'Tubulação', href: '/categoria/ar-condicionado/tubulacao' },
-      { name: 'Suportes', href: '/categoria/ar-condicionado/suportes' },
-      { name: 'Gases', href: '/categoria/ar-condicionado/gases' },
+      { name: 'Tubulação', href: '/categoria/ar-condicionado?subcategoria=tubulacao' },
+      { name: 'Suportes', href: '/categoria/ar-condicionado?subcategoria=suportes' },
+      { name: 'Gases', href: '/categoria/ar-condicionado?subcategoria=fluidos' },
     ]
   },
   { 
@@ -44,8 +44,8 @@ const navLinks: NavLink[] = [
     href: '/categoria/instalacoes-eletricas', 
     icon: <Plug size={16} />,
     subCategories: [
-      { name: 'Fios e Cabos', href: '/categoria/instalacoes-eletricas/fios' },
-      { name: 'Disjuntores', href: '/categoria/instalacoes-eletricas/disjuntores' },
+      { name: 'Fios e Cabos', href: '/categoria/instalacoes-eletricas?subcategoria=cabos' },
+      { name: 'Disjuntores', href: '/categoria/instalacoes-eletricas?subcategoria=disjuntores' },
     ]
   },
   { 
@@ -53,8 +53,8 @@ const navLinks: NavLink[] = [
     href: '/categoria/terminais', 
     icon: <Terminal size={16} />,
     subCategories: [
-      { name: 'Conectores', href: '/categoria/terminais/conectores' },
-      { name: 'Terminais Ilhós', href: '/categoria/terminais/ilhos' },
+      { name: 'Conectores', href: '/categoria/terminais?subcategoria=conectores' },
+      { name: 'Terminais Ilhós', href: '/categoria/terminais?subcategoria=ilhos' },
     ]
   },
   { 
@@ -62,8 +62,8 @@ const navLinks: NavLink[] = [
     href: '/categoria/automacao', 
     icon: <Router size={16} />,
     subCategories: [
-      { name: 'Relés', href: '/categoria/automacao/reles' },
-      { name: 'Controladores', href: '/categoria/automacao/controladores' },
+      { name: 'Relés', href: '/categoria/automacao?subcategoria=reles' },
+      { name: 'Controladores', href: '/categoria/automacao?subcategoria=controladores' },
     ]
   },
   { 
@@ -71,8 +71,8 @@ const navLinks: NavLink[] = [
     href: '/categoria/informatica', 
     icon: <Monitor size={16} />,
     subCategories: [
-      { name: 'Cabos', href: '/categoria/informatica/cabos' },
-      { name: 'Conectores', href: '/categoria/informatica/conectores' },
+      { name: 'Cabos', href: '/categoria/informatica?subcategoria=cabos' },
+      { name: 'Conectores', href: '/categoria/informatica?subcategoria=conectores' },
     ]
   },
   { 
@@ -80,8 +80,8 @@ const navLinks: NavLink[] = [
     href: '/categoria/monitoramento', 
     icon: <Eye size={16} />,
     subCategories: [
-      { name: 'Câmeras', href: '/categoria/monitoramento/cameras' },
-      { name: 'DVRs', href: '/categoria/monitoramento/dvrs' },
+      { name: 'Câmeras', href: '/categoria/monitoramento?subcategoria=cameras' },
+      { name: 'DVRs', href: '/categoria/monitoramento?subcategoria=dvrs' },
     ]
   },
 ];
