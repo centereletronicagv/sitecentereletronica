@@ -1,4 +1,3 @@
-
 import { useState, useEffect, FormEvent } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { Menu, X, Search, Wind, Plug, Terminal, Router, ChevronDown, ChevronRight, ShoppingCart, Grid2X2, MessageCircle, Monitor, Eye, User, Heart, LogOut } from 'lucide-react';
@@ -281,7 +280,7 @@ export default function Navbar() {
         <div className="hidden lg:block">
           {/* Top Bar - Desktop */}
           <div className="container-custom py-3 border-b border-[#2a2a2a]">
-            <div className="flex items-center justify-between gap-4">
+            <div className="flex items-center justify-between gap-8">
               {/* Logo */}
               <Link 
                 to="/" 
@@ -293,7 +292,7 @@ export default function Navbar() {
                     alt="Center Eletrônica Logo" 
                     className="h-8 w-auto md:h-9"
                   />
-                  <span className="ml-2 text-lg md:text-xl font-display font-bold tracking-tight text-white">
+                  <span className="ml-3 text-lg md:text-xl font-display font-bold tracking-tight text-white">
                     Center <span className="text-center-orange">Eletrônica</span>
                   </span>
                 </div>
