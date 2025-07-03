@@ -18,6 +18,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { useAuth } from '@/context/AuthContext';
 import AuthModal from './AuthModal';
+import FavoritesLink from './FavoritesLink';
 
 interface NavLink {
   name: string;
@@ -299,10 +300,7 @@ export default function Navbar() {
               </div>
               
               <div className="flex items-center gap-4">
-                <button className="flex items-center gap-2 text-gray-300 hover:text-center-orange transition-colors">
-                  <Heart size={18} />
-                  <span className="text-sm font-medium">Favoritos</span>
-                </button>
+                <FavoritesLink />
 
                 <button
                   onClick={() => setIsCartOpen(true)}
@@ -530,10 +528,14 @@ export default function Navbar() {
                 )}
               </button>
 
-              <button className="flex items-center gap-3 px-4 py-3 text-base font-medium text-gray-300 hover:bg-[#333333] rounded-md w-full text-left">
+              <Link
+                to="/favoritos"
+                onClick={() => setIsMenuOpen(false)}
+                className="flex items-center gap-3 px-4 py-3 text-base font-medium text-gray-300 hover:bg-[#333333] rounded-md w-full text-left"
+              >
                 <Heart size={18} />
                 <span>Favoritos</span>
-              </button>
+              </Link>
             </div>
             
             <button
