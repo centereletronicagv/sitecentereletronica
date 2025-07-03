@@ -4,36 +4,11 @@ import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import ProductGrid from '../components/ProductGrid';
 import { Heart } from 'lucide-react';
-import { Product } from '../types';
-
-// This is a placeholder. In a real implementation, favorites would be stored
-// and retrieved from localStorage or a backend service
-const sampleFavorites: Product[] = [
-  {
-    id: '1',
-    name: 'Abraçadeira 3/4" Tramontina Cinza',
-    code: 'ABR-001',
-    price: 0,
-    image: '/lovable-uploads/fe15bc67-99a8-48bb-9477-8a5f5d5f928d.png',
-    imageUrl: '/lovable-uploads/fe15bc67-99a8-48bb-9477-8a5f5d5f928d.png',
-    category: 'instalacoes-eletricas',
-    description: 'Abraçadeira para instalações elétricas',
-    isFeatured: false
-  },
-  {
-    id: '3',
-    name: 'Curva Longa 90° 1/2" com Bolsa Tramontina Cinza',
-    code: 'CRV-001',
-    price: 0,
-    image: '/lovable-uploads/fe15bc67-99a8-48bb-9477-8a5f5d5f928d.png',
-    imageUrl: '/lovable-uploads/fe15bc67-99a8-48bb-9477-8a5f5d5f928d.png',
-    category: 'instalacoes-eletricas',
-    description: 'Curva longa para instalações elétricas',
-    isFeatured: false
-  },
-];
+import { useFavorites } from '@/context/FavoritesContext';
 
 const FavoritesPage = () => {
+  const { favorites } = useFavorites();
+
   useEffect(() => {
     window.scrollTo(0, 0);
     document.title = "Meus Favoritos | Center Eletrônica";
@@ -49,11 +24,13 @@ const FavoritesPage = () => {
               <Heart className="w-6 h-6 text-center-orange" fill="#FF5722" />
               <h1 className="text-3xl font-bold">Meus Favoritos</h1>
             </div>
-            <p className="text-gray-400">Produtos que você marcou como favorito</p>
+            <p className="text-gray-400">
+              Produtos que você marcou como favorito ({favorites.length} {favorites.length === 1 ? 'item' : 'itens'})
+            </p>
           </div>
 
-          {sampleFavorites.length > 0 ? (
-            <ProductGrid products={sampleFavorites} />
+          {favorites.length > 0 ? (
+            <ProductGrid products={favorites} />
           ) : (
             <div className="py-20 text-center">
               <Heart className="w-16 h-16 text-gray-400 mx-auto mb-4" />

@@ -1,7 +1,7 @@
-
 import { useState } from 'react';
-import { ShoppingCart } from 'lucide-react';
+import { ShoppingCart, Heart } from 'lucide-react';
 import { useCart } from '@/context/CartContext';
+import { useFavorites } from '@/context/FavoritesContext';
 import { Product } from '../types';
 
 interface ProductCardProps {
@@ -12,6 +12,7 @@ export default function ProductCard({ product }: ProductCardProps) {
   const [isImageLoaded, setIsImageLoaded] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
   const { addToCart } = useCart();
+  const { addToFavorites, removeFromFavorites, isFavorite } = useFavorites();
 
   const formatPrice = (price: number) => {
     return new Intl.NumberFormat('pt-BR', {
@@ -27,6 +28,17 @@ export default function ProductCard({ product }: ProductCardProps) {
   const handleAddToCart = () => {
     addToCart(product);
   };
+
+  const handleToggleFavorite = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    if (isFavorite(product.id)) {
+      removeFromFavorites(product.id);
+    } else {
+      addToFavorites(product);
+    }
+  };
+
+  const isProductFavorite = isFavorite(product.id);
 
   // Check if the product is sold by meter
   const isSoldByMeter = 
@@ -70,6 +82,20 @@ export default function ProductCard({ product }: ProductCardProps) {
             {product.code}
           </span>
         </div>
+        <button
+          onClick={handleToggleFavorite}
+          className={`absolute top-2 right-2 p-1.5 rounded-full transition-all duration-200 ${
+            isProductFavorite 
+              ? 'bg-center-orange text-white' 
+              : 'bg-black/50 text-gray-400 hover:bg-black/70 hover:text-white'
+          }`}
+          aria-label={isProductFavorite ? "Remover dos favoritos" : "Adicionar aos favoritos"}
+        >
+          <Heart 
+            size={12} 
+            className={`sm:w-[14px] sm:h-[14px] ${isProductFavorite ? 'fill-current' : ''}`}
+          />
+        </button>
       </div>
 
       <div className="p-2 sm:p-4 flex flex-col flex-grow">
