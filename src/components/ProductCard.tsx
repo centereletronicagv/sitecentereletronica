@@ -1,9 +1,9 @@
-
 import { useState } from 'react';
 import { ShoppingCart, Heart } from 'lucide-react';
 import { useCart } from '@/context/CartContext';
 import { useFavorites } from '@/context/FavoritesContext';
 import { Product } from '../types';
+import { useFavoritesToast } from '@/hooks/useFavoritesToast';
 
 interface ProductCardProps {
   product: Product;
@@ -14,6 +14,7 @@ export default function ProductCard({ product }: ProductCardProps) {
   const [isHovered, setIsHovered] = useState(false);
   const { addToCart } = useCart();
   const { addToFavorites, removeFromFavorites, isFavorite } = useFavorites();
+  const { showAddedToast, showRemovedToast } = useFavoritesToast();
 
   const formatPrice = (price: number) => {
     return new Intl.NumberFormat('pt-BR', {
@@ -36,9 +37,11 @@ export default function ProductCard({ product }: ProductCardProps) {
     if (isFavorite(product.id)) {
       console.log('Removendo dos favoritos:', product.id);
       removeFromFavorites(product.id);
+      showRemovedToast(product.name);
     } else {
       console.log('Adicionando aos favoritos:', product.id);
       addToFavorites(product);
+      showAddedToast(product.name);
     }
   };
 
