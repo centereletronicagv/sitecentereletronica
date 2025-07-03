@@ -1,4 +1,3 @@
-
 import { Product } from "../types";
 import { jsPDF } from 'jspdf';
 
@@ -79,7 +78,7 @@ const generatePdf = async (products: Product[], categoryName: string) => {
   doc.setTextColor('#CCCCCC');
   doc.text('Rua Jacob Gremmelmaier, 409 - Centro, Getúlio Vargas - RS, 99900-000', 20, 45);
   doc.text('Tel: (54) 9927-0560 | (54) 9998-6916', 20, 52);
-  doc.text('Email: center@centereletronica.com.br | Site: centereletronica.com.br', 20, 59);
+  doc.text('Email: center@centereletronica.com.br | Site: centereletronica.netlify.app', 20, 59);
   
   let yPosition = headerHeight + 10;
   let currentPage = 1;
