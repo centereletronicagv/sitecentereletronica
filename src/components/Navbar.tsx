@@ -70,6 +70,17 @@ const navLinks: NavLink[] = [
     ]
   },
   { 
+    name: 'Tomadas Industriais', 
+    href: '/categoria/tomadas-industriais', 
+    icon: <Plug size={16} />,
+    subCategories: [
+      { name: 'Plugs Industriais', href: '/categoria/tomadas-industriais?subcategoria=plugs-industriais' },
+      { name: 'Acopladores Industriais', href: '/categoria/tomadas-industriais?subcategoria=acopladores-industriais' },
+      { name: 'Tomadas de Embutir', href: '/categoria/tomadas-industriais?subcategoria=tomadas-de-embutir' },
+      { name: 'Tomadas de Sobrepor', href: '/categoria/tomadas-industriais?subcategoria=tomadas-de-sobrepor' },
+    ]
+  },
+  { 
     name: 'Automação', 
     href: '/categoria/automacao', 
     icon: <Router size={16} />,
@@ -109,6 +120,7 @@ const getCategoryInfo = (pathname: string) => {
     'instalacoes-eletricas': 'Instalações Elétricas',
     'cabos': 'Cabos',
     'terminais': 'Terminais e Conectores',
+    'tomadas-industriais': 'Tomadas Industriais',
     'automacao': 'Automação',
     'informatica': 'Informática',
     'monitoramento': 'Monitoramento'

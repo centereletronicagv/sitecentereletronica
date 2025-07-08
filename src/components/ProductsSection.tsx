@@ -1,4 +1,3 @@
-
 import { useEffect, useState } from 'react';
 import { ArrowRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
@@ -13,6 +12,7 @@ const categoryLabels: Record<string, string> = {
   'instalacoes-eletricas': 'Instalações Elétricas',
   'cabos': 'Cabos',
   'terminais': 'Terminais e Conectores',
+  'tomadas-industriais': 'Tomadas Industriais',
   'botão de impulso': 'Botão de Impulso',
   'botão de impulso duplo': 'Botão de Impulso Duplo',
   'botão cogumelo': 'Botão Cogumelo',
@@ -50,6 +50,10 @@ const categoryLabels: Record<string, string> = {
   'capacitor': 'Capacitor',
   'acabamento': 'Acabamento',
   'ferramentas': 'Ferramentas',
+  'plugs-industriais': 'Plugs Industriais',
+  'acopladores-industriais': 'Acopladores Industriais',
+  'tomadas-de-embutir': 'Tomadas de Embutir',
+  'tomadas-de-sobrepor': 'Tomadas de Sobrepor',
 };
 
 interface ProductsSectionProps {

@@ -1,0 +1,348 @@
+
+import { Product } from "../../types";
+
+export const tomadasIndustriaisProducts: Product[] = [
+  // Plugs Industriais
+  {
+    id: "plug-2p-t-16a-200-250v",
+    name: "PLUG 2P + T 16A 200-250V",
+    code: "7898942135019",
+    category: "tomadas-industriais",
+    subcategory: "plugs-industriais",
+    price: null,
+    description: "Plug industrial 2P + T 16A 200-250V",
+    image: "/lovable-uploads/4016.png",
+    imageUrl: "/lovable-uploads/4016.png",
+    inStock: true
+  },
+  {
+    id: "plug-3p-t-16a-380-440v",
+    name: "PLUG 3P + T 16A 380-440V",
+    code: "7898942135026",
+    category: "tomadas-industriais",
+    subcategory: "plugs-industriais",
+    price: null,
+    description: "Plug industrial 3P + T 16A 380-440V",
+    image: "/lovable-uploads/5016.png",
+    imageUrl: "/lovable-uploads/5016.png",
+    inStock: true
+  },
+  {
+    id: "plug-3p-t-n-16a-380-440v",
+    name: "PLUG 3P + T + N 16A 380-440V",
+    code: "7898942135705",
+    category: "tomadas-industriais",
+    subcategory: "plugs-industriais",
+    price: null,
+    description: "Plug industrial 3P + T + N 16A 380-440V",
+    image: "/lovable-uploads/8016.png",
+    imageUrl: "/lovable-uploads/8016.png",
+    inStock: true
+  },
+  {
+    id: "plug-2p-t-32a-380-440v",
+    name: "PLUG 2P + T 32A 380-440V",
+    code: "7898942135033",
+    category: "tomadas-industriais",
+    subcategory: "plugs-industriais",
+    price: null,
+    description: "Plug industrial 2P + T 32A 380-440V",
+    image: "/lovable-uploads/6032.png",
+    imageUrl: "/lovable-uploads/6032.png",
+    inStock: true
+  },
+  {
+    id: "plug-3p-t-32a-380-440v-1",
+    name: "PLUG 3P + T 32A 380-440V",
+    code: "7898942135040",
+    category: "tomadas-industriais",
+    subcategory: "plugs-industriais",
+    price: null,
+    description: "Plug industrial 3P + T 32A 380-440V",
+    image: "/lovable-uploads/6032.png",
+    imageUrl: "/lovable-uploads/6032.png",
+    inStock: true
+  },
+  {
+    id: "plug-3p-t-32a-380-440v-2",
+    name: "PLUG 3P + T 32A 380-440V",
+    code: "7892327518220",
+    category: "tomadas-industriais",
+    subcategory: "plugs-industriais",
+    price: null,
+    description: "Plug industrial 3P + T 32A 380-440V",
+    image: "/lovable-uploads/4279.png",
+    imageUrl: "/lovable-uploads/4279.png",
+    inStock: true
+  },
+  {
+    id: "plug-3p-t-n-32a-380-440v",
+    name: "PLUG 3P + T + N 32A 380-440V",
+    code: "7898942135729",
+    category: "tomadas-industriais",
+    subcategory: "plugs-industriais",
+    price: null,
+    description: "Plug industrial 3P + T + N 32A 380-440V",
+    image: "/lovable-uploads/9032.png",
+    imageUrl: "/lovable-uploads/9032.png",
+    inStock: true
+  },
+  
+  // Acopladores Industriais
+  {
+    id: "acoplador-2p-t-16a-200-250v",
+    name: "ACOPLADOR 2P + T 16A 200-250V",
+    code: "7898942135057",
+    category: "tomadas-industriais",
+    subcategory: "acopladores-industriais",
+    price: null,
+    description: "Acoplador industrial 2P + T 16A 200-250V",
+    image: "/lovable-uploads/0216.png",
+    imageUrl: "/lovable-uploads/0216.png",
+    inStock: true
+  },
+  {
+    id: "acoplador-3p-t-n-16a-380-440v",
+    name: "ACOPLADOR 3P + T + N 16A 380-440V",
+    code: "7898942135743",
+    category: "tomadas-industriais",
+    subcategory: "acopladores-industriais",
+    price: null,
+    description: "Acoplador industrial 3P + T + N 16A 380-440V",
+    image: "/lovable-uploads/0516.png",
+    imageUrl: "/lovable-uploads/0516.png",
+    inStock: true
+  },
+  {
+    id: "acoplador-3p-t-n-16a-380v",
+    name: "ACOPLADOR 3P + T + N 16A 380V",
+    code: "7892327518527",
+    category: "tomadas-industriais",
+    subcategory: "acopladores-industriais",
+    price: null,
+    description: "Acoplador industrial 3P + T + N 16A 380V",
+    image: "/lovable-uploads/5056.png",
+    imageUrl: "/lovable-uploads/5056.png",
+    inStock: true
+  },
+  {
+    id: "acoplador-2p-t-32a-200-250v",
+    name: "ACOPLADOR 2P + T 32A 200-250V",
+    code: "7898942135071",
+    category: "tomadas-industriais",
+    subcategory: "acopladores-industriais",
+    price: null,
+    description: "Acoplador industrial 2P + T 32A 200-250V",
+    image: "/lovable-uploads/0232.png",
+    imageUrl: "/lovable-uploads/0232.png",
+    inStock: true
+  },
+  {
+    id: "acoplador-3p-t-32a-220v",
+    name: "ACOPLADOR 3P + T 32A 220V",
+    code: "7899608204865",
+    category: "tomadas-industriais",
+    subcategory: "acopladores-industriais",
+    price: null,
+    description: "Acoplador industrial 3P + T 32A 220V",
+    image: "/lovable-uploads/lukma.png",
+    imageUrl: "/lovable-uploads/lukma.png",
+    inStock: true
+  },
+  {
+    id: "acoplador-3p-t-32a-380-440v",
+    name: "ACOPLADOR 3P + T 32A 380-440V",
+    code: "7898942135088",
+    category: "tomadas-industriais",
+    subcategory: "acopladores-industriais",
+    price: null,
+    description: "Acoplador industrial 3P + T 32A 380-440V",
+    image: "/lovable-uploads/0332.png",
+    imageUrl: "/lovable-uploads/0332.png",
+    inStock: true
+  },
+  {
+    id: "acoplador-3p-t-n-32a-380v",
+    name: "ACOPLADOR 3P + T + N 32A 380V",
+    code: "7892327518565",
+    category: "tomadas-industriais",
+    subcategory: "acopladores-industriais",
+    price: null,
+    description: "Acoplador industrial 3P + T + N 32A 380V",
+    image: "/lovable-uploads/5256.png",
+    imageUrl: "/lovable-uploads/5256.png",
+    inStock: true
+  },
+  
+  // Tomadas de Embutir
+  {
+    id: "tomada-embutir-3p-t-16a-380-415v",
+    name: "TOMADA DE EMBUTIR 3P + T 16A 380-415V",
+    code: "05590",
+    category: "tomadas-industriais",
+    subcategory: "tomadas-de-embutir",
+    price: null,
+    description: "Tomada de embutir 3P + T 16A 380-415V",
+    image: "/lovable-uploads/p17.png",
+    imageUrl: "/lovable-uploads/p17.png",
+    inStock: true
+  },
+  {
+    id: "tomada-embutir-2p-t-16a-220v",
+    name: "TOMADA DE EMBUTIR 2P + T 16A 220V",
+    code: "7892327518671",
+    category: "tomadas-industriais",
+    subcategory: "tomadas-de-embutir",
+    price: null,
+    description: "Tomada de embutir 2P + T 16A 220V",
+    image: "/lovable-uploads/3046.PNG",
+    imageUrl: "/lovable-uploads/3046.PNG",
+    inStock: true
+  },
+  {
+    id: "tomada-embutir-3p-t-16a-380-440v",
+    name: "TOMADA DE EMBUTIR 3P + T 16A 380-440V",
+    code: "7898942135101",
+    category: "tomadas-industriais",
+    subcategory: "tomadas-de-embutir",
+    price: null,
+    description: "Tomada de embutir 3P + T 16A 380-440V",
+    image: "/lovable-uploads/3016.png",
+    imageUrl: "/lovable-uploads/3016.png",
+    inStock: true
+  },
+  {
+    id: "tomada-embutir-3p-t-n-16a-380-440v",
+    name: "TOMADA DE EMBUTIR 3P + T + N 16A 380-440V",
+    code: "7898942135781",
+    category: "tomadas-industriais",
+    subcategory: "tomadas-de-embutir",
+    price: null,
+    description: "Tomada de embutir 3P + T + N 16A 380-440V",
+    image: "/lovable-uploads/3216.png",
+    imageUrl: "/lovable-uploads/3216.png",
+    inStock: true
+  },
+  {
+    id: "tomada-embutir-2p-t-32a-200-250v",
+    name: "TOMADA DE EMBUTIR 2P +T 32A 200-250V",
+    code: "7898942135118",
+    category: "tomadas-industriais",
+    subcategory: "tomadas-de-embutir",
+    price: null,
+    description: "Tomada de embutir 2P +T 32A 200-250V",
+    image: "/lovable-uploads/2032.png",
+    imageUrl: "/lovable-uploads/2032.png",
+    inStock: true
+  },
+  {
+    id: "tomada-embutir-3p-t-32a-380-440v",
+    name: "TOMADA DE EMBUTIR 3P + T 32A 380-440V",
+    code: "7898942135248",
+    category: "tomadas-industriais",
+    subcategory: "tomadas-de-embutir",
+    price: null,
+    description: "Tomada de embutir 3P + T 32A 380-440V",
+    image: "/lovable-uploads/3032.png",
+    imageUrl: "/lovable-uploads/3032.png",
+    inStock: true
+  },
+  {
+    id: "tomada-embutir-3p-t-n-32a-380-440v",
+    name: "TOMADA DE EMBUTIR 3P + T + N 32A 380-440V",
+    code: "7898942135804",
+    category: "tomadas-industriais",
+    subcategory: "tomadas-de-embutir",
+    price: null,
+    description: "Tomada de embutir 3P + T + N 32A 380-440V",
+    image: "/lovable-uploads/3332.png",
+    imageUrl: "/lovable-uploads/3332.png",
+    inStock: true
+  },
+  
+  // Tomadas de Sobrepor
+  {
+    id: "tomada-sobrepor-2p-t-16a-200-250v",
+    name: "TOMADA DE SOBREPOR 2P + T 16A 200-250V",
+    code: "7898942135255",
+    category: "tomadas-industriais",
+    subcategory: "tomadas-de-sobrepor",
+    price: null,
+    description: "Tomada de sobrepor 2P + T 16A 200-250V",
+    image: "/lovable-uploads/2116.png",
+    imageUrl: "/lovable-uploads/2116.png",
+    inStock: true
+  },
+  {
+    id: "tomada-sobrepor-3p-t-n-16a-380-440v",
+    name: "TOMADA DE SOBREPOR 3P + T + N 16A 380-440V",
+    code: "7898942135828",
+    category: "tomadas-industriais",
+    subcategory: "tomadas-de-sobrepor",
+    price: null,
+    description: "Tomada de sobrepor 3P + T + N 16A 380-440V",
+    image: "/lovable-uploads/3416.png",
+    imageUrl: "/lovable-uploads/3416.png",
+    inStock: true
+  },
+  {
+    id: "tomada-sobrepor-tun-2p-t-20a-250v-1",
+    name: "TOMADA DE SOBREPOR TUN 2P + T 20A 250V",
+    code: "7898942135200",
+    category: "tomadas-industriais",
+    subcategory: "tomadas-de-sobrepor",
+    price: null,
+    description: "Tomada de sobrepor TUN 2P + T 20A 250V",
+    image: "/lovable-uploads/500372.png",
+    imageUrl: "/lovable-uploads/500372.png",
+    inStock: true
+  },
+  {
+    id: "tomada-sobrepor-tun-2p-t-20a-250v-2",
+    name: "TOMADA DE SOBREPOR TUN 2P + T 20A 250V",
+    code: "7898942135217",
+    category: "tomadas-industriais",
+    subcategory: "tomadas-de-sobrepor",
+    price: null,
+    description: "Tomada de sobrepor TUN 2P + T 20A 250V",
+    image: "/lovable-uploads/50037.png",
+    imageUrl: "/lovable-uploads/50037.png",
+    inStock: true
+  },
+  {
+    id: "tomada-sobrepor-2p-t-32a-200-250v",
+    name: "TOMADA DE SOBREPOR 2P + T 32A 200-250V",
+    code: "7898942135279",
+    category: "tomadas-industriais",
+    subcategory: "tomadas-de-sobrepor",
+    price: null,
+    description: "Tomada de sobrepor 2P + T 32A 200-250V",
+    image: "/lovable-uploads/2132.png",
+    imageUrl: "/lovable-uploads/2132.png",
+    inStock: true
+  },
+  {
+    id: "tomada-sobrepor-3p-t-32a-380-440v",
+    name: "TOMADA DE SOBREPOR 3P + T 32A 380-440V",
+    code: "7898942135286",
+    category: "tomadas-industriais",
+    subcategory: "tomadas-de-sobrepor",
+    price: null,
+    description: "Tomada de sobrepor 3P + T 32A 380-440V",
+    image: "/lovable-uploads/3132.png",
+    imageUrl: "/lovable-uploads/3132.png",
+    inStock: true
+  },
+  {
+    id: "tomada-sobrepor-3p-t-n-32a-380-440v",
+    name: "TOMADA DE SOBREPOR 3P + T + N 32A 380-440V",
+    code: "7898942135842",
+    category: "tomadas-industriais",
+    subcategory: "tomadas-de-sobrepor",
+    price: null,
+    description: "Tomada de sobrepor 3P + T + N 32A 380-440V",
+    image: "/lovable-uploads/3532.png",
+    imageUrl: "/lovable-uploads/3532.png",
+    inStock: true
+  },
+];

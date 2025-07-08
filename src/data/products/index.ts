@@ -5,6 +5,7 @@ import { automacaoProducts } from "./automacao";
 import { instalacoesEletricasProducts } from "./instalacoes-eletricas";
 import { cabosProducts } from "./cabos";
 import { terminaisProducts } from "./terminais";
+import { tomadasIndustriaisProducts } from "./tomadas-industriais";
 
 // Combine all products from different categories
 export const products: Product[] = [
@@ -13,6 +14,7 @@ export const products: Product[] = [
   ...instalacoesEletricasProducts,
   ...cabosProducts,
   ...terminaisProducts,
+  ...tomadasIndustriaisProducts,
 ];
 
 // Export individual category products for direct access
@@ -22,4 +24,5 @@ export {
   instalacoesEletricasProducts,
   cabosProducts,
   terminaisProducts,
+  tomadasIndustriaisProducts,
 };
