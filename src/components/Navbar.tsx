@@ -1,6 +1,7 @@
+
 import { useState, useEffect, FormEvent } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { Menu, X, Search, Wind, Plug, Terminal, Router, Grid2X2, MessageCircle, Monitor, Eye, User, Heart, LogOut, ShoppingCart } from 'lucide-react';
+import { Menu, X, Search, Wind, Plug, Terminal, Router, Grid2X2, MessageCircle, Monitor, Eye, User, Heart, LogOut, ShoppingCart, Cable } from 'lucide-react';
 import { Input } from './ui/input';
 import { useCart } from '@/context/CartContext';
 import CartModal from './CartModal';
@@ -41,12 +42,12 @@ const navLinks: NavLink[] = [
   { 
     name: 'Cabos', 
     href: '/categoria/cabos', 
-    icon: <Plug size={16} />
+    icon: <Cable size={16} />
   },
   { 
     name: 'Terminais e Conectores', 
     href: '/categoria/terminais', 
-    icon: <Terminal size={16} />
+    icon: <Cable size={16} />
   },
   { 
     name: 'Tomadas Industriais', 
@@ -363,7 +364,7 @@ export default function Navbar() {
 
               {/* Main Navigation Links */}
               <div className="flex items-center ml-4">
-                {navLinks.slice(0, 4).map((link) => (
+                {navLinks.slice(0, 7).map((link) => (
                   <Link
                     key={link.name}
                     to={link.href}
