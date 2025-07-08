@@ -1,4 +1,3 @@
-
 import { useState, useEffect, FormEvent } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { Menu, X, Search, Wind, Plug, Terminal, Router, Grid2X2, MessageCircle, Monitor, Eye, User, Heart, LogOut, ShoppingCart, Cable } from 'lucide-react';
@@ -20,7 +19,6 @@ import {
 import { useAuth } from '@/context/AuthContext';
 import AuthModal from './AuthModal';
 import FavoritesLink from './FavoritesLink';
-import { useFavorites } from '@/context/FavoritesContext';
 
 interface NavLink {
   name: string;
@@ -178,22 +176,13 @@ export default function Navbar() {
       <div 
         className={`w-full fixed top-0 left-0 right-0 z-30 transition-all duration-300 ${
           scrolled 
-            ? 'bg-[#0d0d0d] shadow-lg border-b border-[#1a1a1a]' 
-            : 'bg-[#0d0d0d]'
+            ? 'bg-[#181818] shadow-lg border-b border-[#333333]' 
+            : 'bg-[#181818]'
         }`}
       >
-        {/* Main Navigation */}
-        <div className="container-custom py-3">
+        {/* Top Bar */}
+        <div className="container-custom py-3 border-b border-[#2a2a2a]">
           <div className="flex items-center justify-between gap-4">
-            {/* Mobile Menu Button */}
-            <button
-              onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className="p-2.5 text-gray-300 hover:bg-[#1a1a1a] rounded-lg transition-colors lg:hidden"
-              aria-label="Menu"
-            >
-              <Menu size={20} />
-            </button>
-
             {/* Logo */}
             <Link 
               to="/" 
@@ -203,21 +192,21 @@ export default function Navbar() {
                 <img 
                   src="/lovable-uploads/logonova.png" 
                   alt="Center Eletrônica Logo" 
-                  className="h-7 w-auto md:h-8"
+                  className="h-8 w-auto md:h-9"
                 />
-                <span className="ml-2 text-base md:text-lg font-display font-bold tracking-tight text-white hidden sm:block">
+                <span className="ml-2 text-lg md:text-xl font-display font-bold tracking-tight text-white">
                   Center <span className="text-center-orange">Eletrônica</span>
                 </span>
               </div>
             </Link>
 
             {/* Search Bar */}
-            <div className="flex-1 max-w-xl mx-4">
+            <div className="flex-1 max-w-2xl hidden sm:block">
               <form onSubmit={handleSearch} className="relative">
                 <Input
                   type="search"
                   placeholder="Olá, o que você procura hoje?"
-                  className="w-full h-10 pl-4 pr-12 bg-[#1a1a1a] border-[#2a2a2a] border rounded-full text-white text-sm focus-visible:ring-center-orange focus-visible:border-center-orange placeholder:text-gray-500 transition-all duration-200"
+                  className="pl-4 pr-12 py-3 w-full bg-[#252525] border-[#3a3a3a] border-2 rounded-full text-white focus-visible:ring-center-orange focus-visible:border-center-orange placeholder:text-gray-400 transition-all duration-200"
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
                 />
@@ -225,136 +214,107 @@ export default function Navbar() {
                   type="submit"
                   className="absolute right-1 top-1/2 -translate-y-1/2 h-8 w-8 flex items-center justify-center text-gray-400 hover:text-center-orange hover:bg-center-orange/10 rounded-full transition-all duration-200"
                 >
-                  <Search size={16} />
+                  <Search size={18} />
                 </button>
               </form>
             </div>
 
-            {/* Desktop Actions */}
-            <div className="hidden lg:flex items-center gap-3">
-              {currentCategory && (
-                <DownloadCategoryButton 
-                  products={allProducts.filter(product => product.category === currentCategory.id)}
-                  categoryName={currentCategory.name}
-                />
-              )}
-              
-              <button
-                onClick={handleWhatsAppClick}
-                className="flex items-center gap-2 px-3 py-2 text-gray-300 hover:text-center-orange hover:bg-[#1a1a1a] rounded-lg transition-colors"
-              >
-                <MessageCircle size={16} />
-                <span className="text-sm font-medium">Contato</span>
-              </button>
-
-              {/* User Account Dropdown */}
-              <DropdownMenu>
-                <DropdownMenuTrigger asChild>
-                  <button className="flex items-center gap-2 px-3 py-2 text-gray-300 hover:text-center-orange hover:bg-[#1a1a1a] rounded-lg transition-colors">
-                    <User size={16} />
-                    <span className="text-sm font-medium">
-                      {isAuthenticated ? user?.name?.split(' ')[0] : 'Conta'}
-                    </span>
-                  </button>
-                </DropdownMenuTrigger>
-                <DropdownMenuContent className="w-48 bg-[#1a1a1a] border-[#333333] shadow-xl">
-                  {isAuthenticated ? (
-                    <>
-                      <div className="px-3 py-2 border-b border-[#333333]">
-                        <p className="text-sm text-white font-medium">{user?.name}</p>
-                        <p className="text-xs text-gray-400">{user?.email}</p>
-                      </div>
-                      <DropdownMenuItem className="text-gray-300 hover:text-white hover:bg-[#333333] focus:bg-[#333333] focus:text-white">
-                        <User size={16} className="mr-2" />
-                        Meu Perfil
-                      </DropdownMenuItem>
-                      <DropdownMenuItem className="text-gray-300 hover:text-white hover:bg-[#333333] focus:bg-[#333333] focus:text-white">
-                        <ShoppingCart size={16} className="mr-2" />
-                        Meus Pedidos
-                      </DropdownMenuItem>
-                      <DropdownMenuSeparator className="bg-[#333333]" />
-                      <DropdownMenuItem 
-                        onClick={handleLogout}
-                        className="text-red-400 hover:text-red-300 hover:bg-[#333333] focus:bg-[#333333] focus:text-red-300"
-                      >
-                        <LogOut size={16} className="mr-2" />
-                        Sair
-                      </DropdownMenuItem>
-                    </>
-                  ) : (
-                    <DropdownMenuItem 
-                      onClick={() => setIsAuthModalOpen(true)}
-                      className="text-gray-300 hover:text-white hover:bg-[#333333] focus:bg-[#333333] focus:text-white"
-                    >
-                      <User size={16} className="mr-2" />
-                      Entrar / Criar Conta
-                    </DropdownMenuItem>
-                  )}
-                </DropdownMenuContent>
-              </DropdownMenu>
-              
-              <FavoritesLink />
-
-              <button
-                onClick={() => setIsCartOpen(true)}
-                className="flex items-center gap-2 px-3 py-2 text-gray-300 hover:text-center-orange hover:bg-[#1a1a1a] rounded-lg transition-colors relative"
-              >
-                <ShoppingCart size={16} />
-                <span className="text-sm font-medium">Carrinho</span>
-                {getTotalItems() > 0 && (
-                  <span className="absolute -top-1 -right-1 bg-center-orange text-white text-xs w-5 h-5 flex items-center justify-center rounded-full font-bold">
-                    {getTotalItems()}
-                  </span>
+            {/* Top Actions */}
+            <div className="hidden lg:flex items-center gap-6">
+              <div className="flex items-center gap-4">
+                {currentCategory && (
+                  <DownloadCategoryButton 
+                    products={allProducts.filter(product => product.category === currentCategory.id)}
+                    categoryName={currentCategory.name}
+                  />
                 )}
-              </button>
+                
+                <button
+                  onClick={handleWhatsAppClick}
+                  className="flex items-center gap-2 text-gray-300 hover:text-center-orange transition-colors"
+                >
+                  <MessageCircle size={18} />
+                  <span className="text-sm font-medium">Contato</span>
+                </button>
+
+                {/* User Account Dropdown */}
+                <DropdownMenu>
+                  <DropdownMenuTrigger asChild>
+                    <button className="flex items-center gap-2 text-gray-300 hover:text-center-orange transition-colors">
+                      <User size={18} />
+                      <span className="text-sm font-medium">
+                        {isAuthenticated ? user?.name?.split(' ')[0] : 'Minha Conta'}
+                      </span>
+                    </button>
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent className="w-48 bg-[#1a1a1a] border-[#333333] shadow-xl">
+                    {isAuthenticated ? (
+                      <>
+                        <div className="px-3 py-2 border-b border-[#333333]">
+                          <p className="text-sm text-white font-medium">{user?.name}</p>
+                          <p className="text-xs text-gray-400">{user?.email}</p>
+                        </div>
+                        <DropdownMenuItem className="text-gray-300 hover:text-white hover:bg-[#333333] focus:bg-[#333333] focus:text-white">
+                          <User size={16} className="mr-2" />
+                          Meu Perfil
+                        </DropdownMenuItem>
+                        <DropdownMenuItem className="text-gray-300 hover:text-white hover:bg-[#333333] focus:bg-[#333333] focus:text-white">
+                          <ShoppingCart size={16} className="mr-2" />
+                          Meus Pedidos
+                        </DropdownMenuItem>
+                        <DropdownMenuSeparator className="bg-[#333333]" />
+                        <DropdownMenuItem 
+                          onClick={handleLogout}
+                          className="text-red-400 hover:text-red-300 hover:bg-[#333333] focus:bg-[#333333] focus:text-red-300"
+                        >
+                          <LogOut size={16} className="mr-2" />
+                          Sair
+                        </DropdownMenuItem>
+                      </>
+                    ) : (
+                      <DropdownMenuItem 
+                        onClick={() => setIsAuthModalOpen(true)}
+                        className="text-gray-300 hover:text-white hover:bg-[#333333] focus:bg-[#333333] focus:text-white"
+                      >
+                        <User size={16} className="mr-2" />
+                        Entrar / Criar Conta
+                      </DropdownMenuItem>
+                    )}
+                  </DropdownMenuContent>
+                </DropdownMenu>
+              </div>
+              
+              <div className="flex items-center gap-4">
+                <FavoritesLink />
+
+                <button
+                  onClick={() => setIsCartOpen(true)}
+                  className="flex items-center gap-2 text-gray-300 hover:text-center-orange transition-colors relative"
+                >
+                  <ShoppingCart size={20} />
+                  <span className="text-sm font-medium">Meu Carrinho</span>
+                  {getTotalItems() > 0 && (
+                    <span className="absolute -top-2 -right-2 bg-center-orange text-white text-xs w-5 h-5 flex items-center justify-center rounded-full font-bold">
+                      {getTotalItems()}
+                    </span>
+                  )}
+                </button>
+              </div>
             </div>
 
             {/* Mobile Actions */}
-            <div className="flex items-center gap-1 lg:hidden">
-              {/* Mobile Contact */}
+            <div className="flex items-center gap-2 lg:hidden">
               <button 
-                className="p-2.5 text-gray-300 hover:bg-[#1a1a1a] rounded-lg transition-colors"
-                onClick={handleWhatsAppClick}
-                aria-label="Contato"
+                className="p-2 text-gray-300 hover:bg-[#333333] rounded-full transition-colors"
+                onClick={handleMobileSearchOpen}
+                aria-label="Buscar"
               >
-                <MessageCircle size={18} />
-              </button>
-
-              {/* Mobile User Account */}
-              <button 
-                className="p-2.5 text-gray-300 hover:bg-[#1a1a1a] rounded-lg transition-colors"
-                onClick={handleUserMenuClick}
-                aria-label="Minha Conta"
-              >
-                <User size={18} />
-              </button>
-
-              {/* Mobile Favorites */}
-              <Link 
-                to="/favoritos" 
-                className="p-2.5 text-gray-300 hover:bg-[#1a1a1a] rounded-lg transition-colors relative"
-                aria-label="Favoritos"
-              >
-                <Heart size={18} className={`${useFavorites().favorites.length > 0 ? 'text-center-orange' : ''}`} />
-                {useFavorites().favorites.length > 0 && (
-                  <span className="absolute -top-1 -right-1 bg-center-orange text-white text-xs w-4 h-4 flex items-center justify-center rounded-full text-[10px] font-bold">
-                    {useFavorites().favorites.length}
-                  </span>
-                )}
-              </Link>
-
-              {/* Mobile Departments */}
-              <button 
-                className="p-2.5 text-gray-300 hover:bg-[#1a1a1a] rounded-lg transition-colors"
-                onClick={() => setIsCategoryDrawerOpen(true)}
-                aria-label="Departamentos"
-              >
-                <Grid2X2 size={18} />
+                <Search size={18} />
               </button>
               
               <button
                 onClick={() => setIsCartOpen(true)}
-                className="p-2.5 text-gray-300 hover:bg-[#1a1a1a] rounded-lg relative transition-colors"
+                className="p-2 text-gray-300 hover:bg-[#333333] rounded-full relative transition-colors"
                 aria-label="Carrinho"
               >
                 <ShoppingCart size={18} />
@@ -364,18 +324,26 @@ export default function Navbar() {
                   </span>
                 )}
               </button>
+              
+              <button
+                onClick={() => setIsMenuOpen(!isMenuOpen)}
+                className="p-2 text-gray-300 hover:bg-[#333333] rounded-full transition-colors"
+                aria-label="Menu"
+              >
+                {isMenuOpen ? <X size={18} /> : <Menu size={18} />}
+              </button>
             </div>
           </div>
         </div>
 
-        {/* Navigation Bar - Desktop */}
-        <div className="container-custom border-t border-[#1a1a1a]">
-          <nav className="hidden lg:block py-2">
-            <div className="flex items-center gap-1">
+        {/* Navigation Bar */}
+        <div className="container-custom">
+          <nav className="hidden lg:block py-3">
+            <div className="flex items-center gap-2">
               {/* Departments Dropdown */}
               <DropdownMenu>
-                <DropdownMenuTrigger className="flex items-center gap-2 px-4 py-2 bg-center-orange text-white font-medium rounded-md hover:bg-center-orange/90 transition-colors text-sm">
-                  <Grid2X2 size={14} />
+                <DropdownMenuTrigger className="flex items-center gap-2 px-4 py-2 bg-center-orange text-white font-medium rounded-md hover:bg-center-orange/90 transition-colors">
+                  <Grid2X2 size={16} />
                   Departamentos
                 </DropdownMenuTrigger>
                 <DropdownMenuContent className="w-64 bg-[#1a1a1a] border-[#333333] shadow-xl">
@@ -393,7 +361,7 @@ export default function Navbar() {
                 </DropdownMenuContent>
               </DropdownMenu>
 
-              {/* Main Navigation Links */}
+              {/* Main Navigation Links - showing only 5 categories excluding Tomadas Industriais */}
               <div className="flex items-center ml-4">
                 {[
                   { name: 'Ar Condicionado', href: '/categoria/ar-condicionado' },
@@ -405,10 +373,10 @@ export default function Navbar() {
                   <Link
                     key={link.name}
                     to={link.href}
-                    className={`px-4 py-2 text-sm font-medium transition-colors whitespace-nowrap rounded-md ${
+                    className={`flex items-center gap-2 px-4 py-2 text-sm font-medium transition-colors whitespace-nowrap ${
                       location.pathname === link.href
-                        ? 'text-center-orange bg-center-orange/10'
-                        : 'text-gray-300 hover:text-center-orange hover:bg-[#1a1a1a]'
+                        ? 'text-center-orange'
+                        : 'text-gray-300 hover:text-center-orange'
                     }`}
                   >
                     {link.name}
@@ -429,13 +397,13 @@ export default function Navbar() {
 
       {/* Mobile Menu */}
       <div 
-        className={`fixed inset-0 z-40 bg-[#0d0d0d] transform transition-transform duration-300 ease-in-out pt-20 ${
+        className={`fixed inset-0 z-40 bg-[#222222] transform transition-transform duration-300 ease-in-out pt-20 ${
           isMenuOpen ? 'translate-x-0' : 'translate-x-full'
         }`}
       >
         <button
           onClick={() => setIsMenuOpen(false)}
-          className="absolute top-4 right-4 p-2 rounded-full bg-[#1a1a1a] text-gray-300 hover:text-white"
+          className="absolute top-4 right-4 p-2 rounded-full bg-[#333333] text-gray-300 hover:text-white"
           aria-label="Fechar menu"
         >
           <X size={20} />
@@ -447,7 +415,7 @@ export default function Navbar() {
               <Input
                 type="search"
                 placeholder="Buscar produtos..."
-                className="pl-10 pr-4 py-3 w-full bg-[#1a1a1a] border-0 text-white rounded-full"
+                className="pl-10 pr-4 py-3 w-full bg-[#333333] border-0 text-white rounded-full"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
               />
@@ -458,14 +426,14 @@ export default function Navbar() {
           <nav className="flex flex-col gap-2">
             <div className="flex flex-col">
               {navLinks.map((link) => (
-                <div key={link.name} className="border-b border-[#1a1a1a]">
+                <div key={link.name} className="border-b border-[#333333]">
                   <Link
                     to={link.href}
                     onClick={() => setIsMenuOpen(false)}
                     className={`flex items-center gap-3 px-4 py-4 text-base font-medium rounded-md transition-colors ${
                       location.pathname === link.href
                         ? 'bg-center-orange/10 text-center-orange'
-                        : 'text-gray-300 hover:bg-[#1a1a1a]'
+                        : 'text-gray-300 hover:bg-[#333333]'
                     }`}
                   >
                     {link.icon && link.icon}
@@ -476,7 +444,7 @@ export default function Navbar() {
             </div>
             
             {currentCategory && (
-              <div className="mt-4 pt-4 border-t border-[#1a1a1a]">
+              <div className="mt-4 pt-4 border-t border-[#333333]">
                 <div className="px-4">
                   <DownloadCategoryButton 
                     products={allProducts.filter(product => product.category === currentCategory.id)}
@@ -486,7 +454,7 @@ export default function Navbar() {
               </div>
             )}
             
-            <div className="mt-4 pt-4 border-t border-[#1a1a1a] space-y-2">
+            <div className="mt-4 pt-4 border-t border-[#333333] space-y-2">
               {/* User Account Button */}
               <button
                 onClick={() => {
@@ -498,7 +466,7 @@ export default function Navbar() {
                     setIsMenuOpen(false);
                   }
                 }}
-                className="flex items-center gap-3 px-4 py-3 text-base font-medium text-gray-300 hover:bg-[#1a1a1a] rounded-md w-full text-left"
+                className="flex items-center gap-3 px-4 py-3 text-base font-medium text-gray-300 hover:bg-[#333333] rounded-md w-full text-left"
               >
                 <User size={18} />
                 <span>{isAuthenticated ? user?.name : 'Minha Conta'}</span>
@@ -510,7 +478,7 @@ export default function Navbar() {
                     handleLogout();
                     setIsMenuOpen(false);
                   }}
-                  className="flex items-center gap-3 px-4 py-3 text-base font-medium text-red-400 hover:bg-[#1a1a1a] rounded-md w-full text-left"
+                  className="flex items-center gap-3 px-4 py-3 text-base font-medium text-red-400 hover:bg-[#333333] rounded-md w-full text-left"
                 >
                   <LogOut size={18} />
                   <span>Sair</span>
@@ -522,7 +490,7 @@ export default function Navbar() {
                   setIsCartOpen(true);
                   setIsMenuOpen(false);
                 }}
-                className="flex items-center gap-3 px-4 py-3 text-base font-medium text-gray-300 hover:bg-[#1a1a1a] rounded-md w-full text-left"
+                className="flex items-center gap-3 px-4 py-3 text-base font-medium text-gray-300 hover:bg-[#333333] rounded-md w-full text-left"
               >
                 <ShoppingCart size={18} />
                 <span>Meu Carrinho</span>
@@ -536,7 +504,7 @@ export default function Navbar() {
               <Link
                 to="/favoritos"
                 onClick={() => setIsMenuOpen(false)}
-                className="flex items-center gap-3 px-4 py-3 text-base font-medium text-gray-300 hover:bg-[#1a1a1a] rounded-md w-full text-left"
+                className="flex items-center gap-3 px-4 py-3 text-base font-medium text-gray-300 hover:bg-[#333333] rounded-md w-full text-left"
               >
                 <Heart size={18} />
                 <span>Favoritos</span>
