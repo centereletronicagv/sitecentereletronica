@@ -3,6 +3,7 @@ import { Product } from "../../types";
 import { arCondicionadoProducts } from "./ar-condicionado";
 import { automacaoProducts } from "./automacao";
 import { instalacoesEletricasProducts } from "./instalacoes-eletricas";
+import { cabosProducts } from "./cabos";
 import { terminaisProducts } from "./terminais";
 
 // Combine all products from different categories
@@ -10,6 +11,7 @@ export const products: Product[] = [
   ...arCondicionadoProducts,
   ...automacaoProducts,
   ...instalacoesEletricasProducts,
+  ...cabosProducts,
   ...terminaisProducts,
 ];
 
@@ -18,5 +20,6 @@ export {
   arCondicionadoProducts,
   automacaoProducts,
   instalacoesEletricasProducts,
+  cabosProducts,
   terminaisProducts,
 };

@@ -49,6 +49,18 @@ const navLinks: NavLink[] = [
     ]
   },
   { 
+    name: 'Cabos', 
+    href: '/categoria/cabos', 
+    icon: <Plug size={16} />,
+    subCategories: [
+      { name: 'Cabo PP', href: '/categoria/cabos?subcategoria=cabo-pp' },
+      { name: 'Cabo Flex', href: '/categoria/cabos?subcategoria=cabo-flex' },
+      { name: 'Cordão Paralelo', href: '/categoria/cabos?subcategoria=cordao-paralelo' },
+      { name: 'Cabo Coaxial', href: '/categoria/cabos?subcategoria=cabo-coaxial' },
+      { name: 'Cabo Ethernet', href: '/categoria/cabos?subcategoria=cabo-ethernet' },
+    ]
+  },
+  { 
     name: 'Terminais e Conectores', 
     href: '/categoria/terminais', 
     icon: <Terminal size={16} />,
@@ -95,6 +107,7 @@ const getCategoryInfo = (pathname: string) => {
   const categoryMap: { [key: string]: string } = {
     'ar-condicionado': 'Ar Condicionado',
     'instalacoes-eletricas': 'Instalações Elétricas',
+    'cabos': 'Cabos',
     'terminais': 'Terminais e Conectores',
     'automacao': 'Automação',
     'informatica': 'Informática',
