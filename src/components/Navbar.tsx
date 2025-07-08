@@ -1,6 +1,6 @@
 import { useState, useEffect, FormEvent } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { Menu, X, Search, Wind, Plug, Terminal, Router, ChevronDown, ChevronRight, ShoppingCart, Grid2X2, MessageCircle, Monitor, Eye, User, Heart, LogOut } from 'lucide-react';
+import { Menu, X, Search, Wind, Plug, Terminal, Router, Grid2X2, MessageCircle, Monitor, Eye, User, Heart, LogOut, ShoppingCart } from 'lucide-react';
 import { Input } from './ui/input';
 import { useCart } from '@/context/CartContext';
 import CartModal from './CartModal';
@@ -24,7 +24,6 @@ interface NavLink {
   name: string;
   href: string;
   icon?: JSX.Element;
-  subCategories?: { name: string; href: string }[];
 }
 
 const navLinks: NavLink[] = [
@@ -32,80 +31,42 @@ const navLinks: NavLink[] = [
   { 
     name: 'Ar Condicionado', 
     href: '/categoria/ar-condicionado', 
-    icon: <Wind size={16} />,
-    subCategories: [
-      { name: 'Tubulação', href: '/categoria/ar-condicionado?subcategoria=tubulacao' },
-      { name: 'Suportes', href: '/categoria/ar-condicionado?subcategoria=suportes' },
-      { name: 'Gases', href: '/categoria/ar-condicionado?subcategoria=fluidos' },
-    ]
+    icon: <Wind size={16} />
   },
   { 
     name: 'Instalações Elétricas', 
     href: '/categoria/instalacoes-eletricas', 
-    icon: <Plug size={16} />,
-    subCategories: [
-      { name: 'Fios e Cabos', href: '/categoria/instalacoes-eletricas?subcategoria=cabos' },
-      { name: 'Disjuntores', href: '/categoria/instalacoes-eletricas?subcategoria=disjuntores' },
-    ]
+    icon: <Plug size={16} />
   },
   { 
     name: 'Cabos', 
     href: '/categoria/cabos', 
-    icon: <Plug size={16} />,
-    subCategories: [
-      { name: 'Cabo PP', href: '/categoria/cabos?subcategoria=cabo-pp' },
-      { name: 'Cabo Flex', href: '/categoria/cabos?subcategoria=cabo-flex' },
-      { name: 'Cordão Paralelo', href: '/categoria/cabos?subcategoria=cordao-paralelo' },
-      { name: 'Cabo Coaxial', href: '/categoria/cabos?subcategoria=cabo-coaxial' },
-      { name: 'Cabo Ethernet', href: '/categoria/cabos?subcategoria=cabo-ethernet' },
-    ]
+    icon: <Plug size={16} />
   },
   { 
     name: 'Terminais e Conectores', 
     href: '/categoria/terminais', 
-    icon: <Terminal size={16} />,
-    subCategories: [
-      { name: 'Conectores', href: '/categoria/terminais?subcategoria=conectores' },
-      { name: 'Terminais Ilhós', href: '/categoria/terminais?subcategoria=ilhos' },
-    ]
+    icon: <Terminal size={16} />
   },
   { 
     name: 'Tomadas Industriais', 
     href: '/categoria/tomadas-industriais', 
-    icon: <Plug size={16} />,
-    subCategories: [
-      { name: 'Plugs Industriais', href: '/categoria/tomadas-industriais?subcategoria=plugs-industriais' },
-      { name: 'Acopladores Industriais', href: '/categoria/tomadas-industriais?subcategoria=acopladores-industriais' },
-      { name: 'Tomadas de Embutir', href: '/categoria/tomadas-industriais?subcategoria=tomadas-de-embutir' },
-      { name: 'Tomadas de Sobrepor', href: '/categoria/tomadas-industriais?subcategoria=tomadas-de-sobrepor' },
-    ]
+    icon: <Plug size={16} />
   },
   { 
     name: 'Automação', 
     href: '/categoria/automacao', 
-    icon: <Router size={16} />,
-    subCategories: [
-      { name: 'Relés', href: '/categoria/automacao?subcategoria=reles' },
-      { name: 'Controladores', href: '/categoria/automacao?subcategoria=controladores' },
-    ]
+    icon: <Router size={16} />
   },
   { 
     name: 'Informática', 
     href: '/categoria/informatica', 
-    icon: <Monitor size={16} />,
-    subCategories: [
-      { name: 'Cabos', href: '/categoria/informatica?subcategoria=cabos' },
-      { name: 'Conectores', href: '/categoria/informatica?subcategoria=conectores' },
-    ]
+    icon: <Monitor size={16} />
   },
   { 
     name: 'Monitoramento', 
     href: '/categoria/monitoramento', 
-    icon: <Eye size={16} />,
-    subCategories: [
-      { name: 'Câmeras', href: '/categoria/monitoramento?subcategoria=cameras' },
-      { name: 'DVRs', href: '/categoria/monitoramento?subcategoria=dvrs' },
-    ]
+    icon: <Eye size={16} />
   },
 ];
 
@@ -284,7 +245,6 @@ export default function Navbar() {
                       <span className="text-sm font-medium">
                         {isAuthenticated ? user?.name?.split(' ')[0] : 'Minha Conta'}
                       </span>
-                      <ChevronDown size={14} />
                     </button>
                   </DropdownMenuTrigger>
                   <DropdownMenuContent className="w-48 bg-[#1a1a1a] border-[#333333] shadow-xl">
@@ -385,7 +345,6 @@ export default function Navbar() {
                 <DropdownMenuTrigger className="flex items-center gap-2 px-4 py-2 bg-center-orange text-white font-medium rounded-md hover:bg-center-orange/90 transition-colors">
                   <Grid2X2 size={16} />
                   Departamentos
-                  <ChevronDown size={14} />
                 </DropdownMenuTrigger>
                 <DropdownMenuContent className="w-64 bg-[#1a1a1a] border-[#333333] shadow-xl">
                   {navLinks.slice(1).map((link) => (
@@ -405,34 +364,17 @@ export default function Navbar() {
               {/* Main Navigation Links */}
               <div className="flex items-center ml-4">
                 {navLinks.slice(0, 4).map((link) => (
-                  <div key={link.name} className="relative group">
-                    <Link
-                      to={link.href}
-                      className={`flex items-center gap-2 px-4 py-2 text-sm font-medium transition-colors ${
-                        location.pathname === link.href
-                          ? 'text-center-orange'
-                          : 'text-gray-300 hover:text-center-orange'
-                      }`}
-                    >
-                      {link.name}
-                      {link.subCategories && <ChevronDown size={12} />}
-                    </Link>
-                    
-                    {/* Dropdown for subcategories */}
-                    {link.subCategories && (
-                      <div className="absolute top-full left-0 w-48 bg-[#1a1a1a] border border-[#333333] rounded-md shadow-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
-                        {link.subCategories.map((subCategory) => (
-                          <Link
-                            key={subCategory.name}
-                            to={subCategory.href}
-                            className="block px-4 py-2 text-sm text-gray-300 hover:text-white hover:bg-[#333333] transition-colors"
-                          >
-                            {subCategory.name}
-                          </Link>
-                        ))}
-                      </div>
-                    )}
-                  </div>
+                  <Link
+                    key={link.name}
+                    to={link.href}
+                    className={`flex items-center gap-2 px-4 py-2 text-sm font-medium transition-colors ${
+                      location.pathname === link.href
+                        ? 'text-center-orange'
+                        : 'text-gray-300 hover:text-center-orange'
+                    }`}
+                  >
+                    {link.name}
+                  </Link>
                 ))}
               </div>
 
