@@ -19,6 +19,7 @@ import {
 import { useAuth } from '@/context/AuthContext';
 import AuthModal from './AuthModal';
 import FavoritesLink from './FavoritesLink';
+import { useFavorites } from '@/context/FavoritesContext';
 
 interface NavLink {
   name: string;
@@ -200,8 +201,8 @@ export default function Navbar() {
               </div>
             </Link>
 
-            {/* Search Bar */}
-            <div className="flex-1 max-w-2xl hidden sm:block">
+            {/* Search Bar - Desktop */}
+            <div className="flex-1 max-w-2xl hidden md:block">
               <form onSubmit={handleSearch} className="relative">
                 <Input
                   type="search"
@@ -219,7 +220,26 @@ export default function Navbar() {
               </form>
             </div>
 
-            {/* Top Actions */}
+            {/* Search Bar - Mobile */}
+            <div className="flex-1 max-w-2xl block md:hidden">
+              <form onSubmit={handleSearch} className="relative">
+                <Input
+                  type="search"
+                  placeholder="Buscar produtos..."
+                  className="pl-4 pr-12 py-2 w-full bg-[#252525] border-[#3a3a3a] border-2 rounded-full text-white focus-visible:ring-center-orange focus-visible:border-center-orange placeholder:text-gray-400 transition-all duration-200 text-sm"
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                />
+                <button 
+                  type="submit"
+                  className="absolute right-1 top-1/2 -translate-y-1/2 h-6 w-6 flex items-center justify-center text-gray-400 hover:text-center-orange hover:bg-center-orange/10 rounded-full transition-all duration-200"
+                >
+                  <Search size={16} />
+                </button>
+              </form>
+            </div>
+
+            {/* Desktop Actions */}
             <div className="hidden lg:flex items-center gap-6">
               <div className="flex items-center gap-4">
                 {currentCategory && (
@@ -303,13 +323,46 @@ export default function Navbar() {
             </div>
 
             {/* Mobile Actions */}
-            <div className="flex items-center gap-2 lg:hidden">
+            <div className="flex items-center gap-1 lg:hidden">
+              {/* Mobile Contact */}
               <button 
                 className="p-2 text-gray-300 hover:bg-[#333333] rounded-full transition-colors"
-                onClick={handleMobileSearchOpen}
-                aria-label="Buscar"
+                onClick={handleWhatsAppClick}
+                aria-label="Contato"
               >
-                <Search size={18} />
+                <MessageCircle size={18} />
+              </button>
+
+              {/* Mobile User Account */}
+              <button 
+                className="p-2 text-gray-300 hover:bg-[#333333] rounded-full transition-colors"
+                onClick={handleUserMenuClick}
+                aria-label="Minha Conta"
+              >
+                <User size={18} />
+              </button>
+
+              {/* Mobile Favorites */}
+              <Link 
+                to="/favoritos" 
+                className="p-2 text-gray-300 hover:bg-[#333333] rounded-full transition-colors relative"
+                aria-label="Favoritos"
+              >
+                <Heart size={18} className={`${useFavorites().favorites.length > 0 ? 'text-center-orange' : ''}`} />
+                {useFavorites().favorites.length > 0 && (
+                  <span className="absolute -top-1 -right-1 bg-center-orange text-white text-xs w-4 h-4 flex items-center justify-center rounded-full text-[10px] font-bold">
+                    {useFavorites().favorites.length}
+                  </span>
+                )}
+              </Link>
+
+              {/* Mobile Departments */}
+              <button 
+                className="p-2 text-gray-300 hover:bg-[#333333] rounded-full transition-colors"
+                onClick={() => setIsCategoryDrawerOpen(true)}
+                aria-label="Departamentos"
+              >
+                <Grid2X2 size={18} />
               </button>
               
               <button
