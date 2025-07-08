@@ -1,4 +1,3 @@
-
 import { useState, useEffect, FormEvent } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { Menu, X, Search, Wind, Plug, Terminal, Router, Grid2X2, MessageCircle, Monitor, Eye, User, Heart, LogOut, ShoppingCart, Cable } from 'lucide-react';
@@ -362,13 +361,19 @@ export default function Navbar() {
                 </DropdownMenuContent>
               </DropdownMenu>
 
-              {/* Main Navigation Links */}
+              {/* Main Navigation Links - showing only 5 categories excluding Tomadas Industriais */}
               <div className="flex items-center ml-4">
-                {navLinks.slice(0, 7).map((link) => (
+                {[
+                  { name: 'Ar Condicionado', href: '/categoria/ar-condicionado' },
+                  { name: 'Instalações Elétricas', href: '/categoria/instalacoes-eletricas' },
+                  { name: 'Cabos', href: '/categoria/cabos' },
+                  { name: 'Terminais e Conectores', href: '/categoria/terminais' },
+                  { name: 'Automação', href: '/categoria/automacao' }
+                ].map((link) => (
                   <Link
                     key={link.name}
                     to={link.href}
-                    className={`flex items-center gap-2 px-4 py-2 text-sm font-medium transition-colors ${
+                    className={`flex items-center gap-2 px-4 py-2 text-sm font-medium transition-colors whitespace-nowrap ${
                       location.pathname === link.href
                         ? 'text-center-orange'
                         : 'text-gray-300 hover:text-center-orange'
