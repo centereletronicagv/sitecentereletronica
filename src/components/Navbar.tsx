@@ -181,7 +181,7 @@ export default function Navbar() {
         }`}
       >
         {/* Top Bar */}
-        <div className="container-custom py-3 border-b border-[#2a2a2a]">
+        <div className="container-custom py-2 border-b border-[#2a2a2a]">
           <div className="flex items-center justify-between gap-4">
             {/* Logo */}
             <Link 
@@ -338,7 +338,7 @@ export default function Navbar() {
 
         {/* Navigation Bar */}
         <div className="container-custom">
-          <nav className="hidden lg:block py-3">
+          <nav className="hidden lg:block py-2">
             <div className="flex items-center gap-2">
               {/* Departments Dropdown */}
               <DropdownMenu>
@@ -388,13 +388,6 @@ export default function Navbar() {
               {/* Favorites positioned after Automação */}
               <div className="ml-2">
                 <FavoritesLink />
-              </div>
-
-              {/* Special Offers */}
-              <div className="ml-auto">
-                <span className="text-center-orange text-sm font-bold">
-                  🔥 5% OFF para você
-                </span>
               </div>
             </div>
           </nav>
