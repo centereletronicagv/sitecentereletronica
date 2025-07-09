@@ -285,8 +285,6 @@ export default function Navbar() {
               </div>
               
               <div className="flex items-center gap-4">
-                <FavoritesLink />
-
                 <button
                   onClick={() => setIsCartOpen(true)}
                   className="flex items-center gap-2 text-gray-300 hover:text-center-orange transition-colors relative"
