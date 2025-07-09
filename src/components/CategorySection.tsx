@@ -54,7 +54,7 @@ export default function CategorySection() {
   const { isMobile } = useMediaQuery();
 
   return (
-    <div className={`py-8 ${isMobile ? 'px-3' : 'px-4 sm:px-6 lg:px-8'} bg-[#181818] relative overflow-hidden`}>
+    <div className={`py-8 ${isMobile ? 'px-3' : 'px-4 sm:px-6 lg:px-8'} bg-[#181818] relative overflow-hidden`} data-section="categories">
       {/* Background pattern overlay */}
       <div className="absolute inset-0 bg-[#181818] bg-opacity-30 z-0"></div>
       

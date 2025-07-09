@@ -13,8 +13,24 @@ export default function Hero() {
     img.onload = () => setIsImageLoaded(true);
   }, []);
 
+  const handleDepartmentsClick = () => {
+    // Scroll to categories section
+    const categoriesSection = document.querySelector('[data-section="categories"]');
+    if (categoriesSection) {
+      categoriesSection.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
+  const handleWhatsAppClick = () => {
+    // Replace with your actual WhatsApp number
+    const whatsappNumber = "5511999999999"; // Update this with the actual store number
+    const message = "Olá! Gostaria de fazer um pedido.";
+    const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
+    window.open(whatsappUrl, '_blank');
+  };
+
   return (
-    <section className="w-full bg-[#181818] pt-20 pb-8 md:pt-28 md:pb-14 relative overflow-hidden">
+    <section className="w-full bg-[#181818] pt-21 pb-8 md:pt-25 md:pb-14 relative overflow-hidden">
       {/* Background pattern overlay */}
       <div className="absolute inset-0 bg-gradient-to-r from-[#181818] to-transparent opacity-90 z-0"></div>
       <div className="absolute inset-0 bg-[#181818] bg-opacity-20 z-0"></div>
@@ -34,24 +50,24 @@ export default function Hero() {
             </p>
             
             <div className="flex flex-row gap-2 sm:gap-3 md:gap-4 mt-4 md:mt-6">
-              <Link 
-                to="/categoria/ar-condicionado" 
+              <button 
+                onClick={handleDepartmentsClick}
                 className="btn-primary flex items-center gap-1 sm:gap-2 text-xs sm:text-sm md:text-base py-2 sm:py-3 md:py-3 px-3 sm:px-6 md:px-8 group font-medium flex-1 sm:flex-none justify-center"
               >
-                Ver Produtos
+                Ver Departamentos
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="transition-transform duration-300 group-hover:translate-x-1 sm:w-4 sm:h-4">
                   <path d="M5 12h14" />
                   <path d="m12 5 7 7-7 7" />
                 </svg>
-              </Link>
+              </button>
               
-              <Link 
-                to="/categoria/ar-condicionado" 
+              <button 
+                onClick={handleWhatsAppClick}
                 className="inline-flex items-center gap-1 sm:gap-2 px-3 sm:px-6 md:px-8 py-2 sm:py-3 md:py-3 text-white bg-[#252525] hover:bg-[#333333] rounded-md transition-colors text-xs sm:text-sm md:text-base group font-medium border border-[#333333] hover:border-[#404040] flex-1 sm:flex-none justify-center"
               >
-                Faça seu pedido
+                Entre em Contato
                 <ArrowRight size={14} className="transition-transform duration-300 group-hover:translate-x-1 sm:w-4 sm:h-4" />
-              </Link>
+              </button>
             </div>
           </div>
           
