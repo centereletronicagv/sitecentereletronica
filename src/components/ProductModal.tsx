@@ -63,6 +63,26 @@ export default function ProductModal({ product, open, onOpenChange }: ProductMod
     onOpenChange(false);
   };
 
+  const handleBuyNow = () => {
+    const productToAdd = {
+      ...product,
+      name: isFlexCable && selectedColor 
+        ? `${product.name} - ${CABLE_COLORS.find(c => c.value === selectedColor)?.label}` 
+        : product.name,
+    };
+
+    for (let i = 0; i < quantity; i++) {
+      addToCart(productToAdd);
+    }
+
+    // Generate WhatsApp message
+    const totalPrice = product.price * quantity;
+    const message = `Olá, gostaria de comprar:\n\n${quantity}x ${productToAdd.name} (${formatPrice(totalPrice)})\n\nTotal: ${formatPrice(totalPrice)}`;
+    window.open(`https://wa.me/5499270560?text=${encodeURIComponent(message)}`, '_blank');
+    
+    onOpenChange(false);
+  };
+
   const handleToggleFavorite = () => {
     if (isProductFavorite) {
       removeFromFavorites(product.id);
@@ -185,12 +205,22 @@ export default function ProductModal({ product, open, onOpenChange }: ProductMod
               {/* Botões de ação */}
               <div className="space-y-3 pt-4">
                 <Button
-                  onClick={handleAddToCart}
+                  onClick={handleBuyNow}
                   disabled={!canAddToCart}
                   className="w-full bg-center-orange hover:bg-center-orange/90 text-white py-3 text-lg font-medium disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   <ShoppingCart className="mr-2 h-5 w-5" />
-                  {isPriceOnRequest ? 'Solicitar Orçamento' : 'Adicionar ao Carrinho'}
+                  Comprar agora
+                </Button>
+
+                <Button
+                  onClick={handleAddToCart}
+                  disabled={!canAddToCart}
+                  variant="outline"
+                  className="w-full bg-transparent border-center-orange hover:bg-center-orange/10 text-center-orange py-3 disabled:opacity-50 disabled:cursor-not-allowed"
+                >
+                  <ShoppingCart className="mr-2 h-5 w-5" />
+                  Adicionar ao carrinho
                 </Button>
 
                 <Button

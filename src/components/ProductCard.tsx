@@ -35,6 +35,14 @@ export default function ProductCard({ product }: ProductCardProps) {
     addToCart(product);
   };
 
+  const handleBuyNow = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    addToCart(product);
+    // Generate WhatsApp message
+    const message = `Olá, gostaria de comprar:\n\n1x ${product.name} (${formatPrice(product.price)})\n\nTotal: ${formatPrice(product.price)}`;
+    window.open(`https://wa.me/5499270560?text=${encodeURIComponent(message)}`, '_blank');
+  };
+
   const handleToggleFavorite = (e: React.MouseEvent) => {
     e.stopPropagation();
     console.log('Clicou no favorito para produto:', product.name);
@@ -115,7 +123,7 @@ export default function ProductCard({ product }: ProductCardProps) {
             {displayName}
           </h3>
           <div className="mt-auto">
-            <div className="flex justify-between items-center">
+            <div className="mb-3">
               <div className="text-sm sm:text-lg font-semibold text-center-orange">
                 {isPriceOnRequest ? (
                   <span>Sob Consulta</span>
@@ -126,12 +134,21 @@ export default function ProductCard({ product }: ProductCardProps) {
                   </>
                 )}
               </div>
+            </div>
+            <div className="flex flex-col gap-2">
+              <button 
+                onClick={handleBuyNow}
+                className="w-full py-1.5 px-2 bg-center-orange hover:bg-center-orange/90 text-white text-xs sm:text-sm font-medium rounded transition-colors"
+                aria-label="Comprar agora"
+              >
+                Comprar agora
+              </button>
               <button 
                 onClick={handleAddToCart}
-                className="p-1 sm:p-2 rounded-full text-center-orange bg-center-orange/10 hover:bg-center-orange hover:text-white transition-colors flex items-center justify-center"
+                className="w-full py-1.5 px-2 bg-center-orange/10 hover:bg-center-orange/20 text-center-orange text-xs sm:text-sm font-medium rounded transition-colors border border-center-orange/20"
                 aria-label="Adicionar ao carrinho"
               >
-                <ShoppingCart size={14} className="sm:w-[18px] sm:h-[18px]" />
+                Adicionar ao carrinho
               </button>
             </div>
           </div>
