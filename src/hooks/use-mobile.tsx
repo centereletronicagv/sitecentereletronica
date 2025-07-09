@@ -4,17 +4,15 @@ import * as React from "react"
 const MOBILE_BREAKPOINT = 768
 
 export function useIsMobile() {
-  // Use state initialization function to avoid extra calculations during render
-  const [isMobile, setIsMobile] = React.useState<boolean>(() => 
-    typeof window !== 'undefined' ? window.innerWidth < MOBILE_BREAKPOINT : false
-  )
+  // Initialize with false to default to desktop view
+  const [isMobile, setIsMobile] = React.useState<boolean>(false)
 
   React.useEffect(() => {
     if (typeof window === 'undefined') return
 
-    // Use passive event listener to improve performance
     const checkMobile = () => {
-      setIsMobile(window.innerWidth < MOBILE_BREAKPOINT)
+      const width = window.innerWidth
+      setIsMobile(width < MOBILE_BREAKPOINT)
     }
     
     // Add debounce for resize events to reduce frequent updates
@@ -24,7 +22,7 @@ export function useIsMobile() {
       timeoutId = window.setTimeout(checkMobile, 100);
     };
     
-    // Initial check
+    // Initial check after component mounts
     checkMobile()
     
     // Add event listener with passive option for performance
@@ -70,7 +68,7 @@ export function useMediaQuery() {
       timeoutId = window.setTimeout(updateMediaQueries, 100);
     };
 
-    // Initial check
+    // Initial check after component mounts
     updateMediaQueries()
     
     // Add event listener with passive option for performance
