@@ -9,7 +9,6 @@ import { useMediaQuery } from '@/hooks/use-mobile';
 
 // Lazy load non-critical components
 const ContactSection = lazy(() => import('../components/ContactSection'));
-const CategorySection = lazy(() => import('../components/CategorySection'));
 
 const Index = () => {
   const [searchQuery, setSearchQuery] = useState('');
@@ -77,14 +76,7 @@ const Index = () => {
       <Navbar />
       <main className={`flex-grow ${isMobile ? 'pt-14' : 'pt-16 md:pt-20'} bg-[#181818]`}>
         {!searchQuery && !category && (
-          <>
-            <Hero />
-            {isMobile && (
-              <Suspense fallback={<div className="h-36 bg-[#181818]"></div>}>
-                {!isInitialLoad && <CategorySection />}
-              </Suspense>
-            )}
-          </>
+          <Hero />
         )}
         
         <ProductsSection searchQuery={searchQuery} category={category} />
