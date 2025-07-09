@@ -1,6 +1,6 @@
 import { useState, useEffect, FormEvent } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { Menu, X, Search, Wind, Plug, Terminal, Router, Grid2X2, MessageCircle, Monitor, Eye, User, Heart, LogOut, ShoppingCart, Cable } from 'lucide-react';
+import { Menu, X, Search, Snowflake, Zap, Cable, Plug, Monitor, Eye, User, Heart, LogOut, ShoppingCart, MessageCircle, Grid2X2 } from 'lucide-react';
 import { Input } from './ui/input';
 import { useCart } from '@/context/CartContext';
 import CartModal from './CartModal';
@@ -31,12 +31,12 @@ const navLinks: NavLink[] = [
   { 
     name: 'Ar Condicionado', 
     href: '/categoria/ar-condicionado', 
-    icon: <Wind size={16} />
+    icon: <Snowflake size={16} />
   },
   { 
     name: 'Instalações Elétricas', 
     href: '/categoria/instalacoes-eletricas', 
-    icon: <Plug size={16} />
+    icon: <Zap size={16} />
   },
   { 
     name: 'Cabos', 
@@ -46,7 +46,7 @@ const navLinks: NavLink[] = [
   { 
     name: 'Terminais e Conectores', 
     href: '/categoria/terminais', 
-    icon: <Cable size={16} />
+    icon: <Plug size={16} />
   },
   { 
     name: 'Tomadas Industriais', 
@@ -56,7 +56,7 @@ const navLinks: NavLink[] = [
   { 
     name: 'Automação', 
     href: '/categoria/automacao', 
-    icon: <Router size={16} />
+    icon: <Grid2X2 size={16} />
   },
   { 
     name: 'Informática', 

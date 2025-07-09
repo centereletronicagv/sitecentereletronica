@@ -1,7 +1,7 @@
 
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import { AirVent, Plug, Cable, Settings, Monitor, Eye, X } from "lucide-react";
+import { Snowflake, Zap, Cable, Plug, Grid2X2, Monitor, Eye, X } from "lucide-react";
 import {
   Drawer,
   DrawerContent,
@@ -10,33 +10,47 @@ import {
   DrawerClose,
 } from "@/components/ui/drawer";
 
-// Updated categories including Informática and Monitoramento
+// Updated categories with new icons matching the image
 const categories = [
   {
     id: "ar-condicionado",
     name: "Ar Condicionado",
-    icon: <AirVent className="h-5 w-5" />,
-    color: "bg-orange-600",
-    hoverColor: "group-hover:bg-orange-500",
-  },
-  {
-    id: "instalacoes-eletricas",
-    name: "Instalações Elétricas",
-    icon: <Plug className="h-5 w-5" />,
+    icon: <Snowflake className="h-5 w-5" />,
     color: "bg-blue-600",
     hoverColor: "group-hover:bg-blue-500",
   },
   {
+    id: "instalacoes-eletricas",
+    name: "Instalações Elétricas",
+    icon: <Zap className="h-5 w-5" />,
+    color: "bg-yellow-600",
+    hoverColor: "group-hover:bg-yellow-500",
+  },
+  {
+    id: "cabos",
+    name: "Cabos",
+    icon: <Cable className="h-5 w-5" />,
+    color: "bg-gray-600",
+    hoverColor: "group-hover:bg-gray-500",
+  },
+  {
     id: "terminais",
     name: "Terminais e Conectores",
-    icon: <Cable className="h-5 w-5" />,
+    icon: <Plug className="h-5 w-5" />,
     color: "bg-green-600",
     hoverColor: "group-hover:bg-green-500",
   },
   {
+    id: "tomadas-industriais",
+    name: "Tomadas Industriais",
+    icon: <Plug className="h-5 w-5" />,
+    color: "bg-red-600",
+    hoverColor: "group-hover:bg-red-500",
+  },
+  {
     id: "automacao",
     name: "Automação",
-    icon: <Settings className="h-5 w-5" />,
+    icon: <Grid2X2 className="h-5 w-5" />,
     color: "bg-purple-600",
     hoverColor: "group-hover:bg-purple-500",
   },
