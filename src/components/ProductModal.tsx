@@ -97,7 +97,7 @@ export default function ProductModal({ product, open, onOpenChange }: ProductMod
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="bg-[#202020] border-[#333333] text-white max-w-4xl max-h-[90vh] overflow-auto p-0">
+      <DialogContent className="bg-[#202020] border-[#333333] text-white max-w-4xl max-h-[90vh] overflow-auto p-0" hideCloseButton>
         <div className="relative">
           <button
             onClick={() => onOpenChange(false)}

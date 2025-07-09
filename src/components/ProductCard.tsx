@@ -1,6 +1,6 @@
 
 import { useState } from 'react';
-import { ShoppingCart, Heart } from 'lucide-react';
+import { Heart } from 'lucide-react';
 import { useCart } from '@/context/CartContext';
 import { useFavorites } from '@/context/FavoritesContext';
 import { Product } from '../types';
@@ -28,19 +28,6 @@ export default function ProductCard({ product }: ProductCardProps) {
 
   const handleImageLoad = () => {
     setIsImageLoaded(true);
-  };
-
-  const handleAddToCart = (e: React.MouseEvent) => {
-    e.stopPropagation();
-    addToCart(product);
-  };
-
-  const handleBuyNow = (e: React.MouseEvent) => {
-    e.stopPropagation();
-    addToCart(product);
-    // Generate WhatsApp message
-    const message = `Olá, gostaria de comprar:\n\n1x ${product.name} (${formatPrice(product.price)})\n\nTotal: ${formatPrice(product.price)}`;
-    window.open(`https://wa.me/5499270560?text=${encodeURIComponent(message)}`, '_blank');
   };
 
   const handleToggleFavorite = (e: React.MouseEvent) => {
@@ -123,33 +110,15 @@ export default function ProductCard({ product }: ProductCardProps) {
             {displayName}
           </h3>
           <div className="mt-auto">
-            <div className="mb-3">
-              <div className="text-sm sm:text-lg font-semibold text-center-orange">
-                {isPriceOnRequest ? (
-                  <span>Sob Consulta</span>
-                ) : (
-                  <>
-                    {formatPrice(product.price)}
-                    {isSoldByMeter && <span className="text-[10px] sm:text-xs font-normal text-gray-400 ml-1">/m</span>}
-                  </>
-                )}
-              </div>
-            </div>
-            <div className="flex flex-col gap-2">
-              <button 
-                onClick={handleBuyNow}
-                className="w-full py-1.5 px-2 bg-center-orange hover:bg-center-orange/90 text-white text-xs sm:text-sm font-medium rounded transition-colors"
-                aria-label="Comprar agora"
-              >
-                Comprar agora
-              </button>
-              <button 
-                onClick={handleAddToCart}
-                className="w-full py-1.5 px-2 bg-center-orange/10 hover:bg-center-orange/20 text-center-orange text-xs sm:text-sm font-medium rounded transition-colors border border-center-orange/20"
-                aria-label="Adicionar ao carrinho"
-              >
-                Adicionar ao carrinho
-              </button>
+            <div className="text-sm sm:text-lg font-semibold text-center-orange">
+              {isPriceOnRequest ? (
+                <span>Sob Consulta</span>
+              ) : (
+                <>
+                  {formatPrice(product.price)}
+                  {isSoldByMeter && <span className="text-[10px] sm:text-xs font-normal text-gray-400 ml-1">/m</span>}
+                </>
+              )}
             </div>
           </div>
         </div>
