@@ -1,11 +1,10 @@
 
-import { Menu } from 'lucide-react';
+import { ArrowRight } from 'lucide-react';
+import { Link } from 'react-router-dom';
 import { useEffect, useState } from 'react';
-import MobileCategoryDrawer from './MobileCategoryDrawer';
 
 export default function Hero() {
   const [isImageLoaded, setIsImageLoaded] = useState(false);
-  const [isDepartmentsOpen, setIsDepartmentsOpen] = useState(false);
   
   useEffect(() => {
     // Pré-carrega a imagem do hero
@@ -34,15 +33,25 @@ export default function Hero() {
               Aqui você encontra uma ampla linha de produtos Elétricos, Eletrônicos, de Automação e Informática, selecionados com rigor para garantir qualidade, inovação e desempenho.
             </p>
             
-            <div className="flex justify-center md:justify-start mt-4 md:mt-6">
-              <button 
-                onClick={() => setIsDepartmentsOpen(true)}
-                className="inline-flex items-center gap-3 px-8 py-4 bg-gradient-to-r from-center-orange to-center-orangeLight hover:from-center-orangeLight hover:to-center-orange text-white font-semibold rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105 group text-lg border border-center-orange/20"
+            <div className="flex flex-row gap-2 sm:gap-3 md:gap-4 mt-4 md:mt-6">
+              <Link 
+                to="/categoria/ar-condicionado" 
+                className="btn-primary flex items-center gap-1 sm:gap-2 text-xs sm:text-sm md:text-base py-2 sm:py-3 md:py-3 px-3 sm:px-6 md:px-8 group font-medium flex-1 sm:flex-none justify-center"
               >
-                <Menu className="w-5 h-5 transition-transform duration-300 group-hover:rotate-90" />
-                <span>Departamentos</span>
-                <div className="w-2 h-2 bg-white/30 rounded-full animate-pulse"></div>
-              </button>
+                Ver Produtos
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="transition-transform duration-300 group-hover:translate-x-1 sm:w-4 sm:h-4">
+                  <path d="M5 12h14" />
+                  <path d="m12 5 7 7-7 7" />
+                </svg>
+              </Link>
+              
+              <Link 
+                to="/categoria/ar-condicionado" 
+                className="inline-flex items-center gap-1 sm:gap-2 px-3 sm:px-6 md:px-8 py-2 sm:py-3 md:py-3 text-white bg-[#252525] hover:bg-[#333333] rounded-md transition-colors text-xs sm:text-sm md:text-base group font-medium border border-[#333333] hover:border-[#404040] flex-1 sm:flex-none justify-center"
+              >
+                Faça seu pedido
+                <ArrowRight size={14} className="transition-transform duration-300 group-hover:translate-x-1 sm:w-4 sm:h-4" />
+              </Link>
             </div>
           </div>
           
@@ -68,12 +77,6 @@ export default function Hero() {
           </div>
         </div>
       </div>
-
-      {/* Mobile Category Drawer */}
-      <MobileCategoryDrawer 
-        open={isDepartmentsOpen} 
-        onOpenChange={setIsDepartmentsOpen} 
-      />
     </section>
   );
 }
