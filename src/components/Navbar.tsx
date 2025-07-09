@@ -361,14 +361,14 @@ export default function Navbar() {
                 </DropdownMenuContent>
               </DropdownMenu>
 
-              {/* Main Navigation Links - showing only 5 categories excluding Tomadas Industriais */}
+              {/* Main Navigation Links - showing categories with icons */}
               <div className="flex items-center ml-4">
                 {[
-                  { name: 'Ar Condicionado', href: '/categoria/ar-condicionado' },
-                  { name: 'Instalações Elétricas', href: '/categoria/instalacoes-eletricas' },
-                  { name: 'Cabos', href: '/categoria/cabos' },
-                  { name: 'Terminais e Conectores', href: '/categoria/terminais' },
-                  { name: 'Automação', href: '/categoria/automacao' }
+                  { name: 'Ar Condicionado', href: '/categoria/ar-condicionado', icon: <Snowflake size={16} /> },
+                  { name: 'Instalações Elétricas', href: '/categoria/instalacoes-eletricas', icon: <Zap size={16} /> },
+                  { name: 'Cabos', href: '/categoria/cabos', icon: <Cable size={16} /> },
+                  { name: 'Terminais e Conectores', href: '/categoria/terminais', icon: <Plug size={16} /> },
+                  { name: 'Automação', href: '/categoria/automacao', icon: <Grid2X2 size={16} /> }
                 ].map((link) => (
                   <Link
                     key={link.name}
@@ -379,9 +379,15 @@ export default function Navbar() {
                         : 'text-gray-300 hover:text-center-orange'
                     }`}
                   >
+                    {link.icon}
                     {link.name}
                   </Link>
                 ))}
+              </div>
+
+              {/* Favorites positioned after Automação */}
+              <div className="ml-2">
+                <FavoritesLink />
               </div>
 
               {/* Special Offers */}
