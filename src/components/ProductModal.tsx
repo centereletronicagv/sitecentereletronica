@@ -49,7 +49,11 @@ export default function ProductModal({ product, open, onOpenChange }: ProductMod
     setQuantity(Math.max(1, quantity + delta));
   };
 
-  const handleAddToCart = () => {
+  const handleAddToCart = (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    console.log('Adicionando ao carrinho:', product.name);
+    
     const productToAdd = {
       ...product,
       name: isFlexCable && selectedColor 
@@ -63,7 +67,11 @@ export default function ProductModal({ product, open, onOpenChange }: ProductMod
     onOpenChange(false);
   };
 
-  const handleBuyNow = () => {
+  const handleBuyNow = (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    console.log('Comprando agora:', product.name);
+    
     const productToAdd = {
       ...product,
       name: isFlexCable && selectedColor 
@@ -83,7 +91,11 @@ export default function ProductModal({ product, open, onOpenChange }: ProductMod
     onOpenChange(false);
   };
 
-  const handleToggleFavorite = () => {
+  const handleToggleFavorite = (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    console.log('Toggle favorito:', product.name);
+    
     if (isProductFavorite) {
       removeFromFavorites(product.id);
       showRemovedToast(product.name);
@@ -97,11 +109,11 @@ export default function ProductModal({ product, open, onOpenChange }: ProductMod
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="bg-[#202020] border-[#333333] text-white max-w-4xl max-h-[90vh] overflow-auto p-0" hideCloseButton>
-        <div className="relative">
+      <DialogContent className="bg-[#202020] border-[#333333] text-white max-w-4xl max-h-[90vh] overflow-auto p-0 pointer-events-auto" hideCloseButton>
+        <div className="relative pointer-events-auto">
           <button
             onClick={() => onOpenChange(false)}
-            className="absolute top-4 right-4 z-10 p-2 rounded-full bg-black/50 hover:bg-black/70 transition-colors"
+            className="absolute top-4 right-4 z-10 p-2 rounded-full bg-black/50 hover:bg-black/70 transition-colors pointer-events-auto"
           >
             <X className="h-5 w-5 text-white" />
           </button>
@@ -124,7 +136,7 @@ export default function ProductModal({ product, open, onOpenChange }: ProductMod
             </div>
 
             {/* Detalhes do produto */}
-            <div className="flex flex-col space-y-6">
+            <div className="flex flex-col space-y-6 pointer-events-auto">
               <div>
                 <h1 className="text-2xl font-bold text-white mb-2">{product.name}</h1>
                 <p className="text-gray-400 text-sm">Código: {product.code}</p>
@@ -178,8 +190,9 @@ export default function ProductModal({ product, open, onOpenChange }: ProductMod
                 <div className="flex items-center space-x-4">
                   <button
                     onClick={() => handleQuantityChange(-1)}
-                    className="p-2 rounded-full bg-[#333333] hover:bg-[#404040] transition-colors"
+                    className="p-2 rounded-full bg-[#333333] hover:bg-[#404040] transition-colors pointer-events-auto"
                     disabled={quantity <= 1}
+                    type="button"
                   >
                     <Minus className="h-4 w-4 text-white" />
                   </button>
@@ -188,7 +201,8 @@ export default function ProductModal({ product, open, onOpenChange }: ProductMod
                   </span>
                   <button
                     onClick={() => handleQuantityChange(1)}
-                    className="p-2 rounded-full bg-[#333333] hover:bg-[#404040] transition-colors"
+                    className="p-2 rounded-full bg-[#333333] hover:bg-[#404040] transition-colors pointer-events-auto"
+                    type="button"
                   >
                     <Plus className="h-4 w-4 text-white" />
                   </button>
@@ -203,36 +217,37 @@ export default function ProductModal({ product, open, onOpenChange }: ProductMod
               )}
 
               {/* Botões de ação */}
-              <div className="space-y-3 pt-4">
-                <Button
+              <div className="space-y-3 pt-4 pointer-events-auto">
+                <button
                   onClick={handleBuyNow}
                   disabled={!canAddToCart}
-                  className="w-full bg-center-orange hover:bg-center-orange/90 text-white py-3 text-lg font-medium disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="w-full bg-center-orange hover:bg-center-orange/90 text-white py-3 text-lg font-medium disabled:opacity-50 disabled:cursor-not-allowed rounded-md transition-colors flex items-center justify-center gap-2 pointer-events-auto"
+                  type="button"
                 >
-                  <ShoppingCart className="mr-2 h-5 w-5" />
+                  <ShoppingCart className="h-5 w-5" />
                   Comprar agora
-                </Button>
+                </button>
 
-                <Button
+                <button
                   onClick={handleAddToCart}
                   disabled={!canAddToCart}
-                  variant="outline"
-                  className="w-full bg-transparent border-center-orange hover:bg-center-orange/10 text-center-orange py-3 disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="w-full bg-transparent border-center-orange hover:bg-center-orange/10 text-center-orange py-3 disabled:opacity-50 disabled:cursor-not-allowed rounded-md border transition-colors flex items-center justify-center gap-2 pointer-events-auto"
+                  type="button"
                 >
-                  <ShoppingCart className="mr-2 h-5 w-5" />
+                  <ShoppingCart className="h-5 w-5" />
                   Adicionar ao carrinho
-                </Button>
+                </button>
 
-                <Button
+                <button
                   onClick={handleToggleFavorite}
-                  variant="outline"
-                  className="w-full bg-transparent border-[#333333] hover:bg-[#333333] text-white py-3"
+                  className="w-full bg-transparent border-[#333333] hover:bg-[#333333] text-white py-3 rounded-md border transition-colors flex items-center justify-center gap-2 pointer-events-auto"
+                  type="button"
                 >
                   <Heart 
-                    className={`mr-2 h-5 w-5 ${isProductFavorite ? 'fill-current' : ''}`} 
+                    className={`h-5 w-5 ${isProductFavorite ? 'fill-current' : ''}`} 
                   />
                   {isProductFavorite ? 'Remover dos Favoritos' : 'Adicionar aos Favoritos'}
-                </Button>
+                </button>
               </div>
 
               {/* Informações adicionais */}
