@@ -1,4 +1,3 @@
-
 import { useState, useEffect, FormEvent } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { Menu, X, Search, Snowflake, Zap, Cable, Plug, Monitor, Eye, User, Heart, LogOut, ShoppingCart, MessageCircle, Grid2X2 } from 'lucide-react';
@@ -363,68 +362,68 @@ export default function Navbar() {
           {/* Top Row */}
           <div className="px-4 py-3 border-b border-[#2a2a2a]">
             <div className="flex items-center justify-between">
-              {/* Left: Departments Button */}
-              <button
-                onClick={() => setIsCategoryDrawerOpen(true)}
-                className="p-2 text-gray-300 hover:bg-[#333333] rounded-full transition-colors"
-                aria-label="Departamentos"
-              >
-                <Grid2X2 size={20} />
-              </button>
+              {/* Left: User Account */}
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <button className="p-2 text-gray-300 hover:bg-[#333333] rounded-full transition-colors">
+                    <User size={18} />
+                  </button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent className="w-48 bg-[#1a1a1a] border-[#333333] shadow-xl">
+                  {isAuthenticated ? (
+                    <>
+                      <div className="px-3 py-2 border-b border-[#333333]">
+                        <p className="text-sm text-white font-medium">{user?.name}</p>
+                        <p className="text-xs text-gray-400">{user?.email}</p>
+                      </div>
+                      <DropdownMenuItem className="text-gray-300 hover:text-white hover:bg-[#333333] focus:bg-[#333333] focus:text-white">
+                        <User size={16} className="mr-2" />
+                        Meu Perfil
+                      </DropdownMenuItem>
+                      <DropdownMenuItem className="text-gray-300 hover:text-white hover:bg-[#333333] focus:bg-[#333333] focus:text-white">
+                        <ShoppingCart size={16} className="mr-2" />
+                        Meus Pedidos
+                      </DropdownMenuItem>
+                      <DropdownMenuSeparator className="bg-[#333333]" />
+                      <DropdownMenuItem 
+                        onClick={handleLogout}
+                        className="text-red-400 hover:text-red-300 hover:bg-[#333333] focus:bg-[#333333] focus:text-red-300"
+                      >
+                        <LogOut size={16} className="mr-2" />
+                        Sair
+                      </DropdownMenuItem>
+                    </>
+                  ) : (
+                    <DropdownMenuItem 
+                      onClick={() => setIsAuthModalOpen(true)}
+                      className="text-gray-300 hover:text-white hover:bg-[#333333] focus:bg-[#333333] focus:text-white"
+                    >
+                      <User size={16} className="mr-2" />
+                      Entrar / Criar Conta
+                    </DropdownMenuItem>
+                  )}
+                </DropdownMenuContent>
+              </DropdownMenu>
 
               {/* Center: Logo */}
               <Link to="/" className="flex items-center">
                 <img 
                   src="/lovable-uploads/logonova.png" 
                   alt="Center Eletrônica Logo" 
-                  className="h-8 w-auto"
+                  className="h-10 w-auto"
                 />
               </Link>
 
-              {/* Right: Account, Favorites, Cart */}
+              {/* Right: Departments, Favorites, Cart */}
               <div className="flex items-center gap-1">
-                {/* User Account */}
-                <DropdownMenu>
-                  <DropdownMenuTrigger asChild>
-                    <button className="p-2 text-gray-300 hover:bg-[#333333] rounded-full transition-colors">
-                      <User size={18} />
-                    </button>
-                  </DropdownMenuTrigger>
-                  <DropdownMenuContent className="w-48 bg-[#1a1a1a] border-[#333333] shadow-xl">
-                    {isAuthenticated ? (
-                      <>
-                        <div className="px-3 py-2 border-b border-[#333333]">
-                          <p className="text-sm text-white font-medium">{user?.name}</p>
-                          <p className="text-xs text-gray-400">{user?.email}</p>
-                        </div>
-                        <DropdownMenuItem className="text-gray-300 hover:text-white hover:bg-[#333333] focus:bg-[#333333] focus:text-white">
-                          <User size={16} className="mr-2" />
-                          Meu Perfil
-                        </DropdownMenuItem>
-                        <DropdownMenuItem className="text-gray-300 hover:text-white hover:bg-[#333333] focus:bg-[#333333] focus:text-white">
-                          <ShoppingCart size={16} className="mr-2" />
-                          Meus Pedidos
-                        </DropdownMenuItem>
-                        <DropdownMenuSeparator className="bg-[#333333]" />
-                        <DropdownMenuItem 
-                          onClick={handleLogout}
-                          className="text-red-400 hover:text-red-300 hover:bg-[#333333] focus:bg-[#333333] focus:text-red-300"
-                        >
-                          <LogOut size={16} className="mr-2" />
-                          Sair
-                        </DropdownMenuItem>
-                      </>
-                    ) : (
-                      <DropdownMenuItem 
-                        onClick={() => setIsAuthModalOpen(true)}
-                        className="text-gray-300 hover:text-white hover:bg-[#333333] focus:bg-[#333333] focus:text-white"
-                      >
-                        <User size={16} className="mr-2" />
-                        Entrar / Criar Conta
-                      </DropdownMenuItem>
-                    )}
-                  </DropdownMenuContent>
-                </DropdownMenu>
+                {/* Departments Button */}
+                <button
+                  onClick={() => setIsCategoryDrawerOpen(true)}
+                  className="p-2 text-gray-300 hover:bg-[#333333] rounded-full transition-colors"
+                  aria-label="Departamentos"
+                >
+                  <Grid2X2 size={20} />
+                </button>
 
                 {/* Favorites */}
                 <Link to="/favoritos" className="p-2 text-gray-300 hover:bg-[#333333] rounded-full transition-colors relative">
