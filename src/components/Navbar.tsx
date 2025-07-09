@@ -1,4 +1,3 @@
-
 import { useState, useEffect, FormEvent } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { Menu, X, Search, Snowflake, Zap, Cable, Plug, Monitor, Eye, User, Heart, LogOut, ShoppingCart, MessageCircle, Grid2X2 } from 'lucide-react';
@@ -390,48 +389,6 @@ export default function Navbar() {
               </div>
             </div>
           </nav>
-
-          {/* Mobile Category Navigation */}
-          <div className="lg:hidden py-2">
-            <div className="flex items-center gap-2">
-              {/* Departments Button for Mobile */}
-              <button
-                onClick={() => setIsCategoryDrawerOpen(true)}
-                className="flex items-center gap-2 px-4 py-2 bg-center-orange text-white font-medium rounded-md hover:bg-center-orange/90 transition-colors"
-              >
-                <Grid2X2 size={16} />
-                Departamentos
-              </button>
-              
-              {/* Popular Categories for Mobile */}
-              <div className="flex items-center gap-1 overflow-x-auto">
-                {[
-                  { name: 'Ar Condicionado', href: '/categoria/ar-condicionado', icon: <Snowflake size={14} /> },
-                  { name: 'Instalações', href: '/categoria/instalacoes-eletricas', icon: <Zap size={14} /> },
-                  { name: 'Cabos', href: '/categoria/cabos', icon: <Cable size={14} /> },
-                  { name: 'Terminais', href: '/categoria/terminais', icon: <Plug size={14} /> }
-                ].map((link) => (
-                  <Link
-                    key={link.name}
-                    to={link.href}
-                    className={`flex items-center gap-1 px-3 py-1.5 text-xs font-medium transition-colors whitespace-nowrap rounded-full ${
-                      location.pathname === link.href
-                        ? 'bg-center-orange/20 text-center-orange'
-                        : 'text-gray-300 hover:text-center-orange hover:bg-[#333333]'
-                    }`}
-                  >
-                    {link.icon}
-                    {link.name}
-                  </Link>
-                ))}
-              </div>
-
-              {/* Favorites for Mobile */}
-              <div className="ml-auto">
-                <FavoritesLink />
-              </div>
-            </div>
-          </div>
         </div>
       </div>
 
