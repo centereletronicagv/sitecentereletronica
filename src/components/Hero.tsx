@@ -30,7 +30,7 @@ export default function Hero() {
   };
 
   return (
-    <section className="w-full bg-[#181818] pt-20 pb-8 md:pt-24 md:pb-14 relative overflow-hidden">
+    <section className="w-full bg-[#181818] pt-22 pb-8 md:pt-26 md:pb-14 relative overflow-hidden">
       {/* Background pattern overlay */}
       <div className="absolute inset-0 bg-gradient-to-r from-[#181818] to-transparent opacity-90 z-0"></div>
       <div className="absolute inset-0 bg-[#181818] bg-opacity-20 z-0"></div>
