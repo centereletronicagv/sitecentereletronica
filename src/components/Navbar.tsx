@@ -1,3 +1,4 @@
+
 import { useState, useEffect, FormEvent } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { Menu, X, Search, Snowflake, Zap, Cable, Plug, Monitor, Eye, User, Heart, LogOut, ShoppingCart, MessageCircle, Grid2X2 } from 'lucide-react';
@@ -175,7 +176,7 @@ export default function Navbar() {
             : 'bg-[#181818]'
         }`}
       >
-        {/* Desktop Version */}
+        {/* Desktop Version - Show only on lg and above */}
         <div className="hidden lg:block">
           {/* Top Bar */}
           <div className="container-custom py-2 border-b border-[#2a2a2a]">
@@ -324,7 +325,7 @@ export default function Navbar() {
                   </DropdownMenuContent>
                 </DropdownMenu>
 
-                {/* Main Navigation Links - showing categories with icons */}
+                {/* Main Navigation Links */}
                 <div className="flex items-center ml-4">
                   {[
                     { name: 'Ar Condicionado', href: '/categoria/ar-condicionado', icon: <Snowflake size={16} /> },
@@ -357,8 +358,8 @@ export default function Navbar() {
           </div>
         </div>
 
-        {/* Mobile Version - Updated Layout */}
-        <div className="lg:hidden">
+        {/* Mobile Version - Show only below lg */}
+        <div className="block lg:hidden">
           {/* Top Row */}
           <div className="px-4 py-3 border-b border-[#2a2a2a]">
             <div className="flex items-center">
