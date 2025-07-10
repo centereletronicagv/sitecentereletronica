@@ -7,10 +7,12 @@ export default function Hero() {
   const [isImageLoaded, setIsImageLoaded] = useState(false);
   
   useEffect(() => {
-    // Pré-carrega a imagem do hero
+    // Pré-carrega a imagem crítica do hero com prioridade alta
     const img = new Image();
     img.src = "/lovable-uploads/00b83df6-8857-4892-a9a5-37085b5cf813.png";
     img.onload = () => setIsImageLoaded(true);
+    // Adiciona fetchpriority high para otimizar LCP
+    img.fetchPriority = 'high';
   }, []);
 
   const handleDepartmentsClick = () => {
@@ -31,8 +33,8 @@ export default function Hero() {
 
   return (
     <section className="w-full bg-[#181818] pt-20 pb-8 md:pt-24 md:pb-14 relative overflow-hidden">
-      {/* Background pattern overlay */}
-      <div className="absolute inset-0 bg-gradient-to-r from-[#181818] to-transparent opacity-90 z-0"></div>
+      {/* Background pattern overlay - otimizado */}
+      <div className="absolute inset-0 bg-gradient-to-r from-[#181818] to-transparent opacity-90 z-0" style={{willChange: 'auto'}}></div>
       <div className="absolute inset-0 bg-[#181818] bg-opacity-20 z-0"></div>
       
       <div className="container-custom relative z-10">
@@ -72,8 +74,8 @@ export default function Hero() {
           </div>
           
           <div className="md:w-2/5 lg:w-1/3 rounded-lg overflow-hidden shadow-2xl mt-4 md:mt-0 h-auto relative flex-shrink-0" style={{minHeight: '250px'}}>
-            {/* Placeholder/skeleton */}
-            <div className={`absolute inset-0 bg-[#252525] animate-pulse ${isImageLoaded ? 'opacity-0' : 'opacity-100'} transition-opacity`}></div>
+            {/* Placeholder otimizado */}
+            <div className={`absolute inset-0 bg-[#252525] ${isImageLoaded ? 'opacity-0' : 'opacity-100'} transition-opacity`} style={{contain: 'layout style paint'}}></div>
             
             <div className="relative rounded-lg overflow-hidden border border-gray-700/50 hover:border-gray-600/60 transition-colors">
               <img 
@@ -84,8 +86,12 @@ export default function Hero() {
                 height="350"
                 style={{
                   aspectRatio: '500/350',
-                  objectFit: 'cover'
+                  objectFit: 'cover',
+                  contentVisibility: 'auto'
                 }}
+                loading="eager"
+                fetchPriority="high"
+                decoding="sync"
               />
               
               <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent"></div>
