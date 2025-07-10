@@ -72,7 +72,7 @@ export default function CategorySection() {
       {/* Background pattern overlay */}
       <div className="absolute inset-0 bg-[#181818] bg-opacity-30 z-0"></div>
       
-      <div className="container-custom relative z-10">
+      <div className="max-w-[1200px] mx-auto px-4 md:px-6 relative z-10">
         <div className="text-center mb-12">
           <h2 className="section-title mb-4">Categorias</h2>
           <div className="h-px w-32 bg-gradient-to-r from-transparent via-center-orange to-transparent mx-auto"></div>
