@@ -127,11 +127,11 @@
   .category-card {
     @apply flex flex-col items-center justify-center p-4 rounded-xl bg-[#2A2A2A]
            border border-[#3d3d3d] hover:border-center-orange transition-all 
-           duration-300 hover:shadow-lg h-full transform hover:-translate-y-1;
+           duration-300 hover:shadow-lg group h-full transform hover:-translate-y-1;
   }
   
   .category-icon {
-    @apply p-3.5 rounded-full text-white mb-3 transition-transform 
+    @apply p-3.5 rounded-full text-white mb-3 group-hover:scale-110 transition-transform 
            duration-300 shadow-md;
   }
 
@@ -142,8 +142,8 @@
   .glow-effect::before {
     content: '';
     @apply absolute -inset-0.5 bg-gradient-to-r from-center-orange to-center-orangeLight 
-           opacity-75 blur-sm transition 
-           duration-1000 animate-pulse;
+           opacity-75 blur-sm group-hover:opacity-100 transition 
+           duration-1000 group-hover:duration-200 animate-pulse;
   }
   
   .glow-effect::after {
