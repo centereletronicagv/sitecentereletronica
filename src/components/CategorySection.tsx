@@ -68,42 +68,40 @@ export default function CategorySection() {
   const { isMobile } = useMediaQuery();
 
   return (
-    <div className={`py-8 ${isMobile ? 'px-3' : 'px-4 sm:px-6 lg:px-8'} bg-[#181818] relative overflow-hidden`} data-section="categories">
+    <div className={`py-12 ${isMobile ? 'px-3' : ''} bg-[#181818] relative overflow-hidden`} data-section="categories">
       {/* Background pattern overlay */}
       <div className="absolute inset-0 bg-[#181818] bg-opacity-30 z-0"></div>
       
-      <div className="max-w-7xl mx-auto relative z-10">
-        <div className="flex items-center justify-between mb-6">
-          <h2 className="text-2xl font-bold text-center text-white font-display">Categorias</h2>
-          <div className="h-px flex-grow bg-gradient-to-r from-transparent via-center-orange/20 to-transparent mx-4"></div>
+      <div className="container-custom relative z-10">
+        <div className="mb-8">
+          <h2 className="section-title text-center mb-2">Categorias</h2>
+          <div className="w-24 h-1 bg-center-orange mx-auto rounded-full"></div>
         </div>
         
-        <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-8 gap-4">
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-4 xl:grid-cols-4 gap-4 md:gap-6">
           {categories.map((category) => (
-            <div key={category.id} className="aspect-square h-full">
-              <Link
-                to={`/categoria/${category.id}`}
-                className="flex flex-col items-center justify-center p-4 rounded-xl bg-[#1e1e1e] border border-[#3d3d3d] hover:border-center-orange transition-all duration-300 hover:shadow-lg group h-full transform hover:-translate-y-1 relative overflow-hidden"
-                style={{ height: "100%" }}
-              >
-                {/* Subtle gradient background */}
-                <div className="absolute inset-0 bg-gradient-to-br from-[#1e1e1e] to-[#252525] opacity-80"></div>
-                
-                {/* Hover effect */}
-                <div className="absolute inset-0 bg-gradient-to-br from-center-orange/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                
-                <div className="relative z-10 flex flex-col items-center">
-                  <div
-                    className={`${category.color} ${category.hoverColor} p-3.5 rounded-full text-white mb-3 group-hover:scale-110 transition-transform duration-300 shadow-md`}
-                  >
-                    {category.icon}
-                  </div>
-                  <span className="text-sm font-medium text-gray-200 group-hover:text-white text-center transition-colors duration-300">
-                    {category.name}
-                  </span>
+            <Link
+              key={category.id}
+              to={`/categoria/${category.id}`}
+              className="category-card min-h-[120px] md:min-h-[140px]"
+            >
+              {/* Subtle gradient background */}
+              <div className="absolute inset-0 bg-gradient-to-br from-[#1e1e1e] to-[#252525] opacity-80 rounded-xl"></div>
+              
+              {/* Hover effect */}
+              <div className="absolute inset-0 bg-gradient-to-br from-center-orange/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-xl"></div>
+              
+              <div className="relative z-10 flex flex-col items-center text-center">
+                <div
+                  className={`category-icon ${category.color} ${category.hoverColor}`}
+                >
+                  {category.icon}
                 </div>
-              </Link>
-            </div>
+                <span className="text-sm font-medium text-gray-200 group-hover:text-white transition-colors duration-300 leading-tight">
+                  {category.name}
+                </span>
+              </div>
+            </Link>
           ))}
         </div>
       </div>
