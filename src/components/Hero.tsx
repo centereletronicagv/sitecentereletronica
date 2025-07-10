@@ -22,8 +22,8 @@ export default function Hero() {
   };
 
   const handleWhatsAppClick = () => {
-    // Replace with your actual WhatsApp number
-    const whatsappNumber = "5511999999999"; // Update this with the actual store number
+    // Número correto do WhatsApp
+    const whatsappNumber = "5554999270560"; // Número correto formatado para WhatsApp
     const message = "Olá! Gostaria de fazer um pedido.";
     const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
     window.open(whatsappUrl, '_blank');

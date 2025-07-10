@@ -5,6 +5,7 @@ import Navbar from '../components/Navbar';
 import Hero from '../components/Hero';
 import Footer from '../components/Footer';
 import ProductsSection from '../components/ProductsSection';
+import CategorySection from '../components/CategorySection';
 
 // Lazy load non-critical components
 const ContactSection = lazy(() => import('../components/ContactSection'));
@@ -74,7 +75,10 @@ const Index = () => {
       <Navbar />
       <main className="flex-grow pt-14 lg:pt-20 bg-[#181818]">
         {!searchQuery && !category && (
-          <Hero />
+          <>
+            <Hero />
+            <CategorySection />
+          </>
         )}
         
         <ProductsSection searchQuery={searchQuery} category={category} />

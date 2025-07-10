@@ -26,7 +26,7 @@ export default function ContactSection() {
                   <p className="text-[#C8C8C9] mb-1">Ligue para nós ou mande uma mensagem.</p>
                   <div className="space-y-2 mt-2">
                     <a href="tel:5499270560" className="block text-center-orange font-medium hover:underline">
-                      (54) 9927-0560
+                      (54) 99927-0560
                     </a>
                     <a href="tel:5499986916" className="block text-center-orange font-medium hover:underline">
                       (54) 9998-6916
@@ -79,7 +79,7 @@ export default function ContactSection() {
                 <div className="flex-1">
                   <p className="text-[#C8C8C9] mb-1">Envie-nos uma mensagem diretamente.</p>
                   <a 
-                    href="https://wa.me/5499270560" 
+                    href="https://wa.me/5554999270560" 
                     target="_blank"
                     rel="noopener noreferrer"
                     className="inline-block mt-3 px-4 py-2 bg-center-orange text-white font-medium rounded-md hover:bg-center-orangeLight transition-colors"
