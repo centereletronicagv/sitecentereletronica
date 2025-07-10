@@ -1,36 +1,50 @@
 
 import React from "react";
 import { Link } from "react-router-dom";
-import { AirVent, Plug, Cable, Settings, Monitor, Eye } from "lucide-react";
+import { Snowflake, Zap, Cable, Plug, Grid2X2, Monitor, Eye } from "lucide-react";
 import { useMediaQuery } from "@/hooks/use-mobile";
 
-// Main categories - adding Informática and Monitoramento
+// Main categories - complete list with updated icons
 const categories = [
   {
     id: "ar-condicionado",
     name: "Ar Condicionado",
-    icon: <AirVent className="h-6 w-6" />,
-    color: "bg-orange-600",
-    hoverColor: "group-hover:bg-orange-500",
-  },
-  {
-    id: "instalacoes-eletricas",
-    name: "Instalações Elétricas",
-    icon: <Plug className="h-6 w-6" />,
+    icon: <Snowflake className="h-6 w-6" />,
     color: "bg-blue-600",
     hoverColor: "group-hover:bg-blue-500",
   },
   {
+    id: "instalacoes-eletricas",
+    name: "Instalações Elétricas",
+    icon: <Zap className="h-6 w-6" />,
+    color: "bg-yellow-600",
+    hoverColor: "group-hover:bg-yellow-500",
+  },
+  {
+    id: "cabos",
+    name: "Cabos",
+    icon: <Cable className="h-6 w-6" />,
+    color: "bg-gray-600",
+    hoverColor: "group-hover:bg-gray-500",
+  },
+  {
     id: "terminais",
     name: "Terminais e Conectores",
-    icon: <Cable className="h-6 w-6" />,
+    icon: <Plug className="h-6 w-6" />,
     color: "bg-green-600",
     hoverColor: "group-hover:bg-green-500",
   },
   {
+    id: "tomadas-industriais",
+    name: "Tomadas Industriais",
+    icon: <Plug className="h-6 w-6" />,
+    color: "bg-red-600",
+    hoverColor: "group-hover:bg-red-500",
+  },
+  {
     id: "automacao",
     name: "Automação",
-    icon: <Settings className="h-6 w-6" />,
+    icon: <Grid2X2 className="h-6 w-6" />,
     color: "bg-purple-600",
     hoverColor: "group-hover:bg-purple-500",
   },
@@ -64,7 +78,7 @@ export default function CategorySection() {
           <div className="h-px flex-grow bg-gradient-to-r from-transparent via-center-orange/20 to-transparent mx-4"></div>
         </div>
         
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
+        <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-8 gap-4">
           {categories.map((category) => (
             <div key={category.id} className="aspect-square h-full">
               <Link
