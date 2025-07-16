@@ -19,13 +19,13 @@ secondary: '#252525'
 ✅ Filtros
 ✅ NUIs mais interativas
 🕐 Melhorias visuais
-🕐 Melhorias de desemopenho da versão mobile
-🕐 Sitemaps
-🕐 Diminuição do FCP, LCP, LCS e Speed Index
-🕐 Reformulação da aba de contato
+🕐 Melhorias de desempenho da versão mobile
+✅ Sitemaps
+✅ Diminuição do FCP, LCP, LCS e Speed Index
+✅ Reformulação da aba de contato
 🕐 Novas fotos da homepage
-🕐 Rodapé do site mais limpo
-🕐 Melhorias de acessibilidade
+✅ Rodapé do site mais limpo
+✅ Melhorias de acessibilidade
 
 # Pontuação Mobile 30/04/2025 15:35, 59 Pontos
 
