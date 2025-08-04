@@ -68,17 +68,20 @@ export default function CategorySection() {
   const { isMobile } = useMediaQuery();
 
   return (
-    <section className="py-16 bg-[#181818] relative overflow-hidden" data-section="categories">
-      {/* Background pattern overlay */}
-      <div className="absolute inset-0 bg-[#181818] bg-opacity-30 z-0"></div>
-      
-      <div className="container-custom relative z-10">
-        <div className="text-center mb-12">
-          <h2 className="section-title mb-4">Categorias</h2>
-          <div className="h-px w-32 bg-gradient-to-r from-transparent via-center-orange to-transparent mx-auto"></div>
+    <section className="py-2 md:py-6" data-section="categories">
+      <div className="container-custom">
+        <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-6 md:mb-8 gap-4">
+          <div>
+            <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold font-display text-white mb-2">
+              Categorias
+            </h2>
+            <p className="text-gray-400 text-sm md:text-base">
+              Explore nossa seleção completa de produtos por categoria
+            </p>
+          </div>
         </div>
         
-        <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-4 gap-6 max-w-4xl mx-auto">
+        <div className="grid grid-cols-2 gap-4 sm:gap-6 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4">
           {categories.map((category) => (
             <Link
               key={category.id}
