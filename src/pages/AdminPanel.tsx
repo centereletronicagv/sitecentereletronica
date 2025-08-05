@@ -406,36 +406,50 @@ const AdminPanel: React.FC = () => {
                 </Button>
               </div>
 
-              <Table>
-                <TableHeader>
-                  <TableRow>
-                    <TableHead>Nome</TableHead>
-                    <TableHead>Código</TableHead>
-                    <TableHead>Categoria</TableHead>
-                    <TableHead>Preço</TableHead>
-                    <TableHead>Status</TableHead>
-                    <TableHead>Ações</TableHead>
-                  </TableRow>
-                </TableHeader>
-                <TableBody>
-                  {products.map((product) => (
-                    <TableRow key={product.id}>
-                      <TableCell className="font-medium">{product.name}</TableCell>
-                      <TableCell>{product.code}</TableCell>
-                      <TableCell>{product.categories?.name || 'Sem categoria'}</TableCell>
-                      <TableCell>{product.price ? `R$ ${product.price.toFixed(2)}` : 'N/A'}</TableCell>
-                      <TableCell>
-                        <div className="flex gap-1">
-                          {product.in_stock && <Badge variant="outline">Em estoque</Badge>}
-                          {product.is_featured && <Badge>Destaque</Badge>}
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+                {products.map((product) => (
+                  <Card key={product.id} className="overflow-hidden hover:shadow-lg transition-shadow">
+                    <div className="aspect-square relative bg-muted">
+                      {product.image_url ? (
+                        <img 
+                          src={product.image_url} 
+                          alt={product.name}
+                          className="w-full h-full object-cover"
+                          onError={(e) => {
+                            const target = e.target as HTMLImageElement;
+                            target.style.display = 'none';
+                            target.nextElementSibling?.classList.remove('hidden');
+                          }}
+                        />
+                      ) : null}
+                      <div className={`absolute inset-0 flex items-center justify-center text-muted-foreground ${product.image_url ? 'hidden' : ''}`}>
+                        <Upload className="w-12 h-12" />
+                      </div>
+                      <div className="absolute top-2 right-2 flex gap-1">
+                        {product.is_featured && (
+                          <Badge className="bg-primary text-primary-foreground">Destaque</Badge>
+                        )}
+                        {!product.in_stock && (
+                          <Badge variant="destructive">Sem estoque</Badge>
+                        )}
+                      </div>
+                    </div>
+                    <CardContent className="p-4">
+                      <div className="space-y-2">
+                        <h3 className="font-medium text-sm line-clamp-2">{product.name}</h3>
+                        <div className="text-xs text-muted-foreground">
+                          <div>Código: {product.code || 'N/A'}</div>
+                          <div>Categoria: {product.categories?.name || 'Sem categoria'}</div>
                         </div>
-                      </TableCell>
-                      <TableCell>
-                        <div className="flex gap-2">
+                        <div className="text-sm font-medium">
+                          {product.price ? `R$ ${product.price.toFixed(2)}` : 'Preço não definido'}
+                        </div>
+                        <div className="flex gap-2 pt-2">
                           <Dialog>
                             <DialogTrigger asChild>
-                              <Button variant="outline" size="sm" onClick={() => setEditingProduct(product)}>
-                                <Pencil className="w-4 h-4" />
+                              <Button variant="outline" size="sm" className="flex-1" onClick={() => setEditingProduct(product)}>
+                                <Pencil className="w-4 h-4 mr-1" />
+                                Editar
                               </Button>
                             </DialogTrigger>
                             <DialogContent className="max-w-2xl">
@@ -546,12 +560,12 @@ const AdminPanel: React.FC = () => {
                           <Button variant="destructive" size="sm" onClick={() => deleteProduct(product.id)}>
                             <Trash2 className="w-4 h-4" />
                           </Button>
-                        </div>
-                      </TableCell>
-                    </TableRow>
-                  ))}
-                </TableBody>
-              </Table>
+                         </div>
+                       </div>
+                     </CardContent>
+                   </Card>
+                 ))}
+               </div>
             </CardContent>
           </Card>
         </TabsContent>
