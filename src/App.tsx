@@ -13,6 +13,7 @@ import { AuthProvider } from "./context/SupabaseAuthContext";
 import { FavoritesProvider } from "./context/FavoritesContext";
 import FavoritesPage from "./pages/FavoritesPage";
 import AuthPage from "./pages/AuthPage";
+import AdminPanel from "./pages/AdminPanel";
 
 // Create a custom scrollToTop function
 const scrollToTop = () => {
@@ -46,6 +47,7 @@ const App = () => (
                 <Route path="/categoria/:slug" element={<CategoryPage />} />
                 <Route path="/favoritos" element={<FavoritesPage />} />
                 <Route path="/auth" element={<AuthPage />} />
+                <Route path="/admin" element={<AdminPanel />} />
                 {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
                 <Route path="*" element={<NotFound />} />
               </Routes>

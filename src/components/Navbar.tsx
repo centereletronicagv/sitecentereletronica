@@ -1,7 +1,7 @@
 
 import { useState, useEffect, FormEvent } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { Menu, X, Search, Snowflake, Zap, Cable, Plug, Monitor, Eye, User, Heart, LogOut, ShoppingCart, MessageCircle, Grid2X2 } from 'lucide-react';
+import { Menu, X, Search, Snowflake, Zap, Cable, Plug, Monitor, Eye, User, Heart, LogOut, ShoppingCart, MessageCircle, Grid2X2, Settings } from 'lucide-react';
 import { Input } from './ui/input';
 import { useCart } from '@/context/CartContext';
 import CartModal from './CartModal';
@@ -105,7 +105,7 @@ export default function Navbar() {
   const navigate = useNavigate();
   const { getTotalItems } = useCart();
   const isMobile = useIsMobile();
-  const { profile, isAuthenticated, signOut } = useAuth();
+  const { profile, isAuthenticated, isAdmin, signOut } = useAuth();
 
   // Get current category info
   const currentCategory = getCategoryInfo(location.pathname);
@@ -249,6 +249,15 @@ export default function Navbar() {
                             <ShoppingCart size={16} className="mr-2" />
                             Meus Pedidos
                           </DropdownMenuItem>
+                          {isAdmin && (
+                            <DropdownMenuItem 
+                              onClick={() => navigate('/admin')}
+                              className="text-gray-300 hover:text-white hover:bg-[#333333] focus:bg-[#333333] focus:text-white"
+                            >
+                              <Settings size={16} className="mr-2" />
+                              Painel Admin
+                            </DropdownMenuItem>
+                          )}
                           <DropdownMenuSeparator className="bg-[#333333]" />
                           <DropdownMenuItem 
                             onClick={handleLogout}
@@ -387,6 +396,15 @@ export default function Navbar() {
                           <ShoppingCart size={16} className="mr-2" />
                           Meus Pedidos
                         </DropdownMenuItem>
+                        {isAdmin && (
+                          <DropdownMenuItem 
+                            onClick={() => navigate('/admin')}
+                            className="text-gray-300 hover:text-white hover:bg-[#333333] focus:bg-[#333333] focus:text-white"
+                          >
+                            <Settings size={16} className="mr-2" />
+                            Painel Admin
+                          </DropdownMenuItem>
+                        )}
                         <DropdownMenuSeparator className="bg-[#333333]" />
                         <DropdownMenuItem 
                           onClick={handleLogout}
