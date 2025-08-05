@@ -17,8 +17,7 @@ import {
   DropdownMenuItem,
   DropdownMenuSeparator,
 } from "@/components/ui/dropdown-menu";
-import { useAuth } from '@/context/AuthContext';
-import AuthModal from './AuthModal';
+import { useAuth } from '@/context/SupabaseAuthContext';
 import FavoritesLink from './FavoritesLink';
 
 interface NavLink {
@@ -101,12 +100,12 @@ export default function Navbar() {
   const [isCartOpen, setIsCartOpen] = useState(false);
   const [isMobileSearchOpen, setIsMobileSearchOpen] = useState(false);
   const [isCategoryDrawerOpen, setIsCategoryDrawerOpen] = useState(false);
-  const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
+  
   const location = useLocation();
   const navigate = useNavigate();
   const { getTotalItems } = useCart();
   const isMobile = useIsMobile();
-  const { user, isAuthenticated, logout } = useAuth();
+  const { profile, isAuthenticated, signOut } = useAuth();
 
   // Get current category info
   const currentCategory = getCategoryInfo(location.pathname);
@@ -153,18 +152,8 @@ export default function Navbar() {
     window.open(whatsappUrl, '_blank');
   };
 
-  const handleUserMenuClick = () => {
-    if (isAuthenticated) {
-      // User is logged in, show user menu (handled by dropdown)
-      return;
-    } else {
-      // User is not logged in, show auth modal
-      setIsAuthModalOpen(true);
-    }
-  };
-
   const handleLogout = () => {
-    logout();
+    signOut();
   };
 
   return (
@@ -241,7 +230,7 @@ export default function Navbar() {
                       <button className="flex items-center gap-2 text-gray-300 hover:text-center-orange transition-colors">
                         <User size={18} />
                         <span className="text-sm font-medium">
-                          {isAuthenticated ? user?.name?.split(' ')[0] : 'Minha Conta'}
+                          {isAuthenticated ? profile?.email?.split('@')[0] : 'Minha Conta'}
                         </span>
                       </button>
                     </DropdownMenuTrigger>
@@ -249,8 +238,8 @@ export default function Navbar() {
                       {isAuthenticated ? (
                         <>
                           <div className="px-3 py-2 border-b border-[#333333]">
-                            <p className="text-sm text-white font-medium">{user?.name}</p>
-                            <p className="text-xs text-gray-400">{user?.email}</p>
+                            <p className="text-sm text-white font-medium">{profile?.email}</p>
+                            <p className="text-xs text-gray-400">{profile?.role === 'admin' ? 'Administrador' : 'Usuário'}</p>
                           </div>
                           <DropdownMenuItem className="text-gray-300 hover:text-white hover:bg-[#333333] focus:bg-[#333333] focus:text-white">
                             <User size={16} className="mr-2" />
@@ -270,12 +259,14 @@ export default function Navbar() {
                           </DropdownMenuItem>
                         </>
                       ) : (
-                        <DropdownMenuItem 
-                          onClick={() => setIsAuthModalOpen(true)}
-                          className="text-gray-300 hover:text-white hover:bg-[#333333] focus:bg-[#333333] focus:text-white"
-                        >
-                          <User size={16} className="mr-2" />
-                          Entrar / Criar Conta
+                        <DropdownMenuItem asChild>
+                          <Link 
+                            to="/auth"
+                            className="flex items-center text-gray-300 hover:text-white hover:bg-[#333333] focus:bg-[#333333] focus:text-white"
+                          >
+                            <User size={16} className="mr-2" />
+                            Entrar / Criar Conta
+                          </Link>
                         </DropdownMenuItem>
                       )}
                     </DropdownMenuContent>
@@ -385,8 +376,8 @@ export default function Navbar() {
                     {isAuthenticated ? (
                       <>
                         <div className="px-3 py-2 border-b border-[#333333]">
-                          <p className="text-sm text-white font-medium">{user?.name}</p>
-                          <p className="text-xs text-gray-400">{user?.email}</p>
+                          <p className="text-sm text-white font-medium">{profile?.email}</p>
+                          <p className="text-xs text-gray-400">{profile?.role === 'admin' ? 'Administrador' : 'Usuário'}</p>
                         </div>
                         <DropdownMenuItem className="text-gray-300 hover:text-white hover:bg-[#333333] focus:bg-[#333333] focus:text-white">
                           <User size={16} className="mr-2" />
@@ -406,12 +397,14 @@ export default function Navbar() {
                         </DropdownMenuItem>
                       </>
                     ) : (
-                      <DropdownMenuItem 
-                        onClick={() => setIsAuthModalOpen(true)}
-                        className="text-gray-300 hover:text-white hover:bg-[#333333] focus:bg-[#333333] focus:text-white"
-                      >
-                        <User size={16} className="mr-2" />
-                        Entrar / Criar Conta
+                      <DropdownMenuItem asChild>
+                        <Link 
+                          to="/auth"
+                          className="flex items-center text-gray-300 hover:text-white hover:bg-[#333333] focus:bg-[#333333] focus:text-white"
+                        >
+                          <User size={16} className="mr-2" />
+                          Entrar / Criar Conta
+                        </Link>
                       </DropdownMenuItem>
                     )}
                   </DropdownMenuContent>
@@ -476,7 +469,6 @@ export default function Navbar() {
 
       <CartModal open={isCartOpen} onOpenChange={setIsCartOpen} />
       <MobileCategoryDrawer open={isCategoryDrawerOpen} onOpenChange={setIsCategoryDrawerOpen} />
-      <AuthModal open={isAuthModalOpen} onOpenChange={setIsAuthModalOpen} />
     </header>
   );
 }
