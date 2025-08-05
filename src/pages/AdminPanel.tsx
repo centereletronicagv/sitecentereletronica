@@ -406,8 +406,15 @@ const AdminPanel: React.FC = () => {
                 </Button>
               </div>
 
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-                {products.map((product) => (
+              {products.length === 0 ? (
+                <div className="text-center py-12 text-muted-foreground">
+                  <Upload className="w-16 h-16 mx-auto mb-4 opacity-50" />
+                  <h3 className="text-lg font-medium mb-2">Nenhum produto encontrado</h3>
+                  <p>Adicione produtos usando o formulário acima.</p>
+                </div>
+              ) : (
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+                  {products.map((product) => (
                   <Card key={product.id} className="overflow-hidden hover:shadow-lg transition-shadow">
                     <div className="aspect-square relative bg-muted">
                       {product.image_url ? (
@@ -565,7 +572,8 @@ const AdminPanel: React.FC = () => {
                      </CardContent>
                    </Card>
                  ))}
-               </div>
+                </div>
+              )}
             </CardContent>
           </Card>
         </TabsContent>
