@@ -487,13 +487,13 @@ const AdminPanel: React.FC = () => {
                                     </div>
                                     <div>
                                       <Label htmlFor="edit-price">Preço</Label>
-                                      <Input
-                                        id="edit-price"
-                                        type="number"
-                                        step="0.01"
-                                        value={editingProduct.price || ''}
-                                        onChange={(e) => setEditingProduct({ ...editingProduct, price: parseFloat(e.target.value) || 0 })}
-                                      />
+                                       <Input
+                                         id="edit-price"
+                                         type="number"
+                                         step="0.01"
+                                         value={editingProduct.price || ''}
+                                         onChange={(e) => setEditingProduct({ ...editingProduct, price: e.target.value ? parseFloat(e.target.value) : null })}
+                                       />
                                     </div>
                                     <div>
                                       <Label htmlFor="edit-category">Categoria</Label>
