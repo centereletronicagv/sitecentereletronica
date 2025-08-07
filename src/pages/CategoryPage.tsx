@@ -9,7 +9,7 @@ import { ArrowDownNarrowWide, ArrowUpNarrowWide, ThumbsUp, Tag, Check } from "lu
 import { motion } from "framer-motion";
 import { useIsMobile } from '@/hooks/use-mobile';
 import { Product } from '../types';
-import { products as allProducts } from '../data/products';
+import { supabase } from '../integrations/supabase/client';
 
 const categoryLabels: Record<string, string> = {
   'instalacoes-eletricas': 'Instalações Elétricas',
@@ -42,6 +42,7 @@ type SortOption = 'recommended' | 'price-low' | 'price-high';
 export default function CategoryPage() {
   const { slug } = useParams<{ slug: string }>();
   const [searchParams, setSearchParams] = useSearchParams();
+  const [allProducts, setAllProducts] = useState<Product[]>([]);
   const [products, setProducts] = useState<Product[]>([]);
   const [sortBy, setSortBy] = useState<SortOption>('recommended');
   const [subcategories, setSubcategories] = useState<string[]>([]);
@@ -49,7 +50,71 @@ export default function CategoryPage() {
   const [isLoading, setIsLoading] = useState(true);
   const isMobile = useIsMobile();
 
+  // Buscar produtos do Supabase
   useEffect(() => {
+    const fetchProducts = async () => {
+      try {
+        const { data, error } = await supabase
+          .from('products')
+          .select(`
+            *,
+            categories(name)
+          `)
+          .eq('in_stock', true);
+        
+        if (error) {
+          console.error('Erro ao buscar produtos:', error);
+          return;
+        }
+
+        const formattedProducts: Product[] = (data || []).map(product => ({
+          id: product.id,
+          name: product.name,
+          category: product.categories?.name || 'Geral',
+          description: product.description || '',
+          price: product.price || 0,
+          imageUrl: product.image_url,
+          isFeatured: product.is_featured,
+          code: product.code || '',
+          image: product.image_url || '',
+          recommendedOrder: product.popularity || 0,
+          popularity: product.popularity || 0,
+          featured: product.is_featured,
+          inStock: product.in_stock
+        }));
+
+        setAllProducts(formattedProducts);
+      } catch (error) {
+        console.error('Erro ao carregar produtos:', error);
+      }
+    };
+
+    fetchProducts();
+
+    // Configurar listener para atualizações em tempo real
+    const channel = supabase
+      .channel('category-products-changes')
+      .on(
+        'postgres_changes',
+        {
+          event: '*',
+          schema: 'public',
+          table: 'products'
+        },
+        () => {
+          fetchProducts();
+        }
+      )
+      .subscribe();
+
+    return () => {
+      supabase.removeChannel(channel);
+    };
+  }, []);
+
+  useEffect(() => {
+    if (allProducts.length === 0) return;
+    
     console.log("Current slug:", slug);
     console.log("Product categories available:", Array.from(new Set(allProducts.map(p => p.category))));
     
@@ -85,11 +150,11 @@ export default function CategoryPage() {
       filterProducts();
       setIsLoading(false);
     }, 100);
-  }, [slug, searchParams]);
+  }, [slug, searchParams, allProducts]);
 
   useEffect(() => {
     filterProducts();
-  }, [sortBy, selectedSubcategories]);
+  }, [sortBy, selectedSubcategories, allProducts]);
 
   const filterProducts = () => {
     console.log("Filtering products with slug:", slug);

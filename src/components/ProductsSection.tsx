@@ -3,7 +3,7 @@ import { ArrowRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import ProductGrid from './ProductGrid';
 import { Product } from '../types';
-import { products } from '../data/products'; // Updated import path
+import { supabase } from '../integrations/supabase/client';
 
 // Define categoryLabels before using it
 const categoryLabels: Record<string, string> = {
@@ -62,11 +62,77 @@ interface ProductsSectionProps {
 }
 
 const ProductsSection = ({ searchQuery = '', category }: ProductsSectionProps) => {
+  const [allProducts, setAllProducts] = useState<Product[]>([]);
   const [filteredProducts, setFilteredProducts] = useState<Product[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  // Buscar produtos do Supabase
+  useEffect(() => {
+    const fetchProducts = async () => {
+      try {
+        const { data, error } = await supabase
+          .from('products')
+          .select(`
+            *,
+            categories(name)
+          `)
+          .eq('in_stock', true);
+        
+        if (error) {
+          console.error('Erro ao buscar produtos:', error);
+          return;
+        }
+
+        const formattedProducts: Product[] = (data || []).map(product => ({
+          id: product.id,
+          name: product.name,
+          category: product.categories?.name || 'Geral',
+          description: product.description || '',
+          price: product.price || 0,
+          imageUrl: product.image_url,
+          isFeatured: product.is_featured,
+          code: product.code || '',
+          image: product.image_url || '',
+          recommendedOrder: product.popularity || 0,
+          popularity: product.popularity || 0,
+          featured: product.is_featured,
+          inStock: product.in_stock
+        }));
+
+        setAllProducts(formattedProducts);
+      } catch (error) {
+        console.error('Erro ao carregar produtos:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchProducts();
+
+    // Configurar listener para atualizações em tempo real
+    const channel = supabase
+      .channel('products-changes')
+      .on(
+        'postgres_changes',
+        {
+          event: '*',
+          schema: 'public',
+          table: 'products'
+        },
+        () => {
+          fetchProducts(); // Recarregar produtos quando houver mudanças
+        }
+      )
+      .subscribe();
+
+    return () => {
+      supabase.removeChannel(channel);
+    };
+  }, []);
   
   useEffect(() => {
     // Filtrar produtos com base na categoria e pesquisa
-    let filtered = products;
+    let filtered = allProducts;
     
     if (category) {
       filtered = filtered.filter(product => product.category === category);
@@ -84,12 +150,24 @@ const ProductsSection = ({ searchQuery = '', category }: ProductsSectionProps) =
     }
     
     setFilteredProducts(filtered);
-  }, [searchQuery, category]);
+  }, [searchQuery, category, allProducts]);
 
   const sectionTitle = 
     searchQuery ? `Resultados para "${searchQuery}"` : 
     category ? `Produtos de ${categoryLabels[category] || category}` : 
     'Produtos Destacados';
+
+  if (loading) {
+    return (
+      <section className="py-2 md:py-6">
+        <div className="container-custom">
+          <div className="text-center py-16">
+            <p className="text-gray-400">Carregando produtos...</p>
+          </div>
+        </div>
+      </section>
+    );
+  }
 
   return (
     <section className="py-2 md:py-6">
