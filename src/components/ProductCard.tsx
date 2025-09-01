@@ -76,7 +76,7 @@ export default function ProductCard({ product }: ProductCardProps) {
         <div className="relative pt-3 px-3 flex items-center justify-center h-28 sm:h-48 bg-gradient-to-br from-[#252525] to-[#202020]">
           <div className={`absolute inset-0 bg-[#252525] ${isImageLoaded ? 'opacity-0' : 'opacity-100'} transition-opacity`} style={{contain: 'layout style paint'}}></div>
           <img
-            src={product.image} 
+            src={product.imageUrl || product.image} 
             alt={displayName}
             className={`max-h-full max-w-full object-contain transition-opacity duration-300 ${isImageLoaded ? 'opacity-100' : 'opacity-0'}`}
             onLoad={handleImageLoad}
