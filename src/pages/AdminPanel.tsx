@@ -12,7 +12,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Switch } from '@/components/ui/switch';
 import { Badge } from '@/components/ui/badge';
 import { toast } from '@/hooks/use-toast';
-import { Pencil, Trash2, Plus, Upload, Filter, TrendingUp, Package, ShoppingCart, Users, BarChart3, Settings } from 'lucide-react';
+import { Pencil, Trash2, Plus, Upload, Filter, TrendingUp, Package, ShoppingCart, Users, BarChart3, Settings, Download, Eye, RefreshCw, AlertTriangle, Search, FileText, Database, Zap } from 'lucide-react';
 import { Navigate } from 'react-router-dom';
 
 interface Category {
@@ -58,6 +58,8 @@ const AdminPanel: React.FC = () => {
     popularity: 0,
     image_url: ''
   });
+  const [searchTerm, setSearchTerm] = useState('');
+  const [showOutOfStock, setShowOutOfStock] = useState(false);
 
   useEffect(() => {
     if (isAdmin) {
@@ -68,7 +70,7 @@ const AdminPanel: React.FC = () => {
 
   useEffect(() => {
     filterAndSortProducts();
-  }, [products, selectedCategory, sortOrder]);
+  }, [products, selectedCategory, sortOrder, searchTerm, showOutOfStock]);
 
   const fetchCategories = async () => {
     const { data, error } = await supabase
@@ -110,9 +112,23 @@ const AdminPanel: React.FC = () => {
   const filterAndSortProducts = () => {
     let filtered = products;
 
+    // Filter by search term
+    if (searchTerm) {
+      filtered = filtered.filter(product => 
+        product.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        (product.code && product.code.toLowerCase().includes(searchTerm.toLowerCase())) ||
+        (product.description && product.description.toLowerCase().includes(searchTerm.toLowerCase()))
+      );
+    }
+
     // Filter by category
     if (selectedCategory !== 'all') {
       filtered = filtered.filter(product => product.category_id === selectedCategory);
+    }
+
+    // Filter by stock status
+    if (showOutOfStock) {
+      filtered = filtered.filter(product => !product.in_stock);
     }
 
     // Sort products
@@ -308,6 +324,78 @@ const AdminPanel: React.FC = () => {
     }
   };
 
+  const bulkUpdateStock = async (inStock: boolean) => {
+    const selectedProducts = filteredProducts.filter(p => !p.in_stock !== inStock);
+    
+    for (const product of selectedProducts) {
+      await supabase
+        .from('products')
+        .update({ in_stock: inStock })
+        .eq('id', product.id);
+    }
+    
+    toast({
+      title: "Sucesso",
+      description: `${selectedProducts.length} produtos atualizados`
+    });
+    fetchProducts();
+  };
+
+  const exportProductsCSV = () => {
+    const csvContent = [
+      ['ID', 'Nome', 'Código', 'Preço', 'Categoria', 'Em Estoque', 'Destaque'],
+      ...filteredProducts.map(p => [
+        p.id,
+        p.name,
+        p.code || '',
+        p.price || '',
+        p.categories?.name || '',
+        p.in_stock ? 'Sim' : 'Não',
+        p.is_featured ? 'Sim' : 'Não'
+      ])
+    ].map(row => row.join(',')).join('\n');
+
+    const blob = new Blob([csvContent], { type: 'text/csv' });
+    const url = window.URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'produtos.csv';
+    a.click();
+    window.URL.revokeObjectURL(url);
+  };
+
+  const duplicateProduct = async (product: Product) => {
+    const productData = {
+      name: `${product.name} (Cópia)`,
+      description: product.description,
+      price: product.price,
+      code: `${product.code || ''}_copy`,
+      category_id: product.category_id,
+      in_stock: product.in_stock,
+      is_featured: false,
+      popularity: 0,
+      image_url: product.image_url
+    };
+
+    const { error } = await supabase
+      .from('products')
+      .insert([productData]);
+
+    if (error) {
+      toast({
+        variant: "destructive",
+        title: "Erro",
+        description: "Erro ao duplicar produto"
+      });
+    } else {
+      toast({
+        title: "Sucesso",
+        description: "Produto duplicado com sucesso"
+      });
+      fetchProducts();
+    }
+  };
+
   const statsCards = [
     {
       title: "Total de Produtos",
@@ -383,7 +471,7 @@ const AdminPanel: React.FC = () => {
 
         {/* Main Content */}
         <Tabs defaultValue="products" className="w-full">
-          <TabsList className="grid w-full grid-cols-2 mb-6">
+          <TabsList className="grid w-full grid-cols-4 mb-6">
             <TabsTrigger value="products" className="flex items-center gap-2">
               <Package className="w-4 h-4" />
               Produtos
@@ -391,6 +479,14 @@ const AdminPanel: React.FC = () => {
             <TabsTrigger value="categories" className="flex items-center gap-2">
               <BarChart3 className="w-4 h-4" />
               Categorias
+            </TabsTrigger>
+            <TabsTrigger value="analytics" className="flex items-center gap-2">
+              <TrendingUp className="w-4 h-4" />
+              Analytics
+            </TabsTrigger>
+            <TabsTrigger value="tools" className="flex items-center gap-2">
+              <Settings className="w-4 h-4" />
+              Ferramentas
             </TabsTrigger>
           </TabsList>
           
@@ -404,8 +500,21 @@ const AdminPanel: React.FC = () => {
                 </CardTitle>
               </CardHeader>
               <CardContent>
-                <div className="flex flex-col sm:flex-row gap-4">
-                  <div className="flex-1">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
+                  <div>
+                    <Label htmlFor="search">Pesquisar Produtos</Label>
+                    <div className="relative">
+                      <Search className="absolute left-2 top-2.5 h-4 w-4 text-muted-foreground" />
+                      <Input
+                        id="search"
+                        placeholder="Nome, código ou descrição..."
+                        value={searchTerm}
+                        onChange={(e) => setSearchTerm(e.target.value)}
+                        className="pl-8"
+                      />
+                    </div>
+                  </div>
+                  <div>
                     <Label htmlFor="category-filter">Filtrar por Categoria</Label>
                     <Select value={selectedCategory} onValueChange={setSelectedCategory}>
                       <SelectTrigger>
@@ -421,7 +530,7 @@ const AdminPanel: React.FC = () => {
                       </SelectContent>
                     </Select>
                   </div>
-                  <div className="flex-1">
+                  <div>
                     <Label htmlFor="sort-order">Ordenar por</Label>
                     <Select value={sortOrder} onValueChange={(value: 'recommended' | 'price-desc') => setSortOrder(value)}>
                       <SelectTrigger>
@@ -433,6 +542,33 @@ const AdminPanel: React.FC = () => {
                       </SelectContent>
                     </Select>
                   </div>
+                  <div className="flex flex-col gap-2">
+                    <Label>Ações Rápidas</Label>
+                    <div className="flex gap-2">
+                      <Button variant="outline" size="sm" onClick={() => setShowOutOfStock(!showOutOfStock)}>
+                        <AlertTriangle className="w-4 h-4 mr-1" />
+                        {showOutOfStock ? 'Todos' : 'Sem Estoque'}
+                      </Button>
+                      <Button variant="outline" size="sm" onClick={exportProductsCSV}>
+                        <Download className="w-4 h-4 mr-1" />
+                        CSV
+                      </Button>
+                    </div>
+                  </div>
+                </div>
+                <div className="flex gap-2">
+                  <Button variant="outline" size="sm" onClick={() => bulkUpdateStock(true)}>
+                    <Package className="w-4 h-4 mr-1" />
+                    Marcar Todos em Estoque
+                  </Button>
+                  <Button variant="outline" size="sm" onClick={() => bulkUpdateStock(false)}>
+                    <AlertTriangle className="w-4 h-4 mr-1" />
+                    Marcar Todos Sem Estoque
+                  </Button>
+                  <Button variant="outline" size="sm" onClick={fetchProducts}>
+                    <RefreshCw className="w-4 h-4 mr-1" />
+                    Atualizar
+                  </Button>
                 </div>
               </CardContent>
             </Card>
@@ -605,133 +741,144 @@ const AdminPanel: React.FC = () => {
                             <div className="text-sm font-medium">
                               {product.price ? `R$ ${product.price.toFixed(2)}` : 'Preço não definido'}
                             </div>
-                            <div className="flex gap-2 pt-2">
-                              <Dialog>
-                                <DialogTrigger asChild>
-                                  <Button variant="outline" size="sm" className="flex-1" onClick={() => setEditingProduct(product)}>
-                                    <Pencil className="w-4 h-4 mr-1" />
-                                    Editar
-                                  </Button>
-                                </DialogTrigger>
-                                <DialogContent className="max-w-2xl">
-                                  <DialogHeader>
-                                    <DialogTitle>Editar Produto</DialogTitle>
-                                    <DialogDescription>
-                                      Faça as alterações necessárias no produto.
-                                    </DialogDescription>
-                                  </DialogHeader>
-                                  {editingProduct && (
-                                    <div className="space-y-4">
-                                      <div className="grid grid-cols-2 gap-4">
-                                        <div>
-                                          <Label htmlFor="edit-name">Nome</Label>
-                                          <Input
-                                            id="edit-name"
-                                            value={editingProduct.name}
-                                            onChange={(e) => setEditingProduct({ ...editingProduct, name: e.target.value })}
-                                          />
-                                        </div>
-                                        <div>
-                                          <Label htmlFor="edit-code">Código</Label>
-                                          <Input
-                                            id="edit-code"
-                                            value={editingProduct.code || ''}
-                                            onChange={(e) => setEditingProduct({ ...editingProduct, code: e.target.value })}
-                                          />
-                                        </div>
-                                        <div>
-                                          <Label htmlFor="edit-price">Preço</Label>
-                                          <Input
-                                            id="edit-price"
-                                            type="number"
-                                            step="0.01"
-                                            value={editingProduct.price || ''}
-                                            onChange={(e) => setEditingProduct({ ...editingProduct, price: parseFloat(e.target.value) || undefined })}
-                                          />
-                                        </div>
-                                        <div>
-                                          <Label htmlFor="edit-category">Categoria</Label>
-                                          <Select 
-                                            value={editingProduct.category_id || ''} 
-                                            onValueChange={(value) => setEditingProduct({ ...editingProduct, category_id: value })}
-                                          >
-                                            <SelectTrigger>
-                                              <SelectValue placeholder="Selecione uma categoria" />
-                                            </SelectTrigger>
-                                            <SelectContent>
-                                              {categories.map((category) => (
-                                                <SelectItem key={category.id} value={category.id}>
-                                                  {category.name}
-                                                </SelectItem>
-                                              ))}
-                                            </SelectContent>
-                                          </Select>
-                                        </div>
-                                        <div>
-                                          <Label htmlFor="edit-image">URL da Imagem</Label>
-                                          <Input
-                                            id="edit-image"
-                                            value={editingProduct.image_url || ''}
-                                            onChange={(e) => setEditingProduct({ ...editingProduct, image_url: e.target.value })}
-                                          />
-                                        </div>
-                                        <div>
-                                          <Label htmlFor="edit-popularity">Popularidade</Label>
-                                          <Input
-                                            id="edit-popularity"
-                                            type="number"
-                                            value={editingProduct.popularity}
-                                            onChange={(e) => setEditingProduct({ ...editingProduct, popularity: parseInt(e.target.value) || 0 })}
-                                          />
-                                        </div>
-                                      </div>
-                                      <div>
-                                        <Label htmlFor="edit-description">Descrição</Label>
-                                        <Textarea
-                                          id="edit-description"
-                                          value={editingProduct.description || ''}
-                                          onChange={(e) => setEditingProduct({ ...editingProduct, description: e.target.value })}
-                                        />
-                                      </div>
-                                      <div className="flex gap-4">
-                                        <div className="flex items-center space-x-2">
-                                          <Switch
-                                            id="edit-in-stock"
-                                            checked={editingProduct.in_stock}
-                                            onCheckedChange={(checked) => setEditingProduct({ ...editingProduct, in_stock: checked })}
-                                          />
-                                          <Label htmlFor="edit-in-stock">Em estoque</Label>
-                                        </div>
-                                        <div className="flex items-center space-x-2">
-                                          <Switch
-                                            id="edit-featured"
-                                            checked={editingProduct.is_featured}
-                                            onCheckedChange={(checked) => setEditingProduct({ ...editingProduct, is_featured: checked })}
-                                          />
-                                          <Label htmlFor="edit-featured">Produto em destaque</Label>
-                                        </div>
-                                      </div>
-                                    </div>
-                                  )}
-                                  <DialogFooter>
-                                    <Button variant="outline" onClick={() => setEditingProduct(null)}>
-                                      Cancelar
+                            <div className="flex flex-col gap-2 pt-2">
+                              <div className="flex gap-2">
+                                <Dialog>
+                                  <DialogTrigger asChild>
+                                    <Button variant="outline" size="sm" className="flex-1" onClick={() => setEditingProduct(product)}>
+                                      <Pencil className="w-4 h-4 mr-1" />
+                                      Editar
                                     </Button>
-                                    <Button onClick={updateProduct}>
-                                      Salvar Alterações
-                                    </Button>
-                                  </DialogFooter>
-                                </DialogContent>
-                              </Dialog>
-                              <Button
-                                variant="destructive"
-                                size="sm"
-                                className="flex-1"
-                                onClick={() => deleteProduct(product.id)}
-                              >
-                                <Trash2 className="w-4 h-4 mr-1" />
-                                Excluir
-                              </Button>
+                                  </DialogTrigger>
+                                  <DialogContent className="max-w-2xl">
+                                    <DialogHeader>
+                                      <DialogTitle>Editar Produto</DialogTitle>
+                                      <DialogDescription>
+                                        Faça as alterações necessárias no produto.
+                                      </DialogDescription>
+                                    </DialogHeader>
+                                    {editingProduct && (
+                                      <div className="space-y-4">
+                                        <div className="grid grid-cols-2 gap-4">
+                                          <div>
+                                            <Label htmlFor="edit-name">Nome</Label>
+                                            <Input
+                                              id="edit-name"
+                                              value={editingProduct.name}
+                                              onChange={(e) => setEditingProduct({ ...editingProduct, name: e.target.value })}
+                                            />
+                                          </div>
+                                          <div>
+                                            <Label htmlFor="edit-code">Código</Label>
+                                            <Input
+                                              id="edit-code"
+                                              value={editingProduct.code || ''}
+                                              onChange={(e) => setEditingProduct({ ...editingProduct, code: e.target.value })}
+                                            />
+                                          </div>
+                                          <div>
+                                            <Label htmlFor="edit-price">Preço</Label>
+                                            <Input
+                                              id="edit-price"
+                                              type="number"
+                                              step="0.01"
+                                              value={editingProduct.price || ''}
+                                              onChange={(e) => setEditingProduct({ ...editingProduct, price: parseFloat(e.target.value) || undefined })}
+                                            />
+                                          </div>
+                                          <div>
+                                            <Label htmlFor="edit-category">Categoria</Label>
+                                            <Select 
+                                              value={editingProduct.category_id || ''} 
+                                              onValueChange={(value) => setEditingProduct({ ...editingProduct, category_id: value })}
+                                            >
+                                              <SelectTrigger>
+                                                <SelectValue placeholder="Selecione uma categoria" />
+                                              </SelectTrigger>
+                                              <SelectContent>
+                                                {categories.map((category) => (
+                                                  <SelectItem key={category.id} value={category.id}>
+                                                    {category.name}
+                                                  </SelectItem>
+                                                ))}
+                                              </SelectContent>
+                                            </Select>
+                                          </div>
+                                          <div>
+                                            <Label htmlFor="edit-image">URL da Imagem</Label>
+                                            <Input
+                                              id="edit-image"
+                                              value={editingProduct.image_url || ''}
+                                              onChange={(e) => setEditingProduct({ ...editingProduct, image_url: e.target.value })}
+                                            />
+                                          </div>
+                                          <div>
+                                            <Label htmlFor="edit-popularity">Popularidade</Label>
+                                            <Input
+                                              id="edit-popularity"
+                                              type="number"
+                                              value={editingProduct.popularity}
+                                              onChange={(e) => setEditingProduct({ ...editingProduct, popularity: parseInt(e.target.value) || 0 })}
+                                            />
+                                          </div>
+                                        </div>
+                                        <div>
+                                          <Label htmlFor="edit-description">Descrição</Label>
+                                          <Textarea
+                                            id="edit-description"
+                                            value={editingProduct.description || ''}
+                                            onChange={(e) => setEditingProduct({ ...editingProduct, description: e.target.value })}
+                                          />
+                                        </div>
+                                        <div className="flex gap-4">
+                                          <div className="flex items-center space-x-2">
+                                            <Switch
+                                              id="edit-in-stock"
+                                              checked={editingProduct.in_stock}
+                                              onCheckedChange={(checked) => setEditingProduct({ ...editingProduct, in_stock: checked })}
+                                            />
+                                            <Label htmlFor="edit-in-stock">Em estoque</Label>
+                                          </div>
+                                          <div className="flex items-center space-x-2">
+                                            <Switch
+                                              id="edit-featured"
+                                              checked={editingProduct.is_featured}
+                                              onCheckedChange={(checked) => setEditingProduct({ ...editingProduct, is_featured: checked })}
+                                            />
+                                            <Label htmlFor="edit-featured">Produto em destaque</Label>
+                                          </div>
+                                        </div>
+                                      </div>
+                                    )}
+                                    <DialogFooter>
+                                      <Button variant="outline" onClick={() => setEditingProduct(null)}>
+                                        Cancelar
+                                      </Button>
+                                      <Button onClick={updateProduct}>
+                                        Salvar Alterações
+                                      </Button>
+                                    </DialogFooter>
+                                  </DialogContent>
+                                </Dialog>
+                              </div>
+                              <div className="flex gap-2">
+                                <Button
+                                  variant="outline"
+                                  size="sm"
+                                  onClick={() => duplicateProduct(product)}
+                                >
+                                  <Plus className="w-4 h-4 mr-1" />
+                                  Duplicar
+                                </Button>
+                                <Button
+                                  variant="destructive"
+                                  size="sm"
+                                  onClick={() => deleteProduct(product.id)}
+                                >
+                                  <Trash2 className="w-4 h-4 mr-1" />
+                                  Excluir
+                                </Button>
+                              </div>
                             </div>
                           </div>
                         </CardContent>
@@ -866,6 +1013,189 @@ const AdminPanel: React.FC = () => {
                     ))}
                   </div>
                 )}
+              </CardContent>
+            </Card>
+          </TabsContent>
+
+          <TabsContent value="analytics" className="space-y-6">
+            <Card>
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2">
+                  <TrendingUp className="w-5 h-5" />
+                  Análise de Produtos
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                  <div className="space-y-2">
+                    <h3 className="font-medium">Produtos por Categoria</h3>
+                    <div className="space-y-2">
+                      {categories.map(category => {
+                        const count = products.filter(p => p.category_id === category.id).length;
+                        return (
+                          <div key={category.id} className="flex justify-between items-center p-2 bg-muted rounded">
+                            <span className="text-sm">{category.name}</span>
+                            <Badge variant="secondary">{count}</Badge>
+                          </div>
+                        );
+                      })}
+                    </div>
+                  </div>
+                  
+                  <div className="space-y-2">
+                    <h3 className="font-medium">Status do Estoque</h3>
+                    <div className="space-y-2">
+                      <div className="flex justify-between items-center p-2 bg-green-100 dark:bg-green-900/20 rounded">
+                        <span className="text-sm">Em Estoque</span>
+                        <Badge className="bg-green-600">{products.filter(p => p.in_stock).length}</Badge>
+                      </div>
+                      <div className="flex justify-between items-center p-2 bg-red-100 dark:bg-red-900/20 rounded">
+                        <span className="text-sm">Sem Estoque</span>
+                        <Badge variant="destructive">{products.filter(p => !p.in_stock).length}</Badge>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="space-y-2">
+                    <h3 className="font-medium">Produtos em Destaque</h3>
+                    <div className="space-y-2">
+                      <div className="flex justify-between items-center p-2 bg-yellow-100 dark:bg-yellow-900/20 rounded">
+                        <span className="text-sm">Destacados</span>
+                        <Badge className="bg-yellow-600">{products.filter(p => p.is_featured).length}</Badge>
+                      </div>
+                      <div className="flex justify-between items-center p-2 bg-muted rounded">
+                        <span className="text-sm">Normais</span>
+                        <Badge variant="secondary">{products.filter(p => !p.is_featured).length}</Badge>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+
+            <Card>
+              <CardHeader>
+                <CardTitle>Produtos com Preços Não Definidos</CardTitle>
+              </CardHeader>
+              <CardContent>
+                {products.filter(p => !p.price).length === 0 ? (
+                  <p className="text-muted-foreground">Todos os produtos têm preços definidos.</p>
+                ) : (
+                  <div className="space-y-2">
+                    {products.filter(p => !p.price).map(product => (
+                      <div key={product.id} className="flex justify-between items-center p-2 bg-orange-100 dark:bg-orange-900/20 rounded">
+                        <span className="text-sm">{product.name}</span>
+                        <Badge variant="outline">Sem preço</Badge>
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </CardContent>
+            </Card>
+          </TabsContent>
+
+          <TabsContent value="tools" className="space-y-6">
+            <Card>
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2">
+                  <Settings className="w-5 h-5" />
+                  Ferramentas de Administração
+                </CardTitle>
+                <CardDescription>Utilitários para gerenciar o sistema</CardDescription>
+              </CardHeader>
+              <CardContent>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <div className="space-y-4">
+                    <h3 className="font-medium flex items-center gap-2">
+                      <Database className="w-4 h-4" />
+                      Backup e Exportação
+                    </h3>
+                    <div className="space-y-2">
+                      <Button variant="outline" className="w-full justify-start" onClick={exportProductsCSV}>
+                        <Download className="w-4 h-4 mr-2" />
+                        Exportar Produtos (CSV)
+                      </Button>
+                      <Button variant="outline" className="w-full justify-start" onClick={() => {
+                        const csvContent = [
+                          ['ID', 'Nome', 'Descrição'],
+                          ...categories.map(c => [c.id, c.name, c.description || ''])
+                        ].map(row => row.join(',')).join('\n');
+                        const blob = new Blob([csvContent], { type: 'text/csv' });
+                        const url = window.URL.createObjectURL(blob);
+                        const a = document.createElement('a');
+                        a.href = url;
+                        a.download = 'categorias.csv';
+                        a.click();
+                        window.URL.revokeObjectURL(url);
+                      }}>
+                        <Download className="w-4 h-4 mr-2" />
+                        Exportar Categorias (CSV)
+                      </Button>
+                    </div>
+                  </div>
+
+                  <div className="space-y-4">
+                    <h3 className="font-medium flex items-center gap-2">
+                      <Zap className="w-4 h-4" />
+                      Ações em Massa
+                    </h3>
+                    <div className="space-y-2">
+                      <Button variant="outline" className="w-full justify-start" onClick={() => {
+                        if (confirm('Deseja marcar TODOS os produtos como em estoque?')) {
+                          bulkUpdateStock(true);
+                        }
+                      }}>
+                        <Package className="w-4 h-4 mr-2" />
+                        Todos em Estoque
+                      </Button>
+                      <Button variant="outline" className="w-full justify-start" onClick={() => {
+                        if (confirm('Deseja destacar todos os produtos em estoque?')) {
+                          products.filter(p => p.in_stock).forEach(async (product) => {
+                            await supabase
+                              .from('products')
+                              .update({ is_featured: true })
+                              .eq('id', product.id);
+                          });
+                          fetchProducts();
+                        }
+                      }}>
+                        <TrendingUp className="w-4 h-4 mr-2" />
+                        Destacar Produtos em Estoque
+                      </Button>
+                    </div>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+
+            <Card>
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2">
+                  <FileText className="w-5 h-5" />
+                  Relatórios Rápidos
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                  <Card className="p-4">
+                    <div className="text-center">
+                      <div className="text-2xl font-bold text-blue-600">{Math.round((products.filter(p => p.in_stock).length / products.length) * 100) || 0}%</div>
+                      <div className="text-sm text-muted-foreground">Taxa de Estoque</div>
+                    </div>
+                  </Card>
+                  <Card className="p-4">
+                    <div className="text-center">
+                      <div className="text-2xl font-bold text-green-600">{Math.round((products.filter(p => p.is_featured).length / products.length) * 100) || 0}%</div>
+                      <div className="text-sm text-muted-foreground">Produtos Destacados</div>
+                    </div>
+                  </Card>
+                  <Card className="p-4">
+                    <div className="text-center">
+                      <div className="text-2xl font-bold text-orange-600">{Math.round((products.filter(p => p.price).length / products.length) * 100) || 0}%</div>
+                      <div className="text-sm text-muted-foreground">Com Preços Definidos</div>
+                    </div>
+                  </Card>
+                </div>
               </CardContent>
             </Card>
           </TabsContent>
