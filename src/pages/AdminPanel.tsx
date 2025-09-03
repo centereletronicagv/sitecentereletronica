@@ -14,6 +14,9 @@ import { Badge } from '@/components/ui/badge';
 import { toast } from '@/hooks/use-toast';
 import { Pencil, Trash2, Plus, Upload, Filter, TrendingUp, Package, ShoppingCart, Users, BarChart3, Settings, Download, Eye, RefreshCw, AlertTriangle, Search, FileText, Database, Zap } from 'lucide-react';
 import { Navigate } from 'react-router-dom';
+import AdminDashboard from '@/components/AdminDashboard';
+import SystemMonitoring from '@/components/SystemMonitoring';
+import UserManagement from '@/components/UserManagement';
 
 interface Category {
   id: string;
@@ -470,8 +473,12 @@ const AdminPanel: React.FC = () => {
         </div>
 
         {/* Main Content */}
-        <Tabs defaultValue="products" className="w-full">
-          <TabsList className="grid w-full grid-cols-4 mb-6">
+        <Tabs defaultValue="dashboard" className="w-full">
+          <TabsList className="grid w-full grid-cols-5 mb-6">
+            <TabsTrigger value="dashboard" className="flex items-center gap-2">
+              <TrendingUp className="w-4 h-4" />
+              Dashboard
+            </TabsTrigger>
             <TabsTrigger value="products" className="flex items-center gap-2">
               <Package className="w-4 h-4" />
               Produtos
@@ -489,6 +496,10 @@ const AdminPanel: React.FC = () => {
               Ferramentas
             </TabsTrigger>
           </TabsList>
+          
+          <TabsContent value="dashboard" className="space-y-6">
+            <AdminDashboard />
+          </TabsContent>
           
           <TabsContent value="products" className="space-y-6">
             {/* Filters and Controls */}
@@ -1095,109 +1106,136 @@ const AdminPanel: React.FC = () => {
           </TabsContent>
 
           <TabsContent value="tools" className="space-y-6">
-            <Card>
-              <CardHeader>
-                <CardTitle className="flex items-center gap-2">
-                  <Settings className="w-5 h-5" />
-                  Ferramentas de Administração
-                </CardTitle>
-                <CardDescription>Utilitários para gerenciar o sistema</CardDescription>
-              </CardHeader>
-              <CardContent>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  <div className="space-y-4">
-                    <h3 className="font-medium flex items-center gap-2">
-                      <Database className="w-4 h-4" />
-                      Backup e Exportação
-                    </h3>
-                    <div className="space-y-2">
-                      <Button variant="outline" className="w-full justify-start" onClick={exportProductsCSV}>
-                        <Download className="w-4 h-4 mr-2" />
-                        Exportar Produtos (CSV)
-                      </Button>
-                      <Button variant="outline" className="w-full justify-start" onClick={() => {
-                        const csvContent = [
-                          ['ID', 'Nome', 'Descrição'],
-                          ...categories.map(c => [c.id, c.name, c.description || ''])
-                        ].map(row => row.join(',')).join('\n');
-                        const blob = new Blob([csvContent], { type: 'text/csv' });
-                        const url = window.URL.createObjectURL(blob);
-                        const a = document.createElement('a');
-                        a.href = url;
-                        a.download = 'categorias.csv';
-                        a.click();
-                        window.URL.revokeObjectURL(url);
-                      }}>
-                        <Download className="w-4 h-4 mr-2" />
-                        Exportar Categorias (CSV)
-                      </Button>
-                    </div>
-                  </div>
+            <Tabs defaultValue="management" className="w-full">
+              <TabsList className="grid w-full grid-cols-3 mb-6">
+                <TabsTrigger value="management" className="flex items-center gap-2">
+                  <Settings className="w-4 h-4" />
+                  Gerenciamento
+                </TabsTrigger>
+                <TabsTrigger value="monitoring" className="flex items-center gap-2">
+                  <TrendingUp className="w-4 h-4" />
+                  Monitoramento
+                </TabsTrigger>
+                <TabsTrigger value="users" className="flex items-center gap-2">
+                  <Users className="w-4 h-4" />
+                  Usuários
+                </TabsTrigger>
+              </TabsList>
 
-                  <div className="space-y-4">
-                    <h3 className="font-medium flex items-center gap-2">
-                      <Zap className="w-4 h-4" />
-                      Ações em Massa
-                    </h3>
-                    <div className="space-y-2">
-                      <Button variant="outline" className="w-full justify-start" onClick={() => {
-                        if (confirm('Deseja marcar TODOS os produtos como em estoque?')) {
-                          bulkUpdateStock(true);
-                        }
-                      }}>
-                        <Package className="w-4 h-4 mr-2" />
-                        Todos em Estoque
-                      </Button>
-                      <Button variant="outline" className="w-full justify-start" onClick={() => {
-                        if (confirm('Deseja destacar todos os produtos em estoque?')) {
-                          products.filter(p => p.in_stock).forEach(async (product) => {
-                            await supabase
-                              .from('products')
-                              .update({ is_featured: true })
-                              .eq('id', product.id);
-                          });
-                          fetchProducts();
-                        }
-                      }}>
-                        <TrendingUp className="w-4 h-4 mr-2" />
-                        Destacar Produtos em Estoque
-                      </Button>
-                    </div>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
+              <TabsContent value="management" className="space-y-6">
+                <Card>
+                  <CardHeader>
+                    <CardTitle className="flex items-center gap-2">
+                      <Settings className="w-5 h-5" />
+                      Ferramentas de Administração
+                    </CardTitle>
+                    <CardDescription>Utilitários para gerenciar o sistema</CardDescription>
+                  </CardHeader>
+                  <CardContent>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                      <div className="space-y-4">
+                        <h3 className="font-medium flex items-center gap-2">
+                          <Database className="w-4 h-4" />
+                          Backup e Exportação
+                        </h3>
+                        <div className="space-y-2">
+                          <Button variant="outline" className="w-full justify-start" onClick={exportProductsCSV}>
+                            <Download className="w-4 h-4 mr-2" />
+                            Exportar Produtos (CSV)
+                          </Button>
+                          <Button variant="outline" className="w-full justify-start" onClick={() => {
+                            const csvContent = [
+                              ['ID', 'Nome', 'Descrição'],
+                              ...categories.map(c => [c.id, c.name, c.description || ''])
+                            ].map(row => row.join(',')).join('\n');
+                            const blob = new Blob([csvContent], { type: 'text/csv' });
+                            const url = window.URL.createObjectURL(blob);
+                            const a = document.createElement('a');
+                            a.href = url;
+                            a.download = 'categorias.csv';
+                            a.click();
+                            window.URL.revokeObjectURL(url);
+                          }}>
+                            <Download className="w-4 h-4 mr-2" />
+                            Exportar Categorias (CSV)
+                          </Button>
+                        </div>
+                      </div>
 
-            <Card>
-              <CardHeader>
-                <CardTitle className="flex items-center gap-2">
-                  <FileText className="w-5 h-5" />
-                  Relatórios Rápidos
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                  <Card className="p-4">
-                    <div className="text-center">
-                      <div className="text-2xl font-bold text-blue-600">{Math.round((products.filter(p => p.in_stock).length / products.length) * 100) || 0}%</div>
-                      <div className="text-sm text-muted-foreground">Taxa de Estoque</div>
+                      <div className="space-y-4">
+                        <h3 className="font-medium flex items-center gap-2">
+                          <Zap className="w-4 h-4" />
+                          Ações em Massa
+                        </h3>
+                        <div className="space-y-2">
+                          <Button variant="outline" className="w-full justify-start" onClick={() => {
+                            if (confirm('Deseja marcar TODOS os produtos como em estoque?')) {
+                              bulkUpdateStock(true);
+                            }
+                          }}>
+                            <Package className="w-4 h-4 mr-2" />
+                            Todos em Estoque
+                          </Button>
+                          <Button variant="outline" className="w-full justify-start" onClick={() => {
+                            if (confirm('Deseja destacar todos os produtos em estoque?')) {
+                              products.filter(p => p.in_stock).forEach(async (product) => {
+                                await supabase
+                                  .from('products')
+                                  .update({ is_featured: true })
+                                  .eq('id', product.id);
+                              });
+                              fetchProducts();
+                            }
+                          }}>
+                            <TrendingUp className="w-4 h-4 mr-2" />
+                            Destacar Produtos em Estoque
+                          </Button>
+                        </div>
+                      </div>
                     </div>
-                  </Card>
-                  <Card className="p-4">
-                    <div className="text-center">
-                      <div className="text-2xl font-bold text-green-600">{Math.round((products.filter(p => p.is_featured).length / products.length) * 100) || 0}%</div>
-                      <div className="text-sm text-muted-foreground">Produtos Destacados</div>
+                  </CardContent>
+                </Card>
+
+                <Card>
+                  <CardHeader>
+                    <CardTitle className="flex items-center gap-2">
+                      <FileText className="w-5 h-5" />
+                      Relatórios Rápidos
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                      <Card className="p-4">
+                        <div className="text-center">
+                          <div className="text-2xl font-bold text-blue-600">{Math.round((products.filter(p => p.in_stock).length / products.length) * 100) || 0}%</div>
+                          <div className="text-sm text-muted-foreground">Taxa de Estoque</div>
+                        </div>
+                      </Card>
+                      <Card className="p-4">
+                        <div className="text-center">
+                          <div className="text-2xl font-bold text-green-600">{Math.round((products.filter(p => p.is_featured).length / products.length) * 100) || 0}%</div>
+                          <div className="text-sm text-muted-foreground">Produtos Destacados</div>
+                        </div>
+                      </Card>
+                      <Card className="p-4">
+                        <div className="text-center">
+                          <div className="text-2xl font-bold text-orange-600">{Math.round((products.filter(p => p.price).length / products.length) * 100) || 0}%</div>
+                          <div className="text-sm text-muted-foreground">Com Preços Definidos</div>
+                        </div>
+                      </Card>
                     </div>
-                  </Card>
-                  <Card className="p-4">
-                    <div className="text-center">
-                      <div className="text-2xl font-bold text-orange-600">{Math.round((products.filter(p => p.price).length / products.length) * 100) || 0}%</div>
-                      <div className="text-sm text-muted-foreground">Com Preços Definidos</div>
-                    </div>
-                  </Card>
-                </div>
-              </CardContent>
-            </Card>
+                  </CardContent>
+                </Card>
+              </TabsContent>
+
+              <TabsContent value="monitoring" className="space-y-6">
+                <SystemMonitoring />
+              </TabsContent>
+
+              <TabsContent value="users" className="space-y-6">
+                <UserManagement />
+              </TabsContent>
+            </Tabs>
           </TabsContent>
         </Tabs>
       </div>
