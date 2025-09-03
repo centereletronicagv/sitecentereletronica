@@ -1,0 +1,66 @@
+-- First, delete products with the codes that will be used in the new products
+DELETE FROM public.products WHERE code IN (
+  '7909522567707', '7909522567677', '7891341466906', '5418', '7909522567714', 
+  '7909522567721', '7891435964288', '7909522667738', '7891341466937', '7909522567745',
+  '7891435094329', '7909522567752', '7891435094336', '7891435964318', '7891341467224',
+  '100232514', '7909522567776', '7909522567820', '7909522567837', '7909522567851',
+  '7909522567868', '7891435964486', '00447', '00426', '7909522567950', '7891435964622',
+  '7890355193693', '04926', '7892327540320', '7909522567981', '7892327540351',
+  '7909522567998', '7890355193938', '10062', '7891435963335', '7897348049548',
+  '7899495242964', '7892327542454', '7892327542478', '7892327542492', '12715',
+  '7891435960952', '7892327542485', '7892327542508'
+);
+
+-- Then delete any remaining products from "instalações elétricas" category
+DELETE FROM public.products 
+WHERE category_id = (
+  SELECT id FROM public.categories WHERE name = 'instalações elétricas'
+);
+
+-- Insert the new products for "instalações elétricas" category
+INSERT INTO public.products (name, code, price, category_id, subcategory, image_url, in_stock, is_featured) VALUES
+('DISJUNTOR MONO 6A C WEG', '7909522567707', 23.00, (SELECT id FROM public.categories WHERE name = 'instalações elétricas'), 'Disjuntores', '/lovable-uploads/wegmono.png', true, false),
+('DISJUNTOR MONO 10A C WEG', '7909522567677', 14.00, (SELECT id FROM public.categories WHERE name = 'instalações elétricas'), 'Disjuntores', '/lovable-uploads/wegmono.png', true, false),
+('DISJUNTOR MONO 10A B SCHNEIDER', '7891341466906', 24.00, (SELECT id FROM public.categories WHERE name = 'instalações elétricas'), 'Disjuntores', '/lovable-uploads/schneidermono.png', true, false),
+('DISJUNTOR MONO 10A C LUKMA', '5418', 24.00, (SELECT id FROM public.categories WHERE name = 'instalações elétricas'), 'Disjuntores', '/lovable-uploads/dlukma.png', true, false),
+('DISJUNTOR MONO 16A C WEG', '7909522567714', 14.00, (SELECT id FROM public.categories WHERE name = 'instalações elétricas'), 'Disjuntores', '/lovable-uploads/wegmono.png', true, false),
+('DISJUNTOR MONO 20A C WEG', '7909522567721', 12.00, (SELECT id FROM public.categories WHERE name = 'instalações elétricas'), 'Disjuntores', '/lovable-uploads/wegmono.png', true, false),
+('DISJUNTOR MONO 20A C TRAMONTINA', '7891435964288', 27.00, (SELECT id FROM public.categories WHERE name = 'instalações elétricas'), 'Disjuntores', '/lovable-uploads/tramontinamono.png', true, false),
+('DISJUNTOR MONO 25A C WEG', '7909522667738', 24.00, (SELECT id FROM public.categories WHERE name = 'instalações elétricas'), 'Disjuntores', '/lovable-uploads/wegmono.png', true, false),
+('DISJUNTOR MONO 25A B SCHNEIDER', '7891341466937', 14.00, (SELECT id FROM public.categories WHERE name = 'instalações elétricas'), 'Disjuntores', '/lovable-uploads/schneidermono.png', true, false),
+('DISJUNTOR MONO 32A C WEG', '7909522567745', 14.00, (SELECT id FROM public.categories WHERE name = 'instalações elétricas'), 'Disjuntores', '/lovable-uploads/wegmono.png', true, false),
+('DISJUNTOR MONO 32A C TRAMONTINA', '7891435094329', 15.70, (SELECT id FROM public.categories WHERE name = 'instalações elétricas'), 'Disjuntores', '/lovable-uploads/tramontinamono.png', true, false),
+('DISJUNTOR MONO 40A C WEG', '7909522567752', 19.80, (SELECT id FROM public.categories WHERE name = 'instalações elétricas'), 'Disjuntores', '/lovable-uploads/wegmono.png', true, false),
+('DISJUNTOR MONO 40A C TRAMONTINA', '7891435094336', 19.90, (SELECT id FROM public.categories WHERE name = 'instalações elétricas'), 'Disjuntores', '/lovable-uploads/tramontinamono.png', true, false),
+('DISJUNTOR MONO 40A C TRAMONTINA', '7891435964318', 28.70, (SELECT id FROM public.categories WHERE name = 'instalações elétricas'), 'Disjuntores', '/lovable-uploads/tramontinamono.png', true, false),
+('DISJUNTOR MONO 40A B SCHNEIDER', '7891341467224', 28.00, (SELECT id FROM public.categories WHERE name = 'instalações elétricas'), 'Disjuntores', '/lovable-uploads/schneidermono.png', true, false),
+('DISJUNTOR MONO 50A C WEG', '7891435094336', 19.00, (SELECT id FROM public.categories WHERE name = 'instalações elétricas'), 'Disjuntores', '/lovable-uploads/wegmono.png', true, false),
+('DISJUNTOR MONO 50A C TRAMONTINA', '100232514', 20.00, (SELECT id FROM public.categories WHERE name = 'instalações elétricas'), 'Disjuntores', '/lovable-uploads/tramontinamono.png', true, false),
+('DISJUNTOR MONO 63A C WEG', '7909522567776', 20.00, (SELECT id FROM public.categories WHERE name = 'instalações elétricas'), 'Disjuntores', '/lovable-uploads/wegmono.png', true, false),
+('DISJUNTOR BIF. 16A C WEG', '7909522567820', 45.00, (SELECT id FROM public.categories WHERE name = 'instalações elétricas'), 'Disjuntores', '/lovable-uploads/wegbif.png', true, false),
+('DISJUNTOR BIF. 20A C WEG', '7909522567837', 45.00, (SELECT id FROM public.categories WHERE name = 'instalações elétricas'), 'Disjuntores', '/lovable-uploads/wegbif.png', true, false),
+('DISJUNTOR BIF. 32A C WEG', '7909522567851', 45.00, (SELECT id FROM public.categories WHERE name = 'instalações elétricas'), 'Disjuntores', '/lovable-uploads/wegbif.png', true, false),
+('DISJUNTOR BIF. 40A C WEG', '7909522567868', 48.00, (SELECT id FROM public.categories WHERE name = 'instalações elétricas'), 'Disjuntores', '/lovable-uploads/wegbif.png', true, false),
+('DISJUNTOR BIF. 50A C TRAMONTINA', '7891435964486', 85.00, (SELECT id FROM public.categories WHERE name = 'instalações elétricas'), 'Disjuntores', '/lovable-uploads/tramontinabif.png', true, false),
+('DISJUNTOR TRIF. 16 C SCHNEIDER', '00447', 68.00, (SELECT id FROM public.categories WHERE name = 'instalações elétricas'), 'Disjuntores', '/lovable-uploads/schneidertrif.png', true, false),
+('DISJUNTOR TRIF. 20A C SCHNEIDER', '00426', 65.00, (SELECT id FROM public.categories WHERE name = 'instalações elétricas'), 'Disjuntores', '/lovable-uploads/schneidertrif.png', true, false),
+('DISJUNTOR TRIF. 25A C WEG', '7909522567950', 55.00, (SELECT id FROM public.categories WHERE name = 'instalações elétricas'), 'Disjuntores', '/lovable-uploads/wegtrif.png', true, false),
+('DISJUNTOR TRIF. 32A C TRAMONTINA', '7891435964622', 98.00, (SELECT id FROM public.categories WHERE name = 'instalações elétricas'), 'Disjuntores', '/lovable-uploads/tramontinatrif.png', true, false),
+('DISJUNTOR TRIF. 40A C WEG', '7890355193693', 54.00, (SELECT id FROM public.categories WHERE name = 'instalações elétricas'), 'Disjuntores', '/lovable-uploads/wegtrif.png', true, false),
+('DISJUNTOR TRIF. 40A C SCHNEIDER', '04926', 65.00, (SELECT id FROM public.categories WHERE name = 'instalações elétricas'), 'Disjuntores', '/lovable-uploads/schneidertrif.png', true, false),
+('DISJUNTOR TRIF. 40A C SOPRANO', '7892327540320', 79.00, (SELECT id FROM public.categories WHERE name = 'instalações elétricas'), 'Disjuntores', '/lovable-uploads/sopranotrif.png', true, false),
+('DISJUNTOR TRIF. 50A C WEG', '7909522567981', 54.00, (SELECT id FROM public.categories WHERE name = 'instalações elétricas'), 'Disjuntores', '/lovable-uploads/wegtrif.png', true, false),
+('DISJUNTOR TRIF. 50A C SOPRANO', '7892327540351', 72.00, (SELECT id FROM public.categories WHERE name = 'instalações elétricas'), 'Disjuntores', '/lovable-uploads/sopranotrif.png', true, false),
+('DISJUNTOR TRIF. 63A C WEG', '7909522567998', 68.00, (SELECT id FROM public.categories WHERE name = 'instalações elétricas'), 'Disjuntores', '/lovable-uploads/wegtrif.png', true, false),
+('DISJUNTOR TRIF. 80A C WEG', '7890355193938', 199.00, (SELECT id FROM public.categories WHERE name = 'instalações elétricas'), 'Disjuntores', '/lovable-uploads/wegtrif.png', true, false),
+('DISJUNTOR TRIF. 100A C WEG', '10062', 246.00, (SELECT id FROM public.categories WHERE name = 'instalações elétricas'), 'Disjuntores', '/lovable-uploads/wegtrif.png', true, false),
+('DISJUNTOR TRIF. 125A CAIXA MOLDADA TRAMONTINA', '7891435963335', 268.00, (SELECT id FROM public.categories WHERE name = 'instalações elétricas'), 'Disjuntores', '/lovable-uploads/caixamoldada.png', true, false),
+('DPS CLAMPER 275VAC 20Ka', '7897348049548', 52.00, (SELECT id FROM public.categories WHERE name = 'instalações elétricas'), 'DPS', '/lovable-uploads/dps.png', true, false),
+('DPS CLAMPER 275VAC 20Ka', '7899495242964', 60.00, (SELECT id FROM public.categories WHERE name = 'instalações elétricas'), 'DPS', '/lovable-uploads/dps.png', true, false),
+('IDR 2P 25A 30Ma SOPRANO', '7892327542454', 105.00, (SELECT id FROM public.categories WHERE name = 'instalações elétricas'), 'IDR', '/lovable-uploads/drmono.png', true, false),
+('IDR 2P 40A 30Ma SOPRANO', '7892327542478', 105.00, (SELECT id FROM public.categories WHERE name = 'instalações elétricas'), 'IDR', '/lovable-uploads/drmono.png', true, false),
+('IDR 2P 63A 30Ma SOPRANO', '7892327542492', 125.00, (SELECT id FROM public.categories WHERE name = 'instalações elétricas'), 'IDR', '/lovable-uploads/drmono.png', true, false),
+('IDR 4P 25A 30Ma SOPRANO', '12715', 159.00, (SELECT id FROM public.categories WHERE name = 'instalações elétricas'), 'IDR', '/lovable-uploads/drtetra.png', true, false),
+('IDR 4P 25A 30Ma TRAMONTINA', '7891435960952', 175.00, (SELECT id FROM public.categories WHERE name = 'instalações elétricas'), 'IDR', '/lovable-uploads/drtramontina.png', true, false),
+('IDR 4P 40A 30Ma SOPRANO', '7892327542485', 159.00, (SELECT id FROM public.categories WHERE name = 'instalações elétricas'), 'IDR', '/lovable-uploads/drtetra.png', true, false),
+('IDR SOPRANO 63A 30Ma SOPRANO', '7892327542508', 175.00, (SELECT id FROM public.categories WHERE name = 'instalações elétricas'), 'IDR', '/lovable-uploads/drtetra.png', true, false);
