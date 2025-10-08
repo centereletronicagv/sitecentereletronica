@@ -67,6 +67,7 @@ const AdminPanel: React.FC = () => {
   const [showOutOfStock, setShowOutOfStock] = useState(false);
   const [activeTab, setActiveTab] = useState('dashboard');
   const [productCategoryFilter, setProductCategoryFilter] = useState<string>('');
+  const [editDialogOpen, setEditDialogOpen] = useState(false);
 
   useEffect(() => {
     if (isAdmin) {
@@ -841,15 +842,22 @@ const AdminPanel: React.FC = () => {
                                         <Badge variant="destructive">Sem estoque</Badge>
                                       )}
                                     </TableCell>
-                                    <TableCell className="text-right">
-                                      <div className="flex gap-2 justify-end">
-                                        <Dialog>
-                                          <DialogTrigger asChild>
-                                            <Button variant="outline" size="sm" onClick={() => setEditingProduct(product)}>
-                                              <Pencil className="w-4 h-4" />
-                                            </Button>
-                                          </DialogTrigger>
-                                          <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
+                                     <TableCell className="text-right">
+                                       <div className="flex gap-2 justify-end">
+                                         <Dialog open={editDialogOpen} onOpenChange={setEditDialogOpen}>
+                                           <DialogTrigger asChild>
+                                             <Button 
+                                               variant="outline" 
+                                               size="sm" 
+                                               onClick={() => {
+                                                 setEditingProduct(product);
+                                                 setEditDialogOpen(true);
+                                               }}
+                                             >
+                                               <Pencil className="w-4 h-4" />
+                                             </Button>
+                                           </DialogTrigger>
+                                           <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
                                             <DialogHeader>
                                               <DialogTitle>Editar Produto</DialogTitle>
                                               <DialogDescription>
@@ -927,13 +935,24 @@ const AdminPanel: React.FC = () => {
                                                      <Label htmlFor="edit-featured">Produto em destaque</Label>
                                                    </div>
                                                  </div>
-                                               </div>
-                                             )}
+                                             </div>
+                                           )}
                                              <DialogFooter>
-                                               <Button variant="outline" onClick={() => setEditingProduct(null)}>
+                                               <Button 
+                                                 variant="outline" 
+                                                 onClick={() => {
+                                                   setEditingProduct(null);
+                                                   setEditDialogOpen(false);
+                                                 }}
+                                               >
                                                  Cancelar
                                                </Button>
-                                               <Button onClick={updateProduct}>
+                                               <Button 
+                                                 onClick={async () => {
+                                                   await updateProduct();
+                                                   setEditDialogOpen(false);
+                                                 }}
+                                               >
                                                  Salvar Alterações
                                                </Button>
                                              </DialogFooter>
