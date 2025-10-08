@@ -18,7 +18,10 @@ import {
   MoreHorizontal,
   Settings,
   Ban,
-  CheckCircle
+  CheckCircle,
+  Activity,
+  Clock,
+  LogIn
 } from 'lucide-react';
 
 interface Profile {
@@ -30,12 +33,32 @@ interface Profile {
   updated_at: string;
 }
 
+interface ActivityLog {
+  id: string;
+  action: string;
+  entity_type: string;
+  entity_name: string | null;
+  created_at: string;
+}
+
+interface UserAnalytic {
+  id: string;
+  event_type: string;
+  created_at: string;
+  category: string | null;
+  product: string | null;
+}
+
 const UserManagement: React.FC = () => {
   const [profiles, setProfiles] = useState<Profile[]>([]);
   const [searchTerm, setSearchTerm] = useState('');
   const [filteredProfiles, setFilteredProfiles] = useState<Profile[]>([]);
   const [selectedRole, setSelectedRole] = useState<string>('all');
   const [loading, setLoading] = useState(true);
+  const [selectedUser, setSelectedUser] = useState<Profile | null>(null);
+  const [userActivity, setUserActivity] = useState<ActivityLog[]>([]);
+  const [userLogins, setUserLogins] = useState<UserAnalytic[]>([]);
+  const [activityLoading, setActivityLoading] = useState(false);
 
   useEffect(() => {
     fetchProfiles();
@@ -114,6 +137,42 @@ const UserManagement: React.FC = () => {
 
   const getInitials = (email: string) => {
     return email.charAt(0).toUpperCase();
+  };
+
+  const fetchUserActivity = async (userId: string) => {
+    setActivityLoading(true);
+    try {
+      // Buscar logs de atividade
+      const { data: activityData, error: activityError } = await supabase
+        .from('activity_logs')
+        .select('*')
+        .eq('user_id', userId)
+        .order('created_at', { ascending: false })
+        .limit(10);
+
+      if (activityError) throw activityError;
+      setUserActivity(activityData || []);
+
+      // Buscar histórico de login
+      const { data: loginData, error: loginError } = await supabase
+        .from('user_analytics')
+        .select('*')
+        .eq('user_id', userId)
+        .eq('event_type', 'login')
+        .order('created_at', { ascending: false })
+        .limit(10);
+
+      if (loginError) throw loginError;
+      setUserLogins(loginData || []);
+    } catch (error) {
+      toast({
+        variant: "destructive",
+        title: "Erro",
+        description: "Erro ao carregar histórico do usuário"
+      });
+    } finally {
+      setActivityLoading(false);
+    }
   };
 
   if (loading) {
@@ -238,6 +297,96 @@ const UserManagement: React.FC = () => {
                   <Badge className={getRoleBadgeColor(profile.role)}>
                     {profile.role}
                   </Badge>
+                  <Dialog>
+                    <DialogTrigger asChild>
+                      <Button 
+                        variant="outline" 
+                        size="sm"
+                        onClick={() => {
+                          setSelectedUser(profile);
+                          fetchUserActivity(profile.user_id);
+                        }}
+                      >
+                        <Activity className="w-4 h-4 mr-1" />
+                        Histórico
+                      </Button>
+                    </DialogTrigger>
+                    <DialogContent className="max-w-3xl max-h-[80vh] overflow-y-auto">
+                      <DialogHeader>
+                        <DialogTitle>Histórico de {profile.email}</DialogTitle>
+                        <DialogDescription>
+                          Visualize o histórico de login e atividades
+                        </DialogDescription>
+                      </DialogHeader>
+                      
+                      {activityLoading ? (
+                        <div className="flex items-center justify-center p-8">
+                          Carregando histórico...
+                        </div>
+                      ) : (
+                        <div className="space-y-6">
+                          {/* Histórico de Login */}
+                          <div>
+                            <h3 className="font-semibold mb-3 flex items-center gap-2">
+                              <LogIn className="w-4 h-4" />
+                              Histórico de Login
+                            </h3>
+                            {userLogins.length > 0 ? (
+                              <div className="space-y-2">
+                                {userLogins.map((login) => (
+                                  <div key={login.id} className="p-3 border rounded-lg bg-muted/30">
+                                    <div className="flex items-center justify-between">
+                                      <div className="flex items-center gap-2">
+                                        <Clock className="w-3 h-3 text-muted-foreground" />
+                                        <span className="text-sm">
+                                          {new Date(login.created_at).toLocaleString('pt-BR')}
+                                        </span>
+                                      </div>
+                                      <Badge variant="outline" className="text-xs">Login</Badge>
+                                    </div>
+                                  </div>
+                                ))}
+                              </div>
+                            ) : (
+                              <p className="text-sm text-muted-foreground">Nenhum login registrado</p>
+                            )}
+                          </div>
+
+                          {/* Histórico de Atividades */}
+                          <div>
+                            <h3 className="font-semibold mb-3 flex items-center gap-2">
+                              <Activity className="w-4 h-4" />
+                              Atividades Recentes
+                            </h3>
+                            {userActivity.length > 0 ? (
+                              <div className="space-y-2">
+                                {userActivity.map((activity) => (
+                                  <div key={activity.id} className="p-3 border rounded-lg bg-muted/30">
+                                    <div className="flex items-center justify-between mb-1">
+                                      <Badge variant="outline" className="text-xs">
+                                        {activity.action}
+                                      </Badge>
+                                      <div className="flex items-center gap-2">
+                                        <Clock className="w-3 h-3 text-muted-foreground" />
+                                        <span className="text-xs text-muted-foreground">
+                                          {new Date(activity.created_at).toLocaleString('pt-BR')}
+                                        </span>
+                                      </div>
+                                    </div>
+                                    <p className="text-sm">
+                                      {activity.entity_type}: {activity.entity_name || 'N/A'}
+                                    </p>
+                                  </div>
+                                ))}
+                              </div>
+                            ) : (
+                              <p className="text-sm text-muted-foreground">Nenhuma atividade registrada</p>
+                            )}
+                          </div>
+                        </div>
+                      )}
+                    </DialogContent>
+                  </Dialog>
                   <Dialog>
                     <DialogTrigger asChild>
                       <Button variant="outline" size="sm">
