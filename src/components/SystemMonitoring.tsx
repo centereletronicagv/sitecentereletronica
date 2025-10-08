@@ -47,9 +47,48 @@ const SystemMonitoring: React.FC = () => {
     })));
   };
 
+  const [isActive, setIsActive] = useState(true);
+  const [dbMetrics, setDbMetrics] = useState({
+    connections: 24,
+    responseTime: 12,
+    storageUsed: 2.4
+  });
+
+  const refreshDbMetrics = async () => {
+    // Simulate database metrics update
+    setDbMetrics({
+      connections: Math.floor(20 + Math.random() * 10),
+      responseTime: Math.floor(10 + Math.random() * 5),
+      storageUsed: 2.4 + Math.random() * 0.2
+    });
+  };
+
   useEffect(() => {
-    const interval = setInterval(refreshMetrics, 5000);
-    return () => clearInterval(interval);
+    // System metrics refresh every 5 seconds
+    const systemInterval = setInterval(refreshMetrics, 5000);
+    
+    // Database metrics refresh every 1 second when active
+    let dbInterval: NodeJS.Timeout | null = null;
+    if (isActive) {
+      dbInterval = setInterval(refreshDbMetrics, 1000);
+    }
+    
+    return () => {
+      clearInterval(systemInterval);
+      if (dbInterval) clearInterval(dbInterval);
+    };
+  }, [isActive]);
+
+  // Detect if component is visible (user is on monitoring tab)
+  useEffect(() => {
+    const handleVisibilityChange = () => {
+      setIsActive(!document.hidden);
+    };
+
+    document.addEventListener('visibilitychange', handleVisibilityChange);
+    return () => {
+      document.removeEventListener('visibilitychange', handleVisibilityChange);
+    };
   }, []);
 
   const getStatusColor = (status: string) => {
@@ -166,17 +205,17 @@ const SystemMonitoring: React.FC = () => {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             <div className="space-y-2">
               <p className="text-sm font-medium">Active Connections</p>
-              <p className="text-2xl font-bold">24</p>
+              <p className="text-2xl font-bold">{dbMetrics.connections}</p>
               <p className="text-xs text-green-600">Normal range</p>
             </div>
             <div className="space-y-2">
               <p className="text-sm font-medium">Query Response Time</p>
-              <p className="text-2xl font-bold">12ms</p>
+              <p className="text-2xl font-bold">{dbMetrics.responseTime}ms</p>
               <p className="text-xs text-green-600">Excellent</p>
             </div>
             <div className="space-y-2">
               <p className="text-sm font-medium">Storage Used</p>
-              <p className="text-2xl font-bold">2.4GB</p>
+              <p className="text-2xl font-bold">{dbMetrics.storageUsed.toFixed(1)}GB</p>
               <p className="text-xs text-muted-foreground">of 10GB limit</p>
             </div>
           </div>
