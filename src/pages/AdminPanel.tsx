@@ -403,25 +403,33 @@ const AdminPanel: React.FC = () => {
       title: "Total de Produtos",
       value: products.length,
       icon: Package,
-      color: "from-blue-500 to-blue-600"
+      gradient: "from-blue-500 via-blue-600 to-cyan-500",
+      iconBg: "bg-blue-500/10",
+      iconColor: "text-blue-400"
     },
     {
       title: "Produtos em Destaque",
       value: products.filter(p => p.is_featured).length,
       icon: TrendingUp,
-      color: "from-green-500 to-green-600"
+      gradient: "from-emerald-500 via-green-600 to-teal-500",
+      iconBg: "bg-emerald-500/10",
+      iconColor: "text-emerald-400"
     },
     {
       title: "Categorias",
       value: categories.length,
       icon: BarChart3,
-      color: "from-orange-500 to-orange-600"
+      gradient: "from-orange-500 via-amber-600 to-yellow-500",
+      iconBg: "bg-orange-500/10",
+      iconColor: "text-orange-400"
     },
     {
       title: "Produtos em Estoque",
       value: products.filter(p => p.in_stock).length,
       icon: ShoppingCart,
-      color: "from-purple-500 to-purple-600"
+      gradient: "from-purple-500 via-violet-600 to-indigo-500",
+      iconBg: "bg-purple-500/10",
+      iconColor: "text-purple-400"
     }
   ];
 
@@ -445,19 +453,28 @@ const AdminPanel: React.FC = () => {
 
   return (
     <SidebarProvider>
-      <div className="min-h-screen flex w-full bg-background">
+      <div className="min-h-screen flex w-full bg-[#0a0a0a]">
         {/* Sidebar */}
-        <Sidebar className="border-r border-border">
+        <Sidebar className="border-r border-white/5 bg-[#111111]">
           <SidebarContent>
             {/* Header */}
-            <div className="p-6 border-b border-border">
-              <h2 className="text-xl font-bold">Admin Panel</h2>
-              <p className="text-sm text-muted-foreground">Versão 2.0</p>
+            <div className="p-6 border-b border-white/5">
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-orange-500 to-red-600 flex items-center justify-center">
+                  <Settings className="w-6 h-6 text-white" />
+                </div>
+                <div>
+                  <h2 className="text-lg font-bold text-white">Admin</h2>
+                  <p className="text-xs text-gray-400">Painel de Controle</p>
+                </div>
+              </div>
             </div>
 
             {/* Navigation */}
             <SidebarGroup>
-              <SidebarGroupLabel>Navegação</SidebarGroupLabel>
+              <SidebarGroupLabel className="text-gray-400 text-xs uppercase tracking-wider px-6 py-2">
+                Menu Principal
+              </SidebarGroupLabel>
               <SidebarGroupContent>
                 <SidebarMenu>
                   {menuItems.map((item) => (
@@ -465,10 +482,14 @@ const AdminPanel: React.FC = () => {
                       <SidebarMenuButton
                         onClick={() => setActiveTab(item.id)}
                         isActive={activeTab === item.id}
-                        className="w-full"
+                        className={`w-full mx-2 rounded-lg transition-all ${
+                          activeTab === item.id 
+                            ? 'bg-gradient-to-r from-orange-500/20 to-red-500/20 text-orange-400 border border-orange-500/30' 
+                            : 'text-gray-400 hover:bg-white/5 hover:text-white'
+                        }`}
                       >
-                        <item.icon className="w-4 h-4 mr-2" />
-                        <span>{item.label}</span>
+                        <item.icon className="w-4 h-4 mr-3" />
+                        <span className="font-medium">{item.label}</span>
                       </SidebarMenuButton>
                     </SidebarMenuItem>
                   ))}
@@ -477,9 +498,9 @@ const AdminPanel: React.FC = () => {
             </SidebarGroup>
 
             {/* Back to Home */}
-            <div className="mt-auto p-4 border-t border-border">
+            <div className="mt-auto p-4 border-t border-white/5">
               <Link to="/">
-                <Button variant="outline" className="w-full">
+                <Button variant="outline" className="w-full bg-white/5 border-white/10 text-gray-300 hover:bg-white/10 hover:text-white hover:border-white/20">
                   <Home className="w-4 h-4 mr-2" />
                   Voltar à Homepage
                 </Button>
@@ -491,33 +512,46 @@ const AdminPanel: React.FC = () => {
         {/* Main Content */}
         <div className="flex-1 flex flex-col w-full overflow-hidden">
           {/* Header */}
-          <header className="h-16 flex items-center border-b border-border px-6 bg-card">
-            <SidebarTrigger className="mr-4" />
+          <header className="h-16 flex items-center border-b border-white/5 px-6 bg-[#111111]/50 backdrop-blur-xl">
+            <SidebarTrigger className="mr-4 text-gray-400 hover:text-white" />
             <div className="flex items-center justify-between w-full">
               <div>
-                <h1 className="text-2xl font-bold">Dashboard Admin</h1>
+                <h1 className="text-xl font-bold bg-gradient-to-r from-orange-400 to-red-500 bg-clip-text text-transparent">
+                  Dashboard Admin
+                </h1>
               </div>
-              <div className="flex items-center gap-2">
-                <Settings className="w-5 h-5 text-muted-foreground" />
+              <div className="flex items-center gap-4">
+                <div className="relative">
+                  <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500" />
+                  <input
+                    type="text"
+                    placeholder="Buscar..."
+                    className="pl-10 pr-4 py-2 bg-white/5 border border-white/10 rounded-lg text-sm text-gray-300 placeholder-gray-500 focus:outline-none focus:border-orange-500/50 focus:bg-white/10 transition-all w-64"
+                  />
+                </div>
+                <Button variant="ghost" size="icon" className="relative text-gray-400 hover:text-white hover:bg-white/10">
+                  <RefreshCw className="w-5 h-5" />
+                </Button>
               </div>
             </div>
           </header>
 
           {/* Content Area */}
-          <main className="flex-1 overflow-auto p-6">
+          <main className="flex-1 overflow-auto p-6 bg-[#0a0a0a]">
             {/* Stats Cards */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
               {statsCards.map((stat, index) => (
-                <Card key={index} className="overflow-hidden">
+                <Card key={index} className="border-white/10 bg-gradient-to-br from-[#1a1a1a] to-[#111111] overflow-hidden group hover:border-orange-500/30 transition-all">
                   <CardContent className="p-0">
-                    <div className={`bg-gradient-to-r ${stat.color} p-6 text-white`}>
-                      <div className="flex items-center justify-between">
-                        <div>
-                          <p className="text-white/80 text-sm font-medium">{stat.title}</p>
-                          <p className="text-3xl font-bold">{stat.value}</p>
+                    <div className="p-6">
+                      <div className="flex items-center justify-between mb-4">
+                        <div className={`p-3 rounded-xl ${stat.iconBg}`}>
+                          <stat.icon className={`w-6 h-6 ${stat.iconColor}`} />
                         </div>
-                        <stat.icon className="w-8 h-8 text-white/80" />
+                        <div className={`h-12 w-24 bg-gradient-to-r ${stat.gradient} opacity-10 rounded-full blur-xl group-hover:opacity-20 transition-opacity`}></div>
                       </div>
+                      <p className="text-gray-400 text-sm font-medium mb-1">{stat.title}</p>
+                      <p className="text-3xl font-bold text-white">{stat.value}</p>
                     </div>
                   </CardContent>
                 </Card>
@@ -572,13 +606,13 @@ const AdminPanel: React.FC = () => {
             {activeTab === 'products' && (
               <div className="space-y-6">
                 {!productCategoryFilter ? (
-                  <Card>
+                  <Card className="border-white/10 bg-gradient-to-br from-[#1a1a1a] to-[#111111]">
                     <CardHeader>
-                      <CardTitle className="flex items-center gap-2">
-                        <Package className="w-5 h-5" />
+                      <CardTitle className="flex items-center gap-2 text-white">
+                        <Package className="w-5 h-5 text-orange-400" />
                         Selecione uma Categoria
                       </CardTitle>
-                      <CardDescription>
+                      <CardDescription className="text-gray-400">
                         Escolha uma categoria para visualizar e gerenciar seus produtos
                       </CardDescription>
                     </CardHeader>
@@ -587,16 +621,25 @@ const AdminPanel: React.FC = () => {
                         {categories.map((category) => (
                           <Card 
                             key={category.id} 
-                            className="cursor-pointer hover:shadow-lg transition-shadow"
+                            className="cursor-pointer hover:shadow-2xl transition-all border-white/10 bg-[#1a1a1a] hover:border-orange-500/50 hover:scale-105 group"
                             onClick={() => setProductCategoryFilter(category.id)}
                           >
                             <CardContent className="p-6">
-                              <h3 className="font-semibold text-lg mb-2">{category.name}</h3>
+                              <div className="flex items-start justify-between mb-3">
+                                <div className="p-2 rounded-lg bg-orange-500/10">
+                                  <Package className="w-5 h-5 text-orange-400" />
+                                </div>
+                                <div className="h-8 w-16 bg-gradient-to-r from-orange-500/20 to-red-500/20 rounded-full blur-xl group-hover:opacity-100 opacity-0 transition-opacity"></div>
+                              </div>
+                              <h3 className="font-semibold text-lg mb-2 text-white group-hover:text-orange-400 transition-colors">{category.name}</h3>
                               {category.description && (
-                                <p className="text-sm text-muted-foreground">{category.description}</p>
+                                <p className="text-sm text-gray-400 mb-3">{category.description}</p>
                               )}
-                              <div className="mt-4 text-sm text-muted-foreground">
-                                {products.filter(p => p.category_id === category.id).length} produtos
+                              <div className="flex items-center justify-between pt-3 border-t border-white/5">
+                                <span className="text-xs text-gray-500">Total de produtos</span>
+                                <span className="text-sm font-bold text-orange-400">
+                                  {products.filter(p => p.category_id === category.id).length}
+                                </span>
                               </div>
                             </CardContent>
                           </Card>
@@ -607,19 +650,23 @@ const AdminPanel: React.FC = () => {
                 ) : (
                   <>
                     {/* Back button and filters */}
-                    <Card>
+                    <Card className="border-white/10 bg-gradient-to-br from-[#1a1a1a] to-[#111111]">
                       <CardHeader>
                         <div className="flex items-center justify-between">
                           <div>
-                            <CardTitle className="flex items-center gap-2">
-                              <Package className="w-5 h-5" />
+                            <CardTitle className="flex items-center gap-2 text-white">
+                              <Package className="w-5 h-5 text-orange-400" />
                               Produtos - {categories.find(c => c.id === productCategoryFilter)?.name}
                             </CardTitle>
-                            <CardDescription>
+                            <CardDescription className="text-gray-400">
                               Gerencie os produtos desta categoria
                             </CardDescription>
                           </div>
-                          <Button variant="outline" onClick={() => setProductCategoryFilter('')}>
+                          <Button 
+                            variant="outline" 
+                            onClick={() => setProductCategoryFilter('')}
+                            className="border-white/10 text-gray-300 hover:bg-white/10 hover:text-white"
+                          >
                             Voltar às Categorias
                           </Button>
                         </div>
@@ -627,23 +674,23 @@ const AdminPanel: React.FC = () => {
                       <CardContent>
                         <div className="flex gap-4 items-end">
                           <div className="flex-1">
-                            <Label htmlFor="search">Pesquisar Produtos</Label>
+                            <Label htmlFor="search" className="text-gray-300">Pesquisar Produtos</Label>
                             <div className="relative">
-                              <Search className="absolute left-2 top-2.5 h-4 w-4 text-muted-foreground" />
+                              <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-500" />
                               <Input
                                 id="search"
                                 placeholder="Nome, código ou descrição..."
                                 value={searchTerm}
                                 onChange={(e) => setSearchTerm(e.target.value)}
-                                className="pl-8"
+                                className="pl-10 bg-white/5 border-white/10 text-white placeholder-gray-500 focus:border-orange-500/50"
                               />
                             </div>
                           </div>
-                          <Button variant="outline" onClick={fetchProducts}>
+                          <Button variant="outline" onClick={fetchProducts} className="border-white/10 text-gray-300 hover:bg-white/10">
                             <RefreshCw className="w-4 h-4 mr-1" />
                             Atualizar
                           </Button>
-                          <Button variant="outline" onClick={exportProductsCSV}>
+                          <Button variant="outline" onClick={exportProductsCSV} className="border-white/10 text-gray-300 hover:bg-white/10">
                             <Download className="w-4 h-4 mr-1" />
                             CSV
                           </Button>
@@ -652,37 +699,39 @@ const AdminPanel: React.FC = () => {
                     </Card>
 
                     {/* Add Product Form */}
-                    <Card>
+                    <Card className="border-white/10 bg-gradient-to-br from-[#1a1a1a] to-[#111111]">
                       <CardHeader>
-                        <CardTitle className="flex items-center gap-2">
-                          <Plus className="w-5 h-5" />
+                        <CardTitle className="flex items-center gap-2 text-white">
+                          <Plus className="w-5 h-5 text-orange-400" />
                           Adicionar Novo Produto
                         </CardTitle>
-                        <CardDescription>Preencha os dados para adicionar um novo produto</CardDescription>
+                        <CardDescription className="text-gray-400">Preencha os dados para adicionar um novo produto</CardDescription>
                       </CardHeader>
                       <CardContent>
                         <div className="space-y-4 mb-6">
                           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                             <div>
-                              <Label htmlFor="product-name">Nome do Produto</Label>
+                              <Label htmlFor="product-name" className="text-gray-300">Nome do Produto</Label>
                               <Input
                                 id="product-name"
                                 value={newProduct.name}
                                 onChange={(e) => setNewProduct({ ...newProduct, name: e.target.value })}
                                 placeholder="Nome do produto"
+                                className="bg-white/5 border-white/10 text-white placeholder-gray-500 focus:border-orange-500/50"
                               />
                             </div>
                             <div>
-                              <Label htmlFor="product-code">Código</Label>
+                              <Label htmlFor="product-code" className="text-gray-300">Código</Label>
                               <Input
                                 id="product-code"
                                 value={newProduct.code}
                                 onChange={(e) => setNewProduct({ ...newProduct, code: e.target.value })}
                                 placeholder="Código do produto"
+                                className="bg-white/5 border-white/10 text-white placeholder-gray-500 focus:border-orange-500/50"
                               />
                             </div>
                             <div>
-                              <Label htmlFor="product-price">Preço</Label>
+                              <Label htmlFor="product-price" className="text-gray-300">Preço</Label>
                               <Input
                                 id="product-price"
                                 type="number"
@@ -690,16 +739,18 @@ const AdminPanel: React.FC = () => {
                                 value={newProduct.price}
                                 onChange={(e) => setNewProduct({ ...newProduct, price: e.target.value })}
                                 placeholder="0.00"
+                                className="bg-white/5 border-white/10 text-white placeholder-gray-500 focus:border-orange-500/50"
                               />
                             </div>
                             <div>
-                              <Label htmlFor="product-popularity">Popularidade</Label>
+                              <Label htmlFor="product-popularity" className="text-gray-300">Popularidade</Label>
                               <Input
                                 id="product-popularity"
                                 type="number"
                                 value={newProduct.popularity}
                                 onChange={(e) => setNewProduct({ ...newProduct, popularity: parseInt(e.target.value) || 0 })}
                                 placeholder="0"
+                                className="bg-white/5 border-white/10 text-white placeholder-gray-500 focus:border-orange-500/50"
                               />
                             </div>
                           </div>
@@ -710,12 +761,13 @@ const AdminPanel: React.FC = () => {
                           />
                           
                           <div>
-                            <Label htmlFor="product-description">Descrição</Label>
+                            <Label htmlFor="product-description" className="text-gray-300">Descrição</Label>
                             <Textarea
                               id="product-description"
                               value={newProduct.description}
                               onChange={(e) => setNewProduct({ ...newProduct, description: e.target.value })}
                               placeholder="Descrição do produto"
+                              className="bg-white/5 border-white/10 text-white placeholder-gray-500 focus:border-orange-500/50"
                             />
                           </div>
                           <div className="flex gap-4">
@@ -725,7 +777,7 @@ const AdminPanel: React.FC = () => {
                                 checked={newProduct.in_stock}
                                 onCheckedChange={(checked) => setNewProduct({ ...newProduct, in_stock: checked })}
                               />
-                              <Label htmlFor="in-stock">Em estoque</Label>
+                              <Label htmlFor="in-stock" className="text-gray-300">Em estoque</Label>
                             </div>
                             <div className="flex items-center space-x-2">
                               <Switch
@@ -733,10 +785,13 @@ const AdminPanel: React.FC = () => {
                                 checked={newProduct.is_featured}
                                 onCheckedChange={(checked) => setNewProduct({ ...newProduct, is_featured: checked })}
                               />
-                              <Label htmlFor="featured">Produto em destaque</Label>
+                              <Label htmlFor="featured" className="text-gray-300">Produto em destaque</Label>
                             </div>
                           </div>
-                          <Button onClick={createProduct} className="w-full md:w-auto">
+                          <Button 
+                            onClick={createProduct} 
+                            className="w-full md:w-auto bg-gradient-to-r from-orange-500 to-red-600 hover:from-orange-600 hover:to-red-700 text-white border-0"
+                          >
                             <Plus className="w-4 h-4 mr-2" />
                             Adicionar Produto
                           </Button>
@@ -745,9 +800,9 @@ const AdminPanel: React.FC = () => {
                     </Card>
 
                     {/* Products List */}
-                    <Card>
+                    <Card className="border-white/10 bg-gradient-to-br from-[#1a1a1a] to-[#111111]">
                       <CardHeader>
-                        <CardTitle>
+                        <CardTitle className="text-white">
                           Produtos ({products.filter(p => p.category_id === productCategoryFilter).filter(p => 
                             !searchTerm || 
                             p.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -763,9 +818,9 @@ const AdminPanel: React.FC = () => {
                           p.code?.toLowerCase().includes(searchTerm.toLowerCase()) ||
                           p.description?.toLowerCase().includes(searchTerm.toLowerCase())
                         ).length === 0 ? (
-                          <div className="text-center py-12 text-muted-foreground">
+                          <div className="text-center py-12 text-gray-400">
                             <Package className="w-16 h-16 mx-auto mb-4 opacity-50" />
-                            <h3 className="text-lg font-medium mb-2">Nenhum produto encontrado</h3>
+                            <h3 className="text-lg font-medium mb-2 text-gray-300">Nenhum produto encontrado</h3>
                             <p>Adicione produtos nesta categoria.</p>
                           </div>
                         ) : (
