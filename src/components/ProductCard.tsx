@@ -140,19 +140,19 @@ export default function ProductCard({ product, variant = 'grid' }: ProductCardPr
                 )}
               </div>
               
-              <div className="flex gap-2">
+              <div className="flex gap-1.5">
                 <button
                   onClick={handleAddToCart}
-                  className="flex-1 bg-white/5 hover:bg-white/10 text-white border border-white/10 px-3 py-2 rounded-lg text-xs sm:text-sm font-medium transition-all duration-200 flex items-center justify-center gap-2"
+                  className="flex-1 bg-white/5 hover:bg-white/10 text-white/70 hover:text-white border border-white/10 px-2 py-1.5 rounded-md text-[10px] sm:text-xs font-medium transition-all duration-200 flex items-center justify-center gap-1.5"
                 >
-                  <ShoppingCart size={14} className="sm:w-4 sm:h-4" />
+                  <ShoppingCart size={12} className="sm:w-3.5 sm:h-3.5" />
                   <span className="hidden sm:inline">Adicionar</span>
                 </button>
                 <button
                   onClick={handleBuyNow}
-                  className="flex-1 bg-center-orange hover:bg-center-orange/90 text-white px-3 py-2 rounded-lg text-xs sm:text-sm font-medium transition-all duration-200 flex items-center justify-center gap-2"
+                  className="flex-1 bg-center-orange/80 hover:bg-center-orange text-white px-2 py-1.5 rounded-md text-[10px] sm:text-xs font-medium transition-all duration-200 flex items-center justify-center gap-1.5"
                 >
-                  <ShoppingBag size={14} className="sm:w-4 sm:h-4" />
+                  <ShoppingBag size={12} className="sm:w-3.5 sm:h-3.5" />
                   <span className="hidden sm:inline">Comprar</span>
                 </button>
               </div>
