@@ -31,9 +31,9 @@ export default function ProductGrid({
   }
 
   return (
-    <div className="grid grid-cols-2 gap-4 sm:gap-6 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4">
+    <div className="flex flex-col gap-3">
       {products.map((product) => (
-        <ProductCard key={product.id} product={product} />
+        <ProductCard key={product.id} product={product} variant="list" />
       ))}
     </div>
   );
@@ -45,24 +45,25 @@ function ProductGridSkeleton() {
   const skeletonCount = isMobile ? 4 : 8;
   
   return (
-    <div className="grid grid-cols-2 gap-4 sm:gap-6 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4 pt-10">
+    <div className="flex flex-col gap-3 pt-10">
       {Array.from({ length: skeletonCount }).map((_, index) => (
-        <div key={index} className="bg-[#1E1E1E] rounded-xl border border-[#333333] overflow-hidden shadow-sm">
+        <div key={index} className="bg-[#1E1E1E] rounded-xl border border-[#333333] overflow-hidden shadow-sm flex flex-row">
           <div 
-            className="bg-[#252525] animate-pulse" 
+            className="bg-[#252525] animate-pulse flex-shrink-0" 
             style={{
-              aspectRatio: '1/1', 
-              width: '100%', 
-              height: isMobile ? '140px' : '220px'
+              width: isMobile ? '120px' : '180px',
+              height: isMobile ? '120px' : '180px'
             }}
           ></div>
-          <div className="p-3 sm:p-4">
-            <div className="w-16 h-3 bg-[#252525] animate-pulse rounded-md mb-3"></div>
-            <div className="w-full h-3 bg-[#252525] animate-pulse rounded mb-2"></div>
-            <div className="w-3/4 h-3 bg-[#252525] animate-pulse rounded mb-3"></div>
+          <div className="p-3 sm:p-4 flex-grow flex flex-col justify-between">
+            <div>
+              <div className="w-16 h-3 bg-[#252525] animate-pulse rounded-md mb-3"></div>
+              <div className="w-full max-w-md h-3 bg-[#252525] animate-pulse rounded mb-2"></div>
+              <div className="w-3/4 max-w-sm h-3 bg-[#252525] animate-pulse rounded mb-3"></div>
+            </div>
             <div className="flex justify-between items-center mt-4">
-              <div className="w-20 h-4 bg-[#252525] animate-pulse rounded"></div>
-              <div className="w-6 h-6 bg-[#252525] animate-pulse rounded-full"></div>
+              <div className="w-24 h-5 bg-[#252525] animate-pulse rounded"></div>
+              <div className="w-8 h-8 bg-[#252525] animate-pulse rounded-full"></div>
             </div>
           </div>
         </div>
