@@ -23,6 +23,7 @@ export type Database = {
           entity_name: string | null
           entity_type: string
           id: string
+          ip_address: string | null
           user_email: string
           user_id: string | null
         }
@@ -34,6 +35,7 @@ export type Database = {
           entity_name?: string | null
           entity_type: string
           id?: string
+          ip_address?: string | null
           user_email: string
           user_id?: string | null
         }
@@ -45,6 +47,7 @@ export type Database = {
           entity_name?: string | null
           entity_type?: string
           id?: string
+          ip_address?: string | null
           user_email?: string
           user_id?: string | null
         }
@@ -80,6 +83,7 @@ export type Database = {
           code: string | null
           created_at: string
           description: string | null
+          display_order: number | null
           id: string
           image_url: string | null
           in_stock: boolean | null
@@ -95,6 +99,7 @@ export type Database = {
           code?: string | null
           created_at?: string
           description?: string | null
+          display_order?: number | null
           id?: string
           image_url?: string | null
           in_stock?: boolean | null
@@ -110,6 +115,7 @@ export type Database = {
           code?: string | null
           created_at?: string
           description?: string | null
+          display_order?: number | null
           id?: string
           image_url?: string | null
           in_stock?: boolean | null

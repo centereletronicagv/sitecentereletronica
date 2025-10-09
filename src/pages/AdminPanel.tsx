@@ -738,22 +738,20 @@ const AdminPanel: React.FC = () => {
           </header>
 
           {/* Content Area */}
-          <main className="flex-1 overflow-auto p-6 bg-[#0a0a0a]">
+          <main className="flex-1 overflow-auto p-3 sm:p-6 bg-[#0a0a0a]">
             {/* Stats Cards */}
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+            <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-6 mb-6 sm:mb-8">
               {statsCards.map((stat, index) => (
                 <Card key={index} className="border-white/10 bg-gradient-to-br from-[#1a1a1a] to-[#111111] overflow-hidden group hover:border-orange-500/30 transition-all">
-                  <CardContent className="p-0">
-                    <div className="p-6">
-                      <div className="flex items-center justify-between mb-4">
-                        <div className={`p-3 rounded-xl ${stat.iconBg}`}>
-                          <stat.icon className={`w-6 h-6 ${stat.iconColor}`} />
-                        </div>
-                        <div className={`h-12 w-24 bg-gradient-to-r ${stat.gradient} opacity-10 rounded-full blur-xl group-hover:opacity-20 transition-opacity`}></div>
+                  <CardContent className="p-3 sm:p-6">
+                    <div className="flex items-center justify-between mb-2 sm:mb-4">
+                      <div className={`p-2 sm:p-3 rounded-xl ${stat.iconBg}`}>
+                        <stat.icon className={`w-4 h-4 sm:w-6 sm:h-6 ${stat.iconColor}`} />
                       </div>
-                      <p className="text-gray-400 text-sm font-medium mb-1">{stat.title}</p>
-                      <p className="text-3xl font-bold text-white">{stat.value}</p>
+                      <div className={`h-8 w-16 sm:h-12 sm:w-24 bg-gradient-to-r ${stat.gradient} opacity-10 rounded-full blur-xl group-hover:opacity-20 transition-opacity`}></div>
                     </div>
+                    <p className="text-gray-400 text-xs sm:text-sm font-medium mb-1">{stat.title}</p>
+                    <p className="text-xl sm:text-3xl font-bold text-white">{stat.value}</p>
                   </CardContent>
                 </Card>
               ))}
@@ -782,6 +780,12 @@ const AdminPanel: React.FC = () => {
                     <UserManagement />
                   </CardContent>
                 </Card>
+              </div>
+            )}
+
+            {activeTab === 'logs' && (
+              <div className="space-y-6">
+                <ActivityLogs />
               </div>
             )}
 
@@ -1025,211 +1029,172 @@ const AdminPanel: React.FC = () => {
                             <p>Adicione produtos nesta categoria.</p>
                           </div>
                         ) : (
-                          <Table>
-                            <TableHeader>
-                              <TableRow>
-                                <TableHead className="w-12">Ordem</TableHead>
-                                <TableHead className="w-20">Imagem</TableHead>
-                                <TableHead>Nome</TableHead>
-                                <TableHead>Código</TableHead>
-                                <TableHead>Preço</TableHead>
-                                <TableHead>Status</TableHead>
-                                <TableHead className="text-right">Ações</TableHead>
-                              </TableRow>
-                            </TableHeader>
-                            <TableBody>
-                              {products
-                                .filter(p => p.category_id === productCategoryFilter)
-                                .filter(p => 
-                                  !searchTerm || 
-                                  p.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                                  p.code?.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                                  p.description?.toLowerCase().includes(searchTerm.toLowerCase())
-                                )
-                                .map((product, index) => (
-                                  <TableRow key={product.id}>
-                                    <TableCell>
-                                      <div className="flex flex-col gap-1">
-                                        <Button 
-                                          variant="ghost" 
-                                          size="icon" 
-                                          className="h-6 w-6"
-                                          disabled={index === 0}
-                                        >
-                                          <MoveUp className="w-3 h-3" />
-                                        </Button>
-                                        <Button 
-                                          variant="ghost" 
-                                          size="icon" 
-                                          className="h-6 w-6"
-                                          disabled={index === products.filter(p => p.category_id === productCategoryFilter).length - 1}
-                                        >
-                                          <MoveDown className="w-3 h-3" />
-                                        </Button>
-                                      </div>
-                                    </TableCell>
-                                    <TableCell>
-                                      {product.image_url ? (
-                                        <img 
-                                          src={product.image_url} 
-                                          alt={product.name}
-                                          className="w-16 h-16 object-cover rounded"
+                          <DndContext
+                            sensors={sensors}
+                            collisionDetection={closestCenter}
+                            onDragEnd={handleDragEnd}
+                          >
+                            <div className="overflow-x-auto">
+                              <Table>
+                                <TableHeader>
+                                  <TableRow>
+                                    <TableHead className="w-12">Ordem</TableHead>
+                                    <TableHead className="w-16 sm:w-20 hidden sm:table-cell">Imagem</TableHead>
+                                    <TableHead>Nome</TableHead>
+                                    <TableHead className="hidden md:table-cell">Código</TableHead>
+                                    <TableHead>Preço</TableHead>
+                                    <TableHead className="hidden lg:table-cell">Status</TableHead>
+                                    <TableHead className="text-right">Ações</TableHead>
+                                  </TableRow>
+                                </TableHeader>
+                                <TableBody>
+                                  <SortableContext
+                                    items={products
+                                      .filter(p => p.category_id === productCategoryFilter)
+                                      .filter(p => 
+                                        !searchTerm || 
+                                        p.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                                        p.code?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                                        p.description?.toLowerCase().includes(searchTerm.toLowerCase())
+                                      )
+                                      .sort((a, b) => (a.display_order || 0) - (b.display_order || 0))
+                                      .map(p => p.id)
+                                    }
+                                    strategy={verticalListSortingStrategy}
+                                  >
+                                    {products
+                                      .filter(p => p.category_id === productCategoryFilter)
+                                      .filter(p => 
+                                        !searchTerm || 
+                                        p.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                                        p.code?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                                        p.description?.toLowerCase().includes(searchTerm.toLowerCase())
+                                      )
+                                      .sort((a, b) => (a.display_order || 0) - (b.display_order || 0))
+                                      .map((product, index) => (
+                                        <SortableProductRow
+                                          key={product.id}
+                                          product={product}
+                                          index={index}
+                                          onEdit={(p) => {
+                                            setEditingProduct(p);
+                                            setEditDialogOpen(true);
+                                          }}
+                                          onDelete={deleteProduct}
                                         />
-                                      ) : (
-                                        <div className="w-16 h-16 bg-muted rounded flex items-center justify-center">
-                                          <Upload className="w-6 h-6 text-muted-foreground" />
-                                        </div>
-                                      )}
-                                    </TableCell>
-                                    <TableCell>
-                                      <div className="font-medium">{product.name}</div>
-                                      {product.is_featured && (
-                                        <Badge variant="secondary" className="mt-1">Destaque</Badge>
-                                      )}
-                                    </TableCell>
-                                    <TableCell>{product.code || 'N/A'}</TableCell>
-                                    <TableCell>
-                                      {product.price ? `R$ ${product.price.toFixed(2)}` : 'N/A'}
-                                    </TableCell>
-                                    <TableCell>
-                                      {product.in_stock ? (
-                                        <Badge variant="default">Em estoque</Badge>
-                                      ) : (
-                                        <Badge variant="destructive">Sem estoque</Badge>
-                                      )}
-                                    </TableCell>
-                                     <TableCell className="text-right">
-                                       <div className="flex gap-2 justify-end">
-                                         <Dialog open={editDialogOpen} onOpenChange={setEditDialogOpen}>
-                                           <DialogTrigger asChild>
-                                             <Button 
-                                               variant="outline" 
-                                               size="sm" 
-                                               onClick={() => {
-                                                 setEditingProduct(product);
-                                                 setEditDialogOpen(true);
-                                               }}
-                                             >
-                                               <Pencil className="w-4 h-4" />
-                                             </Button>
-                                           </DialogTrigger>
-                                           <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
-                                            <DialogHeader>
-                                              <DialogTitle>Editar Produto</DialogTitle>
-                                              <DialogDescription>
-                                                Faça as alterações necessárias no produto.
-                                              </DialogDescription>
-                                            </DialogHeader>
-                                             {editingProduct && (
-                                               <div className="space-y-4">
-                                                 <div className="grid grid-cols-2 gap-4">
-                                                   <div>
-                                                     <Label htmlFor="edit-name">Nome</Label>
-                                                     <Input
-                                                       id="edit-name"
-                                                       value={editingProduct.name}
-                                                       onChange={(e) => setEditingProduct({ ...editingProduct, name: e.target.value })}
-                                                     />
-                                                   </div>
-                                                   <div>
-                                                     <Label htmlFor="edit-code">Código</Label>
-                                                     <Input
-                                                       id="edit-code"
-                                                       value={editingProduct.code || ''}
-                                                       onChange={(e) => setEditingProduct({ ...editingProduct, code: e.target.value })}
-                                                     />
-                                                   </div>
-                                                   <div>
-                                                     <Label htmlFor="edit-price">Preço</Label>
-                                                     <Input
-                                                       id="edit-price"
-                                                       type="number"
-                                                       step="0.01"
-                                                       value={editingProduct.price || ''}
-                                                       onChange={(e) => setEditingProduct({ ...editingProduct, price: parseFloat(e.target.value) || undefined })}
-                                                     />
-                                                   </div>
-                                                   <div>
-                                                     <Label htmlFor="edit-popularity">Popularidade</Label>
-                                                     <Input
-                                                       id="edit-popularity"
-                                                       type="number"
-                                                       value={editingProduct.popularity}
-                                                       onChange={(e) => setEditingProduct({ ...editingProduct, popularity: parseInt(e.target.value) || 0 })}
-                                                     />
-                                                   </div>
-                                                 </div>
-                                                 
-                                                 <ProductImageUpload
-                                                   onImageSelect={(imageUrl) => setEditingProduct({ ...editingProduct, image_url: imageUrl })}
-                                                   currentImage={editingProduct.image_url}
-                                                 />
-                                                 
-                                                 <div>
-                                                   <Label htmlFor="edit-description">Descrição</Label>
-                                                   <Textarea
-                                                     id="edit-description"
-                                                     value={editingProduct.description || ''}
-                                                     onChange={(e) => setEditingProduct({ ...editingProduct, description: e.target.value })}
-                                                   />
-                                                 </div>
-                                                 <div className="flex gap-4">
-                                                   <div className="flex items-center space-x-2">
-                                                     <Switch
-                                                       id="edit-in-stock"
-                                                       checked={editingProduct.in_stock}
-                                                       onCheckedChange={(checked) => setEditingProduct({ ...editingProduct, in_stock: checked })}
-                                                     />
-                                                     <Label htmlFor="edit-in-stock">Em estoque</Label>
-                                                   </div>
-                                                   <div className="flex items-center space-x-2">
-                                                     <Switch
-                                                       id="edit-featured"
-                                                       checked={editingProduct.is_featured}
-                                                       onCheckedChange={(checked) => setEditingProduct({ ...editingProduct, is_featured: checked })}
-                                                     />
-                                                     <Label htmlFor="edit-featured">Produto em destaque</Label>
-                                                   </div>
-                                                 </div>
-                                             </div>
-                                           )}
-                                             <DialogFooter>
-                                               <Button 
-                                                 variant="outline" 
-                                                 onClick={() => {
-                                                   setEditingProduct(null);
-                                                   setEditDialogOpen(false);
-                                                 }}
-                                               >
-                                                 Cancelar
-                                               </Button>
-                                               <Button 
-                                                 onClick={async () => {
-                                                   await updateProduct();
-                                                   setEditDialogOpen(false);
-                                                 }}
-                                               >
-                                                 Salvar Alterações
-                                               </Button>
-                                             </DialogFooter>
-                                           </DialogContent>
-                                         </Dialog>
-                                         <Button
-                                           variant="destructive"
-                                           size="sm"
-                                           onClick={() => deleteProduct(product.id)}
-                                         >
-                                           <Trash2 className="w-4 h-4" />
-                                         </Button>
-                                       </div>
-                                     </TableCell>
-                                   </TableRow>
-                                 ))}
-                             </TableBody>
-                           </Table>
-                         )}
-                       </CardContent>
-                     </Card>
+                                      ))}
+                                  </SortableContext>
+                                </TableBody>
+                              </Table>
+                            </div>
+                          </DndContext>
+                        )}
+                      </CardContent>
+                    </Card>
+
+                    {/* Edit Product Dialog */}
+                    <Dialog open={editDialogOpen} onOpenChange={setEditDialogOpen}>
+                      <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
+                        <DialogHeader>
+                          <DialogTitle>Editar Produto</DialogTitle>
+                          <DialogDescription>
+                            Faça as alterações necessárias no produto.
+                          </DialogDescription>
+                        </DialogHeader>
+                        {editingProduct && (
+                          <div className="space-y-4">
+                            <div className="grid grid-cols-2 gap-4">
+                              <div>
+                                <Label htmlFor="edit-name">Nome</Label>
+                                <Input
+                                  id="edit-name"
+                                  value={editingProduct.name}
+                                  onChange={(e) => setEditingProduct({ ...editingProduct, name: e.target.value })}
+                                />
+                              </div>
+                              <div>
+                                <Label htmlFor="edit-code">Código</Label>
+                                <Input
+                                  id="edit-code"
+                                  value={editingProduct.code || ''}
+                                  onChange={(e) => setEditingProduct({ ...editingProduct, code: e.target.value })}
+                                />
+                              </div>
+                              <div>
+                                <Label htmlFor="edit-price">Preço</Label>
+                                <Input
+                                  id="edit-price"
+                                  type="number"
+                                  step="0.01"
+                                  value={editingProduct.price || ''}
+                                  onChange={(e) => setEditingProduct({ ...editingProduct, price: parseFloat(e.target.value) || undefined })}
+                                />
+                              </div>
+                              <div>
+                                <Label htmlFor="edit-popularity">Popularidade</Label>
+                                <Input
+                                  id="edit-popularity"
+                                  type="number"
+                                  value={editingProduct.popularity}
+                                  onChange={(e) => setEditingProduct({ ...editingProduct, popularity: parseInt(e.target.value) || 0 })}
+                                />
+                              </div>
+                            </div>
+                            
+                            <ProductImageUpload
+                              onImageSelect={(imageUrl) => setEditingProduct({ ...editingProduct, image_url: imageUrl })}
+                              currentImage={editingProduct.image_url}
+                            />
+                            
+                            <div>
+                              <Label htmlFor="edit-description">Descrição</Label>
+                              <Textarea
+                                id="edit-description"
+                                value={editingProduct.description || ''}
+                                onChange={(e) => setEditingProduct({ ...editingProduct, description: e.target.value })}
+                              />
+                            </div>
+                            <div className="flex gap-4">
+                              <div className="flex items-center space-x-2">
+                                <Switch
+                                  id="edit-in-stock"
+                                  checked={editingProduct.in_stock}
+                                  onCheckedChange={(checked) => setEditingProduct({ ...editingProduct, in_stock: checked })}
+                                />
+                                <Label htmlFor="edit-in-stock">Em estoque</Label>
+                              </div>
+                              <div className="flex items-center space-x-2">
+                                <Switch
+                                  id="edit-featured"
+                                  checked={editingProduct.is_featured}
+                                  onCheckedChange={(checked) => setEditingProduct({ ...editingProduct, is_featured: checked })}
+                                />
+                                <Label htmlFor="edit-featured">Produto em destaque</Label>
+                              </div>
+                            </div>
+                          </div>
+                        )}
+                        <DialogFooter>
+                          <Button 
+                            variant="outline" 
+                            onClick={() => {
+                              setEditingProduct(null);
+                              setEditDialogOpen(false);
+                            }}
+                          >
+                            Cancelar
+                          </Button>
+                          <Button 
+                            onClick={async () => {
+                              await updateProduct();
+                              setEditDialogOpen(false);
+                            }}
+                          >
+                            Salvar Alterações
+                          </Button>
+                        </DialogFooter>
+                      </DialogContent>
+                    </Dialog>
                    </>
                  )}
                </div>

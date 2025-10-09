@@ -3,7 +3,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Badge } from '@/components/ui/badge';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { supabase } from '@/integrations/supabase/client';
-import { FileText, User, Package, BarChart3, Trash2, Edit, Plus } from 'lucide-react';
+import { FileText, User, Package, BarChart3, Trash2, Edit, Plus, Globe } from 'lucide-react';
 
 interface ActivityLog {
   id: string;
@@ -12,8 +12,10 @@ interface ActivityLog {
   entity_id: string;
   entity_name?: string;
   user_email: string;
+  user_id?: string;
   created_at: string;
   details?: any;
+  ip_address?: string;
 }
 
 const ActivityLogs: React.FC = () => {
@@ -83,46 +85,63 @@ const ActivityLogs: React.FC = () => {
   };
 
   return (
-    <Card>
+    <Card className="border-white/10 bg-gradient-to-br from-[#1a1a1a] to-[#111111]">
       <CardHeader>
-        <CardTitle className="flex items-center gap-2">
-          <FileText className="w-5 h-5" />
+        <CardTitle className="flex items-center gap-2 text-white">
+          <FileText className="w-5 h-5 text-orange-400" />
           Registro de Atividades
         </CardTitle>
-        <CardDescription>Histórico de alterações no sistema</CardDescription>
+        <CardDescription className="text-gray-400">Histórico de alterações no sistema</CardDescription>
       </CardHeader>
       <CardContent>
         <ScrollArea className="h-[600px] pr-4">
-          <div className="space-y-4">
+          <div className="space-y-3">
             {logs.map((log) => {
               const ActionIcon = getActionIcon(log.action);
               const EntityIcon = getEntityIcon(log.entity_type);
 
               return (
-                <div key={log.id} className="flex items-start gap-4 p-4 border rounded-lg">
+                <div key={log.id} className="flex items-start gap-4 p-4 border border-white/5 rounded-lg bg-[#1a1a1a] hover:border-orange-500/20 transition-colors">
                   <div className="flex gap-2">
-                    <EntityIcon className="w-5 h-5 text-muted-foreground mt-0.5" />
-                    <ActionIcon className="w-4 h-4 text-muted-foreground mt-0.5" />
+                    <EntityIcon className="w-5 h-5 text-gray-400 mt-0.5" />
+                    <ActionIcon className="w-4 h-4 text-gray-400 mt-0.5" />
                   </div>
-                  <div className="flex-1 space-y-1">
+                  <div className="flex-1 space-y-2">
                     <div className="flex items-center gap-2">
                       <Badge className={getActionColor(log.action)}>
                         {log.action}
                       </Badge>
-                      <span className="text-sm font-medium capitalize">
+                      <span className="text-sm font-medium capitalize text-white">
                         {log.entity_type}
                       </span>
                     </div>
                     {log.entity_name && (
-                      <p className="text-sm text-muted-foreground">
+                      <p className="text-sm text-gray-300">
                         {log.entity_name}
                       </p>
                     )}
-                    <div className="flex items-center gap-2 text-xs text-muted-foreground">
-                      <User className="w-3 h-3" />
-                      <span>{log.user_email}</span>
-                      <span>•</span>
-                      <span>{new Date(log.created_at).toLocaleString('pt-BR')}</span>
+                    <div className="flex flex-col gap-1 text-xs text-gray-400">
+                      <div className="flex items-center gap-2">
+                        <User className="w-3 h-3" />
+                        <span>{log.user_email}</span>
+                      </div>
+                      {log.ip_address && (
+                        <div className="flex items-center gap-2">
+                          <Globe className="w-3 h-3" />
+                          <span>IP: {log.ip_address}</span>
+                        </div>
+                      )}
+                      <div className="flex items-center gap-2">
+                        <FileText className="w-3 h-3" />
+                        <span>{new Date(log.created_at).toLocaleString('pt-BR', {
+                          day: '2-digit',
+                          month: '2-digit',
+                          year: 'numeric',
+                          hour: '2-digit',
+                          minute: '2-digit',
+                          second: '2-digit'
+                        })}</span>
+                      </div>
                     </div>
                   </div>
                 </div>
