@@ -11,14 +11,19 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Switch } from '@/components/ui/switch';
 import { Badge } from '@/components/ui/badge';
 import { toast } from '@/hooks/use-toast';
-import { Pencil, Trash2, Plus, Upload, Filter, TrendingUp, Package, ShoppingCart, Users, BarChart3, Settings, Download, Eye, RefreshCw, AlertTriangle, Search, FileText, Database, Zap, Home, GripVertical, MoveUp, MoveDown } from 'lucide-react';
+import { Pencil, Trash2, Plus, Upload, Filter, TrendingUp, Package, ShoppingCart, Users, BarChart3, Settings, Download, Eye, RefreshCw, AlertTriangle, Search, FileText, Database, Zap, Home, GripVertical, MoveUp, MoveDown, Menu } from 'lucide-react';
 import { Navigate, Link } from 'react-router-dom';
 import AdminDashboard from '@/components/AdminDashboard';
 import SystemMonitoring from '@/components/SystemMonitoring';
 import UserManagement from '@/components/UserManagement';
 import ProductImageUpload from '@/components/ProductImageUpload';
+import ActivityLogs from '@/components/ActivityLogs';
 import { SidebarProvider, Sidebar, SidebarContent, SidebarGroup, SidebarGroupContent, SidebarGroupLabel, SidebarMenu, SidebarMenuItem, SidebarMenuButton, SidebarTrigger } from '@/components/ui/sidebar';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
+import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
+import { DndContext, closestCenter, KeyboardSensor, PointerSensor, useSensor, useSensors, DragEndEvent } from '@dnd-kit/core';
+import { arrayMove, SortableContext, sortableKeyboardCoordinates, useSortable, verticalListSortingStrategy } from '@dnd-kit/sortable';
+import { CSS } from '@dnd-kit/utilities';
 
 interface Category {
   id: string;
@@ -40,7 +45,92 @@ interface Product {
   popularity: number;
   created_at: string;
   categories?: { name: string };
+  display_order?: number;
 }
+
+interface SortableProductRowProps {
+  product: Product;
+  index: number;
+  onEdit: (product: Product) => void;
+  onDelete: (id: string) => void;
+}
+
+const SortableProductRow: React.FC<SortableProductRowProps> = ({ product, index, onEdit, onDelete }) => {
+  const {
+    attributes,
+    listeners,
+    setNodeRef,
+    transform,
+    transition,
+    isDragging,
+  } = useSortable({ id: product.id });
+
+  const style = {
+    transform: CSS.Transform.toString(transform),
+    transition,
+    opacity: isDragging ? 0.5 : 1,
+  };
+
+  return (
+    <TableRow ref={setNodeRef} style={style}>
+      <TableCell>
+        <div {...attributes} {...listeners} className="cursor-grab active:cursor-grabbing">
+          <GripVertical className="w-4 h-4 text-gray-400" />
+        </div>
+      </TableCell>
+      <TableCell className="hidden sm:table-cell">
+        {product.image_url ? (
+          <img 
+            src={product.image_url} 
+            alt={product.name}
+            className="w-12 h-12 sm:w-16 sm:h-16 object-cover rounded"
+          />
+        ) : (
+          <div className="w-12 h-12 sm:w-16 sm:h-16 bg-muted rounded flex items-center justify-center">
+            <Upload className="w-4 h-4 sm:w-6 sm:h-6 text-muted-foreground" />
+          </div>
+        )}
+      </TableCell>
+      <TableCell>
+        <div className="font-medium text-sm sm:text-base">{product.name}</div>
+        {product.is_featured && (
+          <Badge variant="secondary" className="mt-1 text-xs">Destaque</Badge>
+        )}
+      </TableCell>
+      <TableCell className="hidden md:table-cell text-sm">{product.code || 'N/A'}</TableCell>
+      <TableCell className="text-sm">
+        {product.price ? `R$ ${product.price.toFixed(2)}` : 'N/A'}
+      </TableCell>
+      <TableCell className="hidden lg:table-cell">
+        {product.in_stock ? (
+          <Badge variant="default" className="text-xs">Em estoque</Badge>
+        ) : (
+          <Badge variant="destructive" className="text-xs">Sem estoque</Badge>
+        )}
+      </TableCell>
+      <TableCell className="text-right">
+        <div className="flex gap-1 sm:gap-2 justify-end">
+          <Button 
+            variant="outline" 
+            size="sm" 
+            onClick={() => onEdit(product)}
+            className="h-8 w-8 p-0 sm:w-auto sm:px-2"
+          >
+            <Pencil className="w-3 h-3 sm:w-4 sm:h-4" />
+          </Button>
+          <Button
+            variant="destructive"
+            size="sm"
+            onClick={() => onDelete(product.id)}
+            className="h-8 w-8 p-0 sm:w-auto sm:px-2"
+          >
+            <Trash2 className="w-3 h-3 sm:w-4 sm:h-4" />
+          </Button>
+        </div>
+      </TableCell>
+    </TableRow>
+  );
+};
 
 const AdminPanel: React.FC = () => {
   const { isAdmin, loading } = useAuth();
@@ -68,6 +158,14 @@ const AdminPanel: React.FC = () => {
   const [activeTab, setActiveTab] = useState('dashboard');
   const [productCategoryFilter, setProductCategoryFilter] = useState<string>('');
   const [editDialogOpen, setEditDialogOpen] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  
+  const sensors = useSensors(
+    useSensor(PointerSensor),
+    useSensor(KeyboardSensor, {
+      coordinateGetter: sortableKeyboardCoordinates,
+    })
+  );
 
   useEffect(() => {
     if (isAdmin) {
@@ -398,6 +496,52 @@ const AdminPanel: React.FC = () => {
     }
   };
 
+  const handleDragEnd = async (event: DragEndEvent) => {
+    const { active, over } = event;
+
+    if (!over || active.id === over.id) return;
+
+    const filteredProductsList = products
+      .filter(p => p.category_id === productCategoryFilter)
+      .filter(p => 
+        !searchTerm || 
+        p.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        p.code?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        p.description?.toLowerCase().includes(searchTerm.toLowerCase())
+      );
+
+    const oldIndex = filteredProductsList.findIndex((item) => item.id === active.id);
+    const newIndex = filteredProductsList.findIndex((item) => item.id === over.id);
+
+    const newOrder = arrayMove(filteredProductsList, oldIndex, newIndex);
+
+    // Update display_order for all affected products
+    const updates = newOrder.map((product, index) => ({
+      id: product.id,
+      display_order: index
+    }));
+
+    // Optimistically update UI
+    const updatedProducts = products.map(p => {
+      const update = updates.find(u => u.id === p.id);
+      return update ? { ...p, display_order: update.display_order } : p;
+    });
+    setProducts(updatedProducts);
+
+    // Update database
+    for (const update of updates) {
+      await supabase
+        .from('products')
+        .update({ display_order: update.display_order })
+        .eq('id', update.id);
+    }
+
+    toast({
+      title: "Ordem atualizada",
+      description: "A ordem dos produtos foi atualizada com sucesso"
+    });
+  };
+
   const statsCards = [
     {
       title: "Total de Produtos",
@@ -439,9 +583,63 @@ const AdminPanel: React.FC = () => {
     { id: 'categories', label: 'Categorias', icon: BarChart3 },
     { id: 'analytics', label: 'Analytics', icon: TrendingUp },
     { id: 'users', label: 'Usuários', icon: Users },
+    { id: 'logs', label: 'Logs', icon: FileText },
     { id: 'monitoring', label: 'Monitoramento', icon: Database },
     { id: 'tools', label: 'Ferramentas', icon: Settings },
   ];
+
+  const MobileMenu = () => (
+    <Sheet open={mobileMenuOpen} onOpenChange={setMobileMenuOpen}>
+      <SheetTrigger asChild>
+        <Button variant="ghost" size="icon" className="lg:hidden text-gray-400">
+          <Menu className="w-5 h-5" />
+        </Button>
+      </SheetTrigger>
+      <SheetContent side="left" className="w-64 bg-[#111111] border-white/5 p-0">
+        <div className="p-6 border-b border-white/5">
+          <div className="flex items-center gap-3">
+            <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-orange-500 to-red-600 flex items-center justify-center">
+              <Settings className="w-6 h-6 text-white" />
+            </div>
+            <div>
+              <h2 className="text-lg font-bold text-white">Admin</h2>
+              <p className="text-xs text-gray-400">Painel de Controle</p>
+            </div>
+          </div>
+        </div>
+        <div className="py-4">
+          <p className="text-gray-400 text-xs uppercase tracking-wider px-6 py-2">Menu Principal</p>
+          <div className="space-y-1 px-2">
+            {menuItems.map((item) => (
+              <button
+                key={item.id}
+                onClick={() => {
+                  setActiveTab(item.id);
+                  setMobileMenuOpen(false);
+                }}
+                className={`w-full flex items-center gap-3 px-4 py-2.5 rounded-lg transition-all ${
+                  activeTab === item.id 
+                    ? 'bg-gradient-to-r from-orange-500/20 to-red-500/20 text-orange-400 border border-orange-500/30' 
+                    : 'text-gray-400 hover:bg-white/5 hover:text-white'
+                }`}
+              >
+                <item.icon className="w-4 h-4" />
+                <span className="font-medium">{item.label}</span>
+              </button>
+            ))}
+          </div>
+        </div>
+        <div className="absolute bottom-0 left-0 right-0 p-4 border-t border-white/5">
+          <Link to="/">
+            <Button variant="outline" className="w-full bg-white/5 border-white/10 text-gray-300 hover:bg-white/10">
+              <Home className="w-4 h-4 mr-2" />
+              Voltar à Homepage
+            </Button>
+          </Link>
+        </div>
+      </SheetContent>
+    </Sheet>
+  );
 
   if (loading) {
     return <div className="flex items-center justify-center min-h-screen">Carregando...</div>;
@@ -454,8 +652,8 @@ const AdminPanel: React.FC = () => {
   return (
     <SidebarProvider>
       <div className="min-h-screen flex w-full bg-[#0a0a0a]">
-        {/* Sidebar */}
-        <Sidebar className="border-r border-white/5 bg-[#111111]">
+        {/* Desktop Sidebar */}
+        <Sidebar className="hidden lg:flex border-r border-white/5 bg-[#111111]">
           <SidebarContent>
             {/* Header */}
             <div className="p-6 border-b border-white/5">
@@ -512,25 +710,28 @@ const AdminPanel: React.FC = () => {
         {/* Main Content */}
         <div className="flex-1 flex flex-col w-full overflow-hidden">
           {/* Header */}
-          <header className="h-16 flex items-center border-b border-white/5 px-6 bg-[#111111]/50 backdrop-blur-xl">
-            <SidebarTrigger className="mr-4 text-gray-400 hover:text-white" />
+          <header className="h-14 sm:h-16 flex items-center border-b border-white/5 px-3 sm:px-6 bg-[#111111]/50 backdrop-blur-xl">
+            <div className="lg:hidden mr-2">
+              <MobileMenu />
+            </div>
+            <SidebarTrigger className="hidden lg:block mr-4 text-gray-400 hover:text-white" />
             <div className="flex items-center justify-between w-full">
               <div>
-                <h1 className="text-xl font-bold bg-gradient-to-r from-orange-400 to-red-500 bg-clip-text text-transparent">
+                <h1 className="text-base sm:text-xl font-bold bg-gradient-to-r from-orange-400 to-red-500 bg-clip-text text-transparent">
                   Dashboard Admin
                 </h1>
               </div>
-              <div className="flex items-center gap-4">
-                <div className="relative">
+              <div className="flex items-center gap-2 sm:gap-4">
+                <div className="relative hidden sm:block">
                   <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500" />
                   <input
                     type="text"
                     placeholder="Buscar..."
-                    className="pl-10 pr-4 py-2 bg-white/5 border border-white/10 rounded-lg text-sm text-gray-300 placeholder-gray-500 focus:outline-none focus:border-orange-500/50 focus:bg-white/10 transition-all w-64"
+                    className="pl-10 pr-4 py-2 bg-white/5 border border-white/10 rounded-lg text-sm text-gray-300 placeholder-gray-500 focus:outline-none focus:border-orange-500/50 focus:bg-white/10 transition-all w-48 md:w-64"
                   />
                 </div>
-                <Button variant="ghost" size="icon" className="relative text-gray-400 hover:text-white hover:bg-white/10">
-                  <RefreshCw className="w-5 h-5" />
+                <Button variant="ghost" size="icon" className="relative text-gray-400 hover:text-white hover:bg-white/10 h-8 w-8 sm:h-10 sm:w-10">
+                  <RefreshCw className="w-4 h-4 sm:w-5 sm:h-5" />
                 </Button>
               </div>
             </div>
