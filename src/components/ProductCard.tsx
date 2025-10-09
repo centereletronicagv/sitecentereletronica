@@ -1,6 +1,6 @@
 
 import { useState } from 'react';
-import { Heart } from 'lucide-react';
+import { Heart, ShoppingCart, ShoppingBag } from 'lucide-react';
 import { useCart } from '@/context/CartContext';
 import { useFavorites } from '@/context/FavoritesContext';
 import { Product } from '../types';
@@ -63,6 +63,17 @@ export default function ProductCard({ product, variant = 'grid' }: ProductCardPr
   // Clean up the product name to remove the "/m" or "Por Metro" text
   const displayName = product.name;
 
+  const handleAddToCart = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    addToCart(product);
+  };
+
+  const handleBuyNow = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    addToCart(product);
+    window.location.href = '/carrinho';
+  };
+
   if (variant === 'list') {
     return (
       <>
@@ -117,7 +128,7 @@ export default function ProductCard({ product, variant = 'grid' }: ProductCardPr
               </h3>
             </div>
 
-            <div className="mt-2">
+            <div className="mt-2 space-y-2">
               <div className="text-base sm:text-xl font-semibold text-center-orange">
                 {isPriceOnRequest ? (
                   <span>Sob Consulta</span>
@@ -127,6 +138,23 @@ export default function ProductCard({ product, variant = 'grid' }: ProductCardPr
                     {isSoldByMeter && <span className="text-xs sm:text-sm font-normal text-gray-400 ml-1">/m</span>}
                   </>
                 )}
+              </div>
+              
+              <div className="flex gap-2">
+                <button
+                  onClick={handleAddToCart}
+                  className="flex-1 bg-white/5 hover:bg-white/10 text-white border border-white/10 px-3 py-2 rounded-lg text-xs sm:text-sm font-medium transition-all duration-200 flex items-center justify-center gap-2"
+                >
+                  <ShoppingCart size={14} className="sm:w-4 sm:h-4" />
+                  <span className="hidden sm:inline">Adicionar</span>
+                </button>
+                <button
+                  onClick={handleBuyNow}
+                  className="flex-1 bg-center-orange hover:bg-center-orange/90 text-white px-3 py-2 rounded-lg text-xs sm:text-sm font-medium transition-all duration-200 flex items-center justify-center gap-2"
+                >
+                  <ShoppingBag size={14} className="sm:w-4 sm:h-4" />
+                  <span className="hidden sm:inline">Comprar</span>
+                </button>
               </div>
             </div>
           </div>
